@@ -1,4 +1,4 @@
-package model;
+package model.orderSystem;
 
 public abstract class Product {
     protected String nameP, size, description;

@@ -1,4 +1,4 @@
-package model;
+package model.orderSystem;
 
 public class CreditCard implements PaymentStrategy {
     private String CardNo, name;

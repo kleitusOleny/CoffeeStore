@@ -1,7 +1,7 @@
-package model;
+package model.orderSystem;
 
-public class HoneyBoba extends Topping{
-    public HoneyBoba(Product product, int quantity) {
+public class Flan extends Topping{
+    public Flan(Product product, int quantity) {
         super(product, quantity);
     }
 
