@@ -1,15 +1,19 @@
-import model.employeeSystem.EmployeeSystem;
+import model.OrderSystem;
+import model.customerSystem.*;
+import model.employeeSystem.*;
+import model.reservationSystem.*;
+import model.customerSystem.Observer;
 
 import java.util.List;
 
 public class MainSystem implements Subject{
-    private List<Obsever> listObsever;
+    private List<Observer> listObsever;
     private EmployeeSystem empSys;
     private OrderSystem orderSystem;
     private ReservationSystem reservationSystem;
     private CustomerSystem customerSystem;
     
-    public MainSystem(List<Obsever> listObsever, EmployeeSystem empSys, OrderSystem orderSystem, ReservationSystem reservationSystem, CustomerSystem customerSystem) {
+    public MainSystem(List<Observer> listObsever, EmployeeSystem empSys, OrderSystem orderSystem, ReservationSystem reservationSystem, CustomerSystem customerSystem) {
         this.listObsever = listObsever;
         this.empSys = empSys;
         this.orderSystem = orderSystem;
@@ -19,12 +23,12 @@ public class MainSystem implements Subject{
     
     
     @Override
-    public void addObsever(Obsever o) {
+    public void addObserver(Observer o) {
     
     }
     
     @Override
-    public void removeObsever(Obsever o) {
+    public void removeObserver(Observer o) {
     
     }
 }
