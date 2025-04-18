@@ -1,7 +1,6 @@
-package model;
+package model.orderSystem;
 
 import java.util.List;
-import java.util.Queue;
 
 public class OrderSystem {
     private List<Order> listStoreOrder;

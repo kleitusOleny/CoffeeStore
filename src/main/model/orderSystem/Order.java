@@ -1,4 +1,4 @@
-package model;
+package model.orderSystem;
 
 public class Order {
     private Customer customer;

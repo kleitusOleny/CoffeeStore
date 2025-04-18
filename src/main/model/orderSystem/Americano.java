@@ -1,7 +1,7 @@
-package model;
+package model.orderSystem;
 
-public class Espresso extends Product {
-    public Espresso(String nameP, String size, String description, int quantity) {
+public class Americano extends Product {
+    public Americano(String nameP, String size, String description, int quantity) {
         super(nameP, size, description, quantity);
     }
 

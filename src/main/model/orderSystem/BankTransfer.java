@@ -1,4 +1,4 @@
-package model;
+package model.orderSystem;
 
 public class BankTransfer implements PaymentStrategy {
     private String bankNo, name;
