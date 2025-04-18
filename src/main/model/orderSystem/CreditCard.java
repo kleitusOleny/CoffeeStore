@@ -1,5 +1,7 @@
 package model.orderSystem;
 
+import model.employeeSystem.Date;
+
 public class CreditCard implements PaymentStrategy {
     private String CardNo, name;
     private Date dateExpired;
