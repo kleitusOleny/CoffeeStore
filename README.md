@@ -2,6 +2,7 @@
 
 cách dùng git:
 ```git remote add origin https://github.com/kleitusOleny/CoffeeStore.git```
+</br>
 ```git pull```
 
 cách đặt tên git:
