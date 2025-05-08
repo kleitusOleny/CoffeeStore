@@ -29,4 +29,18 @@ public abstract class Customer implements Observer {
     }
 
     public abstract void updatePoint(int point1);
+    public abstract String getType();
+    /**
+     * isRegister
+     * @return
+     * true: khach hang da dang ky chuong trinh khuyen mai
+     * false: khach hang chua dang ky chuong trinh khuyen mai
+     */
+    public abstract boolean isRegister();// kiem tra co dăng ky thong bao hay khong
+
+    /**
+     *countProductedBuy : đếm số lượng sản phẩm được mua bởi từng khách
+     * @return
+     */
+    public abstract int countProductedBuy();
 }
