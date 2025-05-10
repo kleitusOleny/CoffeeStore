@@ -12,6 +12,13 @@ public class CustomerSystem {
         this.listCus = new HashMap<>();
     }
 
+    @Override
+    public String toString() {
+        return "CustomerSystem{" +
+                "listCus=" + listCus +
+                '}';
+    }
+
     public CustomerSystem() {
         this.listCus = new HashMap<>();
     }

@@ -4,6 +4,10 @@ import model.customerSystem.Customer;
 
 import java.util.List;
 
+import model.customerSystem.Customer;
+
+import java.util.List;
+
 public class Order {
     private Customer customer;
     private List<Product> listP;

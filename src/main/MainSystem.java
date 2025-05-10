@@ -1,4 +1,4 @@
-import model.orderSystem.*;
+import model.OrderSystem;
 import model.customerSystem.*;
 import model.employeeSystem.*;
 import model.reservationSystem.*;
@@ -20,15 +20,15 @@ public class MainSystem implements Subject{
         this.reservationSystem = reservationSystem;
         this.customerSystem = customerSystem;
     }
-    
-    
+
+
     @Override
-    public void addObserver(Observer o) {
+    public void addObsever(Observer o) {
         listObsever.add(o);
     }
-    
+
     @Override
-    public void removeObserver(Observer o) {
+    public void removeObsever(Observer o) {
         listObsever.remove(o);
     }
 }

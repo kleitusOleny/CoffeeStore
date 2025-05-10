@@ -16,6 +16,21 @@ public class VIPCustomer extends Customer {
     }
 
     @Override
+    protected void setRegisterStatus(boolean trangThaiDangKy) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "VIPCustomer{" +
+                "accumulatedPoints=" + accumulatedPoints +
+                ", name='" + name + '\'' +
+                ", idCus='" + idCus + '\'' +
+                ", numsPhone='" + numsPhone + '\'' +
+                '}';
+    }
+
+    @Override
     public void updatePoint(int point1) {
         accumulatedPoints += point1;
     }
