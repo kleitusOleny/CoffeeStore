@@ -1,4 +1,4 @@
-package model.orderSystem;
+package model.Payment;
 
 import model.employeeSystem.Date;
 
@@ -15,7 +15,8 @@ public class CreditCard implements PaymentStrategy {
     }
 
     @Override
-    public double pay() {
-        return 0;
+    public double pay(double amount) {
+        System.out.println("Thanh toán bằng thẻ tín dụng: " + CardNo + " - " + name + " với số tiền " + amount + " VND");
+        return amount;
     }
 }

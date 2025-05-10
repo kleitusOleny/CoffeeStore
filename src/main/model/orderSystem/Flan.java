@@ -1,17 +1,18 @@
 package model.orderSystem;
 
 public class Flan extends Topping{
-    public Flan(Product product, int quantity) {
-        super(product, quantity);
-    }
+    private double toppingPrice;
 
-    @Override
-    public double getPrice() {
-        return 0;
+    public Flan(IProduct product, double toppingPrice) {
+        super(product);
+        this.toppingPrice = toppingPrice;
     }
 
     @Override
     public String getInformation() {
-        return "";
+        return product.getInformation()+ " Flan";
+    }
+    public  double getPrice(){
+        return product.getPrice() + (toppingPrice * product.getQuantity());
     }
 }

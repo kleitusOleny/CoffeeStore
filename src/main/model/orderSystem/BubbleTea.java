@@ -1,18 +1,18 @@
 package model.orderSystem;
 
-public class BubbleTea extends Product {
+public class BubbleTea extends BaseProduct {
 
-    public BubbleTea(String nameP, String size, String description, int quantity) {
-        super(nameP, size, description, quantity);
-    }
-
-    @Override
-    public double getPrice() {
-        return 0;
+    public BubbleTea(String nameP, String size, String description, int quantity, double price) {
+        super(nameP, size, description, quantity, price);
     }
 
     @Override
     public String getInformation() {
+        return "Bubble tea";
+    }
+
+    @Override
+    public String getName() {
         return "";
     }
 }
