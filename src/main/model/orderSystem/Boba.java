@@ -1,17 +1,19 @@
 package model.orderSystem;
 
 public class Boba extends Topping{
-    public Boba(Product product, int quantity) {
-        super(product, quantity);
-    }
+    private double toppingPrice;
 
-    @Override
-    public double getPrice() {
-        return 0;
+    public Boba(IProduct product, double toppingPrice) {
+        super(product);
+        this.toppingPrice = toppingPrice;
     }
 
     @Override
     public String getInformation() {
-        return "";
+        return product.getInformation() + " + Boba";
+    }
+    public double getPrice(){
+        return product.getPrice() + (toppingPrice * product.getQuantity());
     }
 }
+

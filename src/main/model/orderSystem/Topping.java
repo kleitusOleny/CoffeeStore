@@ -1,13 +1,34 @@
 package model.orderSystem;
 
-public abstract class Topping {
-    protected Product product;
-    protected int quantity;
+public abstract class Topping implements IProduct {
+    protected IProduct product;
 
-    public Topping(Product product, int quantity) {
+    public Topping(IProduct product) {
         this.product = product;
-        this.quantity = quantity;
     }
-    public abstract double getPrice();
-    public abstract String getInformation();
+
+    @Override
+    public String getName() {
+        return product.getName();
+    }
+
+    @Override
+    public String getSize() {
+        return product.getSize();
+    }
+
+    @Override
+    public String getDescription() {
+        return product.getDescription();
+    }
+
+    @Override
+    public int getQuantity() {
+        return product.getQuantity();
+    }
+
+    @Override
+    public double getPrice() {
+        return product.getPrice();
+    }
 }

@@ -1,17 +1,17 @@
 package model.orderSystem;
 
-public class Americano extends Product {
-    public Americano(String nameP, String size, String description, int quantity) {
-        super(nameP, size, description, quantity);
-    }
-
-    @Override
-    public double getPrice() {
-        return 0;
+public class Americano extends BaseProduct {
+    public Americano(String nameP, String size, String description, int quantity, double price) {
+        super(nameP, size, description, quantity, price);
     }
 
     @Override
     public String getInformation() {
+        return "Americano";
+    }
+
+    @Override
+    public String getName() {
         return "";
     }
 }

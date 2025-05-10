@@ -1,17 +1,18 @@
 package model.orderSystem;
 
 public class HoneyBoba extends Topping{
-    public HoneyBoba(Product product, int quantity) {
-        super(product, quantity);
-    }
+   private double toppingPrice;
 
-    @Override
-    public double getPrice() {
-        return 0;
+    public HoneyBoba(IProduct product, double toppingPrice) {
+        super(product);
+        this.toppingPrice = toppingPrice;
     }
 
     @Override
     public String getInformation() {
-        return "";
+        return product.getInformation() + " HoneyBoba";
+    }
+    public double getPrice(){
+        return product.getPrice() + (toppingPrice * product.getQuantity());
     }
 }
