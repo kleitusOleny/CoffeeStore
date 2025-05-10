@@ -10,6 +10,13 @@ public class ServiceCustomer {
         this.customerSystem = new CustomerSystem();
     }
 
+    @Override
+    public String toString() {
+        return "ServiceCustomer{" +
+                "customerSystem=" + customerSystem +
+                '}';
+    }
+
     // nag cap khach normal thanh khach vip
     public void upRank(Customer customer){
         if (customer.getType().equals("Normal") && customer.countProductedBuy() >= 10){

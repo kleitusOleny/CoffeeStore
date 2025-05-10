@@ -3,13 +3,23 @@ package model.customerSystem;
 public class NormalCustomer extends Customer {
     private boolean flag;
 
-    public NormalCustomer(String name, String idCus, String numsPhone, boolean flag, boolean flag1) {
-        super(name, idCus, numsPhone, flag);
+    public NormalCustomer(String name, String idCus, String numsPhone, boolean flag) {
+        super(name, idCus, numsPhone);
         this.flag = false;
     }
 
     public boolean isFlag() {
         return flag;
+    }
+
+    @Override
+    public String toString() {
+        return "NormalCustomer{" +
+                "flag=" + flag +
+                ", name='" + name + '\'' +
+                ", idCus='" + idCus + '\'' +
+                ", numsPhone='" + numsPhone + '\'' +
+                '}';
     }
 
     @Override
@@ -22,6 +32,11 @@ public class NormalCustomer extends Customer {
             System.out.println("Bạn cần đăng ký để có thể nhận được thông báo từ cửa hàng! ");
         }
 
+    }
+
+    @Override
+    protected void setRegisterStatus(boolean trangThaiDangKy) {
+        this.flag = trangThaiDangKy;
     }
 
     @Override
