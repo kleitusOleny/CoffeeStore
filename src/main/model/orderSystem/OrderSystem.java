@@ -9,6 +9,7 @@ public class OrderSystem {
     public OrderSystem(List<Order> listStoreOrder) {
         this.listStoreOrder = listStoreOrder;
     }
+
     public double stateOrder(){
         return listStoreOrder.stream().mapToDouble(Order::totalPrice).sum();
     }
