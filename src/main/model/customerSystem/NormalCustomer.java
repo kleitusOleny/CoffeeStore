@@ -49,7 +49,10 @@ public class NormalCustomer extends Customer {
         return "Normal";
     }
 
-
+    /**
+     * kiem tra khach hang thuong co dang ky chuong trinh nhan thong bao khuyen mai khong
+     * @return
+     */
     @Override
     public boolean isRegister() {
         return flag == true;
