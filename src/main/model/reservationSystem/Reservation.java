@@ -20,6 +20,6 @@ public class Reservation {
 
     // kiem tra trang thai ban da dat chua
     public boolean checkStatus(){
-        return  false;
+        return table.isStatus() ? true : false;
     }
 }

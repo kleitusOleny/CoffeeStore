@@ -11,11 +11,16 @@ public class ReservationSystem {
     }
 
     public void makeReservation(Reservation reservation) {
-
+        if (!reservation.checkStatus()){
+            System.out.println("This reservation has already been made");
+        } else {
+            listReser.add(reservation);
+            System.out.println("Reservation has been made successfully");
+        }
     }
 
     public void removeReservation(Reservation reservation) {
-
+        listReser.remove(reservation);
     }
 
 }
