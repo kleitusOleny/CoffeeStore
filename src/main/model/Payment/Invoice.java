@@ -85,7 +85,6 @@ public class Invoice {
         }
 
         sb.append("========================================\n");
-
         return sb.toString();
     }
 
