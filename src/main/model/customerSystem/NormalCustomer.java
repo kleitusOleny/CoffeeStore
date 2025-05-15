@@ -1,7 +1,7 @@
 package model.customerSystem;
 
 public class NormalCustomer extends Customer {
-    private boolean flag;
+    private boolean flag;// xem khach hang co dang ky nhan thong bao khuyen mai khong
 
     public NormalCustomer(String name, String idCus, String numsPhone, boolean flag) {
         super(name, idCus, numsPhone);
@@ -34,6 +34,12 @@ public class NormalCustomer extends Customer {
 
     }
 
+
+    /**
+     * true: da dang ky
+     * false: chua dang ky
+     * @param trangThaiDangKy
+     */
     @Override
     protected void setRegisterStatus(boolean trangThaiDangKy) {
         this.flag = trangThaiDangKy;

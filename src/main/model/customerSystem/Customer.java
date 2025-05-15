@@ -67,4 +67,5 @@ public abstract class Customer implements Observer {
     public String getNumsPhone() {
         return numsPhone;
     }
+
 }

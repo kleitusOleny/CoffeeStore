@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CustomerSystem {
-    private Map<String, List<Customer>> listCus;
+    public Map<String, List<Customer>> listCus;
 
     public CustomerSystem(Map<String, List<Customer>> listCus) {
         this.listCus = new HashMap<>();
@@ -47,7 +47,7 @@ public class CustomerSystem {
         if (customers != null) {
             customers.remove(customer);
             if (customers.isEmpty()) {
-                listCus.remove(type);// xoa luon key neu khong con khach hang nao
+                listCus.remove(type);//o xoa luon key neu khong con khach hang nao
             }
         }
     }
@@ -65,7 +65,7 @@ public class CustomerSystem {
                 }
             }
         }
-        System.out.println("Customer not found");
+        System.out.println("Không tìm thấy khách hàng");
         return null;
     }
 

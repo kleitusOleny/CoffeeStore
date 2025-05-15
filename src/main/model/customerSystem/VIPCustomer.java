@@ -10,7 +10,7 @@ public class VIPCustomer extends Customer {
 
     @Override
     public void updateNotify(String nameTB, String ndTB) {
-        System.out.println("Thông báo gửi đến VIP " + this.name+ ":");
+        System.out.println("Thông báo gửi đến VIP " + this.name + ":");
         System.out.println("Tiêu đề: " + nameTB);
         System.out.println("Nội dung: " + ndTB);
     }
@@ -37,6 +37,7 @@ public class VIPCustomer extends Customer {
 
     /**
      * getType(): cho biet day la khach vip hay khach thuong
+     *
      * @return
      */
     @Override
@@ -47,6 +48,7 @@ public class VIPCustomer extends Customer {
     /**
      * khach hang vip luon nhan duoc chuong trinh khuyen mai ma
      * khong can phai thong qua dang ky
+     *
      * @return
      */
     @Override
@@ -57,5 +59,19 @@ public class VIPCustomer extends Customer {
     @Override
     public int countProductedBuy() {
         return 0;
+    }
+
+    /**
+     * exchangePointsForRewards: la phuong thuc doi diem tich luy
+     *khi khach hang muon doi diem tich luy ta tru vao diem trich luy
+     * @param points
+     */
+
+    public void exchangePointsForRewards(int points) {
+       if (points <= accumulatedPoints) {
+           accumulatedPoints -= points;
+           System.out.println("Đổi điểm thành công. Điểm tích lũy của khách hàng "+ this.name+" còn lại: "+ accumulatedPoints);
+       }
+        System.out.println("Điểm của khách hàng không đủ để quy đổi");
     }
 }
