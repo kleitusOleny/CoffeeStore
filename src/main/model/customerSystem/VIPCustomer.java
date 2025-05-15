@@ -8,7 +8,13 @@ public class VIPCustomer extends Customer {
         super(name, idCus, numsPhone);
         this.accumulatedPoints = accumulatedPoints;
     }
-
+    
+    public VIPCustomer(String name, String idCus, String numsPhone, Subject subject, int accumulatedPoints) {
+        super(name, idCus, numsPhone, subject);
+        this.accumulatedPoints = accumulatedPoints;
+        subject.addObserver((Observer)this);
+    }
+    
     @Override
     public String updateNotify(String nameTB, String ndTB) {
         String result = "";

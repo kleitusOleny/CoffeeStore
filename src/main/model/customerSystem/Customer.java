@@ -18,7 +18,7 @@ public abstract class Customer implements Observer {
         this.name = name;
         this.idCus = idCus;
         this.numsPhone = numsPhone;
-        subject.addObserver(this);
+        this.subject = subject;
     }
 
     @Override

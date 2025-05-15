@@ -33,4 +33,12 @@ public class MainSystem implements Subject{
     public void removeObserver(Observer o) {
         listObsever.remove(o);
     }
+    
+    public List<Observer> getListObsever() {
+        return listObsever;
+    }
+    
+    public void setListObsever(List<Observer> listObsever) {
+        this.listObsever = listObsever;
+    }
 }
