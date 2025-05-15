@@ -23,4 +23,31 @@ public class ReservationSystem {
         listReser.remove(reservation);
     }
 
+    /**
+     * tra ra danh sach cac ban chua co khach dat
+     * @return
+     */
+
+    public List<Reservation> emptyTableList(){
+       List<Reservation> result = new ArrayList<>();
+       for (Reservation reservation : listReser) {
+           if (!reservation.checkStatus()){
+               result.add(reservation);
+           }
+       }
+        return result;
+    }
+    /**
+     * tra ra danh sach cac ban da co khach dat
+     */
+    public List<Reservation> getNonEmptyTables() {
+        List<Reservation> result = new ArrayList<>();
+        for (Reservation reservation : listReser) {
+            if (reservation.checkStatus()){
+                result.add(reservation);
+            }
+        }
+        return result;
+    }
+
 }
