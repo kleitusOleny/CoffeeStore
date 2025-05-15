@@ -73,4 +73,9 @@ public class NormalCustomer extends Customer {
     public boolean isVIP() {
         return false;
     }
+
+    @Override
+    public int pointAccumulated() {
+        return 0;
+    }
 }

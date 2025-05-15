@@ -80,4 +80,10 @@ public class VIPCustomer extends Customer {
             System.out.println("Điểm của khách hàng không đủ để quy đổi");
         }
     }
+
+    @Override
+    public int pointAccumulated() {
+        return this.accumulatedPoints;
+    }
+
 }
