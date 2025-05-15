@@ -47,4 +47,6 @@ public class ServiceCustomer {
             System.out.println("Khách hàng không phải VIP, không thể cộng điểm.");
         }
     }
+
+
 }
