@@ -1,14 +1,11 @@
 package model.customerSystem;
 
-import java.util.Scanner;
+
 
 public abstract class Customer implements Observer {
     protected String name;
     protected String idCus;
     protected String numsPhone;
-
-
-
 
     public Customer(String name, String idCus, String numsPhone) {
         this.name = name;
@@ -24,7 +21,6 @@ public abstract class Customer implements Observer {
                 ", numsPhone='" + numsPhone + '\'' +
                 '}';
     }
-
     public Customer() {
     }
 
@@ -59,4 +55,17 @@ public abstract class Customer implements Observer {
      * @return
      */
     public abstract int countProductedBuy();
+
+    public String getName() {
+        return name;
+    }
+
+    public String getIdCus() {
+        return idCus;
+    }
+
+    public String getNumsPhone() {
+        return numsPhone;
+    }
+
 }
