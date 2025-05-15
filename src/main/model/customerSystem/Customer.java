@@ -69,4 +69,5 @@ public abstract class Customer implements Observer {
     }
 
     public abstract boolean isVIP() ;
+    public  abstract  int pointAccumulated ();
 }
