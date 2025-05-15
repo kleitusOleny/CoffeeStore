@@ -44,10 +44,19 @@ public class Invoice {
         return paidAmount;
     }
 
-    public void printInvoice() {
-        System.out.println("\n========== HÓA ĐƠN THANH TOÁN ==========");
-        System.out.println("Khách hàng: " + customer.getName() + (customer.isVIP() ? " [VIP]" : ""));
-        System.out.printf("Số tiền thanh toán: %,d VND%n", (int) amount);
+    /**
+     * them cac loai thu uong sau khi lam phuong thuc  ben order
+     */
+    public String printInvoice() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n========== HÓA ĐƠN THANH TOÁN ==========\n");
+        sb.append("Khách hàng: ")
+                .append(customer.getName())
+                .append(customer.isVIP() ? " [VIP]" : "")
+                .append("\n");
+
+        sb.append(String.format("Số tiền thanh toán: %,d VND%n", (int) amount));
 
         // Hiển thị tên phương thức thanh toán
         String methodName = paymentStrategy.getClass().getSimpleName();
@@ -64,18 +73,21 @@ public class Invoice {
             default:
                 methodName = "Không xác định";
         }
-        System.out.println("Phương thức thanh toán: " + methodName);
+        sb.append("Phương thức thanh toán: ").append(methodName).append("\n");
 
         // Tính điểm nếu khách hàng VIP
         if (customer.isVIP()) {
             int earnedPoints = (int) (amount / 10000);
-            System.out.println("Điểm tích lũy được cộng: " + earnedPoints + " điểm");
-            System.out.println("Tổng điểm hiện tại: " + customer.pointAccumulated());
+            sb.append("Điểm tích lũy được cộng: ").append(earnedPoints).append(" điểm\n");
+            sb.append("Tổng điểm hiện tại: ").append(customer.pointAccumulated()).append("\n");
         } else {
-            System.out.println("Khách hàng không được tích điểm.");
+            sb.append("Khách hàng không được tích điểm.\n");
         }
 
-        System.out.println("========================================\n");
+        sb.append("========================================\n");
+
+        return sb.toString();
     }
+
 
 }

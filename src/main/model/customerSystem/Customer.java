@@ -24,7 +24,7 @@ public abstract class Customer implements Observer {
     public Customer() {
     }
 
-    public abstract void updateNotify(String nameTB, String ndTB);
+    public abstract String updateNotify(String nameTB, String ndTB);
 
     public void updateInforCustomer(String newName, String newSDT, boolean trangThaiDangKy) {
         if (newName != null && !newName.trim().isEmpty()) {
@@ -38,9 +38,9 @@ public abstract class Customer implements Observer {
         setRegisterStatus(trangThaiDangKy);
     }
 
-    protected abstract void setRegisterStatus(boolean trangThaiDangKy) ;
+    public abstract void setRegisterStatus(boolean trangThaiDangKy) ;
 
-    public abstract void updatePoint(int point1);
+    public abstract String updatePoint(int point1);
     public abstract String getType();
     /**
      * isRegister

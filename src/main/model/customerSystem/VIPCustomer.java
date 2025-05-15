@@ -9,14 +9,19 @@ public class VIPCustomer extends Customer {
     }
 
     @Override
-    public void updateNotify(String nameTB, String ndTB) {
-        System.out.println("Thông báo gửi đến VIP " + this.name + ":");
-        System.out.println("Tiêu đề: " + nameTB);
-        System.out.println("Nội dung: " + ndTB);
+    public String updateNotify(String nameTB, String ndTB) {
+        String result = "";
+        result = result + "Thông báo mới cho khách hàng: " + this.name + ": " + "\n" + "Tiêu đề: " + nameTB + "\n" + "Nội dung: " + ndTB;
+        return result;
+
     }
 
+    /**
+     * khach hang vip da duoc thiet lap san tinh nang nhan thong bao tu quan tri
+     * @param trangThaiDangKy
+     */
     @Override
-    protected void setRegisterStatus(boolean trangThaiDangKy) {
+    public void setRegisterStatus(boolean trangThaiDangKy) {
 
     }
 
@@ -31,8 +36,9 @@ public class VIPCustomer extends Customer {
     }
 
     @Override
-    public void updatePoint(int point1) {
-        accumulatedPoints += point1;
+    public String updatePoint(int point1) {
+        this.accumulatedPoints += point1;
+        return "cập nhật điểm thành công.Bạn đã được thêm " + point1 + " điểm";
     }
 
     /**
@@ -68,16 +74,18 @@ public class VIPCustomer extends Customer {
 
     /**
      * exchangePointsForRewards: la phuong thuc doi diem tich luy
-     *khi khach hang muon doi diem tich luy ta tru vao diem trich luy
+     * khi khach hang muon doi diem tich luy ta tru vao diem trich luy
+     *
      * @param points
      */
 
-    public void exchangePointsForRewards(int points) {
+    public String exchangePointsForRewards(int points) {
         if (points <= accumulatedPoints) {
             accumulatedPoints -= points;
-            System.out.println("Đổi điểm thành công. Điểm tích lũy của khách hàng " + this.name + " còn lại: " + accumulatedPoints);
+            System.out.println();
+            return "Đổi điểm thành công. Điểm tích lũy của khách hàng " + this.name + " còn lại: " + accumulatedPoints;
         } else {
-            System.out.println("Điểm của khách hàng không đủ để quy đổi");
+            return "Điểm của khách hàng không đủ để quy đổi";
         }
     }
 
