@@ -22,32 +22,34 @@ public class NormalCustomer extends Customer {
                 '}';
     }
 
-    @Override
-    public void updateNotify(String nameTB, String ndTB) {
-        if (isRegister() == true){
-            System.out.println("Thông báo mới cho khách hàng: "+this.name+": ");
-            System.out.println("Tiêu đề: "+nameTB);
-            System.out.println("Nội dung: "+ndTB);
-        }else {
-            System.out.println("Bạn cần đăng ký để có thể nhận được thông báo từ cửa hàng! ");
-        }
 
+    @Override
+    public String updateNotify(String nameTB, String ndTB) {
+        String result = "";
+        if (isRegister() == true) {
+            result = result + "Thông báo mới cho khách hàng: " + this.name + ": " + "\n" + "Tiêu đề: " + nameTB + "\n" + "Nội dung: " + ndTB;
+            return result;
+        } else {
+            return result;
+        }
     }
 
 
     /**
      * true: da dang ky
      * false: chua dang ky
+     *
      * @param trangThaiDangKy
      */
     @Override
-    protected void setRegisterStatus(boolean trangThaiDangKy) {
+    public void setRegisterStatus(boolean trangThaiDangKy) {
         this.flag = trangThaiDangKy;
+
     }
 
     @Override
-    public void updatePoint(int point1) {
-
+    public String updatePoint(int point1) {
+        return "Bạn cần đăng ký VIP để đổi điểm";
     }
 
     @Override
@@ -57,6 +59,7 @@ public class NormalCustomer extends Customer {
 
     /**
      * kiem tra khach hang thuong co dang ky chuong trinh nhan thong bao khuyen mai khong
+     *
      * @return
      */
     @Override
