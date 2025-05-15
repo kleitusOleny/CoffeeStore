@@ -68,4 +68,9 @@ public class NormalCustomer extends Customer {
     public int countProductedBuy() {
         return 0;
     }
+
+    @Override
+    public boolean isVIP() {
+        return false;
+    }
 }

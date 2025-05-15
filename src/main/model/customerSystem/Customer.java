@@ -68,4 +68,5 @@ public abstract class Customer implements Observer {
         return numsPhone;
     }
 
+    public abstract boolean isVIP() ;
 }
