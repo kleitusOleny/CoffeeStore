@@ -61,6 +61,11 @@ public class VIPCustomer extends Customer {
         return 0;
     }
 
+    @Override
+    public boolean isVIP() {
+        return true;
+    }
+
     /**
      * exchangePointsForRewards: la phuong thuc doi diem tich luy
      *khi khach hang muon doi diem tich luy ta tru vao diem trich luy
