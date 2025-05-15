@@ -68,10 +68,11 @@ public class VIPCustomer extends Customer {
      */
 
     public void exchangePointsForRewards(int points) {
-       if (points <= accumulatedPoints) {
-           accumulatedPoints -= points;
-           System.out.println("Đổi điểm thành công. Điểm tích lũy của khách hàng "+ this.name+" còn lại: "+ accumulatedPoints);
-       }
-        System.out.println("Điểm của khách hàng không đủ để quy đổi");
+        if (points <= accumulatedPoints) {
+            accumulatedPoints -= points;
+            System.out.println("Đổi điểm thành công. Điểm tích lũy của khách hàng " + this.name + " còn lại: " + accumulatedPoints);
+        } else {
+            System.out.println("Điểm của khách hàng không đủ để quy đổi");
+        }
     }
 }
