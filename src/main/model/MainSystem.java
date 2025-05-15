@@ -1,9 +1,12 @@
+package model;
+
 import model.orderSystem.OrderSystem;
 import model.customerSystem.*;
 import model.employeeSystem.*;
 import model.reservationSystem.*;
 import model.customerSystem.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainSystem implements Subject{
@@ -13,8 +16,8 @@ public class MainSystem implements Subject{
     private ReservationSystem reservationSystem;
     private CustomerSystem customerSystem;
     
-    public MainSystem(List<Observer> listObsever, EmployeeSystem empSys, OrderSystem orderSystem, ReservationSystem reservationSystem, CustomerSystem customerSystem) {
-        this.listObsever = listObsever;
+    public MainSystem(EmployeeSystem empSys, OrderSystem orderSystem, ReservationSystem reservationSystem, CustomerSystem customerSystem) {
+        this.listObsever = new ArrayList<Observer>();
         this.empSys = empSys;
         this.orderSystem = orderSystem;
         this.reservationSystem = reservationSystem;

@@ -1,3 +1,5 @@
+package model;
+
 import model.customerSystem.Observer;
 
 public interface Subject {

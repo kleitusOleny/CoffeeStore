@@ -1,5 +1,7 @@
 package model.customerSystem;
 
+import model.Subject;
+
 public class VIPCustomer extends Customer {
     private int accumulatedPoints;
     public VIPCustomer(String name, String idCus, String numsPhone, int accumulatedPoints) {

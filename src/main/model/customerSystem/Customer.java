@@ -1,16 +1,24 @@
 package model.customerSystem;
 
 
+import model.Subject;
 
 public abstract class Customer implements Observer {
     protected String name;
     protected String idCus;
     protected String numsPhone;
-
+    protected Subject subject;
     public Customer(String name, String idCus, String numsPhone) {
         this.name = name;
         this.idCus = idCus;
         this.numsPhone = numsPhone;
+    }
+
+    public Customer(String name, String idCus, String numsPhone, Subject subject) {
+        this.name = name;
+        this.idCus = idCus;
+        this.numsPhone = numsPhone;
+        subject.addObserver(this);
     }
 
     @Override
