@@ -1,18 +1,15 @@
 package model.Payment;
 
 import model.customerSystem.Customer;
-import model.customerSystem.CustomerSystem;
-
-import java.util.List;
 
 public class Invoice {
-    private double balance;// nguon tien ban dau
+    private double amount;// nguon tien ban dau
     private PaymentStrategy paymentStrategy;
     private BankAccount sourceAccount;
     private Customer customer;
 
-    public Invoice(double balance, PaymentStrategy paymentStrategy, BankAccount sourceAccount, Customer customer) {
-        this.balance = balance;
+    public Invoice(double amount, PaymentStrategy paymentStrategy, BankAccount sourceAccount, Customer customer) {
+        this.amount = amount;
         this.paymentStrategy = paymentStrategy;
         this.sourceAccount = sourceAccount;
         this.customer = customer;
@@ -27,7 +24,7 @@ public class Invoice {
             System.out.println("Chưa chọn phương thức thanh toán!");
             return 0.0;
         }
-        double paidAmount = paymentStrategy.pay(balance);
+        double paidAmount = paymentStrategy.pay(amount);
         if (paidAmount > 0) {
             if (sourceAccount != null) {
                 sourceAccount.deposite(paidAmount);//cong vao tai khoan nguon cua tiem
