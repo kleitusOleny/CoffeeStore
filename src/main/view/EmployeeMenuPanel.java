@@ -1,14 +1,14 @@
 package view;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
-public class ManMenuPanel extends JPanel {
+public class EmployeeMenuPanel extends JPanel {
     public CustomButton datMon, datBan, apDungKM, thanhToan, dangXuat;
     private CustomButton selectedButton = null;
 
-    public ManMenuPanel() {
+    public EmployeeMenuPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(250, 900));
         setBackground(new Color(166, 123, 91));
@@ -31,10 +31,10 @@ public class ManMenuPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Buttons
-        datMon = createMenuButton("Quản Lý Menu");
-        datBan = createMenuButton("Quản Ly Nhân Vien");
-        apDungKM = createMenuButton("Quản Lý Khuyến Mãi");
-        thanhToan = createMenuButton("Thong Ke Doanh Thu");
+        datMon = createMenuButton("Đặt Món");
+        datBan = createMenuButton("Đặt Bàn");
+        apDungKM = createMenuButton("Khuyến Mãi");
+        thanhToan = createMenuButton("Thanh Toán");
         dangXuat = createMenuButton("Đăng Xuất");
 
         add(datMon);
@@ -53,25 +53,25 @@ public class ManMenuPanel extends JPanel {
 
 
         // chen icon vao cac button
-        ImageIcon iconMenu = new ImageIcon(getClass().getResource("/image/quanLyMenu.png"));
+        ImageIcon iconMenu = new ImageIcon("src\\image\\menu.png");
         Image image1 = iconMenu.getImage();
         Image newImage1 = image1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon1 = new ImageIcon(newImage1);
         datMon.setIcon(icon1);
 
-        ImageIcon iconTable = new ImageIcon(getClass().getResource("/image/quanLyNhanVien.png"));
+        ImageIcon iconTable = new ImageIcon("src\\image\\table.png");
         Image image2 = iconTable.getImage();
         Image newImage2 = image2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(newImage2);
         datBan.setIcon(icon2);
 
-        ImageIcon iconDiscount = new ImageIcon(getClass().getResource("/image/quanLyKhuyenMai.png"));
+        ImageIcon iconDiscount = new ImageIcon("src\\image\\discount.png");
         Image image3 = iconDiscount.getImage();
         Image newImage3 = image3.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon3 = new ImageIcon(newImage3);
         apDungKM.setIcon(icon3);
 
-        ImageIcon iconPay = new ImageIcon(getClass().getResource("/image/thongKeDoanhThu.png"));
+        ImageIcon iconPay = new ImageIcon("src\\image\\pay.png");
         Image image4 = iconPay.getImage();
         Image newImage4 = image4.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon4 = new ImageIcon(newImage4);
@@ -79,7 +79,7 @@ public class ManMenuPanel extends JPanel {
 
         ImageIcon iconDangXuat = new ImageIcon("src\\image\\dangXuat.png");
         Image image6 = iconDangXuat.getImage();
-        Image newImage6 = image6.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        Image newImage6 = image6.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon6 = new ImageIcon(newImage6);
         dangXuat.setIcon(icon6);
 
@@ -100,7 +100,7 @@ public class ManMenuPanel extends JPanel {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(new Dimension(300, 80));   // Nút to hơn (rộng 300, cao 80)
         button.setPreferredSize(new Dimension(300, 80)); // Đặt preferred size để layout dễ hiểu
-        button.setFont(new Font("Roboto", Font.BOLD, 20));  // Chữ to hơn chút
+        button.setFont(new Font("Segoe UI", Font.BOLD, 20));  // Chữ to hơn chút
         button.setBackgroundColor(new Color(166, 123, 91));
         button.setHoverColor(new Color(200, 230, 255));
         button.setGradientColors(Color.CYAN, Color.BLUE);

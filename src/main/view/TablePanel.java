@@ -50,7 +50,7 @@ public class TablePanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel();
+        EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
         add(topPanel, BorderLayout.NORTH);
         add(managerMenuPanel, BorderLayout.WEST);
         add(scrollPane, BorderLayout.CENTER);

@@ -3,12 +3,12 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ThemKhachHangDialog extends JDialog {
+public class AddCustomerDialog extends JDialog {
     private JTextField tenField;
     private JTextField sdtField;
     private boolean isConfirmed = false;
 
-    public ThemKhachHangDialog(JFrame parent) {
+    public AddCustomerDialog(JFrame parent) {
         super(parent, "Thông tin khách hàng", true);
         setLayout(new GridBagLayout());
         setSize(350, 250);

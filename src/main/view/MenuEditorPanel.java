@@ -2,9 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -39,7 +36,7 @@ public class MenuEditorPanel extends JPanel{
 
         add(createMainPanel(), BorderLayout.CENTER);
 
-        ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel();
+        EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
         add(managerMenuPanel, BorderLayout.WEST);
 
     }

@@ -1,9 +1,7 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class OrderPanel extends JPanel{
     JPanel toolbar, orderBillPanel, mainPanel;
@@ -19,7 +17,7 @@ public class OrderPanel extends JPanel{
         setBackground(new Color(255, 245, 204));
 
         // JPanel ben trai
-        ManagerMenuPanel sidebarPanel = new ManagerMenuPanel();
+        EmployeeMenuPanel sidebarPanel = new EmployeeMenuPanel();
         add(sidebarPanel, BorderLayout.WEST);
 
         // Phần chính trung tâm: toolbar + menu
@@ -157,7 +155,7 @@ public class OrderPanel extends JPanel{
     }
 
     private final String[][] coffeeDrinks = {
-            {"Cà phê đen", "25000", "src\\image\\coffee.png"},
+            {"Cà phê đen", "25000", "src\\main\\image\\coffee.png"},
             {"Bạc xỉu", "22000", "src\\image\\milkcoffee.png"},
             {"Expresso", "28000", "src\\image\\expresso.png"},
             {"Americano", "28000", "src\\image\\americano.png"},

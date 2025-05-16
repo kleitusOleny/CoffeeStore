@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class SuaKhachHangDialog extends JDialog {
+public class ChangeInforCustomerDialog extends JDialog {
 
     private JTextField tenField;
     private JTextField sdtField;
@@ -12,7 +12,7 @@ public class SuaKhachHangDialog extends JDialog {
     private boolean confirmed = false;
     private boolean deleted = false; // Cờ để kiểm tra nếu người dùng chọn xóa
 
-    public SuaKhachHangDialog(Frame owner) {
+    public ChangeInforCustomerDialog(Frame owner) {
         super(owner, "Thông tin khách hàng", true);
         setLayout(new BorderLayout());
         setSize(400, 300);
