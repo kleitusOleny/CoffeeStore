@@ -13,6 +13,7 @@ public class OrderSystem {
     public double stateOrder(){
         return listStoreOrder.stream().mapToDouble(Order::totalPrice).sum();
     }
+    
     public void addOrder(Order o){
         listStoreOrder.add(o);
     }

@@ -8,7 +8,6 @@ public class TransactionLog {
     public static void log(Transaction transaction) {
         transactions.add(transaction);
     }
-
     /**
      * showAll: cho ra lich su giao dich
      * @return
@@ -27,5 +26,7 @@ public class TransactionLog {
         return transactions;
     }
 
-
+    public static void addTransaction(Transaction transaction) {
+    
+    }
 }

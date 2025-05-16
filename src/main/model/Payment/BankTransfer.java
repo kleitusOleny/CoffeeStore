@@ -1,5 +1,7 @@
 package model.Payment;
 
+import model.customerSystem.Customer;
+
 public class BankTransfer implements PaymentStrategy {
     private String bankNo, name;
     private BankAccount account;
@@ -11,9 +13,9 @@ public class BankTransfer implements PaymentStrategy {
     }
 
     @Override
-    public double pay(double amount) {
+    public double pay(double amount, Customer customer) {
         System.out.println("Chuyển khoản ngân hàng từ " + name + " (" + bankNo + ") số tiền: " + amount + " VND");
-        account.deposit(amount);
+        account.deposit(amount,this.getClass().getSimpleName(),customer);
         return amount;
     }
 }
