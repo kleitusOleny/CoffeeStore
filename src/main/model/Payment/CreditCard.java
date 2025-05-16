@@ -1,5 +1,6 @@
 package model.Payment;
 
+import model.customerSystem.Customer;
 import model.employeeSystem.Date;
 
 public class CreditCard implements PaymentStrategy {
@@ -17,9 +18,9 @@ public class CreditCard implements PaymentStrategy {
     }
 
     @Override
-    public double pay(double amount) {
+    public double pay(double amount, Customer customer) {
         System.out.println("Thanh toán bằng thẻ tín dụng: " + CardNo + " - " + name + " với số tiền " + amount + " VND");
-        bankAccount.deposit(amount);
+        bankAccount.deposit(amount,this.getClass().getSimpleName(),customer);
         return amount;
     }
 }

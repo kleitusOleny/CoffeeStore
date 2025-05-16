@@ -8,33 +8,35 @@ import java.time.format.DateTimeFormatter;
 public class Invoice {
     private double amount;
     private PaymentStrategy paymentStrategy;
-    private BankAccount sourceAccount;
+    
     private Customer customer;
     private int earnedPoints = 0;
-
-    public Invoice(double amount, PaymentStrategy paymentStrategy, BankAccount sourceAccount, Customer customer) {
+    
+    public Invoice(double amount, PaymentStrategy paymentStrategy, Customer customer, int earnedPoints) {
         this.amount = amount;
         this.paymentStrategy = paymentStrategy;
-        this.sourceAccount = sourceAccount;
+        this.customer = customer;
+        this.earnedPoints = earnedPoints;
+    }
+    
+    public Invoice(double amount, PaymentStrategy paymentStrategy, Customer customer) {
+        this.amount = amount;
+        this.paymentStrategy = paymentStrategy;
         this.customer = customer;
     }
-
+    
     public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
         this.paymentStrategy = paymentStrategy;
     }
 
     private String getPaymentMethodName() {
         String methodName = paymentStrategy.getClass().getSimpleName();
-        switch (methodName) {
-            case "Cash":
-                return "Tiền mặt";
-            case "BankTransfer":
-                return "Chuyển khoản ngân hàng";
-            case "CreditCard":
-                return "Thẻ tín dụng";
-            default:
-                return "Không xác định";
-        }
+        return switch (methodName) {
+            case "Cash" -> "Tiền mặt";
+            case "BankTransfer" -> "Chuyển khoản ngân hàng";
+            case "CreditCard" -> "Thẻ tín dụng";
+            default -> "Không xác định";
+        };
     }
 
     public double pay() {
@@ -47,19 +49,19 @@ public class Invoice {
             return 0.0;
         }
 
-        double paidAmount = paymentStrategy.pay(amount);
+        double paidAmount = paymentStrategy.pay(amount, customer);
         if (paidAmount > 0) {
-            if (sourceAccount != null) {
-                sourceAccount.deposit(paidAmount);//cong vao tai khoan nguon cua tien
-            }
-            // chi cong diem cho khach hang vip
-
-            if (customer.isVIP()) {
-                earnedPoints = (int) paidAmount / 10000;
-                customer.updatePoint(earnedPoints);
-            } else {
-                System.out.println("Khách hàng không phải VIP -> không được tích điểm.");
-            }
+//            if (sourceAccount != null) {
+//                sourceAccount.deposit(paidAmount,paymentStrategy.getClass().getSimpleName(),customer);//cong vao tai khoan nguon cua tien
+                // chi cong diem cho khach hang vip
+                if (customer.isVIP()) {
+                    earnedPoints = (int) paidAmount / 10000;
+                    customer.updatePoint(earnedPoints);
+                } else {
+                    System.out.println("Khách hàng không phải VIP -> không được tích điểm.");
+                }
+//            }
+            
             //ghi lai gia dich vao log
             String methodName = getPaymentMethodName();
             String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));

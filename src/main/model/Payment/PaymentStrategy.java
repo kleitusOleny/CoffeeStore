@@ -1,6 +1,10 @@
 package model.Payment;
 
+import model.customerSystem.Customer;
+
 public interface PaymentStrategy {
-    double pay(double amount);
+    public double pay(double amount, Customer customer);
+    
+    
 }
 

@@ -1,4 +1,8 @@
 import model.MainSystem;
+import model.Payment.BankAccount;
+import model.Payment.BankTransfer;
+import model.Payment.Invoice;
+import model.Payment.TransactionLog;
 import model.Subject;
 import model.customerSystem.*;
 import model.employeeSystem.EmployeeSystem;
@@ -10,14 +14,16 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        Subject mainsys =new MainSystem(null,null,null,null);
+        Customer customer = new VIPCustomer("AA","AA","00",mainsys,100);
+        BankAccount bankAccount = new BankAccount();
+        Invoice invoice1 = new Invoice(1000,new BankTransfer("AA","Vinh",bankAccount),customer);
+        Invoice invoice2 = new Invoice(1000,new BankTransfer("AA","Vinh",bankAccount),customer);
         
+        invoice1.pay();
+        invoice2.pay();
         
-        MainSystem subject = new MainSystem(null,null,null,null);
-        NormalCustomer normalCustomer1 = new NormalCustomer("Vinh","B01","0374205336",subject,false);
-        NormalCustomer normalCustomer2 = new NormalCustomer("Trinh","B02","0374205336",subject,false);
-        
-        VIPCustomer vipCustomer = new VIPCustomer("ABC", "A01","20220202",subject,100);
-        
-        subject.getListObsever().forEach(System.out::println);
+        System.out.println(TransactionLog.showAll());
+        System.out.println(TransactionLog.getTransactions());
     }
 }
