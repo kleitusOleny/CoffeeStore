@@ -10,7 +10,12 @@ public class VIPCustomer extends Customer {
         this.subject = subject;
         subject.addObserver(this); // ✅ luôn thêm
     }
-
+    
+    public VIPCustomer(String name, String idCus, String numsPhone, Subject subject, int accumulatedPoints) {
+        super(name, idCus, numsPhone, subject);
+        this.accumulatedPoints = accumulatedPoints;
+        subject.addObserver((Observer)this);
+    }
 
     @Override
     public String updateNotify(String nameTB, String ndTB) {

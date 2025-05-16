@@ -4,16 +4,15 @@ import model.Subject;
 
 public class NormalCustomer extends Customer {
     private boolean flag;// xem khach hang co dang ky nhan thong bao khuyen mai khong
-
+  
     public NormalCustomer(String name, String idCus, String numsPhone, Subject subject, boolean flag) {
         super(name, idCus, numsPhone, subject);
         this.flag = flag;
         if (flag) {
-            subject.addObserver(this);
+            subject.addObserver((Observer)this);
         }
-
     }
-
+    
     public boolean isFlag() {
         return flag;
     }
