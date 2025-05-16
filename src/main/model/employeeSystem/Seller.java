@@ -13,6 +13,10 @@ public class Seller extends WageEmployee{
     
     @Override
     public void setSalary(double salary) {
-        this.hourlyRate = salary;
+        if (salary < 0){
+            throw new IllegalArgumentException("Salary cannot be negative");
+        } else {
+            this.hourlyRate = salary;
+        }
     }
 }

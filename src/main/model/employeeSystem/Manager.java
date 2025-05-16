@@ -16,7 +16,11 @@ public class Manager extends Employee{
     //thay đổi lương của quản lí
     @Override
     public void setSalary(double salary){
-        this.salary = salary;
+        if (salary < 0){
+            throw new IllegalArgumentException("Salary cannot be negative");
+        } else {
+            this.salary = salary;
+        }
     }
     
     //Kiểm tra xem có phải quản lí không

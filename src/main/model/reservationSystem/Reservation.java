@@ -7,9 +7,6 @@ public class Reservation {
     private String nameCus;
     private int numOfPersons;
 
-    public Reservation() {
-    }
-
     public Reservation(Table table, String idEmp, String idCus, String nameCus, int numOfPersons) {
         this.table = table;
         this.idEmp = idEmp;
