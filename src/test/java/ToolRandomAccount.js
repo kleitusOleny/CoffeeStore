@@ -2,12 +2,6 @@
 const firstNames = ['Nguyen', 'Tran', 'Le', 'Pham', 'Hoang', 'Vu', 'Dang'];
 const lastNames = ['Hung', 'Linh', 'Nam', 'Mai', 'Duong', 'Phuc', 'Tam'];
 
-// Hàm tạo chuỗi ngẫu nhiên
-function randomString(length) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-}
-
 // Hàm tạo username
 function generateUsername(isManager) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -35,7 +29,7 @@ function generateAccount() {
 }
 
 // Hàm tạo và in danh sách tài khoản
-function main(count = 20) {
+function toolRandomAccount(count = 20) {
     const accounts = Array.from({ length: count }, () => generateAccount());
     console.log('Danh sách tài khoản ngẫu nhiên:');
     accounts.forEach((account, index) => {
@@ -47,5 +41,5 @@ function main(count = 20) {
     });
 }
 
-// Chạy chương trình với 5 tài khoản
-main();
+// Chạy chương trình
+toolRandomAccount();

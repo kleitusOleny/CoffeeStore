@@ -4,11 +4,6 @@ import model.Subject;
 
 public class VIPCustomer extends Customer {
     private int accumulatedPoints;
-    public VIPCustomer(String name, String idCus, String numsPhone, int accumulatedPoints) {
-        super(name, idCus, numsPhone);
-        this.accumulatedPoints = accumulatedPoints;
-    }
-    
     public VIPCustomer(String name, String idCus, String numsPhone, Subject subject, int accumulatedPoints) {
         super(name, idCus, numsPhone, subject);
         this.accumulatedPoints = accumulatedPoints;
@@ -20,7 +15,6 @@ public class VIPCustomer extends Customer {
         String result = "";
         result = result + "Thông báo mới cho khách hàng: " + this.name + ": " + "\n" + "Tiêu đề: " + nameTB + "\n" + "Nội dung: " + ndTB;
         return result;
-
     }
 
     /**
