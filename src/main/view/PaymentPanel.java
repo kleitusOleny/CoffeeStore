@@ -5,7 +5,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class ThanhToanPanel extends JPanel {
+public class PaymentPanel extends JPanel {
 
     private JLabel tenLabel;
     private JLabel sdtLabel;
@@ -14,11 +14,11 @@ public class ThanhToanPanel extends JPanel {
     private JLabel giamGiaLabel;
     private JLabel tongTienLabel;
 
-    public ThanhToanPanel() {
+    public PaymentPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 248, 220)); // Màu nền
 
-        ManagerMenuPanel menuPanel = new ManagerMenuPanel(); // Menu bên trái
+        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel(); // Menu bên trái
         add(menuPanel, BorderLayout.WEST);
 
         add(createContentPanel(), BorderLayout.CENTER); // Nội dung chính
@@ -44,7 +44,7 @@ public class ThanhToanPanel extends JPanel {
 
         historyButton.addActionListener(e -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            LichSuGiaoDichDialog dialog = new LichSuGiaoDichDialog(parentFrame);
+            TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
             dialog.setVisible(true);
         });
 
@@ -252,7 +252,7 @@ public class ThanhToanPanel extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1100, 650);
             frame.setLocationRelativeTo(null);
-            frame.setContentPane(new ThanhToanPanel());
+            frame.setContentPane(new PaymentPanel());
             frame.setVisible(true);
         });
     }

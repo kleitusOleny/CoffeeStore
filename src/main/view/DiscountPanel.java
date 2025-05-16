@@ -8,16 +8,16 @@ import java.awt.event.MouseEvent;
 
 // ... Các import giữ nguyên
 
-public class KhuyenMaiPanel extends JPanel {
+public class DiscountPanel extends JPanel {
 
     private CustomTable khachTable;
     private JTextField searchField;
     private TableRowSorter<TableModel> sorter;
 
-    public KhuyenMaiPanel() {
+    public DiscountPanel() {
         setLayout(new BorderLayout());
 
-        ManagerMenuPanel menuPanel = new ManagerMenuPanel();
+        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel();
         add(menuPanel, BorderLayout.WEST);
 
         JPanel mainPanel = new JPanel();
@@ -104,8 +104,8 @@ public class KhuyenMaiPanel extends JPanel {
                     String sdt = (String) model.getValueAt(modelRow, 1);
                     String diem = (String) model.getValueAt(modelRow, 2);
 
-                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(KhuyenMaiPanel.this);
-                    SuaKhachHangDialog dialog = new SuaKhachHangDialog(topFrame);
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(DiscountPanel.this);
+                    ChangeInforCustomerDialog dialog = new ChangeInforCustomerDialog(topFrame);
                     dialog.setKhachHang(ten, sdt, diem);
                     dialog.setVisible(true);
 
@@ -191,7 +191,7 @@ public class KhuyenMaiPanel extends JPanel {
 
     private void addKhachHang() {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        ThemKhachHangDialog dialog = new ThemKhachHangDialog(topFrame);
+        AddCustomerDialog dialog = new AddCustomerDialog(topFrame);
         dialog.setVisible(true);
 
         if (dialog.isConfirmed()) {
@@ -286,7 +286,7 @@ public class KhuyenMaiPanel extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1100, 700);
             frame.setLocationRelativeTo(null);
-            frame.setContentPane(new KhuyenMaiPanel());
+            frame.setContentPane(new DiscountPanel());
             frame.setVisible(true);
         });
     }

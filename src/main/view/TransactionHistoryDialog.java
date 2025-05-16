@@ -4,9 +4,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class LichSuGiaoDichDialog extends JDialog {
+public class TransactionHistoryDialog extends JDialog {
 
-    public LichSuGiaoDichDialog(JFrame parent) {
+    public TransactionHistoryDialog(JFrame parent) {
         super(parent, "Lịch Sử Giao Dịch", true);
         setSize(900, 300);
         setLocationRelativeTo(parent);
