@@ -20,7 +20,7 @@ public class ServiceCustomer {
     // nag cap khach normal thanh khach vip
     public void upRank(Customer customer){
         if (customer.getType().equals("Normal") && customer.countProductedBuy() >= 10){
-            Customer vip = new VIPCustomer(customer.name, customer.idCus, customer.numsPhone,0);
+            Customer vip = new VIPCustomer(customer.name, customer.idCus, customer.numsPhone,0, customer.subject);
             // xoa khoi danh sach normal
             List<Customer> normalList = customerSystem.getListCus().get("Normal");
             if (normalList != null){

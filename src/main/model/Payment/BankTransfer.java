@@ -13,7 +13,7 @@ public class BankTransfer implements PaymentStrategy {
     @Override
     public double pay(double amount) {
         System.out.println("Chuyển khoản ngân hàng từ " + name + " (" + bankNo + ") số tiền: " + amount + " VND");
-        account.deposite(amount);
+        account.deposit(amount);
         return amount;
     }
 }

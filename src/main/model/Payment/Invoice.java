@@ -2,10 +2,11 @@ package model.Payment;
 
 import model.customerSystem.Customer;
 
-import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Invoice {
-    private double amount;// nguon tien ban dau
+    private double amount;
     private PaymentStrategy paymentStrategy;
     private BankAccount sourceAccount;
     private Customer customer;
@@ -22,15 +23,34 @@ public class Invoice {
         this.paymentStrategy = paymentStrategy;
     }
 
+    private String getPaymentMethodName() {
+        String methodName = paymentStrategy.getClass().getSimpleName();
+        switch (methodName) {
+            case "Cash":
+                return "Tiền mặt";
+            case "BankTransfer":
+                return "Chuyển khoản ngân hàng";
+            case "CreditCard":
+                return "Thẻ tín dụng";
+            default:
+                return "Không xác định";
+        }
+    }
+
     public double pay() {
         if (paymentStrategy == null) {
-            System.out.println("Chưa chọn phương thức thanh toán!");
+            System.out.println("Vui lòng chọn phương thức thanh toán!");
             return 0.0;
         }
+        if (amount <= 0) {
+            System.out.println("Số tiền thanh toán không hợp lệ!");
+            return 0.0;
+        }
+
         double paidAmount = paymentStrategy.pay(amount);
         if (paidAmount > 0) {
             if (sourceAccount != null) {
-                sourceAccount.deposite(paidAmount);//cong vao tai khoan nguon cua tien
+                sourceAccount.deposit(paidAmount);//cong vao tai khoan nguon cua tien
             }
             // chi cong diem cho khach hang vip
 
@@ -40,6 +60,10 @@ public class Invoice {
             } else {
                 System.out.println("Khách hàng không phải VIP -> không được tích điểm.");
             }
+            //ghi lai gia dich vao log
+            String methodName = getPaymentMethodName();
+            String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+            TransactionLog.log(new Transaction(paidAmount, methodName, customer, dateTime));
         }
         return paidAmount;
     }
@@ -59,20 +83,8 @@ public class Invoice {
         sb.append(String.format("Số tiền thanh toán: %,d VND%n", (int) amount));
 
         // Hiển thị tên phương thức thanh toán
-        String methodName = paymentStrategy.getClass().getSimpleName();
-        switch (methodName) {
-            case "Cash":
-                methodName = "Tiền mặt";
-                break;
-            case "BankTransfer":
-                methodName = "Chuyển khoản ngân hàng";
-                break;
-            case "CreditCard":
-                methodName = "Thẻ tín dụng";
-                break;
-            default:
-                methodName = "Không xác định";
-        }
+        String methodName = getPaymentMethodName();
+
         sb.append("Phương thức thanh toán: ").append(methodName).append("\n");
 
         // Tính điểm nếu khách hàng VIP
