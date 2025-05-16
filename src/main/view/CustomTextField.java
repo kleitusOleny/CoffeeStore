@@ -1,0 +1,121 @@
+package view;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class CustomTextField extends JTextField {
+    private Color borderColor = Color.BLUE;
+    private Color startGradientColor = Color.CYAN;
+    private Color endGradientColor = Color.BLUE;
+    private Color backgroundColor = Color.WHITE;
+    private Color hoverColor;
+    private Color textColor = Color.BLACK;
+    private int thickness = 3;
+    private int borderRadius = 15;
+    private boolean drawBorder = false;  // Mặc định không vẽ viền
+    private boolean isHovered = false;
+
+    public CustomTextField(int columns) {
+        super(columns);
+        setOpaque(false); // để tự vẽ background
+        setBorder(new EmptyBorder(5, 10, 5, 10)); // padding bên trong
+        setForeground(textColor);
+        setFont(new Font("Arial", Font.PLAIN, 16));
+
+        // Thêm mouse listener để phát hiện hover
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                isHovered = true;
+                repaint();
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                isHovered = false;
+                repaint();
+            }
+        });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Vẽ nền với màu hover nếu đang hover
+        if (isHovered && hoverColor != null) {
+            g2d.setColor(hoverColor);
+        } else {
+            g2d.setColor(backgroundColor);
+        }
+
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), borderRadius, borderRadius);
+
+        super.paintComponent(g);
+        g2d.dispose();
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        if (drawBorder) {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setStroke(new BasicStroke(thickness));
+
+            Color gradientStart = startGradientColor;
+            Color gradientEnd = endGradientColor;
+
+            GradientPaint gradient = new GradientPaint(0, 0, gradientStart, getWidth(), getHeight(), gradientEnd, true);
+            g2d.setPaint(gradient);
+            g2d.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, borderRadius, borderRadius);
+        }
+    }
+
+    // Set màu chữ
+    public void setTextColor(Color color) {
+        this.textColor = color;
+        setForeground(color);
+        repaint();
+    }
+
+    // Set màu viền (gradient bắt đầu và kết thúc)
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        this.startGradientColor = color;
+        this.endGradientColor = color;
+        repaint();
+    }
+
+    public void setBorderThickness(int thickness) {
+        this.thickness = thickness;
+        repaint();
+    }
+
+    public void setGradientColors(Color startColor, Color endColor) {
+        this.startGradientColor = startColor;
+        this.endGradientColor = endColor;
+        repaint();
+    }
+
+    public void setBackgroundColor(Color color) {
+        this.backgroundColor = color;
+        repaint();
+    }
+
+    public void setHoverColor(Color color) {
+        this.hoverColor = color;
+        repaint();
+    }
+
+    public void setBorderRadius(int radius) {
+        this.borderRadius = radius;
+        repaint();
+    }
+
+    public void setDrawBorder(boolean drawBorder) {
+        this.drawBorder = drawBorder;
+        repaint();
+    }
+}
