@@ -20,7 +20,7 @@ function generateUsername(isManager) {
 // Hàm tạo mật khẩu (8-12 ký tự, bao gồm chữ hoa, chữ thường, số, ký tự đặc biệt)
 function generatePassword() {
     const length = Math.floor(Math.random() * 5) + 8; // Độ dài từ 8-12
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
 

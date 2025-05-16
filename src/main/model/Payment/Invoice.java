@@ -60,19 +60,12 @@ public class Invoice {
 
         // Hiển thị tên phương thức thanh toán
         String methodName = paymentStrategy.getClass().getSimpleName();
-        switch (methodName) {
-            case "Cash":
-                methodName = "Tiền mặt";
-                break;
-            case "BankTransfer":
-                methodName = "Chuyển khoản ngân hàng";
-                break;
-            case "CreditCard":
-                methodName = "Thẻ tín dụng";
-                break;
-            default:
-                methodName = "Không xác định";
-        }
+        methodName = switch (methodName) {
+            case "Cash" -> "Tiền mặt";
+            case "BankTransfer" -> "Chuyển khoản ngân hàng";
+            case "CreditCard" -> "Thẻ tín dụng";
+            default -> "Không xác định";
+        };
         sb.append("Phương thức thanh toán: ").append(methodName).append("\n");
 
         // Tính điểm nếu khách hàng VIP
