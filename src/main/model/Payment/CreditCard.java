@@ -19,7 +19,7 @@ public class CreditCard implements PaymentStrategy {
     @Override
     public double pay(double amount) {
         System.out.println("Thanh toán bằng thẻ tín dụng: " + CardNo + " - " + name + " với số tiền " + amount + " VND");
-        bankAccount.deposite(amount);
+        bankAccount.deposit(amount);
         return amount;
     }
 }

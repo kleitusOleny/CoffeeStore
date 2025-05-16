@@ -4,10 +4,13 @@ import model.Subject;
 
 public class VIPCustomer extends Customer {
     private int accumulatedPoints;
-    public VIPCustomer(String name, String idCus, String numsPhone, int accumulatedPoints) {
-        super(name, idCus, numsPhone);
+    public VIPCustomer(String name, String idCus, String numsPhone, int accumulatedPoints, Subject subject) {
+        super(name, idCus, numsPhone); // không gọi super(..., subject)
         this.accumulatedPoints = accumulatedPoints;
+        this.subject = subject;
+        subject.addObserver(this); // ✅ luôn thêm
     }
+
 
     @Override
     public String updateNotify(String nameTB, String ndTB) {

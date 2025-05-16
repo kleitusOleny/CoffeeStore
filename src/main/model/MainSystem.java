@@ -33,4 +33,5 @@ public class MainSystem implements Subject{
     public void removeObserver(Observer o) {
         listObsever.remove(o);
     }
+
 }
