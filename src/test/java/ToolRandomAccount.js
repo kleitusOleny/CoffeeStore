@@ -48,5 +48,5 @@ function toolRandomAccount(count = 20) {
     });
 }
 
-// Chạy chương trình với 5 tài khoản
+// Chạy chương trình
 toolRandomAccount();
