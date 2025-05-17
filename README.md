@@ -8,7 +8,7 @@ cách dùng git:
 
 cách tạo branch:
 </br>
-```git checkout main -m```
+```git checkout toolRandomName -m```
 </br>
 ```git branch <Tên branch>```
 
