@@ -1,6 +1,6 @@
 package model;
 
-import model.customerSystem.Observer;
+import model.customer_system.Observer;
 
 public interface Subject {
     public void addObserver(Observer o);

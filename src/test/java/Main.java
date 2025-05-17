@@ -1,16 +1,10 @@
 import model.MainSystem;
-import model.Payment.BankAccount;
-import model.Payment.BankTransfer;
-import model.Payment.Invoice;
-import model.Payment.TransactionLog;
+import model.payments.BankAccount;
+import model.payments.BankTransfer;
+import model.payments.Invoice;
+import model.payments.TransactionLog;
 import model.Subject;
-import model.customerSystem.*;
-import model.employeeSystem.EmployeeSystem;
-import model.employeeSystem.ManagerAttendent;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import model.customer_system.*;
 
 public class Main {
     public static void main(String[] args) {

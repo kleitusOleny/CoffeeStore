@@ -1,10 +1,10 @@
 package model;
 
-import model.orderSystem.OrderSystem;
-import model.customerSystem.*;
-import model.employeeSystem.*;
-import model.reservationSystem.*;
-import model.customerSystem.Observer;
+import model.order_system.OrderSystem;
+import model.customer_system.*;
+import model.employee_system.*;
+import model.reservation_system.*;
+import model.customer_system.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
