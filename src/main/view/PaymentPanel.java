@@ -18,8 +18,8 @@ public class PaymentPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 248, 220)); // Màu nền
 
-        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel(); // Menu bên trái
-        add(menuPanel, BorderLayout.WEST);
+//        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel(); // Menu bên trái
+//        add(menuPanel, BorderLayout.WEST);
 
         add(createContentPanel(), BorderLayout.CENTER); // Nội dung chính
     }
