@@ -1,0 +1,92 @@
+[
+  {
+    "tenNhanVien": "Vũ Anh Hùng",
+    "maNhanVien": "NVJF1RG5",
+    "soDienThoai": "0034654840",
+    "soCCCD": "700193767406",
+    "diaChi": "386 Đường W6P74, TP.HCM",
+    "ngaySinh": "28/04/2001",
+    "ngayVaoLam": "28/11/2018"
+  },
+  {
+    "tenNhanVien": "Nguyễn Hồng Mai",
+    "maNhanVien": "NVDCLR5P",
+    "soDienThoai": "0743492950",
+    "soCCCD": "481913083093",
+    "diaChi": "977 Đường SKTDY, Hà Nội",
+    "ngaySinh": "23/06/1980",
+    "ngayVaoLam": "04/04/2022"
+  },
+  {
+    "tenNhanVien": "Lê Văn Mai",
+    "maNhanVien": "NV37AD0Z",
+    "soDienThoai": "0806991130",
+    "soCCCD": "326679626340",
+    "diaChi": "628 Đường OOQMD, Huế",
+    "ngaySinh": "21/11/1987",
+    "ngayVaoLam": "26/06/2024"
+  },
+  {
+    "tenNhanVien": "Vũ Văn Nam",
+    "maNhanVien": "NV9KIG0Z",
+    "soDienThoai": "0190784679",
+    "soCCCD": "626227775209",
+    "diaChi": "148 Đường 5Z09P, Hải Phòng",
+    "ngaySinh": "16/06/1982",
+    "ngayVaoLam": "17/01/2021"
+  },
+  {
+    "tenNhanVien": "Vũ Quốc Tâm",
+    "maNhanVien": "NVPWBXXS",
+    "soDienThoai": "0472848800",
+    "soCCCD": "534724547099",
+    "diaChi": "948 Đường 7JGH4, Hải Phòng",
+    "ngaySinh": "03/05/2001",
+    "ngayVaoLam": "19/12/2025"
+  },
+  {
+    "tenNhanVien": "Đặng Minh Dương",
+    "maNhanVien": "NVT88HB6",
+    "soDienThoai": "0478775825",
+    "soCCCD": "565197757358",
+    "diaChi": "311 Đường 8EWVO, Hải Phòng",
+    "ngaySinh": "19/09/2003",
+    "ngayVaoLam": "23/10/2019"
+  },
+  {
+    "tenNhanVien": "Vũ Ngọc Nam",
+    "maNhanVien": "NVT93PDC",
+    "soDienThoai": "0571205827",
+    "soCCCD": "698675070276",
+    "diaChi": "218 Đường 3UQ5H, Cần Thơ",
+    "ngaySinh": "09/03/1997",
+    "ngayVaoLam": "06/04/2015"
+  },
+  {
+    "tenNhanVien": "Huỳnh Ngọc Bình",
+    "maNhanVien": "NV4CPVIR",
+    "soDienThoai": "0441389175",
+    "soCCCD": "354848084677",
+    "diaChi": "824 Đường PPLU0, Đà Nẵng",
+    "ngaySinh": "06/10/1994",
+    "ngayVaoLam": "09/06/2022"
+  },
+  {
+    "tenNhanVien": "Vũ Quốc Bình",
+    "maNhanVien": "NV8SGYFM",
+    "soDienThoai": "0646633356",
+    "soCCCD": "428250686724",
+    "diaChi": "475 Đường ODGK1, Hải Phòng",
+    "ngaySinh": "27/08/1987",
+    "ngayVaoLam": "10/03/2016"
+  },
+  {
+    "tenNhanVien": "Huỳnh Hồng Mai",
+    "maNhanVien": "NVF9852A",
+    "soDienThoai": "0232908592",
+    "soCCCD": "786543742360",
+    "diaChi": "745 Đường DCJXV, Hà Nội",
+    "ngaySinh": "05/06/1984",
+    "ngayVaoLam": "21/08/2022"
+  }
+]

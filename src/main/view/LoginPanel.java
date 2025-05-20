@@ -17,13 +17,11 @@ package view;
 //
 //    public LoginPanel(MainFrame mainFrame) {
 
- import controller.IController;
- import model.data.FormatAccounts;
- import model.data.ReadFileJson;
+ import data.FormatAccounts;
+ import data.ReadFileJson;
  
  import javax.swing.*;
  import java.awt.*;
- import java.io.FileNotFoundException;
  import java.util.List;
 
 public class LoginPanel extends JPanel {

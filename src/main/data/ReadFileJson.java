@@ -1,4 +1,4 @@
-package model.data;
+package data;
 import com.google.gson.Gson;
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,7 +13,7 @@ public class ReadFileJson {
     public static List<FormatAccounts> readFileJSON() {
         List<FormatAccounts> formatAccountsList = new ArrayList<>();
         try {
-            String path = Paths.get("src", "main", "model", "data", "listaccounts.json").toString();
+            String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
             Gson gson = new Gson();
             FileReader fileReader = new FileReader(path);
             Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
