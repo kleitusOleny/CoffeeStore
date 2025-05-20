@@ -1,4 +1,4 @@
-package model.data;
+package data;
 
 import java.io.IOException;
 
