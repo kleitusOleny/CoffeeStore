@@ -9,7 +9,7 @@ import model.customer_system.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainSystem implements Subject{
+public class MainSystem implements Subject,IModel{
     private List<Observer> listObsever;
     private EmployeeSystem empSys;
     private OrderSystem orderSystem;
@@ -40,5 +40,37 @@ public class MainSystem implements Subject{
     
     public void setListObsever(List<Observer> listObsever) {
         this.listObsever = listObsever;
+    }
+    
+    public EmployeeSystem getEmployeeSystem() {
+        return empSys;
+    }
+    
+    public void setEmpSys(EmployeeSystem empSys) {
+        this.empSys = empSys;
+    }
+    
+    public OrderSystem getOrderSystem() {
+        return orderSystem;
+    }
+    
+    public void setOrderSystem(OrderSystem orderSystem) {
+        this.orderSystem = orderSystem;
+    }
+    
+    public ReservationSystem getReservationSystem() {
+        return reservationSystem;
+    }
+    
+    public void setReservationSystem(ReservationSystem reservationSystem) {
+        this.reservationSystem = reservationSystem;
+    }
+    
+    public CustomerSystem getCustomerSystem() {
+        return customerSystem;
+    }
+    
+    public void setCustomerSystem(CustomerSystem customerSystem) {
+        this.customerSystem = customerSystem;
     }
 }

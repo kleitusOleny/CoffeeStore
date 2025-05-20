@@ -6,7 +6,7 @@ import java.util.List;
 public class ReservationSystem {
     private List<Reservation> listReser;
 
-    public ReservationSystem(List<Reservation> listReser) {
+    public ReservationSystem() {
         this.listReser = new ArrayList<>();
     }
 

@@ -1,13 +1,14 @@
 package model.order_system;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderSystem {
     private List<Order> listStoreOrder;
     //private Queue<Order> queueStoreOrder;   --It's needed?
 
-    public OrderSystem(List<Order> listStoreOrder) {
-        this.listStoreOrder = listStoreOrder;
+    public OrderSystem() {
+        this.listStoreOrder = new ArrayList<>();
     }
 
     public double stateOrder(){
