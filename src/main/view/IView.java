@@ -7,4 +7,5 @@ public interface IView {
     public IView getView();
     public void showPanel(String namePanel);
     public LoginPanel getLoginPanel();
+    
 }

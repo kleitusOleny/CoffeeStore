@@ -22,6 +22,8 @@ public class MainController implements IController{
         loginController = new LoginController(model.getLoginModel(), view.getLoginPanel());
     }
     
+    
+    
     public void run(){
         loginController.Login();
     }
