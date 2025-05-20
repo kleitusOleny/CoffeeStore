@@ -1,11 +1,15 @@
 package view;
 
+import controller.IController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class LoginPanel extends JPanel {
-
-    public LoginPanel(MainFrame mainFrame) {
+    private IController controller;
+    public LoginPanel(MainFrame mainFrame,IController controller) {
+        this.controller = controller;
         setLayout(new BorderLayout());
 
         // Panel trái - chiếm 1/3 chiều rộng
@@ -140,6 +144,17 @@ public class LoginPanel extends JPanel {
                 revalidate();
             }
         });
+
+        loginBtn.addActionListener(e ->{
+            String username = userField.getText().trim();
+            String password = new String(passField.getPassword()).trim();
+            try {
+                controller.handleLogin(username,password);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
 
     }
 }
