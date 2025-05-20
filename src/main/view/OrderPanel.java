@@ -26,6 +26,18 @@ public class OrderPanel extends JPanel{
 
     }
 
+    public JButton getCafe() {
+        return cafe;
+    }
+
+    public JButton getTea() {
+        return tea;
+    }
+
+    public JButton getTopping() {
+        return topping;
+    }
+
     private JPanel createOrderBillPanel() {
         orderBillPanel = new JPanel();
         orderBillPanel.setLayout(new BorderLayout());
@@ -36,9 +48,6 @@ public class OrderPanel extends JPanel{
         title.setFont(new Font("Arial", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
-//        JList<String> orderList = new JList<>(orderListModel);
-//        JScrollPane scrollPane = new JScrollPane(orderList);
-//        orderBillPanel.add(scrollPane, BorderLayout.CENTER);
         orderItemsPanel = new JPanel();
         orderItemsPanel.setLayout(new BoxLayout(orderItemsPanel, BoxLayout.Y_AXIS));
         orderItemsPanel.setBackground(Color.WHITE);
