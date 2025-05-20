@@ -8,6 +8,7 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel;
 
     public static final String LOGIN = "login";
+    public static final String EMPLOYEE = "employee";
     public static final String MANAGER = "manager";
 
     public MainFrame() {
@@ -19,10 +20,12 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         LoginPanel loginPanel = new LoginPanel(this);
-        ManagerPanel managerPanel = new ManagerPanel();
+        EmployeePanel managerPanel = new EmployeePanel();
+        ManagerPanel managerPanel1 = new ManagerPanel();
 
         mainPanel.add(loginPanel, LOGIN);
-        mainPanel.add(managerPanel, MANAGER);
+        mainPanel.add(managerPanel, EMPLOYEE);
+        mainPanel.add(managerPanel1, MANAGER);
 
         add(mainPanel);
         cardLayout.show(mainPanel, LOGIN);
