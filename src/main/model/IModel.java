@@ -5,6 +5,7 @@ import model.customer_system.CustomerSystem;
 import model.employee_system.EmployeeSystem;
 import model.order_system.OrderSystem;
 import model.reservation_system.ReservationSystem;
+import utils.LoginModel;
 
 public interface IModel {
     public CustomerSystem getCustomerSystem();
@@ -13,4 +14,5 @@ public interface IModel {
     public ReservationSystem getReservationSystem();
     
     public String validateUser(String userName,String password);
+    public LoginModel getLoginModel();
 }
