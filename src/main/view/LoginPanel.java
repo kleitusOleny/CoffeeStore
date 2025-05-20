@@ -136,7 +136,12 @@ public class LoginPanel extends JPanel {
 
             for (FormatAccounts accounts : accountsList) {
                 if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
-                    mainFrame.showPanel(MainFrame.MANAGER);
+                    if (accounts.getRole().equals("Manager")){
+                        mainFrame.showPanel(MainFrame.MANAGER);
+                    }else{
+                        mainFrame.showPanel(MainFrame.EMPLOYEE);
+                    }
+                    
                     return;
                 }
 

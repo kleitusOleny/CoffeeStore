@@ -21,17 +21,17 @@ public class MenuEditorPanel extends JPanel{
 
         // Dummy drink data
         drinkData.add(new String[][]{
-                {"Cà phê đen", "25000", "src/image/coffee.png"},
-                {"Bạc xỉu", "22000", "src/image/milkcoffee.png"},
-                {"Expresso", "28000", "src/image/expresso.png"}
+                {"Cà phê đen", "25000", "src\\main\\image\\coffee.png"},
+                {"Bạc xỉu", "22000", "src\\main\\image\\milkcoffee.png"},
+                {"Expresso", "28000", "src\\main\\image\\expresso.png"}
         });
         drinkData.add(new String[][]{
-                {"Trà đào", "30000", "src/image/peachtea.png"},
-                {"Trà sữa", "32000", "src/image/milktea.png"}
+                {"Trà đào", "30000", "src\\main\\image\\peachtea.png"},
+                {"Trà sữa", "32000", "src\\main\\image\\milktea.png"}
         });
         drinkData.add(new String[][]{
-                {"Trân châu", "5000", "src/image/boba.png"},
-                {"Kem cheese", "6000", "src/image/creamcheese.png"}
+                {"Trân châu", "5000", "src\\main\\image\\boba.png"},
+                {"Kem cheese", "6000", "src\\main\\image\\creamcheese.png"}
         });
 
         add(createMainPanel(), BorderLayout.CENTER);
@@ -72,7 +72,7 @@ public class MenuEditorPanel extends JPanel{
 
         addButton = createMenuButton("Thêm đồ uống");
         addButton.setPreferredSize(new Dimension(200, 40));
-        ImageIcon iconAdd = new ImageIcon("src\\image\\add.png");
+        ImageIcon iconAdd = new ImageIcon("src\\main\\image\\add.png");
         Image image1 = iconAdd.getImage();
         Image newImage1 = image1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon1 = new ImageIcon(newImage1);
@@ -204,10 +204,10 @@ public class MenuEditorPanel extends JPanel{
         gbc.gridx = 0; gbc.gridy = 2;
         dialog.add(new JLabel("Hình ảnh:"), gbc);
         JComboBox<String> imageCombo = new JComboBox<>(new String[] {
-                "src/image/coffee.png", "src/image/milkcoffee.png",
-                "src/image/expresso.png", "src/image/peachtea.png",
-                "src/image/milktea.png", "src/image/boba.png",
-                "src/image/creamcheese.png"
+                "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
+                "src\\main\\image\\expresso.png", "src\\main\\image\\peachtea.png",
+                "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
+                "src\\main\\image\\creamcheese.png"
         });
         imageCombo.setSelectedItem(drinkInfo[2]);
         gbc.gridx = 1;
@@ -289,7 +289,7 @@ public class MenuEditorPanel extends JPanel{
 
         // Thêm icon tìm kiếm
         try {
-            ImageIcon iconAdd = new ImageIcon("src\\image\\search.png");
+            ImageIcon iconAdd = new ImageIcon("src\\main\\image\\search.png");
             Image image = iconAdd.getImage();
             Image newImage = image.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
             ImageIcon icon1 = new ImageIcon(newImage);
@@ -320,10 +320,10 @@ public class MenuEditorPanel extends JPanel{
         JTextField priceField = new JTextField();
         JComboBox<String> typeBox = new JComboBox<>(types);
         JComboBox<String> imageBox = new JComboBox<>(new String[]{
-                "src/image/coffee.png", "src/image/milkcoffee.png",
-                "src/image/expresso.png", "src/image/peachtea.png",
-                "src/image/milktea.png", "src/image/boba.png",
-                "src/image/creamcheese.png", "src/image/flan.png"
+                "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
+                "src\\main\\image\\expresso.png", "src\\main\\image\\peachtea.png",
+                "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
+                "src\\main\\image\\creamcheese.png", "src\\main\\image\\flan.png"
         });
 
         dialog.add(new JLabel("Tên đồ uống:"));
