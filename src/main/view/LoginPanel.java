@@ -42,8 +42,9 @@ public class LoginPanel extends JPanel {
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
         logoLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
-        ImageIcon logoIcon = new ImageIcon("src/main/java/Icon/logo-fit.png");
-        logoLabel.setIcon(logoIcon);
+         ImageIcon logoIcon = new ImageIcon("src\\main\\image\\avatar.png");
+         Image scaledImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // đổi kích thước tùy ý
+         logoLabel.setIcon(new ImageIcon(scaledImage));
         
         // Dòng chào
         JLabel welcomeLabel = new JLabel("Welcome!");
