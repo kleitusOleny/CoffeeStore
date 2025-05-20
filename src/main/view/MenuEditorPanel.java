@@ -71,10 +71,10 @@ public class MenuEditorPanel extends JPanel{
         JPanel searchPanel = createSearchBoxWithButton();
 
         addButton = createMenuButton("Thêm đồ uống");
-        addButton.setPreferredSize(new Dimension(200, 40));
+        addButton.setPreferredSize(new Dimension(200, 30));
         ImageIcon iconAdd = new ImageIcon("src\\main\\image\\add.png");
         Image image1 = iconAdd.getImage();
-        Image newImage1 = image1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image newImage1 = image1.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         ImageIcon icon1 = new ImageIcon(newImage1);
         addButton.setIcon(icon1);
         addButton.addActionListener(e -> openAddDrinkDialog());
@@ -106,8 +106,8 @@ public class MenuEditorPanel extends JPanel{
 
     private JButton createDrinkButton(String name, String priceStr, String imagePath, String[] drinkInfo, int index) {
         JButton btn = createDrinkBtn(" ");
-        btn.setPreferredSize(new Dimension(200, 200)); // hình vuông
-        btn.setMaximumSize(new Dimension(200, 200));
+        btn.setPreferredSize(new Dimension(140, 180)); // hình vuông
+        btn.setMaximumSize(new Dimension(100, 100));
         btn.setLayout(new BorderLayout());
         btn.setBackground(new Color(255, 245, 204));
 
@@ -124,26 +124,36 @@ public class MenuEditorPanel extends JPanel{
 
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
         nameLabel.setFont(new Font("Roboto", Font.BOLD, 30));
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         JLabel priceLabel = new JLabel(priceStr + "đ", JLabel.CENTER);
         priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel infoPanel = new JPanel(new GridLayout(2, 1));
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
-        infoPanel.add(nameLabel);
-        infoPanel.add(priceLabel);
 
-        btn.add(infoPanel, BorderLayout.CENTER);
 
         //  Thêm chức năng khi bấm nút
         deleteBtn = createMenuButton("");
         deleteBtn.setForeground(Color.RED);
+        deleteBtn.setPreferredSize(new Dimension(24, 24)); // Kích thước cố định
+        deleteBtn.setMaximumSize(new Dimension(24, 24));
+        deleteBtn.setContentAreaFilled(false);
+        deleteBtn.setBorderPainted(false);
+        deleteBtn.setFocusPainted(false);
+        deleteBtn.setOpaque(false);
+        deleteBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         ImageIcon iconRemove = new ImageIcon("src\\main\\image\\rubbish-bin.png");
         Image image2 = iconRemove.getImage();
-        Image newImage2 = image2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        Image newImage2 = image2.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(newImage2);
         deleteBtn.setIcon(icon2);
-        deleteBtn.setMargin(new Insets(2, 5, 2, 5));
+//        deleteBtn.setMargin(new Insets(2, 5, 2, 5));
+        deleteBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         deleteBtn.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(this, "Xác nhận xóa món này?", "Xóa", JOptionPane.YES_NO_OPTION);
@@ -157,19 +167,16 @@ public class MenuEditorPanel extends JPanel{
                         drinkData.set(i, list.toArray(new String[0][0]));
                     }
                 }
-
-                // Cập nhật UI
-                cardPanel.removeAll();
-                for (int i = 0; i < types.length; i++) {
-                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
-                }
-                cardPanel.revalidate();
-                cardPanel.repaint();
+               refreshCardPanel();
             }
-
         });
 
-        btn.add(deleteBtn, BorderLayout.SOUTH);
+        infoPanel.add(nameLabel);
+        infoPanel.add(priceLabel);
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(deleteBtn);
+
+        btn.add(infoPanel, BorderLayout.CENTER);
 
         // chuc nang sua thong tin mon
         btn.addActionListener(e -> openEditDrinkDialog(drinkInfo, index));
