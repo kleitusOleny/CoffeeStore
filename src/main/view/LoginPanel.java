@@ -3,22 +3,17 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginFrame extends JFrame {
+public class LoginPanel extends JPanel {
 
-    public LoginFrame() {
-        setTitle("Đăng Nhập");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+    public LoginPanel(MainFrame mainFrame) {
         setLayout(new BorderLayout());
 
-        // Panel trái - chiếm 1/3 chiều rộng frame
+        // Panel trái - chiếm 1/3 chiều rộng
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(162, 120, 90)); // nâu
         leftPanel.setLayout(new BorderLayout());
 
-        // Logo ở đầu panel trái
+        // Logo
         JLabel logoLabel = new JLabel();
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -26,29 +21,28 @@ public class LoginFrame extends JFrame {
         ImageIcon logoIcon = new ImageIcon("src/main/java/Icon/logo-fit.png");
         logoLabel.setIcon(logoIcon);
 
-        // Dòng chào mừng
+        // Dòng chào
         JLabel welcomeLabel = new JLabel("Welcome!");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
-        // Thêm logo và dòng chữ vào panel trái
-        JPanel topLeftPanel = new JPanel();
-        topLeftPanel.setLayout(new BorderLayout());
+        // Gộp logo và dòng chào
+        JPanel topLeftPanel = new JPanel(new BorderLayout());
         topLeftPanel.setOpaque(false);
         topLeftPanel.add(logoLabel, BorderLayout.NORTH);
         topLeftPanel.add(welcomeLabel, BorderLayout.CENTER);
         leftPanel.add(topLeftPanel, BorderLayout.NORTH);
 
-        // Panel phải (form đăng nhập)
+        // Panel phải (form)
         JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setBackground(new Color(255, 239, 201)); // kem
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 30, 15, 30);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Tiêu đề "Đăng Nhập"
+        // Tiêu đề
         JLabel titleLabel = new JLabel("Đăng Nhập");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 42));
         titleLabel.setForeground(Color.BLACK);
@@ -95,11 +89,11 @@ public class LoginFrame extends JFrame {
         passField.setGradientColors(new Color(200, 200, 200), new Color(180, 180, 180));
         rightPanel.add(passField, gbc);
 
-        // Nút Đăng Nhập
+        // Nút đăng nhập
         gbc.gridy++;
         CustomButton loginBtn = new CustomButton("Đăng Nhập");
         loginBtn.setPreferredSize(new Dimension(400, 55));
-        loginBtn.setBackgroundColor(new Color(243, 170, 108)); // cam nhạt
+        loginBtn.setBackgroundColor(new Color(243, 170, 108));
         loginBtn.setTextColor(Color.BLACK);
         loginBtn.setHoverColor(new Color(255, 200, 130));
         loginBtn.setBorderRadius(30);
@@ -109,19 +103,39 @@ public class LoginFrame extends JFrame {
         loginBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rightPanel.add(loginBtn, gbc);
 
-        // Gộp vào frame
+        // Sự kiện đăng nhập
+        loginBtn.addActionListener(e -> {
+            String username = userField.getText().trim();
+            String password = new String(passField.getPassword()).trim();
+
+            if (username.equals("nhanvien") && password.equals("123")) {
+                mainFrame.showPanel(MainFrame.MANAGER);
+            } else {
+                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.CENTER);
 
-        // Đặt lại kích thước panel trái sau khi frame đã có kích thước
-        SwingUtilities.invokeLater(() -> {
-            int frameWidth = getWidth();
-            leftPanel.setPreferredSize(new Dimension(frameWidth / 3, getHeight()));
-            revalidate();
+//        // Cập nhật kích thước panel trái
+//        SwingUtilities.invokeLater(() -> {
+//            int panelWidth = getWidth();
+//            leftPanel.setPreferredSize(new Dimension(panelWidth / 3, getHeight()));
+//            revalidate();
+//        });
+        // Lắng nghe thay đổi kích thước để luôn giữ leftPanel = 1/3 chiều rộng
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                int panelWidth = getWidth();
+                int panelHeight = getHeight();
+                leftPanel.setPreferredSize(new Dimension(panelWidth / 3, panelHeight));
+                revalidate();
+            }
         });
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true));
     }
 }

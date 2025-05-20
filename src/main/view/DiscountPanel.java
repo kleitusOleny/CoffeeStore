@@ -17,8 +17,8 @@ public class DiscountPanel extends JPanel {
     public DiscountPanel() {
         setLayout(new BorderLayout());
 
-        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel();
-        add(menuPanel, BorderLayout.WEST);
+//        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel();
+//        add(menuPanel, BorderLayout.WEST);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
