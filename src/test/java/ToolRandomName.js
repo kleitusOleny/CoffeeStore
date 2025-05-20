@@ -54,7 +54,7 @@ function generateEmployee() {
 // Hàm chạy và in kết quả
 function toolRandomName(count = 10) {
     const employees = Array.from({ length: count }, () => generateEmployee());
-    const filePath = path.join(__dirname, '..', '..', 'main', 'model', 'data', 'listname.json')
+    const filePath = path.join(__dirname, '..', '..', 'main', 'data', 'listname.json')
     fs.writeFileSync(filePath, JSON.stringify(employees, null, 2), 'utf-8')
     console.log("Đã tạo thông tin ngẫu nhiên thành công");
 }
