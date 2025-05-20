@@ -10,7 +10,8 @@ import java.awt.*;
 public class MainFrame extends JFrame implements IView{
     private CardLayout cardLayout;
     private JPanel mainPanel;
-
+    private LoginPanel loginPanel;
+    
     public static final String LOGIN = "login";
     public static final String EMPLOYEE = "employee";
     public static final String MANAGER = "manager";
@@ -26,7 +27,7 @@ public class MainFrame extends JFrame implements IView{
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        LoginPanel loginPanel = new LoginPanel(this);
+        loginPanel = new LoginPanel(this);
         EmployeePanel managerPanel = new EmployeePanel();
         ManagerPanel managerPanel1 = new ManagerPanel();
 
@@ -51,7 +52,14 @@ public class MainFrame extends JFrame implements IView{
     public IView getView() {
         return this;
     }
+
     public void logOut() {
         showPanel(LOGIN);
+}
+
+    
+    public LoginPanel getLoginPanel() {
+        return loginPanel;
+
     }
 }

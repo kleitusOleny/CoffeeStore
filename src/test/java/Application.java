@@ -20,5 +20,6 @@ public class Application {
         IModel model = new MainSystem(employeeSystem,orderSystem,reservationSystem,customerSystem);
         IView view = new MainFrame();
         IController controller = new MainController(model,view);
+        controller.run();
     }
 }

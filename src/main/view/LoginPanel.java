@@ -2,19 +2,21 @@ package view;
 
 import data.FormatAccounts;
 import data.ReadFileJson;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionListener;
+ import java.util.List;
 
 public class LoginPanel extends JPanel {
+    public CustomButton loginBtn;
+    public CustomTextField userField;
+    public CustomPasswordField passField;
     public List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
-    public JTextField userField;
-    public JPasswordField passField;
-    public MainFrame mainFrame;
+    public MainFrame frame;
+     public LoginPanel(MainFrame mainFrame) {
+         this.frame = mainFrame;
 
-    public LoginPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         JPanel leftPanel = buildLeftPanel();
@@ -86,7 +88,9 @@ public class LoginPanel extends JPanel {
 
         gbc.gridy++;
         userField = new CustomTextField(20);
+
         setupInputField(userField);
+
         rightPanel.add(userField, gbc);
 
         gbc.gridy++;
@@ -96,7 +100,9 @@ public class LoginPanel extends JPanel {
 
         gbc.gridy++;
         passField = new CustomPasswordField(20);
+
         setupInputField(passField);
+
         rightPanel.add(passField, gbc);
 
         gbc.gridy++;
@@ -140,6 +146,7 @@ public class LoginPanel extends JPanel {
         loginBtn.addActionListener(e -> handleLogin());
     }
 
+
     private void handleLogin() {
         String username = userField.getText().trim();
         String password = new String(passField.getPassword()).trim();
@@ -153,9 +160,19 @@ public class LoginPanel extends JPanel {
                 }
                 return;
             }
+
         }
 
         JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
                 "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+        });
+        
+    }
+    public void setLoginListener(ActionListener actionListener) {
+        loginBtn.addActionListener(actionListener);
+    }
+    
+    public MainFrame getMainFrame() {
+        return frame;
     }
 }
