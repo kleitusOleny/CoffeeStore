@@ -1,9 +1,13 @@
 package view;
 
+import controller.IController;
+import controller.MainController;
+import model.MainSystem;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements IView{
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
@@ -12,6 +16,8 @@ public class MainFrame extends JFrame {
     public static final String MANAGER = "manager";
 
     public MainFrame() {
+        MainSystem mainSystem = new MainSystem();
+
         setTitle("Ứng dụng quản lý");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -38,5 +44,10 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame());
+    }
+    
+    @Override
+    public IView getView() {
+        return this;
     }
 }

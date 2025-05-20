@@ -6,22 +6,29 @@ import model.employee_system.*;
 import model.reservation_system.*;
 import model.customer_system.Observer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
-public class MainSystem implements Subject{
+public class MainSystem implements Subject,IModel{
+
     private List<Observer> listObsever;
     private EmployeeSystem empSys;
     private OrderSystem orderSystem;
     private ReservationSystem reservationSystem;
     private CustomerSystem customerSystem;
-    
+    private static final String FILE_PATH = "users.txt";
     public MainSystem(EmployeeSystem empSys, OrderSystem orderSystem, ReservationSystem reservationSystem, CustomerSystem customerSystem) {
         this.listObsever = new ArrayList<Observer>();
         this.empSys = empSys;
         this.orderSystem = orderSystem;
         this.reservationSystem = reservationSystem;
         this.customerSystem = customerSystem;
+    }
+
+    public MainSystem() {
     }
 
     @Override
@@ -40,5 +47,62 @@ public class MainSystem implements Subject{
     
     public void setListObsever(List<Observer> listObsever) {
         this.listObsever = listObsever;
+    }
+
+
+    public String validateUser(String userName, String password) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String fileUser = parts[0].trim();
+                    String filePass = parts[1].trim();
+                    String role = parts[2].trim();
+                    if (fileUser.equals(userName) && filePass.equals(password)) {
+                        return role;// tra ve role employee or mananger
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        
+        return null;// sai username hoac password
+    }
+
+    
+    public EmployeeSystem getEmployeeSystem() {
+        return empSys;
+    }
+    
+    public void setEmpSys(EmployeeSystem empSys) {
+        this.empSys = empSys;
+    }
+    
+    public OrderSystem getOrderSystem() {
+        return orderSystem;
+    }
+    
+    public void setOrderSystem(OrderSystem orderSystem) {
+        this.orderSystem = orderSystem;
+    }
+    
+    public ReservationSystem getReservationSystem() {
+        return reservationSystem;
+    }
+    
+    public void setReservationSystem(ReservationSystem reservationSystem) {
+        this.reservationSystem = reservationSystem;
+    }
+    
+    public CustomerSystem getCustomerSystem() {
+        return customerSystem;
+    }
+    
+    public void setCustomerSystem(CustomerSystem customerSystem) {
+        this.customerSystem = customerSystem;
+
     }
 }

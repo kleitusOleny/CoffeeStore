@@ -52,7 +52,7 @@ public class TablePanel extends JPanel {
 
         EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
         add(topPanel, BorderLayout.NORTH);
-        add(managerMenuPanel, BorderLayout.WEST);
+//        add(managerMenuPanel, BorderLayout.WEST);
         add(scrollPane, BorderLayout.CENTER);
     }
 

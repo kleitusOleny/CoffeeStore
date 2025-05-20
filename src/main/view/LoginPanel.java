@@ -1,18 +1,42 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+
+//import controller.IController;
+//import model.data.FormatAccounts;
+//import com.google.gson.Gson;
+//import model.data.ReadFileJson;
+//
+//import javax.swing.*;
+//import java.awt.*;
+//import java.io.FileNotFoundException;
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class LoginPanel extends JPanel {
+//
+//
+//    public LoginPanel(MainFrame mainFrame) {
+
+ import controller.IController;
+ import model.data.FormatAccounts;
+ import model.data.ReadFileJson;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.io.FileNotFoundException;
+ import java.util.List;
 
 public class LoginPanel extends JPanel {
+     List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
+     public LoginPanel(MainFrame mainFrame) {
 
-    public LoginPanel(MainFrame mainFrame) {
         setLayout(new BorderLayout());
-
+        
         // Panel trái - chiếm 1/3 chiều rộng
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(162, 120, 90)); // nâu
         leftPanel.setLayout(new BorderLayout());
-
+        
         // Logo
         JLabel logoLabel = new JLabel();
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -20,28 +44,28 @@ public class LoginPanel extends JPanel {
         logoLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
         ImageIcon logoIcon = new ImageIcon("src/main/java/Icon/logo-fit.png");
         logoLabel.setIcon(logoIcon);
-
+        
         // Dòng chào
         JLabel welcomeLabel = new JLabel("Welcome!");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-
+        
         // Gộp logo và dòng chào
         JPanel topLeftPanel = new JPanel(new BorderLayout());
         topLeftPanel.setOpaque(false);
         topLeftPanel.add(logoLabel, BorderLayout.NORTH);
         topLeftPanel.add(welcomeLabel, BorderLayout.CENTER);
         leftPanel.add(topLeftPanel, BorderLayout.NORTH);
-
+        
         // Panel phải (form)
         JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setBackground(new Color(255, 239, 201)); // kem
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 30, 15, 30);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
+        
         // Tiêu đề
         JLabel titleLabel = new JLabel("Đăng Nhập");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 42));
@@ -51,14 +75,14 @@ public class LoginPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         rightPanel.add(titleLabel, gbc);
-
+        
         // Tên đăng nhập
         gbc.gridy++;
         gbc.anchor = GridBagConstraints.WEST;
         JLabel userLabel = new JLabel("Tên đăng nhập:");
         userLabel.setFont(new Font("Arial", Font.BOLD, 18));
         rightPanel.add(userLabel, gbc);
-
+        
         gbc.gridy++;
         CustomTextField userField = new CustomTextField(20);
         userField.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -70,13 +94,13 @@ public class LoginPanel extends JPanel {
         userField.setBorderThickness(2);
         userField.setGradientColors(new Color(200, 200, 200), new Color(180, 180, 180));
         rightPanel.add(userField, gbc);
-
+        
         // Mật khẩu
         gbc.gridy++;
         JLabel passLabel = new JLabel("Mật khẩu:");
         passLabel.setFont(new Font("Arial", Font.BOLD, 18));
         rightPanel.add(passLabel, gbc);
-
+        
         gbc.gridy++;
         CustomPasswordField passField = new CustomPasswordField(20);
         passField.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -88,7 +112,7 @@ public class LoginPanel extends JPanel {
         passField.setBorderThickness(2);
         passField.setGradientColors(new Color(200, 200, 200), new Color(180, 180, 180));
         rightPanel.add(passField, gbc);
-
+        
         // Nút đăng nhập
         gbc.gridy++;
         CustomButton loginBtn = new CustomButton("Đăng Nhập");
@@ -102,23 +126,38 @@ public class LoginPanel extends JPanel {
         loginBtn.setGradientColors(new Color(255, 200, 130), new Color(243, 170, 108));
         loginBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rightPanel.add(loginBtn, gbc);
-
+        
         // Sự kiện đăng nhập
         // Sự kiện đăng nhập
         loginBtn.addActionListener(e -> {
             String username = userField.getText().trim();
             String password = new String(passField.getPassword()).trim();
 
-            if (username.equals("nhanvien") && password.equals("123")) {
-                mainFrame.showPanel(MainFrame.EMPLOYEE);
-            } else if (username.equals("quanly") && password.equals("123")) {
-                mainFrame.showPanel(MainFrame.MANAGER);
-            } else {
-                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
-                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+            for (FormatAccounts accounts : accountsList) {
+                if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
+                    mainFrame.showPanel(MainFrame.MANAGER);
+                    return;
+                }
 
+
+//             if (username.equals("nhanvien") && password.equals("123")) {
+//                 mainFrame.showPanel(MainFrame.EMPLOYEE);
+//             } else if (username.equals("quanly") && password.equals("123")) {
+//                 mainFrame.showPanel(MainFrame.MANAGER);
+//             } else {
+//                 JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+//                         "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+
+            }
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+                    "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+//            if (username.equals("nhanvien") && password.equals("123")) {
+//                mainFrame.showPanel(MainFrame.MANAGER);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+//                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+//            }
+        });
 
         // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
@@ -141,5 +180,18 @@ public class LoginPanel extends JPanel {
             }
         });
 
+
+//        loginBtn.addActionListener(e ->{
+//            String username = userField.getText().trim();
+//            String password = new String(passField.getPassword()).trim();
+//            try {
+//                controller.handleLogin(username,password);
+//            } catch (FileNotFoundException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        });
     }
+    
 }
+
+

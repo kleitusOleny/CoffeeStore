@@ -44,10 +44,12 @@ public class DiscountPanel extends JPanel {
 
         JPanel rightSearchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         rightSearchPanel.setBackground(new Color(255, 235, 238));
+
         JPanel searchBoxPanel = createSearchBoxWithButton();
         searchBoxPanel.setOpaque(false); // để đồng bộ màu nền
 
         rightSearchPanel.add(searchBoxPanel);
+
 
 
         topButtonPanel.add(leftButtonPanel, BorderLayout.WEST);
@@ -158,6 +160,7 @@ public class DiscountPanel extends JPanel {
 
         // Sự kiện tìm kiếm
 //        searchButton.addActionListener(e -> performSearch());
+
     }
 
     private CustomButton createTopButton(String text) {
@@ -260,6 +263,7 @@ public class DiscountPanel extends JPanel {
         return sorter;
     }
 
+
     // Custom renderer và editor giữ nguyên như cũ...
     private static class CustomCheckBoxRenderer extends JPanel implements TableCellRenderer {
         private CustomCheckBox checkBox;
@@ -350,7 +354,6 @@ public class DiscountPanel extends JPanel {
 
         return panel;
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Khuyến Mãi");

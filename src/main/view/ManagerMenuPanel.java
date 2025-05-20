@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ManagerMenuPanel extends JPanel {
+public class ManagerMenuPanel extends JPanel{
     public CustomButton datMon, datBan, apDungKM, thanhToan, dangXuat;
     private CustomButton selectedButton = null;
 
@@ -140,6 +140,7 @@ public class ManagerMenuPanel extends JPanel {
         button.setSelected(true);               // Chọn nút hiện tại
         selectedButton = button;
     }
-
-
+    
+    
+    
 }
