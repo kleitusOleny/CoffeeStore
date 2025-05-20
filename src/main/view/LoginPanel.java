@@ -104,21 +104,21 @@ public class LoginPanel extends JPanel {
         rightPanel.add(loginBtn, gbc);
 
         // Sự kiện đăng nhập
+        // Sự kiện đăng nhập
         loginBtn.addActionListener(e -> {
             String username = userField.getText().trim();
             String password = new String(passField.getPassword()).trim();
 
             if (username.equals("nhanvien") && password.equals("123")) {
                 mainFrame.showPanel(MainFrame.EMPLOYEE);
-            }
-            if (username.equals("quanly")&&password.equals("123")){
+            } else if (username.equals("quanly") && password.equals("123")) {
                 mainFrame.showPanel(MainFrame.MANAGER);
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
                         "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
             }
         });
+
 
         // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
