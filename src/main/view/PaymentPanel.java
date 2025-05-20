@@ -157,19 +157,19 @@ public class PaymentPanel extends JPanel {
         Font checkFont = new Font("SansSerif", Font.PLAIN, 16);
         Dimension checkSize = new Dimension(150, 30);
 
-         cash = new CustomCheckBox("Tiền mặt");
+        cash = new CustomCheckBox("Tiền mặt");
         cash.setFont(checkFont);
         cash.setPreferredSize(checkSize);
         cash.setCheckColor(new Color(255, 167, 38));
         cash.setHoverColor(new Color(255, 224, 178));
 
-         card = new CustomCheckBox("Thẻ tín dụng");
+        card = new CustomCheckBox("Thẻ tín dụng");
         card.setFont(checkFont);
         card.setPreferredSize(checkSize);
         card.setCheckColor(new Color(255, 167, 38));
         card.setHoverColor(new Color(255, 224, 178));
 
-         bank = new CustomCheckBox("Chuyển khoản");
+        bank = new CustomCheckBox("Chuyển khoản");
         bank.setFont(checkFont);
         bank.setPreferredSize(checkSize);
         bank.setCheckColor(new Color(255, 167, 38));
@@ -190,7 +190,7 @@ public class PaymentPanel extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setOpaque(false);
 
-         confirmBtn = new CustomButton("XÁC NHẬN THANH TOÁN");
+        confirmBtn = new CustomButton("XÁC NHẬN THANH TOÁN");
         confirmBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
         confirmBtn.setPreferredSize(new Dimension(250, 45));
         confirmBtn.setBackgroundColor(new Color(236, 177, 118));
@@ -214,7 +214,7 @@ public class PaymentPanel extends JPanel {
             content.repaint();
         });
 
-         invoiceBtn = new CustomButton("In hóa đơn");
+        invoiceBtn = new CustomButton("In hóa đơn");
         invoiceBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
         invoiceBtn.setPreferredSize(new Dimension(250, 45));
         invoiceBtn.setBackgroundColor(new Color(255, 255, 255));
@@ -248,12 +248,29 @@ public class PaymentPanel extends JPanel {
         return label;
     }
 
-    public JLabel getTenLabel() { return tenLabel; }
-    public JLabel getSdtLabel() { return sdtLabel; }
-    public JLabel getTrangThaiLabel() { return trangThaiLabel; }
-    public JLabel getBanLabel() { return banLabel; }
-    public JLabel getGiamGiaLabel() { return giamGiaLabel; }
-    public JLabel getTongTienLabel() { return tongTienLabel; }
+    public JLabel getTenLabel() {
+        return tenLabel;
+    }
+
+    public JLabel getSdtLabel() {
+        return sdtLabel;
+    }
+
+    public JLabel getTrangThaiLabel() {
+        return trangThaiLabel;
+    }
+
+    public JLabel getBanLabel() {
+        return banLabel;
+    }
+
+    public JLabel getGiamGiaLabel() {
+        return giamGiaLabel;
+    }
+
+    public JLabel getTongTienLabel() {
+        return tongTienLabel;
+    }
 
     public JButton getHistoryButton() {
         return historyButton;
