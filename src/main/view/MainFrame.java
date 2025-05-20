@@ -20,6 +20,7 @@ public class MainFrame extends JFrame implements IView{
 
         setTitle("Ứng dụng quản lý");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setMinimumSize(new Dimension(1000,700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         cardLayout = new CardLayout();
