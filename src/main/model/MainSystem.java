@@ -50,10 +50,10 @@ public class MainSystem implements Subject,IModel{
     }
 
 
-    public String validateUser(String userName, String password) throws FileNotFoundException {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))){
-            String line ;
-            while((line = br.readLine()) != null){
+    public String validateUser(String userName, String password) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
                     String fileUser = parts[0].trim();
@@ -67,9 +67,10 @@ public class MainSystem implements Subject,IModel{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
+        
+        
         return null;// sai username hoac password
+    }
 
     
     public EmployeeSystem getEmployeeSystem() {

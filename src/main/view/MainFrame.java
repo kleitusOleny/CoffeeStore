@@ -1,6 +1,7 @@
 package view;
 
 import controller.IController;
+import controller.MainController;
 import model.MainSystem;
 
 import javax.swing.*;
@@ -16,7 +17,6 @@ public class MainFrame extends JFrame implements IView{
 
     public MainFrame() {
         MainSystem mainSystem = new MainSystem();
-        IController controller = new IController(this,mainSystem);
 
         setTitle("Ứng dụng quản lý");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -25,7 +25,7 @@ public class MainFrame extends JFrame implements IView{
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        LoginPanel loginPanel = new LoginPanel(this, controller);
+        LoginPanel loginPanel = new LoginPanel(this);
         EmployeePanel managerPanel = new EmployeePanel();
         ManagerPanel managerPanel1 = new ManagerPanel();
 
