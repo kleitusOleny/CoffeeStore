@@ -6,19 +6,21 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// ... Các import giữ nguyên
-
 public class DiscountPanel extends JPanel {
 
     private CustomTable khachTable;
     private JTextField searchField;
     private TableRowSorter<TableModel> sorter;
 
+    // ✅ Thêm các nút cần getter
+    private CustomButton tatCaButton;
+    private CustomButton khachThuongButton;
+    private CustomButton khachVIPButton;
+    private CustomButton themKHButton;
+    private CustomButton timButton;
+
     public DiscountPanel() {
         setLayout(new BorderLayout());
-
-//        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel();
-//        add(menuPanel, BorderLayout.WEST);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -33,6 +35,8 @@ public class DiscountPanel extends JPanel {
 
         JPanel leftButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         leftButtonPanel.setBackground(new Color(255, 235, 238));
+
+        // ✅ Gọi createTopButton và gán nút
         leftButtonPanel.add(createTopButton("Tất cả"));
         leftButtonPanel.add(createTopButton("khách thường"));
         leftButtonPanel.add(createTopButton("khách vip"));
@@ -42,6 +46,10 @@ public class DiscountPanel extends JPanel {
         rightSearchPanel.setBackground(new Color(255, 235, 238));
         searchField = new JTextField(20);
         CustomButton searchButton = new CustomButton("Tìm");
+
+        // ✅ Gán searchButton cho biến timButton
+        timButton = searchButton;
+
         searchButton.setBackgroundColor(new Color(166, 123, 91));
         searchButton.setTextColor(Color.WHITE);
         searchButton.setFocusPainted(false);
@@ -118,8 +126,7 @@ public class DiscountPanel extends JPanel {
             }
         });
 
-        // ==== Danh sách khuyến mãi giữ nguyên như cũ ====
-
+        // Bảng khuyến mãi giữ nguyên
         JPanel kmPanel = new JPanel(new BorderLayout());
         kmPanel.setBackground(new Color(255, 204, 204));
         kmPanel.setBorder(BorderFactory.createTitledBorder("Danh sách khuyến mãi"));
@@ -158,7 +165,7 @@ public class DiscountPanel extends JPanel {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        // === Sự kiện tìm kiếm ===
+        // Sự kiện tìm kiếm
         searchButton.addActionListener(e -> performSearch());
     }
 
@@ -173,15 +180,19 @@ public class DiscountPanel extends JPanel {
 
         switch (text) {
             case "Thêm KH":
+                themKHButton = button;
                 button.addActionListener(e -> addKhachHang());
                 break;
             case "khách thường":
+                khachThuongButton = button;
                 button.addActionListener(e -> filterByTrangThai("Bình Thường"));
                 break;
             case "khách vip":
+                khachVIPButton = button;
                 button.addActionListener(e -> filterByTrangThai("VIP"));
                 break;
             case "Tất cả":
+                tatCaButton = button;
                 button.addActionListener(e -> filterByTrangThai(null));
                 break;
         }
@@ -213,18 +224,52 @@ public class DiscountPanel extends JPanel {
         if (keyword.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 0)); // cột 0 là tên
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 0));
         }
     }
 
     private void filterByTrangThai(String trangThai) {
         if (trangThai == null) {
-            sorter.setRowFilter(null);  // Hiện tất cả
+            sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)^" + trangThai + "$", 3)); // Cột 3 là "Trạng Thái"
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)^" + trangThai + "$", 3));
         }
     }
 
+    // ✅ Getter các thành phần giao diện
+    public CustomButton getTatCaButton() {
+        return tatCaButton;
+    }
+
+    public CustomButton getKhachThuongButton() {
+        return khachThuongButton;
+    }
+
+    public CustomButton getKhachVIPButton() {
+        return khachVIPButton;
+    }
+
+    public CustomButton getThemKHButton() {
+        return themKHButton;
+    }
+
+    public CustomButton getTimButton() {
+        return timButton;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
+
+    public JTable getKhachTable() {
+        return khachTable;
+    }
+
+    public TableRowSorter<TableModel> getSorter() {
+        return sorter;
+    }
+
+    // Renderer và Editor giữ nguyên...
     // Custom renderer và editor giữ nguyên như cũ...
     private static class CustomCheckBoxRenderer extends JPanel implements TableCellRenderer {
         private CustomCheckBox checkBox;
@@ -279,7 +324,6 @@ public class DiscountPanel extends JPanel {
             return checkBox;
         }
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Khuyến Mãi");
