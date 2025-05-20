@@ -37,4 +37,10 @@ public class IController {
         }
     }
 
+// import model.IModel;
+// import view.IView;
+
+// public interface IController {
+
+
 }

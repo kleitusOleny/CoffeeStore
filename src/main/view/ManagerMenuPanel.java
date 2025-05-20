@@ -17,10 +17,10 @@ public class ManagerMenuPanel extends JPanel {
         JLabel avatar = new JLabel("👤", SwingConstants.CENTER);
         avatar.setFont(new Font("Arial", Font.PLAIN, 50));
         avatar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel name = new JLabel("COFFEE", SwingConstants.CENTER);
+        JLabel name = new JLabel("Thống Nhất", SwingConstants.CENTER);
         name.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel role = new JLabel("MANAGER", SwingConstants.CENTER);
-        role.setForeground(Color.GRAY);
+        role.setForeground(Color.white);
         role.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         add(Box.createRigidArea(new Dimension(0, 20)));
@@ -31,10 +31,10 @@ public class ManagerMenuPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Buttons
-        datMon = createMenuButton("Quản Lý Menu");
-        datBan = createMenuButton("Quản Ly Nhân Vien");
-        apDungKM = createMenuButton("Quản Lý Khuyến Mãi");
-        thanhToan = createMenuButton("Thong Ke Doanh Thu");
+        datMon = createMenuButton("Menu");
+        datBan = createMenuButton("Nhân Viên");
+        apDungKM = createMenuButton("Khuyến Mãi");
+        thanhToan = createMenuButton("Thống Kê");
         dangXuat = createMenuButton("Đăng Xuất");
 
         add(datMon);
@@ -77,7 +77,7 @@ public class ManagerMenuPanel extends JPanel {
         ImageIcon icon4 = new ImageIcon(newImage4);
         thanhToan.setIcon(icon4);
 
-        ImageIcon iconDangXuat = new ImageIcon("src\\image\\dangXuat.png");
+        ImageIcon iconDangXuat = new ImageIcon("src\\main\\image\\dangXuat.png");
         Image image6 = iconDangXuat.getImage();
         Image newImage6 = image6.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         ImageIcon icon6 = new ImageIcon(newImage6);

@@ -6,7 +6,7 @@ import model.MainSystem;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements IView{
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
@@ -44,5 +44,10 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame());
+    }
+    
+    @Override
+    public IView getView() {
+        return this;
     }
 }
