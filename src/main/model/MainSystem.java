@@ -5,6 +5,7 @@ import model.customer_system.*;
 import model.employee_system.*;
 import model.reservation_system.*;
 import model.customer_system.Observer;
+import utils.LoginModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.io.*;
 
 public class MainSystem implements Subject,IModel{
-
+    private LoginModel loginModel;
     private List<Observer> listObsever;
     private EmployeeSystem empSys;
     private OrderSystem orderSystem;
@@ -26,6 +27,7 @@ public class MainSystem implements Subject,IModel{
         this.orderSystem = orderSystem;
         this.reservationSystem = reservationSystem;
         this.customerSystem = customerSystem;
+        this.loginModel = new LoginModel();
     }
 
     public MainSystem() {
@@ -104,5 +106,10 @@ public class MainSystem implements Subject,IModel{
     public void setCustomerSystem(CustomerSystem customerSystem) {
         this.customerSystem = customerSystem;
 
+    }
+    
+    @Override
+    public LoginModel getLoginModel() {
+        return loginModel;
     }
 }

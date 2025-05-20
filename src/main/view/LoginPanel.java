@@ -22,12 +22,17 @@ package view;
  
  import javax.swing.*;
  import java.awt.*;
+ import java.awt.event.ActionListener;
  import java.util.List;
 
 public class LoginPanel extends JPanel {
-     List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
+    public CustomButton loginBtn;
+    public CustomTextField userField;
+    public CustomPasswordField passField;
+    public List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
+    public MainFrame frame;
      public LoginPanel(MainFrame mainFrame) {
-
+         this.frame = mainFrame;
         setLayout(new BorderLayout());
         
         // Panel trái - chiếm 1/3 chiều rộng
@@ -83,7 +88,7 @@ public class LoginPanel extends JPanel {
         rightPanel.add(userLabel, gbc);
         
         gbc.gridy++;
-        CustomTextField userField = new CustomTextField(20);
+        userField = new CustomTextField(20);
         userField.setFont(new Font("Arial", Font.PLAIN, 20));
         userField.setPreferredSize(new Dimension(400, 50));
         userField.setDrawBorder(true);
@@ -101,7 +106,7 @@ public class LoginPanel extends JPanel {
         rightPanel.add(passLabel, gbc);
         
         gbc.gridy++;
-        CustomPasswordField passField = new CustomPasswordField(20);
+        passField = new CustomPasswordField(20);
         passField.setFont(new Font("Arial", Font.PLAIN, 20));
         passField.setPreferredSize(new Dimension(400, 50));
         passField.setDrawBorder(true);
@@ -114,7 +119,7 @@ public class LoginPanel extends JPanel {
         
         // Nút đăng nhập
         gbc.gridy++;
-        CustomButton loginBtn = new CustomButton("Đăng Nhập");
+        loginBtn = new CustomButton("Đăng Nhập");
         loginBtn.setPreferredSize(new Dimension(400, 55));
         loginBtn.setBackgroundColor(new Color(243, 170, 108));
         loginBtn.setTextColor(Color.BLACK);
@@ -126,42 +131,7 @@ public class LoginPanel extends JPanel {
         loginBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rightPanel.add(loginBtn, gbc);
         
-        // Sự kiện đăng nhập
-        // Sự kiện đăng nhập
-        loginBtn.addActionListener(e -> {
-            String username = userField.getText().trim();
-            String password = new String(passField.getPassword()).trim();
-
-            for (FormatAccounts accounts : accountsList) {
-                if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
-                    if (accounts.getRole().equals("Manager")){
-                        mainFrame.showPanel(MainFrame.MANAGER);
-                    }else{
-                        mainFrame.showPanel(MainFrame.EMPLOYEE);
-                    }
-                    
-                    return;
-                }
-
-
-//             if (username.equals("nhanvien") && password.equals("123")) {
-//                 mainFrame.showPanel(MainFrame.EMPLOYEE);
-//             } else if (username.equals("quanly") && password.equals("123")) {
-//                 mainFrame.showPanel(MainFrame.MANAGER);
-//             } else {
-//                 JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
-//                         "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-
-            }
-            JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
-                    "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-//            if (username.equals("nhanvien") && password.equals("123")) {
-//                mainFrame.showPanel(MainFrame.MANAGER);
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
-//                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-//            }
-        });
+        
 
         // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
@@ -183,17 +153,14 @@ public class LoginPanel extends JPanel {
                 revalidate();
             }
         });
-
-
-//        loginBtn.addActionListener(e ->{
-//            String username = userField.getText().trim();
-//            String password = new String(passField.getPassword()).trim();
-//            try {
-//                controller.handleLogin(username,password);
-//            } catch (FileNotFoundException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//        });
+        
+    }
+    public void setLoginListener(ActionListener actionListener) {
+        loginBtn.addActionListener(actionListener);
+    }
+    
+    public MainFrame getMainFrame() {
+        return frame;
     }
     
 }
