@@ -109,8 +109,12 @@ public class LoginPanel extends JPanel {
             String password = new String(passField.getPassword()).trim();
 
             if (username.equals("nhanvien") && password.equals("123")) {
+                mainFrame.showPanel(MainFrame.EMPLOYEE);
+            }
+            if (username.equals("quanly")&&password.equals("123")){
                 mainFrame.showPanel(MainFrame.MANAGER);
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
                         "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
             }
