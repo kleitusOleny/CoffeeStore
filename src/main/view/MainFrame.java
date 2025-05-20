@@ -1,5 +1,8 @@
 package view;
 
+import controller.IController;
+import model.MainSystem;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,6 +15,9 @@ public class MainFrame extends JFrame {
     public static final String MANAGER = "manager";
 
     public MainFrame() {
+        MainSystem mainSystem = new MainSystem();
+        IController controller = new IController(this,mainSystem);
+
         setTitle("Ứng dụng quản lý");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -19,7 +25,7 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        LoginPanel loginPanel = new LoginPanel(this);
+        LoginPanel loginPanel = new LoginPanel(this, controller);
         EmployeePanel managerPanel = new EmployeePanel();
         ManagerPanel managerPanel1 = new ManagerPanel();
 
