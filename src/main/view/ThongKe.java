@@ -24,7 +24,7 @@ public class ThongKe extends JPanel {
         setLayout(new BorderLayout());
 
         contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setBackground(new Color(255, 245, 204));
 
         JLabel title = new JLabel("Thống Kê Doanh Thu", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 28));
