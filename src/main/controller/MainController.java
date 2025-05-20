@@ -19,7 +19,11 @@ public class MainController implements IController{
         employeeController = new EmployeeController(model.getEmployeeSystem(),view.getView());
         reservationController = new ReservationController(model.getReservationSystem(),view.getView());
         orderController = new OrderController(model.getOrderSystem(),view.getView());
-//        loginController = new LoginController(view,model);
+        loginController = new LoginController(model.getLoginModel(), view.getLoginPanel());
+    }
+    
+    public void run(){
+        loginController.Login();
     }
     
 }
