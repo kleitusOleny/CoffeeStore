@@ -207,11 +207,31 @@ public class PaymentPanel extends JPanel {
                     JOptionPane.INFORMATION_MESSAGE
             );
 
-            Container content = (Container) confirmBtn.getParent().getParent();
-            content.removeAll();
-            content.setBackground(new Color(255, 248, 220)); // màu nền gốc
-            content.revalidate();
-            content.repaint();
+            JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent(); // Panel chính chứa mọi thứ
+
+// Tìm lại topLeftPanel (panel chứa nút lịch sử)
+            Component[] components = contentPanel1.getComponents();
+            JPanel topLeftPanel1 = null;
+            for (Component c : components) {
+                if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
+                    Component first = ((JPanel) c).getComponent(0);
+                    if (first == historyButton) {
+                        topLeftPanel1 = (JPanel) c;
+                        break;
+                    }
+                }
+            }
+
+            contentPanel1.removeAll();
+            if (topLeftPanel1 != null) {
+                contentPanel1.add(topLeftPanel1);
+                contentPanel1.add(Box.createVerticalStrut(20));
+            }
+
+            contentPanel1.setBackground(new Color(255, 248, 220)); // màu nền gốc
+            contentPanel1.revalidate();
+            contentPanel1.repaint();
+
         });
 
         invoiceBtn = new CustomButton("In hóa đơn");
