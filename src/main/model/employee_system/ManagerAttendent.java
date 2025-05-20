@@ -1,13 +1,14 @@
 package model.employee_system;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerAttendent {
     private List<Attendent> list;
     
-    public ManagerAttendent(List<Attendent> list) {
-        this.list = list;
+    public ManagerAttendent() {
+        this.list = new ArrayList<>();
     }
     
     //diem danh

@@ -36,9 +36,6 @@ public class MenuEditorPanel extends JPanel{
 
         add(createMainPanel(), BorderLayout.CENTER);
 
-        EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
-        add(managerMenuPanel, BorderLayout.WEST);
-
     }
 
     private JPanel createMainPanel() {
@@ -141,7 +138,7 @@ public class MenuEditorPanel extends JPanel{
         //  Thêm chức năng khi bấm nút
         deleteBtn = createMenuButton("");
         deleteBtn.setForeground(Color.RED);
-        ImageIcon iconRemove = new ImageIcon("src\\image\\rubbish-bin.png");
+        ImageIcon iconRemove = new ImageIcon("src\\main\\image\\rubbish-bin.png");
         Image image2 = iconRemove.getImage();
         Image newImage2 = image2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(newImage2);

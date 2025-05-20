@@ -1,5 +1,6 @@
 package view;
 
+
 import model.data.FormatAccounts;
 import com.google.gson.Gson;
 import model.data.ReadFileJson;
@@ -13,6 +14,18 @@ public class LoginPanel extends JPanel {
     List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
     
     public LoginPanel(MainFrame mainFrame) {
+
+// import controller.IController;
+
+// import javax.swing.*;
+// import java.awt.*;
+// import java.io.FileNotFoundException;
+
+// public class LoginPanel extends JPanel {
+//     private IController controller;
+//     public LoginPanel(MainFrame mainFrame,IController controller) {
+//         this.controller = controller;
+
         setLayout(new BorderLayout());
         
         // Panel trái - chiếm 1/3 chiều rộng
@@ -111,15 +124,26 @@ public class LoginPanel extends JPanel {
         rightPanel.add(loginBtn, gbc);
         
         // Sự kiện đăng nhập
+        // Sự kiện đăng nhập
         loginBtn.addActionListener(e -> {
             String username = userField.getText().trim();
             String password = new String(passField.getPassword()).trim();
-            
+
             for (FormatAccounts accounts : accountsList) {
                 if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
                     mainFrame.showPanel(MainFrame.MANAGER);
                     return;
                 }
+
+
+//             if (username.equals("nhanvien") && password.equals("123")) {
+//                 mainFrame.showPanel(MainFrame.EMPLOYEE);
+//             } else if (username.equals("quanly") && password.equals("123")) {
+//                 mainFrame.showPanel(MainFrame.MANAGER);
+//             } else {
+//                 JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+//                         "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+
             }
             JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
                     "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
@@ -130,7 +154,7 @@ public class LoginPanel extends JPanel {
 //                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
 //            }
         });
-        
+
         // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.CENTER);
@@ -151,7 +175,17 @@ public class LoginPanel extends JPanel {
                 revalidate();
             }
         });
-        
+
+
+        loginBtn.addActionListener(e ->{
+            String username = userField.getText().trim();
+            String password = new String(passField.getPassword()).trim();
+            try {
+                controller.handleLogin(username,password);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
     
 }

@@ -1,16 +1,23 @@
 package view;
 
+import controller.IController;
+import model.MainSystem;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements IView{
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
     public static final String LOGIN = "login";
+    public static final String EMPLOYEE = "employee";
     public static final String MANAGER = "manager";
 
     public MainFrame() {
+        MainSystem mainSystem = new MainSystem();
+        IController controller = new IController(this,mainSystem);
+
         setTitle("Ứng dụng quản lý");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -18,11 +25,13 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        LoginPanel loginPanel = new LoginPanel(this);
-        ManagerPanel managerPanel = new ManagerPanel();
+        LoginPanel loginPanel = new LoginPanel(this, controller);
+        EmployeePanel managerPanel = new EmployeePanel();
+        ManagerPanel managerPanel1 = new ManagerPanel();
 
         mainPanel.add(loginPanel, LOGIN);
-        mainPanel.add(managerPanel, MANAGER);
+        mainPanel.add(managerPanel, EMPLOYEE);
+        mainPanel.add(managerPanel1, MANAGER);
 
         add(mainPanel);
         cardLayout.show(mainPanel, LOGIN);
@@ -35,5 +44,10 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame());
+    }
+    
+    @Override
+    public IView getView() {
+        return this;
     }
 }

@@ -4,36 +4,41 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ManagerPanel extends JPanel {
-    public static final String DAT_MON = "PRODUCT";
-    public static final String DAT_BAN = "TABLE";
+    public static final String QUAN_LY_MENU = "MENU";
+    public static final String QUAN_LY_NV = "EMPLOYEE";
     public static final String KHUYEN_MAI = "DISCOUNT";
-    public static final String THANH_TOAN = "PAYMENT";
+    public static final String THONG_KE = "STATISTICS";
 
-    private EmployeeMenuPanel menuPanel;
+    private ManagerMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
 
     public ManagerPanel() {
         setLayout(new BorderLayout());
 
-        menuPanel = new EmployeeMenuPanel();
+        menuPanel = new ManagerMenuPanel();
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
 
-        // Thêm các panel con vào CardLayout
-        contentPanel.add(new OrderPanel(), DAT_MON);
-        contentPanel.add(new TablePanel(), DAT_BAN);
-        contentPanel.add(new DiscountPanel(), KHUYEN_MAI);
-        contentPanel.add(new PaymentPanel(), THANH_TOAN);
+        // Thêm các panel con vào contentPanel
+        contentPanel.add(new MenuEditorPanel(), QUAN_LY_MENU);
+        contentPanel.add(new JLabel("QuanLyNhanVien"), QUAN_LY_NV);
+        contentPanel.add(new JLabel("QuanLyKhuyenMai"), KHUYEN_MAI);
+        contentPanel.add(new ThongKe(), THONG_KE);
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
 
-        // Gán sự kiện các nút
+        // Gán sự kiện cho các nút
         menuPanel.setProductCatalogBtListener(e -> {
-            showPanel(DAT_MON);
-            setHover(DAT_MON);
+            showPanel(QUAN_LY_MENU);
+            setHover(QUAN_LY_MENU);
+        });
+
+        menuPanel.setNotificationBtListener(e -> {
+            showPanel(QUAN_LY_NV);
+            setHover(QUAN_LY_NV);
         });
 
         menuPanel.setPurchasedBtListener(e -> {
@@ -41,23 +46,20 @@ public class ManagerPanel extends JPanel {
             setHover(KHUYEN_MAI);
         });
 
-        menuPanel.setNotificationBtListener(e -> {
-            showPanel(DAT_BAN);
-            setHover(DAT_BAN);
+        menuPanel.setChangeInfoBtListener(e -> {
+            showPanel(THONG_KE);
+            setHover(THONG_KE);
         });
 
-        menuPanel.setChangeInfoBtListener(e -> {
-            showPanel(THANH_TOAN);
-            setHover(THANH_TOAN);
+        menuPanel.setLogoutBtListener(e -> {
+            int confirmed = JOptionPane.showConfirmDialog(
+                    null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirmed == JOptionPane.YES_OPTION) {
+                // Ví dụ: chuyển về màn hình đăng nhập nếu bạn có lớp MainFrame
+                // MainFrame.getInstance().showPanel(MainFrame.LOGIN);
+                System.exit(0); // hoặc thoát tạm thời
+            }
         });
-//
-//        menuPanel.setLogoutBtListener(e -> {
-//            int confirmed = JOptionPane.showConfirmDialog(
-//                    null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-//            if (confirmed == JOptionPane.YES_OPTION) {
-//                MainFrame.getInstance().showPanel(MainFrame.LOGIN);
-//            }
-//        });
     }
 
     public void showPanel(String name) {
@@ -72,10 +74,10 @@ public class ManagerPanel extends JPanel {
                 menuPanel.thanhToan
         };
         String[] names = {
-                DAT_MON,
-                DAT_BAN,
+                QUAN_LY_MENU,
+                QUAN_LY_NV,
                 KHUYEN_MAI,
-                THANH_TOAN
+                THONG_KE
         };
 
         for (int i = 0; i < buttons.length; i++) {
