@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class DiscountPanel extends JPanel {
 
     private CustomTable khachTable;
-    private JTextField searchField;
+    private CustomTextField searchField;
     private TableRowSorter<TableModel> sorter;
 
     // ✅ Thêm các nút cần getter
@@ -320,14 +320,16 @@ public class DiscountPanel extends JPanel {
     }
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(180, 28));
+        panel.setPreferredSize(new Dimension(300, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new JTextField(); // dùng biến toàn cục
+        searchField = new CustomTextField(20); // dùng biến toàn cục
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(140, 28));
         searchField.setOpaque(true);
+        searchField.setBorderRadius(20);
+        searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchButton = new JButton();
         timButton = new CustomButton("Tìm Button"); // vẫn tạo nút CustomButton nếu cần getter
