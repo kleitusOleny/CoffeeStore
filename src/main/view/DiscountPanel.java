@@ -24,11 +24,11 @@ public class DiscountPanel extends JPanel {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(new Color(255, 235, 193));
+        mainPanel.setBackground(new Color(255, 245, 204));
 
         JPanel danhSachKHPanel = new JPanel(new BorderLayout());
         danhSachKHPanel.setBorder(BorderFactory.createTitledBorder("Danh sách khách hàng"));
-        danhSachKHPanel.setBackground(new Color(255, 235, 193));
+        danhSachKHPanel.setBackground(new Color(255, 245, 204));
 
         JPanel topButtonPanel = new JPanel(new BorderLayout());
         topButtonPanel.setBackground(new Color(255, 235, 238));
@@ -44,20 +44,11 @@ public class DiscountPanel extends JPanel {
 
         JPanel rightSearchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         rightSearchPanel.setBackground(new Color(255, 235, 238));
-        searchField = new JTextField(20);
-        CustomButton searchButton = new CustomButton("Tìm");
+        JPanel searchBoxPanel = createSearchBoxWithButton();
+        searchBoxPanel.setOpaque(false); // để đồng bộ màu nền
 
-        // ✅ Gán searchButton cho biến timButton
-        timButton = searchButton;
+        rightSearchPanel.add(searchBoxPanel);
 
-        searchButton.setBackgroundColor(new Color(166, 123, 91));
-        searchButton.setTextColor(Color.WHITE);
-        searchButton.setFocusPainted(false);
-        searchButton.setBorderRadius(20);
-
-        rightSearchPanel.add(new JLabel("Tìm kiếm: "));
-        rightSearchPanel.add(searchField);
-        rightSearchPanel.add(searchButton);
 
         topButtonPanel.add(leftButtonPanel, BorderLayout.WEST);
         topButtonPanel.add(rightSearchPanel, BorderLayout.EAST);
@@ -166,7 +157,7 @@ public class DiscountPanel extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
 
         // Sự kiện tìm kiếm
-        searchButton.addActionListener(e -> performSearch());
+//        searchButton.addActionListener(e -> performSearch());
     }
 
     private CustomButton createTopButton(String text) {
@@ -269,7 +260,6 @@ public class DiscountPanel extends JPanel {
         return sorter;
     }
 
-    // Renderer và Editor giữ nguyên...
     // Custom renderer và editor giữ nguyên như cũ...
     private static class CustomCheckBoxRenderer extends JPanel implements TableCellRenderer {
         private CustomCheckBox checkBox;
@@ -324,6 +314,43 @@ public class DiscountPanel extends JPanel {
             return checkBox;
         }
     }
+    private JPanel createSearchBoxWithButton() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setPreferredSize(new Dimension(180, 28));
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        searchField = new JTextField(); // dùng biến toàn cục
+        searchField.setBorder(null);
+        searchField.setPreferredSize(new Dimension(140, 28));
+        searchField.setOpaque(true);
+
+        JButton searchButton = new JButton();
+        timButton = new CustomButton("Tìm Button"); // vẫn tạo nút CustomButton nếu cần getter
+
+        searchButton.setFocusable(false);
+        searchButton.setBorder(null);
+        searchButton.setContentAreaFilled(false);
+        searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        try {
+            ImageIcon iconAdd = new ImageIcon("src\\main\\image\\search.png");
+            Image image = iconAdd.getImage();
+            Image newImage = image.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+            ImageIcon icon1 = new ImageIcon(newImage);
+            searchButton.setIcon(icon1);
+        } catch (Exception e) {
+            searchButton.setText("🔍");
+        }
+
+        searchButton.addActionListener(e -> performSearch());
+
+        panel.add(searchField, BorderLayout.CENTER);
+        panel.add(searchButton, BorderLayout.EAST);
+
+        return panel;
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Khuyến Mãi");
