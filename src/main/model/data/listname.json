@@ -1,0 +1,92 @@
+[
+  {
+    "tenNhanVien": "Hoàng Minh Hùng",
+    "maNhanVien": "NVPJSA2X",
+    "soDienThoai": "0636251532",
+    "soCCCD": "166186769490",
+    "diaChi": "731 Đường QL71D, TP.HCM",
+    "ngaySinh": "18/12/2003",
+    "ngayVaoLam": "28/09/2025"
+  },
+  {
+    "tenNhanVien": "Phạm Quốc Tâm",
+    "maNhanVien": "NVQKB3UT",
+    "soDienThoai": "0376449301",
+    "soCCCD": "618536866936",
+    "diaChi": "953 Đường B4CLU, Cần Thơ",
+    "ngaySinh": "07/04/1999",
+    "ngayVaoLam": "03/12/2015"
+  },
+  {
+    "tenNhanVien": "Nguyễn Hồng Bình",
+    "maNhanVien": "NV5IARVC",
+    "soDienThoai": "0642796581",
+    "soCCCD": "817153030061",
+    "diaChi": "462 Đường 18GVV, Hải Phòng",
+    "ngaySinh": "02/06/1999",
+    "ngayVaoLam": "21/08/2018"
+  },
+  {
+    "tenNhanVien": "Vũ Hồng Mai",
+    "maNhanVien": "NVYISA2A",
+    "soDienThoai": "0400811133",
+    "soCCCD": "519619836350",
+    "diaChi": "639 Đường I6I4I, Huế",
+    "ngaySinh": "26/08/1995",
+    "ngayVaoLam": "15/08/2021"
+  },
+  {
+    "tenNhanVien": "Vũ Tâm",
+    "maNhanVien": "NVO44R0E",
+    "soDienThoai": "0178665570",
+    "soCCCD": "691869210771",
+    "diaChi": "445 Đường 8NWAS, Huế",
+    "ngaySinh": "27/03/2001",
+    "ngayVaoLam": "27/04/2019"
+  },
+  {
+    "tenNhanVien": "Lê Hùng",
+    "maNhanVien": "NVYFWMM6",
+    "soDienThoai": "0575026665",
+    "soCCCD": "494717709775",
+    "diaChi": "72 Đường Z9JQP, Huế",
+    "ngaySinh": "16/02/1988",
+    "ngayVaoLam": "18/10/2023"
+  },
+  {
+    "tenNhanVien": "Nguyễn Hồng Bình",
+    "maNhanVien": "NVU4HHC6",
+    "soDienThoai": "0801871254",
+    "soCCCD": "564245502360",
+    "diaChi": "864 Đường 2KVRO, TP.HCM",
+    "ngaySinh": "17/11/2000",
+    "ngayVaoLam": "25/01/2016"
+  },
+  {
+    "tenNhanVien": "Phạm Hồng Dương",
+    "maNhanVien": "NVSVC9RK",
+    "soDienThoai": "0039394031",
+    "soCCCD": "016588731252",
+    "diaChi": "124 Đường UV8PB, Nha Trang",
+    "ngaySinh": "17/09/1993",
+    "ngayVaoLam": "21/08/2025"
+  },
+  {
+    "tenNhanVien": "Đặng Minh Hùng",
+    "maNhanVien": "NVVARUU2",
+    "soDienThoai": "0103713119",
+    "soCCCD": "228366809979",
+    "diaChi": "777 Đường F3KFL, Nha Trang",
+    "ngaySinh": "03/03/2004",
+    "ngayVaoLam": "05/06/2019"
+  },
+  {
+    "tenNhanVien": "Hoàng Văn Hùng",
+    "maNhanVien": "NV7P9I2W",
+    "soDienThoai": "0250447253",
+    "soCCCD": "364549192701",
+    "diaChi": "485 Đường EY74L, Nha Trang",
+    "ngaySinh": "28/04/2001",
+    "ngayVaoLam": "08/11/2023"
+  }
+]

@@ -1,10 +1,16 @@
 package view;
 
+import model.data.FormatAccounts;
+import com.google.gson.Gson;
+import model.data.ReadFileJson;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPanel extends JPanel {
-
+    List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
     public LoginPanel(MainFrame mainFrame) {
         setLayout(new BorderLayout());
 
@@ -108,13 +114,20 @@ public class LoginPanel extends JPanel {
             String username = userField.getText().trim();
             String password = new String(passField.getPassword()).trim();
 
-            if (username.equals("nhanvien") && password.equals("123")) {
-                mainFrame.showPanel(MainFrame.MANAGER);
-            } else {
-                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
-                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+            for (FormatAccounts accounts : accountsList){
+                if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())){
+                    mainFrame.showPanel(MainFrame.MANAGER);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+                            "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+                }
+//            if (username.equals("nhanvien") && password.equals("123")) {
+//                mainFrame.showPanel(MainFrame.MANAGER);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không đúng!",
+//                        "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+//            }
+        }});
 
         // Gộp các panel vào LoginPanel
         add(leftPanel, BorderLayout.WEST);
@@ -138,4 +151,7 @@ public class LoginPanel extends JPanel {
         });
 
     }
+
 }
+
+
