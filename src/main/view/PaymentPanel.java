@@ -25,7 +25,7 @@ public class PaymentPanel extends JPanel {
 
     public PaymentPanel() {
         setLayout(new BorderLayout());
-        setBackground(new Color(255, 248, 220)); // Màu nền
+        setBackground(new Color(255, 245, 204)); // Màu nền
 
 //        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel(); // Menu bên trái
 //        add(menuPanel, BorderLayout.WEST);
@@ -36,7 +36,7 @@ public class PaymentPanel extends JPanel {
     private JPanel createContentPanel() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        contentPanel.setBackground(new Color(255, 224, 178));
+        contentPanel.setBackground(new Color(255, 245, 204));
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         // Nút "Xem Lịch Sử Giao Dịch"
