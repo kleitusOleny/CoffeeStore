@@ -12,4 +12,5 @@ public interface IModel {
     public OrderSystem getOrderSystem();
     public ReservationSystem getReservationSystem();
     
+    public String validateUser(String userName,String password);
 }

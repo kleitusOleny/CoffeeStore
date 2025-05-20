@@ -1,30 +1,34 @@
 package view;
 
 
-import model.data.FormatAccounts;
-import com.google.gson.Gson;
-import model.data.ReadFileJson;
+//import controller.IController;
+//import model.data.FormatAccounts;
+//import com.google.gson.Gson;
+//import model.data.ReadFileJson;
+//
+//import javax.swing.*;
+//import java.awt.*;
+//import java.io.FileNotFoundException;
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class LoginPanel extends JPanel {
+//
+//
+//    public LoginPanel(MainFrame mainFrame) {
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+ import controller.IController;
+ import model.data.FormatAccounts;
+ import model.data.ReadFileJson;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.io.FileNotFoundException;
+ import java.util.List;
 
 public class LoginPanel extends JPanel {
-    List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
-    
-    public LoginPanel(MainFrame mainFrame) {
-
-// import controller.IController;
-
-// import javax.swing.*;
-// import java.awt.*;
-// import java.io.FileNotFoundException;
-
-// public class LoginPanel extends JPanel {
-//     private IController controller;
-//     public LoginPanel(MainFrame mainFrame,IController controller) {
-//         this.controller = controller;
+     List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
+     public LoginPanel(MainFrame mainFrame) {
 
         setLayout(new BorderLayout());
         
@@ -177,15 +181,15 @@ public class LoginPanel extends JPanel {
         });
 
 
-        loginBtn.addActionListener(e ->{
-            String username = userField.getText().trim();
-            String password = new String(passField.getPassword()).trim();
-            try {
-                controller.handleLogin(username,password);
-            } catch (FileNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+//        loginBtn.addActionListener(e ->{
+//            String username = userField.getText().trim();
+//            String password = new String(passField.getPassword()).trim();
+//            try {
+//                controller.handleLogin(username,password);
+//            } catch (FileNotFoundException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        });
     }
     
 }
