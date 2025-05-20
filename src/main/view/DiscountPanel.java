@@ -218,7 +218,7 @@ public class DiscountPanel extends JPanel {
         if (keyword.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 0));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 1));
         }
     }
 
