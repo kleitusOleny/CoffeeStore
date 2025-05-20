@@ -17,13 +17,11 @@ package view;
 //
 //    public LoginPanel(MainFrame mainFrame) {
 
- import controller.IController;
- import model.data.FormatAccounts;
- import model.data.ReadFileJson;
+ import data.FormatAccounts;
+ import data.ReadFileJson;
  
  import javax.swing.*;
  import java.awt.*;
- import java.io.FileNotFoundException;
  import java.util.List;
 
 public class LoginPanel extends JPanel {
@@ -42,8 +40,9 @@ public class LoginPanel extends JPanel {
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
         logoLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
-        ImageIcon logoIcon = new ImageIcon("src/main/java/Icon/logo-fit.png");
-        logoLabel.setIcon(logoIcon);
+         ImageIcon logoIcon = new ImageIcon("src\\main\\image\\avatar.png");
+         Image scaledImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // đổi kích thước tùy ý
+         logoLabel.setIcon(new ImageIcon(scaledImage));
         
         // Dòng chào
         JLabel welcomeLabel = new JLabel("Welcome!");
@@ -135,7 +134,12 @@ public class LoginPanel extends JPanel {
 
             for (FormatAccounts accounts : accountsList) {
                 if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
-                    mainFrame.showPanel(MainFrame.MANAGER);
+                    if (accounts.getRole().equals("Manager")){
+                        mainFrame.showPanel(MainFrame.MANAGER);
+                    }else{
+                        mainFrame.showPanel(MainFrame.EMPLOYEE);
+                    }
+                    
                     return;
                 }
 

@@ -23,7 +23,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Gson for JSON parsing -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

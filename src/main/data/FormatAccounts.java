@@ -1,4 +1,4 @@
-package model.data;
+package data;
 
 public class FormatAccounts {
     private String role;
