@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 // Danh sách dữ liệu mẫu
 const firstNames = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Đặng'];
 const middleNames = ['Văn', 'Thị', 'Hồng', 'Minh', 'Quốc', 'Anh', 'Ngọc', ''];
@@ -51,18 +54,9 @@ function generateEmployee() {
 // Hàm chạy và in kết quả
 function toolRandomName(count = 10) {
     const employees = Array.from({ length: count }, () => generateEmployee());
-    console.log('Thông tin nhân viên ngẫu nhiên:');
-    employees.forEach((employee, index) => {
-        console.log(`Members ${index + 1}:`)
-    console.log(`Tên NV: ${employee.tenNhanVien}`);
-    console.log(`Mã NV: ${employee.maNhanVien}`);
-    console.log(`Số điện thoại: ${employee.soDienThoai}`);
-    console.log(`Số CCCD: ${employee.soCCCD}`);
-    console.log(`Địa chỉ: ${employee.diaChi}`);
-    console.log(`Ngày sinh: ${employee.ngaySinh}`);
-    console.log(`Ngày vào làm: ${employee.ngayVaoLam}`);
-    console.log(`---------`)
-    })
+    const filePath = path.join(__dirname, '..', '..', 'main', 'model', 'data', 'listname.json')
+    fs.writeFileSync(filePath, JSON.stringify(employees, null, 2), 'utf-8')
+    console.log("Đã tạo thông tin ngẫu nhiên thành công");
 }
 
 // Chạy chương trình
