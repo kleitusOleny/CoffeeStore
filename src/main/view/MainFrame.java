@@ -52,8 +52,14 @@ public class MainFrame extends JFrame implements IView{
     public IView getView() {
         return this;
     }
+
+    public void logOut() {
+        showPanel(LOGIN);
+}
+
     
     public LoginPanel getLoginPanel() {
         return loginPanel;
+
     }
 }
