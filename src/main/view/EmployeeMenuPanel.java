@@ -14,21 +14,29 @@ public class EmployeeMenuPanel extends JPanel {
         setBackground(new Color(166, 123, 91));
 
         // Avatar và tên (demo đơn giản)
-        JLabel avatar = new JLabel("👤", SwingConstants.CENTER);
-        avatar.setFont(new Font("Arial", Font.PLAIN, 50));
-        avatar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel name = new JLabel("COFFEE", SwingConstants.CENTER);
+//        JLabel avatar = new JLabel("👤", SwingConstants.CENTER);
+//        avatar.setFont(new Font("Arial", Font.PLAIN, 50));
+//        avatar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel name = new JLabel("THỐNG NHẤT", SwingConstants.CENTER);
+        name.setFont(new Font("Roboto", Font.BOLD, 30));
+        name.setForeground(Color.white);
         name.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel role = new JLabel("MANAGER", SwingConstants.CENTER);
-        role.setForeground(Color.GRAY);
+        JLabel role = new JLabel("EMPLOYEE", SwingConstants.CENTER);
+        role.setForeground(Color.white);
         role.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(Box.createRigidArea(new Dimension(0, 20)));
-        add(avatar);
+//        add(Box.createRigidArea(new Dimension(0, 20)));
+//        add(avatar);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(name);
         add(role);
         add(Box.createRigidArea(new Dimension(0, 20)));
+
+        // ✅ Thêm vạch kẻ đen ngăn cách
+        JSeparator separator = new JSeparator();
+        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
+        separator.setForeground(Color.BLACK);  // Màu đen
+        add(separator);
 
         // Buttons
         datMon = createMenuButton("Đặt Món");
@@ -48,36 +56,42 @@ public class EmployeeMenuPanel extends JPanel {
         add(Box.createVerticalStrut(20));
 
         add(Box.createVerticalGlue());
+
+        // ✅ Thêm vạch kẻ đen ngăn cách
+        JSeparator separator1 = new JSeparator();
+        separator1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
+        separator1.setForeground(Color.BLACK);  // Màu đen
+        add(separator1);
         add(dangXuat);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
 
         // chen icon vao cac button
-        ImageIcon iconMenu = new ImageIcon("src\\image\\menu.png");
+        ImageIcon iconMenu = new ImageIcon("src\\main\\image\\datMon.png");
         Image image1 = iconMenu.getImage();
         Image newImage1 = image1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon1 = new ImageIcon(newImage1);
         datMon.setIcon(icon1);
 
-        ImageIcon iconTable = new ImageIcon("src\\image\\table.png");
+        ImageIcon iconTable = new ImageIcon("src\\main\\image\\datBan.png");
         Image image2 = iconTable.getImage();
         Image newImage2 = image2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(newImage2);
         datBan.setIcon(icon2);
 
-        ImageIcon iconDiscount = new ImageIcon("src\\image\\discount.png");
+        ImageIcon iconDiscount = new ImageIcon("src\\main\\image\\khuyenMai.png");
         Image image3 = iconDiscount.getImage();
         Image newImage3 = image3.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon3 = new ImageIcon(newImage3);
         apDungKM.setIcon(icon3);
 
-        ImageIcon iconPay = new ImageIcon("src\\image\\pay.png");
+        ImageIcon iconPay = new ImageIcon("src\\main\\image\\thanhToan.png");
         Image image4 = iconPay.getImage();
         Image newImage4 = image4.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon4 = new ImageIcon(newImage4);
         thanhToan.setIcon(icon4);
 
-        ImageIcon iconDangXuat = new ImageIcon("src\\image\\dangXuat.png");
+        ImageIcon iconDangXuat = new ImageIcon("src\\main\\image\\dangXuat.png");
         Image image6 = iconDangXuat.getImage();
         Image newImage6 = image6.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon6 = new ImageIcon(newImage6);
@@ -102,7 +116,7 @@ public class EmployeeMenuPanel extends JPanel {
         button.setPreferredSize(new Dimension(300, 80)); // Đặt preferred size để layout dễ hiểu
         button.setFont(new Font("Segoe UI", Font.BOLD, 20));  // Chữ to hơn chút
         button.setBackgroundColor(new Color(166, 123, 91));
-        button.setHoverColor(new Color(200, 230, 255));
+        button.setHoverColor(new Color(255, 224, 178));
         button.setGradientColors(Color.CYAN, Color.BLUE);
         button.setTextColor(Color.WHITE);
         button.setBorderRadius(20);
