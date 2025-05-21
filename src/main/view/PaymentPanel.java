@@ -21,6 +21,8 @@ public class PaymentPanel extends JPanel {
     private CustomCheckBox cash;
     private CustomCheckBox card;
     private CustomCheckBox bank;
+    private InvoiceDialog dialog;
+    private TransactionHistoryDialog dialog1;
 
 
     public PaymentPanel() {
@@ -53,8 +55,8 @@ public class PaymentPanel extends JPanel {
 
         historyButton.addActionListener(e -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
-            dialog.setVisible(true);
+            dialog1 = new TransactionHistoryDialog(parentFrame);
+            dialog1.setVisible(true);
         });
 
         contentPanel.add(topLeftPanel);
@@ -250,7 +252,7 @@ public class PaymentPanel extends JPanel {
 
         invoiceBtn.addActionListener(e -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            InvoiceDialog dialog = new InvoiceDialog(parentFrame);
+            dialog = new InvoiceDialog(parentFrame);
             dialog.setVisible(true);
         });
 

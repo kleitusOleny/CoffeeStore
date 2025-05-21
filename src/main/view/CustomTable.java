@@ -33,6 +33,7 @@ public class CustomTable extends JTable {
                 if (row % 2 == 0) {
                     c.setBackground(Color.WHITE);
                 } else {
+
                     c.setBackground(new Color(245, 245, 220)); // màu be nhạt
                 }
             }
