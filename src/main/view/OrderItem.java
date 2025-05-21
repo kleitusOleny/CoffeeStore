@@ -23,6 +23,7 @@ public class OrderItem {
 //        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         JLabel nameLabel = new JLabel(" " + name);
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 14));
         nameLabel.setPreferredSize(new Dimension(80, 20));
 
         // Nút xóa
@@ -69,6 +70,7 @@ public class OrderItem {
 
         quantityLabel = new JLabel("x" + quantity);
         quantityLabel.setPreferredSize(new Dimension(30, 20));
+        quantityLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 2));
         controlPanel.setOpaque(false);
