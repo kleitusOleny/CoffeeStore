@@ -24,6 +24,12 @@ public class MainController implements IController{
         orderController = new OrderController(model.getOrderSystem(),view.getView());
 //        loginController = new LoginController(view,model);
 //        reservationController = new ReservationController(model.getReservationSystem(),view.getView());
+        loginController = new LoginController(model.getLoginModel(), view.getLoginPanel());
+    }
+    
+    public void run(){
+        loginController.Login();
+
     }
 
 

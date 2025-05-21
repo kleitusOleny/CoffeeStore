@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ManagerMenuPanel extends JPanel {
+public class ManagerMenuPanel extends JPanel{
     public CustomButton datMon, datBan, apDungKM, thanhToan, dangXuat;
     private CustomButton selectedButton = null;
 
@@ -111,7 +111,6 @@ public class ManagerMenuPanel extends JPanel {
         thanhToan.addActionListener(e -> handleButtonSelection(thanhToan));
         dangXuat.addActionListener(e -> handleButtonSelection(dangXuat));
 
-
     }
 
     private CustomButton createMenuButton(String text) {
@@ -148,7 +147,6 @@ public class ManagerMenuPanel extends JPanel {
     public void setChangeInfoBtListener(ActionListener listener) {
         thanhToan.addActionListener(listener);
     }
-
     public void setLogoutBtListener(ActionListener listener) {
         dangXuat.addActionListener(listener);
     }
@@ -160,4 +158,7 @@ public class ManagerMenuPanel extends JPanel {
         button.setSelected(true);               // Chọn nút hiện tại
         selectedButton = button;
     }
+    
+    
+    
 }
