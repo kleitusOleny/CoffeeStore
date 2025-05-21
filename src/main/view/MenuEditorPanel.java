@@ -9,8 +9,10 @@ public class MenuEditorPanel extends JPanel{
     private JPanel mainPanel, toolbar, searchResultPanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
+
     private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
     private JLabel nameLabel, priceLabel;
+
     private CustomTextField searchField;
 
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
@@ -136,6 +138,7 @@ public class MenuEditorPanel extends JPanel{
         }
 
         nameLabel = new JLabel(name, JLabel.CENTER);
+
         nameLabel.setFont(new Font("Roboto", Font.BOLD, 25));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -193,6 +196,7 @@ public class MenuEditorPanel extends JPanel{
 
         // chuc nang sua thong tin mon
         drinkBtn.addActionListener(e ->{
+
                     EditDrinkDialog editDialog = new EditDrinkDialog(
                             (JFrame) SwingUtilities.getWindowAncestor(this),
                             drinkInfo,
@@ -204,6 +208,7 @@ public class MenuEditorPanel extends JPanel{
 
         return drinkBtn;
     }
+
 
     private void refreshCardPanel() {
         cardPanel.removeAll();
