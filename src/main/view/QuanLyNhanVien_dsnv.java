@@ -1,107 +1,132 @@
 package view;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class QuanLyNhanVien_dsnv extends JPanel {
 
     private JButton jbutThemNV;
-    private JPanel jPanel1;
-    private JScrollPane jScrollPane1;
-    private JTable EmsTable;
-    private JTextField jtextTimKiem;
+    private CustomTable emsTable;
+    private JScrollPane tableScrollPane;
+
+    // Biến toàn cục cho thanh tìm kiếm
+    private CustomTextField searchField;
+    private CustomButton timButton;
 
     public QuanLyNhanVien_dsnv() {
+        setLayout(new BorderLayout());
+        setBackground(new Color(254, 216, 177));
         initComponents();
-
-        // Tùy chỉnh tiêu đề bảng
-        JTableHeader header = EmsTable.getTableHeader();
-        header.setDefaultRenderer(new CustomHeaderRenderer());
-
-        // Tạo tùy chỉnh cho các cột dựa vào class CustomTableCellRenderer
-        for (int i = 0; i < EmsTable.getColumnCount(); i++) {
-            EmsTable.getColumnModel().getColumn(i).setCellRenderer(new CustomTableCellRenderer());
-        }
     }
 
     private void initComponents() {
-        setBackground(new Color(254, 216, 177));
+        // === THANH CÔNG CỤ PHÍA TRÊN ===
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(new Color(254, 216, 177));
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        jPanel1 = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        EmsTable = new JTable();
-        jbutThemNV = new JButton();
-        jtextTimKiem = new JTextField();
-
-        jPanel1.setBackground(new Color(254, 216, 177));
-
-        EmsTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null }
-                },
-                new String[] { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" }));
-
+        // Nút Thêm nhân viên
+        jbutThemNV = new JButton("Thêm nhân viên");
         jbutThemNV.setBackground(new Color(166, 123, 91));
-        jbutThemNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbutThemNV.setText("Thêm nhân viên");
-
-        jbutThemNV.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien();
-                themNhanVienFrame.setVisible(true);
-                // Không gọi dispose() vì đây là JPanel
-            }
+        jbutThemNV.setForeground(Color.WHITE);
+        jbutThemNV.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        jbutThemNV.setFocusPainted(false);
+        jbutThemNV.addActionListener((ActionEvent e) -> {
+            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien();
+            themNhanVienFrame.setVisible(true);
         });
 
-        jtextTimKiem.setBackground(new Color(166, 123, 91));
-        jtextTimKiem.setFont(new java.awt.Font("Segoe UI Light", 2, 12)); // NOI18N
-        jtextTimKiem.setText("Tìm kiếm nhân viên.....");
+        topPanel.add(jbutThemNV);
+        topPanel.add(Box.createHorizontalGlue());
+        topPanel.add(createSearchBoxWithButton());
 
-        jScrollPane1.setViewportView(EmsTable);
+        // === DỮ LIỆU MẪU CHO BẢNG ===
+        String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
+        Object[][] data = {
+                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
+                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
+        };
 
-        // Layout cho jPanel1
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jbutThemNV)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jtextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jbutThemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        DefaultTableModel model = new DefaultTableModel(data, columns) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-        // Layout cho JPanel chính (this)
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        emsTable = new CustomTable();
+        emsTable.setModel(model);
+        emsTable.setFont(new Font("SansSerif", Font.PLAIN, 15));
+
+        JTableHeader header = emsTable.getTableHeader();
+        header.setFont(new Font("SansSerif", Font.BOLD, 16));
+        header.setBackground(new Color(255, 224, 178));
+        header.setForeground(Color.BLACK);
+
+        tableScrollPane = new JScrollPane(emsTable);
+        tableScrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        tableScrollPane.getViewport().setBackground(Color.WHITE);
+
+        add(topPanel, BorderLayout.NORTH);
+        add(tableScrollPane, BorderLayout.CENTER);
+    }
+
+    private JPanel createSearchBoxWithButton() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setPreferredSize(new Dimension(220, 26)); // Giảm chiều rộng
+        panel.setBackground(Color.WHITE);
+        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        searchField = new CustomTextField(20);
+        searchField.setBorder(null);
+        searchField.setPreferredSize(new Dimension(120, 26)); // Giảm chiều rộng
+        searchField.setOpaque(true);
+        searchField.setBorderRadius(20);
+        searchField.setForeground(new Color(166, 123, 91));
+
+        JButton searchButton = new JButton();
+        timButton = new CustomButton("Tìm Button");
+
+        searchButton.setFocusable(false);
+        searchButton.setBorder(null);
+        searchButton.setContentAreaFilled(false);
+        searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        try {
+            ImageIcon iconAdd = new ImageIcon("src\\main\\image\\search.png");
+            Image image = iconAdd.getImage();
+            Image newImage = image.getScaledInstance(14, 14, Image.SCALE_SMOOTH); // icon nhỏ hơn 1 chút
+            ImageIcon icon1 = new ImageIcon(newImage);
+            searchButton.setIcon(icon1);
+        } catch (Exception e) {
+            searchButton.setText("🔍");
+        }
+
+        searchButton.addActionListener(e -> performSearch());
+
+        panel.add(searchField, BorderLayout.CENTER);
+        panel.add(searchButton, BorderLayout.EAST);
+
+        return panel;
+    }
+
+
+    // Hàm xử lý tìm kiếm – bạn sẽ hiện thực thêm logic tại đây
+    private void performSearch() {
+        String keyword = searchField.getText().trim().toLowerCase();
+        System.out.println("Tìm kiếm: " + keyword);
+        // TODO: lọc lại dữ liệu bảng theo từ khoá
+    }
+
+    // Getter nếu muốn gọi từ nơi khác
+    public CustomTextField getSearchField() {
+        return searchField;
+    }
+
+    public CustomButton getTimButton() {
+        return timButton;
     }
 }

@@ -18,6 +18,8 @@ public class DiscountPanel extends JPanel {
     private CustomButton khachVIPButton;
     private CustomButton themKHButton;
     private CustomButton timButton;
+    private AddCustomerDialog dialog;
+    private ChangeInforCustomerDialog dialog1;
 
     public DiscountPanel() {
         setLayout(new BorderLayout());
@@ -86,6 +88,8 @@ public class DiscountPanel extends JPanel {
         sorter = new TableRowSorter<>(khachModel);
         khachTable.setRowSorter(sorter);
 
+        khachTable.getTableHeader().setBackground(new Color(255, 224, 178));
+
         khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer());
         khachTable.getColumnModel().getColumn(4).setCellEditor(new CustomCheckBoxEditor());
 
@@ -106,14 +110,14 @@ public class DiscountPanel extends JPanel {
                     String diem = (String) model.getValueAt(modelRow, 2);
 
                     JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(DiscountPanel.this);
-                    ChangeInforCustomerDialog dialog = new ChangeInforCustomerDialog(topFrame);
-                    dialog.setKhachHang(ten, sdt, diem);
-                    dialog.setVisible(true);
+                    dialog1 = new ChangeInforCustomerDialog(topFrame);
+                    dialog1.setKhachHang(ten, sdt, diem);
+                    dialog1.setVisible(true);
 
-                    if (dialog.isConfirmed()) {
-                        model.setValueAt(dialog.getTenKhach(), modelRow, 0);
-                        model.setValueAt(dialog.getSDT(), modelRow, 1);
-                        model.setValueAt(dialog.getDiem(), modelRow, 2);
+                    if (dialog1.isConfirmed()) {
+                        model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
+                        model.setValueAt(dialog1.getSDT(), modelRow, 1);
+                        model.setValueAt(dialog1.getDiem(), modelRow, 2);
                     }
                 }
             }
@@ -147,6 +151,7 @@ public class DiscountPanel extends JPanel {
         kmTable.setRowHeight(30);
         kmTable.setFont(new Font("SansSerif", Font.PLAIN, 16));
         kmTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+        kmTable.getTableHeader().setBackground(new Color(255, 224, 178));
         kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer());
         kmTable.getColumnModel().getColumn(5).setCellEditor(new CustomCheckBoxEditor());
 
@@ -196,7 +201,7 @@ public class DiscountPanel extends JPanel {
 
     private void addKhachHang() {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        AddCustomerDialog dialog = new AddCustomerDialog(topFrame);
+        dialog = new AddCustomerDialog(topFrame);
         dialog.setVisible(true);
 
         if (dialog.isConfirmed()) {
