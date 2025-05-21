@@ -12,5 +12,26 @@
     "diemTichLuy": "120",
     "trangThai": "Thường",
     "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn C",
+    "soDienThoai": "0984672561",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn D",
+    "soDienThoai": "0987233331",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn E",
+    "soDienThoai": "0369130891",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
   }
 ]
