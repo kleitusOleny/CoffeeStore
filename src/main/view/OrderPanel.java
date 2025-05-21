@@ -367,16 +367,4 @@ public class OrderPanel extends JPanel{
         totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
     }
 
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Đặt món - Giao diện hoàn chỉnh");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000, 600);
-            frame.setContentPane(new OrderPanel());
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
-
 }

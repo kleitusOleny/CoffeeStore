@@ -305,15 +305,4 @@ public class MenuEditorPanel extends JPanel{
 
         return panel;
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame f = new JFrame("Menu Editor");
-            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            f.setSize(1000, 600);
-            f.setLocationRelativeTo(null);
-            f.add(new MenuEditorPanel());
-            f.setVisible(true);
-        });
-    }
 }
