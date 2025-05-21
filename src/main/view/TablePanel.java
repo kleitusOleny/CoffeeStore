@@ -28,7 +28,6 @@ public class TablePanel extends JPanel {
         topPanel.add(statusFilter);
 
         // Panel sơ đồ bàn trung tâm
-//        tableGrid = new JPanel(new GridLayout(3, 4, 20, 20)); // 12 bàn demo
         tableGrid = new JPanel(new WrapLayout(FlowLayout.LEFT, 20, 20));
         tableGrid.setBackground(new Color(255, 245, 204));
 
@@ -50,20 +49,8 @@ public class TablePanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
         add(topPanel, BorderLayout.NORTH);
-//        add(managerMenuPanel, BorderLayout.WEST);
         add(scrollPane, BorderLayout.CENTER);
-    }
-
-    private CustomButton createMenuButton(String text) {
-        CustomButton button = new CustomButton(text);
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMaximumSize(new Dimension(1000, 200));
-        button.setBackgroundColor(Color.LIGHT_GRAY);
-        button.setTextColor(Color.BLACK);
-        button.setBorderRadius(20);
-        return button;
     }
 
     private void setStatus(JButton button, String status) {
@@ -124,15 +111,6 @@ public class TablePanel extends JPanel {
 
         tableGrid.revalidate();
         tableGrid.repaint();
-    }
-
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Đặt bàn");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 600);
-        frame.setContentPane(new TablePanel());
-        frame.setVisible(true);
     }
 
 
