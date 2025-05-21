@@ -5,14 +5,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class OrderPanel extends JPanel{
-    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel;
-    JButton cafe, tea, topping;
+    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel;
+    JButton cafe, tea, topping, searchButton;
     private DefaultListModel<String> orderListModel = new DefaultListModel<>();
-    private JLabel totalLabel;
+    private JLabel totalLabel, title;
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private java.util.List<OrderItem> orderItems = new ArrayList<>();
+    private JComboBox<String> priceFilter;
     private boolean hasSelectedTea = false;
+    private CustomTextField searchField;
+    private JScrollPane scrollPane;
 
     public OrderPanel(){
         setLayout(new BorderLayout());
@@ -44,7 +47,8 @@ public class OrderPanel extends JPanel{
         orderBillPanel.setPreferredSize(new Dimension(280, 0));
         orderBillPanel.setBackground(Color.WHITE);
 
-        JLabel title = new JLabel("Order bill", JLabel.CENTER);
+        title = new JLabel("Order bill", JLabel.CENTER);
+
         title.setFont(new Font("Roboto", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
@@ -52,7 +56,7 @@ public class OrderPanel extends JPanel{
         orderItemsPanel.setLayout(new BoxLayout(orderItemsPanel, BoxLayout.Y_AXIS));
         orderItemsPanel.setBackground(Color.WHITE);
 
-        JScrollPane scrollPane = new JScrollPane(orderItemsPanel);
+        scrollPane = new JScrollPane(orderItemsPanel);
         scrollPane.setBorder(null);
         orderBillPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -101,9 +105,11 @@ public class OrderPanel extends JPanel{
         tea.addActionListener(e -> cardLayout.show(cardPanel, "tea"));
         topping.addActionListener(e -> cardLayout.show(cardPanel, "topping"));
 
-        JPanel searchPanel = createSearchBoxWithButton();
+        searchPanel = createSearchBoxWithButton();
 
-        JComboBox<String> priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
+
+        priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
+
         priceFilter.setFont(new Font("Roboto", Font.BOLD, 15));
         priceFilter.addActionListener(e -> {
             String selected = (String) priceFilter.getSelectedItem();
@@ -155,7 +161,8 @@ public class OrderPanel extends JPanel{
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        CustomTextField searchField = new CustomTextField(10);
+        searchField = new CustomTextField(10);
+
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
@@ -163,7 +170,7 @@ public class OrderPanel extends JPanel{
         searchField.setForeground(new Color(166, 123, 91));
 
         // Tạo nút tìm kiếm có icon
-        JButton searchButton = new JButton();
+        searchButton = new JButton();
         searchButton.setFocusable(false);
         searchButton.setBorder(null);
         searchButton.setContentAreaFilled(false);
@@ -181,8 +188,28 @@ public class OrderPanel extends JPanel{
         }
 
         searchButton.addActionListener(e -> {
-            String keyword = searchField.getText();
-            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
+            String keyword = searchField.getText().trim().toLowerCase();
+            if (keyword.isEmpty()) return;
+
+            searchResultPanel = new JPanel(new GridLayout(3, 3, 10, 10));
+            searchResultPanel.setBackground(new Color(255, 245, 204));
+            searchResultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            java.util.List<String[]> allDrinks = new ArrayList<>();
+            for (String[] drink : coffeeDrinks) allDrinks.add(drink);
+            for (String[] drink : teaDrinks) allDrinks.add(drink);
+            for (String[] drink : toppings) allDrinks.add(drink);
+
+            for (String[] drink : allDrinks) {
+                String name = drink[0].toLowerCase();
+                if (name.contains(keyword)) {
+                    JButton btn = createDrinkButton(drink[0], drink[1], drink[2]);
+                    searchResultPanel.add(btn);
+                }
+            }
+
+            cardPanel.add(searchResultPanel, "search");
+            cardLayout.show(cardPanel, "search");
         });
 
         panel.add(searchField, BorderLayout.WEST);
@@ -272,8 +299,6 @@ public class OrderPanel extends JPanel{
 
         //  Thêm chức năng khi bấm nút
         btn.addActionListener(e -> {
-//            orderListModel.addElement(name + " - " + price + "\u0111");
-//            updateTotal();
 
             // Kiểm tra nếu là topping thì phải chọn trà trước
             if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
@@ -339,25 +364,11 @@ public class OrderPanel extends JPanel{
 
 
     private void updateTotal() {
-//        int total = 0;
-//        for (int i = 0; i < orderListModel.getSize(); i++) {
-//            String item = orderListModel.getElementAt(i);
-//            String[] parts = item.split(" - ");
-//            if (parts.length == 2) {
-//                String priceStr = parts[1].replace("đ", "").replace(".", "").trim();
-//                try {
-//                    total += Integer.parseInt(priceStr);
-//                } catch (NumberFormatException ignored) {
-//                }
-//            }
-//        }
-//        totalLabel.setText("Tổng tiền: " + total + "đ");
-
         int total = 0;
         for (OrderItem item : orderItems) {
             total += item.getTotal();
         }
-        totalLabel.setText("Tổng tiền: " + total + "đ");
+        totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
     }
 
 
