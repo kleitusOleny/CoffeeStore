@@ -36,7 +36,9 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         jbutThemNV.setFont(new Font("Segoe UI", Font.BOLD, 14));
         jbutThemNV.setFocusPainted(false);
         jbutThemNV.addActionListener((ActionEvent e) -> {
-            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien();
+
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien(parentFrame,true);
             themNhanVienFrame.setVisible(true);
         });
 
