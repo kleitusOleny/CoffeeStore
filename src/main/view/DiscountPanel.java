@@ -86,6 +86,8 @@ public class DiscountPanel extends JPanel {
         sorter = new TableRowSorter<>(khachModel);
         khachTable.setRowSorter(sorter);
 
+        khachTable.getTableHeader().setBackground(new Color(255, 224, 178));
+
         khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer());
         khachTable.getColumnModel().getColumn(4).setCellEditor(new CustomCheckBoxEditor());
 
@@ -147,6 +149,7 @@ public class DiscountPanel extends JPanel {
         kmTable.setRowHeight(30);
         kmTable.setFont(new Font("SansSerif", Font.PLAIN, 16));
         kmTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+        kmTable.getTableHeader().setBackground(new Color(255, 224, 178));
         kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer());
         kmTable.getColumnModel().getColumn(5).setCellEditor(new CustomCheckBoxEditor());
 
