@@ -1,8 +1,17 @@
 package view;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class QLNV_ThemNhanVien extends JDialog {
+
+	private CustomPanel jPanel1, jPanel2, jPanel3;
+	private CustomButton btnThem;
+	private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,
+			jLabel7, jLabel8, jLabel9, jLabel10;
+	private JSeparator jSeparator1;
+	private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
+			jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
 
 	public QLNV_ThemNhanVien(JFrame parent, boolean modal) {
 		super(parent, modal);
@@ -11,11 +20,17 @@ public class QLNV_ThemNhanVien extends JDialog {
 	}
 
 	private void initComponents() {
-		// Khởi tạo components
-		jPanel1 = new JPanel();
-		jPanel1.setBackground(new java.awt.Color(254, 216, 177));
+		// Panel chính với hiệu ứng shadow, gradient
+		jPanel1 = new CustomPanel();
+		jPanel1.setDrawShadow(true);
+		jPanel1.setBorderRadius(25);
+		jPanel1.setBackgroundColor(new Color(255, 245, 204));
+		jPanel1.setBorderColor(new Color(200, 170, 120));
+		jPanel1.setBorderThickness(3);
+		// Nếu có hover effect trên panel chính, tắt nếu muốn:
+		// jPanel1.setDrawHover(false);
 
-		// Labels và textfields phần Thông tin nhân viên
+		// Labels và CustomTextField phần Thông tin nhân viên
 		jLabel1 = new JLabel("Tên NV");
 		jLabel2 = new JLabel("Mã NV");
 		jLabel3 = new JLabel("SĐT");
@@ -23,24 +38,29 @@ public class QLNV_ThemNhanVien extends JDialog {
 		jLabel5 = new JLabel("Địa chỉ");
 		jLabel6 = new JLabel("Ngày sinh");
 
-		jTextField1 = new JTextField();
-		jTextField2 = new JTextField();
-		jTextField3 = new JTextField();
-		jTextField4 = new JTextField();
-		jTextField5 = new JTextField();
-		jTextField6 = new JTextField();
+		jTextField1 = new CustomTextField(20);
+		jTextField2 = new CustomTextField(20);
+		jTextField3 = new CustomTextField(20);
+		jTextField4 = new CustomTextField(20);
+		jTextField5 = new CustomTextField(20);
+		jTextField6 = new CustomTextField(20);
 
-		// Thiết lập kích thước đồng đều
-		int txtWidth = 300, txtHeight = 30;
-		jTextField1.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField2.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField3.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField4.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField5.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField6.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
+		styleCustomField(jTextField1);
+		styleCustomField(jTextField2);
+		styleCustomField(jTextField3);
+		styleCustomField(jTextField4);
+		styleCustomField(jTextField5);
+		styleCustomField(jTextField6);
 
-		// Panel chứa thông tin nhân viên
-		jPanel2 = new JPanel();
+		// Panel chứa phần Thông tin nhân viên (jPanel2)
+		jPanel2 = new CustomPanel();
+		jPanel2.setDrawShadow(false);
+		jPanel2.setBorderRadius(30);
+		jPanel2.setBorderColor(new Color(180, 180, 180));
+//		jPanel2.setBorderThickness(1);
+		// Tắt hover nếu có
+		// jPanel2.setDrawHover(false);
+
 		GroupLayout layout2 = new GroupLayout(jPanel2);
 		jPanel2.setLayout(layout2);
 		layout2.setAutoCreateGaps(true);
@@ -65,22 +85,22 @@ public class QLNV_ThemNhanVien extends JDialog {
 		layout2.setVerticalGroup(
 				layout2.createSequentialGroup()
 						.addComponent(jLabel1)
-						.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel2)
-						.addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel3)
-						.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel4)
-						.addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel5)
-						.addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel6)
-						.addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 		);
 
 		// Phần Trạng thái chấm công
 		jLabel7 = new JLabel("Trạng thái chấm công");
-		jLabel7.setFont(jLabel7.getFont().deriveFont(java.awt.Font.BOLD, 16f));
+		jLabel7.setFont(jLabel7.getFont().deriveFont(Font.BOLD, 16f));
 
 		jSeparator1 = new JSeparator();
 
@@ -88,15 +108,22 @@ public class QLNV_ThemNhanVien extends JDialog {
 		jLabel9 = new JLabel("Ca làm");
 		jLabel10 = new JLabel("Lương");
 
-		jTextField7 = new JTextField();
-		jTextField8 = new JTextField();
-		jTextField9 = new JTextField();
+		jTextField7 = new CustomTextField(20);
+		jTextField8 = new CustomTextField(20);
+		jTextField9 = new CustomTextField(20);
 
-		jTextField7.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField8.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
-		jTextField9.setPreferredSize(new java.awt.Dimension(txtWidth, txtHeight));
+		styleCustomField(jTextField7);
+		styleCustomField(jTextField8);
+		styleCustomField(jTextField9);
 
-		jPanel3 = new JPanel();
+		jPanel3 = new CustomPanel();
+		jPanel3.setDrawShadow(false);
+		jPanel3.setBorderRadius(30);
+		jPanel3.setBorderColor(new Color(180, 180, 180));
+//		jPanel3.setBorderThickness(1);
+		// Tắt hover nếu có
+		// jPanel3.setDrawHover(false);
+
 		GroupLayout layout3 = new GroupLayout(jPanel3);
 		jPanel3.setLayout(layout3);
 		layout3.setAutoCreateGaps(true);
@@ -119,17 +146,19 @@ public class QLNV_ThemNhanVien extends JDialog {
 						.addComponent(jLabel7)
 						.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel8)
-						.addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel9)
-						.addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jLabel10)
-						.addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, txtHeight, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 		);
 
 		// Nút Thêm
-		btnThem = new JButton("Thêm");
-		btnThem.setFont(btnThem.getFont().deriveFont(java.awt.Font.BOLD, 14f));
-		btnThem.setBackground(new java.awt.Color(217, 217, 217));
+		btnThem = new CustomButton("Thêm");
+		btnThem.setBackgroundColor(new Color(166, 123, 91));
+		btnThem.setForeground(Color.WHITE);
+		btnThem.setFont(new Font("Roboto", Font.BOLD, 16));
+		btnThem.setBorderRadius(20);
 		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
 
 		// Layout tổng thể panel 1
@@ -181,14 +210,14 @@ public class QLNV_ThemNhanVien extends JDialog {
 		dispose();
 	}
 
-	// Biến thành phần
-	private JButton btnThem;
-	private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,
-			jLabel7, jLabel8, jLabel9, jLabel10;
-	private JPanel jPanel1, jPanel2, jPanel3;
-	private JSeparator jSeparator1;
-	private JTextField jTextField1, jTextField2, jTextField3, jTextField4,
-			jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
+	private void styleCustomField(CustomTextField tf) {
+		tf.setPreferredSize(new Dimension(300, 30));
+		tf.setFont(new Font("Roboto", Font.BOLD, 14));
+		tf.setBorderRadius(20);
+		tf.setForeground(new Color(166, 123, 91));
+		// Nếu có hover effect trên textfield, tắt nếu muốn:
+		// tf.setDrawHover(false);
+	}
 
 	public static void main(String[] args) {
 		try {
@@ -197,18 +226,11 @@ public class QLNV_ThemNhanVien extends JDialog {
 					UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception ignored) {}
 
-		JFrame frame = new JFrame("Demo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 300);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-
-		QLNV_ThemNhanVien dialog = new QLNV_ThemNhanVien(frame, true);
-		dialog.setTitle("Thêm nhân viên");
-		dialog.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			QLNV_ThemNhanVien dialog = new QLNV_ThemNhanVien(null, true);
+			dialog.setVisible(true);
+		});
 	}
 }
