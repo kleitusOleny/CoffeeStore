@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MenuEditorPanel extends JPanel{
-    private JPanel mainPanel, toolbar;
+    private JPanel mainPanel, toolbar, searchResultPanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn;
-    private CustomButton saveBtn, cancelBtn, addBtn;
-    private JDialog dialog;
+    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
+    private JLabel nameLabel, priceLabel;
     private CustomTextField searchField;
 
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
@@ -30,7 +29,7 @@ public class MenuEditorPanel extends JPanel{
         });
         drinkData.add(new String[][]{
                 {"Trà đào", "30000", "src\\main\\image\\peachtea.png"},
-                {"Trà sữa", "32000", "src\\main\\image\\milktea.png"}
+                {"Trà sữa trân châu", "32000", "src\\main\\image\\milktea.png"}
         });
         drinkData.add(new String[][]{
                 {"Trân châu mật ong", "5000", "src\\main\\image\\honeyboba.png"},
@@ -119,29 +118,29 @@ public class MenuEditorPanel extends JPanel{
     }
 
     private JButton createDrinkButton(String name, String priceStr, String imagePath, String[] drinkInfo, int index) {
-        JButton btn = createDrinkBtn(" ");
-        btn.setPreferredSize(new Dimension(140, 180)); // hình vuông
-        btn.setMaximumSize(new Dimension(100, 100));
-        btn.setLayout(new BorderLayout());
-        btn.setBackground(new Color(255, 245, 204));
+        drinkBtn = createDrinkBtn(" ");
+        drinkBtn.setPreferredSize(new Dimension(140, 180)); // hình vuông
+        drinkBtn.setMaximumSize(new Dimension(100, 100));
+        drinkBtn.setLayout(new BorderLayout());
+        drinkBtn.setBackground(new Color(255, 245, 204));
 
         try {
             ImageIcon icon = new ImageIcon(imagePath);
             Image scaled = icon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
             JLabel imageLabel = new JLabel(new ImageIcon(scaled));
             imageLabel.setHorizontalAlignment(JLabel.CENTER);
-            btn.add(imageLabel, BorderLayout.NORTH);
+            drinkBtn.add(imageLabel, BorderLayout.NORTH);
         } catch (Exception e) {
             JLabel placeholder = new JLabel("[ảnh]", JLabel.CENTER);
-            btn.add(placeholder, BorderLayout.NORTH);
+            drinkBtn.add(placeholder, BorderLayout.NORTH);
         }
 
-        JLabel nameLabel = new JLabel(name, JLabel.CENTER);
+        nameLabel = new JLabel(name, JLabel.CENTER);
         nameLabel.setFont(new Font("Roboto", Font.BOLD, 25));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        JLabel priceLabel = new JLabel(priceStr + "đ", JLabel.CENTER);
+        priceLabel = new JLabel(priceStr + "đ", JLabel.CENTER);
         priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -190,10 +189,10 @@ public class MenuEditorPanel extends JPanel{
         infoPanel.add(Box.createVerticalStrut(5));
         infoPanel.add(deleteBtn);
 
-        btn.add(infoPanel, BorderLayout.CENTER);
+        drinkBtn.add(infoPanel, BorderLayout.CENTER);
 
         // chuc nang sua thong tin mon
-        btn.addActionListener(e ->{
+        drinkBtn.addActionListener(e ->{
                     EditDrinkDialog editDialog = new EditDrinkDialog(
                             (JFrame) SwingUtilities.getWindowAncestor(this),
                             drinkInfo,
@@ -203,86 +202,8 @@ public class MenuEditorPanel extends JPanel{
                 }
         );
 
-        return btn;
+        return drinkBtn;
     }
-
-//    private void openEditDrinkDialog(String[] drinkInfo, int index) {
-//        JDialog dialog = new JDialog((Frame) null, "Chỉnh sửa đồ uống", true);
-//        dialog.setSize(500, 400);
-//        dialog.setLocationRelativeTo(null);
-//        dialog.setLayout(new GridBagLayout());
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.insets = new Insets(5, 5, 5, 5);
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//
-//        // Tên
-//        gbc.gridx = 0; gbc.gridy = 0;
-//        JLabel name = new JLabel("Tên đồ uống:");
-//        name.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(name, gbc);
-//        JTextField nameField = new JTextField(drinkInfo[0]);
-//        nameField.setSize(new Dimension(200, 40));
-//        gbc.gridx = 1;
-//        dialog.add(nameField, gbc);
-//
-//        // Giá
-//        gbc.gridx = 0; gbc.gridy = 1;
-//        JLabel price = new JLabel("Giá:");
-//        price.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(price, gbc);
-//        JTextField priceField = new JTextField(drinkInfo[1]);
-//        priceField.setSize(new Dimension(200, 40));
-//        gbc.gridx = 1;
-//        dialog.add(priceField, gbc);
-//
-//        // Hình ảnh
-//        gbc.gridx = 0; gbc.gridy = 2;
-//        JLabel img = new JLabel("Hình ảnh:");
-//        img.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(img, gbc);
-//        JComboBox<String> imageCombo = new JComboBox<>(new String[] {
-//                "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
-//                "src\\main\\image\\expresso.png", "src\\main\\image\\peachtea.png",
-//                "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
-//                "src\\main\\image\\creamcheese.png"
-//        });
-//        imageCombo.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        imageCombo.setSize(new Dimension(20, 40));
-//        imageCombo.setSelectedItem(drinkInfo[2]);
-//        gbc.gridx = 1;
-//        dialog.add(imageCombo, gbc);
-//
-//        // Nút lưu
-//        saveBtn = new CustomButton("Lưu thay đổi");
-//        saveBtn.setBackgroundColor(new Color(255, 180, 100));
-//        saveBtn.setTextColor(Color.WHITE);
-//        saveBtn.setBorderRadius(20);
-//        saveBtn.setPreferredSize(new Dimension(150, 40));
-//
-//        // Nút hủy
-//        cancelBtn = new CustomButton("Hủy");
-//        cancelBtn.setBackgroundColor(new Color(244, 67, 54));
-//        cancelBtn.setTextColor(Color.WHITE);
-//        cancelBtn.setBorderRadius(20);
-//        cancelBtn.setPreferredSize(new Dimension(80, 40));
-//        JPanel btnPanel = new JPanel();
-//        btnPanel.add(saveBtn);
-//        btnPanel.add(cancelBtn);
-//        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
-//        dialog.add(btnPanel, gbc);
-//
-//        saveBtn.addActionListener(e -> {
-//            drinkInfo[0] = nameField.getText();
-//            drinkInfo[1] = priceField.getText();
-//            drinkInfo[2] = (String) imageCombo.getSelectedItem();
-//            dialog.dispose();
-//            refreshCardPanel();
-//        });
-//
-//        cancelBtn.addActionListener(e -> dialog.dispose());
-//
-//        dialog.setVisible(true);
-//    }
 
     private void refreshCardPanel() {
         cardPanel.removeAll();
@@ -292,9 +213,6 @@ public class MenuEditorPanel extends JPanel{
         cardPanel.revalidate();
         cardPanel.repaint();
     }
-
-
-
 
     private CustomButton createMenuButton(String text) {
         CustomButton button = new CustomButton(text);
@@ -326,11 +244,13 @@ public class MenuEditorPanel extends JPanel{
 
         searchField = new CustomTextField(10);
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(130, 28));
+        searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
+        searchField.setFont(new Font("Roboto", Font.BOLD, 16));
+        searchField.setForeground(new Color(166, 123, 91));
 
         // Tạo nút tìm kiếm có icon
-        JButton searchButton = new JButton();
+        searchButton = new JButton();
         searchButton.setFocusable(false);
         searchButton.setBorder(null);
         searchButton.setContentAreaFilled(false);
@@ -348,8 +268,36 @@ public class MenuEditorPanel extends JPanel{
         }
 
         searchButton.addActionListener(e -> {
-            String keyword = searchField.getText();
-            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
+            String keyword = searchField.getText().trim().toLowerCase();
+            if (keyword.isEmpty()) return;
+
+            searchResultPanel = new JPanel(new GridLayout(0, 3, 20, 20));
+            searchResultPanel.setBackground(new Color(255, 245, 204));
+            searchResultPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            boolean found = false;
+
+            for (int i = 0; i < drinkData.size(); i++) {
+                String[][] drinks = drinkData.get(i);
+                for (String[] drink : drinks) {
+                    String name = drink[0].toLowerCase();
+                    if (name.contains(keyword)) {
+                        JButton btn = createDrinkButton(drink[0], drink[1], drink[2], drink, 0);
+                        searchResultPanel.add(btn);
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found) {
+                JLabel notFound = new JLabel("Không tìm thấy kết quả", JLabel.CENTER);
+                notFound.setFont(new Font("Roboto", Font.ITALIC, 20));
+                searchResultPanel.setLayout(new BorderLayout());
+                searchResultPanel.add(notFound, BorderLayout.CENTER);
+            }
+
+            cardPanel.add(searchResultPanel, "search");
+            cardLayout.show(cardPanel, "search");
         });
 
         panel.add(searchField, BorderLayout.WEST);
@@ -357,85 +305,6 @@ public class MenuEditorPanel extends JPanel{
 
         return panel;
     }
-
-
-//    private void openAddDrinkDialog() {
-//        dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Thêm đồ uống", true);
-//        dialog.setLayout(new GridLayout(5, 0, 10, 10));
-//        dialog.setSize(500, 400);
-//        dialog.setLocationRelativeTo(this);
-//
-//        JTextField nameField = new JTextField();
-//        nameField.setSize(new Dimension(100, 40));
-//        JTextField priceField = new JTextField();
-//        priceField.setSize(new Dimension(100, 40));
-//        JComboBox<String> typeBox = new JComboBox<>(types);
-//        typeBox.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        JComboBox<String> imageBox = new JComboBox<>(new String[]{
-//                "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
-//                "src\\main\\image\\expresso.png", "src\\main\\image\\peachtea.png",
-//                "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
-//                "src\\main\\image\\creamcheese.png", "src\\main\\image\\flan.png"
-//        });
-//        imageBox.setFont(new Font("Roboto", Font.PLAIN, 20));
-//
-//        JLabel nameLabel = new JLabel("Tên đồ uống:");
-//        dialog.add(nameLabel);
-//        nameLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(nameField);
-//        JLabel priceLabel = new JLabel("Giá:");
-//        dialog.add(priceLabel);
-//        priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(priceField);
-//        JLabel typeLable = new JLabel("Loại:");
-//        dialog.add(typeLable);
-//        typeLable.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(typeBox);
-//        JLabel imgLable = new JLabel("Ảnh:");
-//        dialog.add(imgLable);
-//        imgLable.setFont(new Font("Roboto", Font.PLAIN, 20));
-//        dialog.add(imageBox);
-//
-//        addBtn = new CustomButton("Thêm");
-//        addBtn.setBackgroundColor(new Color(255, 180, 100));
-//        addBtn.setTextColor(Color.WHITE);
-//        addBtn.setBorderRadius(20);
-//        addBtn.setPreferredSize(new Dimension(80, 40));
-//        addBtn.addActionListener(e -> {
-//            String name = nameField.getText().trim();
-//            String price = priceField.getText().trim();
-//            String type = (String) typeBox.getSelectedItem();
-//            String image = (String) imageBox.getSelectedItem();
-//
-//            if (!name.isEmpty() && !price.isEmpty()) {
-//                int index = switch (type) {
-//                    case "coffee" -> 0;
-//                    case "tea" -> 1;
-//                    case "topping" -> 2;
-//                    default -> 0;
-//                };
-//                String[][] data = drinkData.get(index);
-//                ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
-//                list.add(new String[]{name, price, image});
-//                drinkData.set(index, list.toArray(new String[0][0]));
-//
-//                // Refresh UI
-//                cardPanel.removeAll();
-//                for (int i = 0; i < types.length; i++) {
-//                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
-//                }
-//                cardPanel.revalidate();
-//                cardPanel.repaint();
-//                dialog.dispose();
-//            } else {
-//                JOptionPane.showMessageDialog(dialog, "Vui lòng nhập đủ thông tin.");
-//            }
-//        });
-//
-//        dialog.add(new JLabel());
-//        dialog.add(addBtn, BorderLayout.CENTER);
-//        dialog.setVisible(true);
-//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
