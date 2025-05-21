@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class DiscountPanel extends JPanel {
 
     private CustomTable khachTable;
-    private JTextField searchField;
+    private CustomTextField searchField;
     private TableRowSorter<TableModel> sorter;
 
     // ✅ Thêm các nút cần getter
@@ -18,6 +18,8 @@ public class DiscountPanel extends JPanel {
     private CustomButton khachVIPButton;
     private CustomButton themKHButton;
     private CustomButton timButton;
+    private AddCustomerDialog dialog;
+    private ChangeInforCustomerDialog dialog1;
 
     public DiscountPanel() {
         setLayout(new BorderLayout());
@@ -86,6 +88,8 @@ public class DiscountPanel extends JPanel {
         sorter = new TableRowSorter<>(khachModel);
         khachTable.setRowSorter(sorter);
 
+        khachTable.getTableHeader().setBackground(new Color(255, 224, 178));
+
         khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer());
         khachTable.getColumnModel().getColumn(4).setCellEditor(new CustomCheckBoxEditor());
 
@@ -106,14 +110,14 @@ public class DiscountPanel extends JPanel {
                     String diem = (String) model.getValueAt(modelRow, 2);
 
                     JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(DiscountPanel.this);
-                    ChangeInforCustomerDialog dialog = new ChangeInforCustomerDialog(topFrame);
-                    dialog.setKhachHang(ten, sdt, diem);
-                    dialog.setVisible(true);
+                    dialog1 = new ChangeInforCustomerDialog(topFrame);
+                    dialog1.setKhachHang(ten, sdt, diem);
+                    dialog1.setVisible(true);
 
-                    if (dialog.isConfirmed()) {
-                        model.setValueAt(dialog.getTenKhach(), modelRow, 0);
-                        model.setValueAt(dialog.getSDT(), modelRow, 1);
-                        model.setValueAt(dialog.getDiem(), modelRow, 2);
+                    if (dialog1.isConfirmed()) {
+                        model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
+                        model.setValueAt(dialog1.getSDT(), modelRow, 1);
+                        model.setValueAt(dialog1.getDiem(), modelRow, 2);
                     }
                 }
             }
@@ -147,6 +151,7 @@ public class DiscountPanel extends JPanel {
         kmTable.setRowHeight(30);
         kmTable.setFont(new Font("SansSerif", Font.PLAIN, 16));
         kmTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+        kmTable.getTableHeader().setBackground(new Color(255, 224, 178));
         kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer());
         kmTable.getColumnModel().getColumn(5).setCellEditor(new CustomCheckBoxEditor());
 
@@ -196,7 +201,7 @@ public class DiscountPanel extends JPanel {
 
     private void addKhachHang() {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        AddCustomerDialog dialog = new AddCustomerDialog(topFrame);
+        dialog = new AddCustomerDialog(topFrame);
         dialog.setVisible(true);
 
         if (dialog.isConfirmed()) {
@@ -218,7 +223,7 @@ public class DiscountPanel extends JPanel {
         if (keyword.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 0));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 1));
         }
     }
 
@@ -320,14 +325,16 @@ public class DiscountPanel extends JPanel {
     }
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(180, 28));
+        panel.setPreferredSize(new Dimension(300, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new JTextField(); // dùng biến toàn cục
+        searchField = new CustomTextField(20); // dùng biến toàn cục
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(140, 28));
         searchField.setOpaque(true);
+        searchField.setBorderRadius(20);
+        searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchButton = new JButton();
         timButton = new CustomButton("Tìm Button"); // vẫn tạo nút CustomButton nếu cần getter
