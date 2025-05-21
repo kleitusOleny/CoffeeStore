@@ -48,6 +48,7 @@ public class OrderPanel extends JPanel{
         orderBillPanel.setBackground(Color.WHITE);
 
         title = new JLabel("Order bill", JLabel.CENTER);
+
         title.setFont(new Font("Roboto", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
@@ -106,7 +107,9 @@ public class OrderPanel extends JPanel{
 
         searchPanel = createSearchBoxWithButton();
 
+
         priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
+
         priceFilter.setFont(new Font("Roboto", Font.BOLD, 15));
         priceFilter.addActionListener(e -> {
             String selected = (String) priceFilter.getSelectedItem();
@@ -159,6 +162,7 @@ public class OrderPanel extends JPanel{
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         searchField = new CustomTextField(10);
+
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
