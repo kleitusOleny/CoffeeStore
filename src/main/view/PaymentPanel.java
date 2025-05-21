@@ -107,11 +107,14 @@ public class PaymentPanel extends JPanel {
                 {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
         };
 
-        JTable table = new JTable(new DefaultTableModel(data, headers)) {
+        CustomTable table = new CustomTable();
+        DefaultTableModel model = new DefaultTableModel(data, headers) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        table.setModel(model);
+
 
         Font tableFont = new Font("Roboto", Font.PLAIN, 18);
         Font headerFont = new Font("Roboto", Font.BOLD, 20);
@@ -120,6 +123,7 @@ public class PaymentPanel extends JPanel {
         table.setRowHeight(35);
         table.getTableHeader().setFont(headerFont);
         table.getTableHeader().setPreferredSize(new Dimension(100, 35));
+        table.getTableHeader().setBackground(new Color(255, 224, 178));
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(3).setPreferredWidth(300);
 
