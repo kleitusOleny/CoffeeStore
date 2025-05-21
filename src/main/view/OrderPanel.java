@@ -45,7 +45,7 @@ public class OrderPanel extends JPanel{
         orderBillPanel.setBackground(Color.WHITE);
 
         JLabel title = new JLabel("Order bill", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 16));
+        title.setFont(new Font("Roboto", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
         orderItemsPanel = new JPanel();
@@ -57,7 +57,7 @@ public class OrderPanel extends JPanel{
         orderBillPanel.add(scrollPane, BorderLayout.CENTER);
 
         totalLabel = new JLabel("Tổng tiền: ...", JLabel.CENTER);
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        totalLabel.setFont(new Font("Roboto", Font.BOLD, 20));
         orderBillPanel.add(totalLabel, BorderLayout.SOUTH);
 
         return orderBillPanel;
@@ -104,6 +104,7 @@ public class OrderPanel extends JPanel{
         JPanel searchPanel = createSearchBoxWithButton();
 
         JComboBox<String> priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
+        priceFilter.setFont(new Font("Roboto", Font.BOLD, 15));
         priceFilter.addActionListener(e -> {
             String selected = (String) priceFilter.getSelectedItem();
             JPanel filteredPanel = createFilteredPanel(selected);
@@ -115,6 +116,9 @@ public class OrderPanel extends JPanel{
         toolbar.add(cafe);
         toolbar.add(tea);
         toolbar.add(topping);
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(searchPanel);
         toolbar.add(Box.createHorizontalStrut(20));
@@ -147,14 +151,16 @@ public class OrderPanel extends JPanel{
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(160, 28));
+        panel.setPreferredSize(new Dimension(200, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        JTextField searchField = new JTextField();
+        CustomTextField searchField = new CustomTextField(10);
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(130, 28));
+        searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
+        searchField.setFont(new Font("Roboto", Font.BOLD, 16));
+        searchField.setForeground(new Color(166, 123, 91));
 
         // Tạo nút tìm kiếm có icon
         JButton searchButton = new JButton();
@@ -252,10 +258,10 @@ public class OrderPanel extends JPanel{
         }
 
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 25));
 
         JLabel priceLabel = new JLabel(price + "\u0111", JLabel.CENTER);
-        priceLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
 
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
         infoPanel.setOpaque(false);
