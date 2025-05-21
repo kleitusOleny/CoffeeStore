@@ -1,0 +1,16 @@
+[
+  {
+    "hoTen": "Nguyễn Văn A",
+    "soDienThoai": "0987654321",
+    "diemTichLuy": "120",
+    "trangThai": "VIP",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn B",
+    "soDienThoai": "098765343434",
+    "diemTichLuy": "120",
+    "trangThai": "Thường",
+    "chon": false
+  }
+]
