@@ -18,6 +18,10 @@ public class Reservation {
         this.numOfPersons = numOfPersons;
     }
 
+    public Table getTable() {
+        return table;
+    }
+
     // kiem tra trang thai ban da dat chua
     public boolean checkStatus(){
         return table.isStatus() ? true : false;

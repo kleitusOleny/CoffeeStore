@@ -15,5 +15,6 @@ import java.io.FileNotFoundException;
  import view.IView;
  public interface IController {
 
+//  public void run();
 
 }
