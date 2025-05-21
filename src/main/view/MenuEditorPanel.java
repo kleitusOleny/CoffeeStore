@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MenuEditorPanel extends JPanel{
+public class MenuEditorPanel extends JPanel {
     private JPanel mainPanel, toolbar;
     private JPanel cardPanel;
     private CardLayout cardLayout;
@@ -15,7 +15,7 @@ public class MenuEditorPanel extends JPanel{
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
     private final String[] types = {"coffee", "tea", "topping"};
 
-    public MenuEditorPanel(){
+    public MenuEditorPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
 
@@ -64,9 +64,9 @@ public class MenuEditorPanel extends JPanel{
         teaBtn = createMenuButton("Trà");
         toppingBtn = createMenuButton("Topping");
 
-        cafeBtn.addActionListener(e -> cardLayout.show(cardPanel, "coffee"));
-        teaBtn.addActionListener(e -> cardLayout.show(cardPanel, "tea"));
-        toppingBtn.addActionListener(e -> cardLayout.show(cardPanel, "topping"));
+        cafeBtn.addActionListener(e -> showDrinkCategory("coffee"));
+        teaBtn.addActionListener(e -> showDrinkCategory("coffee"));
+        toppingBtn.addActionListener(e -> showDrinkCategory("coffee"));
 
         JPanel searchPanel = createSearchBoxWithButton();
 
@@ -87,6 +87,10 @@ public class MenuEditorPanel extends JPanel{
         toolbar.add(addButton);
 
         return toolbar;
+    }
+
+    private void showDrinkCategory(String type) {
+        cardLayout.show(cardPanel, type);
     }
 
     private JPanel createDrinkGridPanel(String[][] drinks) {
@@ -145,29 +149,30 @@ public class MenuEditorPanel extends JPanel{
         deleteBtn.setIcon(icon2);
         deleteBtn.setMargin(new Insets(2, 5, 2, 5));
 
-        deleteBtn.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "Xác nhận xóa món này?", "Xóa", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Xóa khỏi dữ liệu
-                for (int i = 0; i < drinkData.size(); i++) {
-                    String[][] data = drinkData.get(i);
-                    if (data != null) {
-                        ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
-                        list.removeIf(drink -> drink[0].equals(name));
-                        drinkData.set(i, list.toArray(new String[0][0]));
-                    }
-                }
-
-                // Cập nhật UI
-                cardPanel.removeAll();
-                for (int i = 0; i < types.length; i++) {
-                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
-                }
-                cardPanel.revalidate();
-                cardPanel.repaint();
-            }
-
-        });
+//        deleteBtn.addActionListener(e -> {
+//            int confirm = JOptionPane.showConfirmDialog(this, "Xác nhận xóa món này?", "Xóa", JOptionPane.YES_NO_OPTION);
+//            if (confirm == JOptionPane.YES_OPTION) {
+//                // Xóa khỏi dữ liệu
+//                for (int i = 0; i < drinkData.size(); i++) {
+//                    String[][] data = drinkData.get(i);
+//                    if (data != null) {
+//                        ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
+//                        list.removeIf(drink -> drink[0].equals(name));
+//                        drinkData.set(i, list.toArray(new String[0][0]));
+//                    }
+//                }
+//
+//                // Cập nhật UI
+//                cardPanel.removeAll();
+//                for (int i = 0; i < types.length; i++) {
+//                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
+//                }
+//                cardPanel.revalidate();
+//                cardPanel.repaint();
+//            }
+//
+//        });
+        deleteBtn.addActionListener(e ->deleteDrink(name));
 
         btn.add(deleteBtn, BorderLayout.SOUTH);
 
@@ -175,6 +180,21 @@ public class MenuEditorPanel extends JPanel{
         btn.addActionListener(e -> openEditDrinkDialog(drinkInfo, index));
 
         return btn;
+    }
+
+    private void deleteDrink(String drinkName) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Xác nhận xóa món này?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            for (int i = 0; i < drinkData.size(); i++) {
+                String[][] data = drinkData.get(i);
+                if (data != null) {
+                    ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
+                    list.removeIf(drink -> drink[0].equals(drinkName));
+                    drinkData.set(i, list.toArray(new String[0][0]));
+                }
+            }
+            refreshCardPanel();
+        }
     }
 
     private void openEditDrinkDialog(String[] drinkInfo, int index) {
@@ -187,23 +207,26 @@ public class MenuEditorPanel extends JPanel{
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Tên
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         dialog.add(new JLabel("Tên đồ uống:"), gbc);
         JTextField nameField = new JTextField(drinkInfo[0]);
         gbc.gridx = 1;
         dialog.add(nameField, gbc);
 
         // Giá
-        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         dialog.add(new JLabel("Giá:"), gbc);
         JTextField priceField = new JTextField(drinkInfo[1]);
         gbc.gridx = 1;
         dialog.add(priceField, gbc);
 
         // Hình ảnh
-        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         dialog.add(new JLabel("Hình ảnh:"), gbc);
-        JComboBox<String> imageCombo = new JComboBox<>(new String[] {
+        JComboBox<String> imageCombo = new JComboBox<>(new String[]{
                 "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
                 "src\\main\\image\\expresso.png", "src\\main\\image\\peachtea.png",
                 "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
@@ -219,7 +242,9 @@ public class MenuEditorPanel extends JPanel{
         JPanel btnPanel = new JPanel();
         btnPanel.add(saveBtn);
         btnPanel.add(cancelBtn);
-        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
         dialog.add(btnPanel, gbc);
 
         saveBtn.addActionListener(e -> {
@@ -243,8 +268,6 @@ public class MenuEditorPanel extends JPanel{
         cardPanel.revalidate();
         cardPanel.repaint();
     }
-
-
 
 
     private CustomButton createMenuButton(String text) {
@@ -298,15 +321,17 @@ public class MenuEditorPanel extends JPanel{
             searchButton.setText("🔍"); // fallback nếu ảnh lỗi
         }
 
-        searchButton.addActionListener(e -> {
-            String keyword = searchField.getText();
-            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
-        });
+        searchButton.addActionListener(e -> searchDrink(searchField.getText()));
+
 
         panel.add(searchField, BorderLayout.WEST);
         panel.add(searchButton, BorderLayout.EAST);
 
         return panel;
+    }
+
+    private void searchDrink(String keyword) {
+        JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
     }
 
 
@@ -336,43 +361,65 @@ public class MenuEditorPanel extends JPanel{
         dialog.add(imageBox);
 
         JButton addBtn = new JButton("Thêm");
-        addBtn.addActionListener(e -> {
-            String name = nameField.getText().trim();
-            String price = priceField.getText().trim();
-            String type = (String) typeBox.getSelectedItem();
-            String image = (String) imageBox.getSelectedItem();
+//        addBtn.addActionListener(e -> {
+//            String name = nameField.getText().trim();
+//            String price = priceField.getText().trim();
+//            String type = (String) typeBox.getSelectedItem();
+//            String image = (String) imageBox.getSelectedItem();
+//
+//            if (!name.isEmpty() && !price.isEmpty()) {
+//                int index = switch (type) {
+//                    case "coffee" -> 0;
+//                    case "tea" -> 1;
+//                    case "topping" -> 2;
+//                    default -> 0;
+//                };
+//                String[][] data = drinkData.get(index);
+//                ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
+//                list.add(new String[]{name, price, image});
+//                drinkData.set(index, list.toArray(new String[0][0]));
+//
+//                // Refresh UI
+//                cardPanel.removeAll();
+//                for (int i = 0; i < types.length; i++) {
+//                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
+//                }
+//                cardPanel.revalidate();
+//                cardPanel.repaint();
+//                dialog.dispose();
+//            } else {
+//                JOptionPane.showMessageDialog(dialog, "Vui lòng nhập đủ thông tin.");
+//            }
+//        });
+        addBtn.addActionListener(e -> handleAddDrink(nameField, priceField, typeBox, imageBox));
 
-            if (!name.isEmpty() && !price.isEmpty()) {
-                int index = switch (type) {
-                    case "coffee" -> 0;
-                    case "tea" -> 1;
-                    case "topping" -> 2;
-                    default -> 0;
-                };
-                String[][] data = drinkData.get(index);
-                ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
-                list.add(new String[]{name, price, image});
-                drinkData.set(index, list.toArray(new String[0][0]));
-
-                // Refresh UI
-                cardPanel.removeAll();
-                for (int i = 0; i < types.length; i++) {
-                    cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
-                }
-                cardPanel.revalidate();
-                cardPanel.repaint();
-                dialog.dispose();
-            } else {
-                JOptionPane.showMessageDialog(dialog, "Vui lòng nhập đủ thông tin.");
-            }
-        });
 
         dialog.add(new JLabel());
         dialog.add(addBtn);
         dialog.setVisible(true);
     }
 
-
+    private void handleAddDrink(JTextField nameField, JTextField priceField, JComboBox<String> typeBox, JComboBox<String> imageBox) {
+        String name = nameField.getText().trim();
+        String price = priceField.getText().trim();
+        String type = (String) typeBox.getSelectedItem();
+        String image = (String) imageBox.getSelectedItem();
+        if (!name.isEmpty() && !price.isEmpty()){
+            int index = switch (type) {
+                case "coffee" -> 0;
+                case "tea" -> 1;
+                case "topping" -> 2;
+                default -> 0;
+            };
+            ArrayList<String[]> list = new ArrayList<>(Arrays.asList(drinkData.get(index)));
+            list.add(new String[]{name, price, image});
+            drinkData.set(index, list.toArray(new String[0][0]));
+            refreshCardPanel();
+            dialog.dispose();
+        } else {
+            JOptionPane.showMessageDialog(dialog, "Vui lòng nhập đủ thông tin.");
+        }
+    }
 
 
     public static void main(String[] args) {

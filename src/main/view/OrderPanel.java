@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class OrderPanel extends JPanel{
@@ -104,13 +105,15 @@ public class OrderPanel extends JPanel{
         JPanel searchPanel = createSearchBoxWithButton();
 
         JComboBox<String> priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
-        priceFilter.addActionListener(e -> {
-            String selected = (String) priceFilter.getSelectedItem();
-            JPanel filteredPanel = createFilteredPanel(selected);
-            cardPanel.add(filteredPanel, "filter");
-            cardLayout.show(cardPanel, "filter");
+//        priceFilter.addActionListener(e -> {
+//            String selected = (String) priceFilter.getSelectedItem();
+//            JPanel filteredPanel = createFilteredPanel(selected);
+//            cardPanel.add(filteredPanel, "filter");
+//            cardLayout.show(cardPanel, "filter");
+//
+//        });
+        priceFilter.addActionListener(this::onPriceFilterChanged);
 
-        });
 
         toolbar.add(cafe);
         toolbar.add(tea);
@@ -122,6 +125,14 @@ public class OrderPanel extends JPanel{
 
 
         return toolbar;
+    }
+
+    private void onPriceFilterChanged(ActionEvent e) {
+        JComboBox<?> cb = (JComboBox<?>) e.getSource();
+        String selected = (String) cb.getSelectedItem();
+        JPanel filteredPanel = createFilteredPanel(selected);
+        cardPanel.add(filteredPanel, "filter");
+        cardLayout.show(cardPanel, "filter");
     }
 
     private CustomButton createMenuButton(String text) {
@@ -173,16 +184,23 @@ public class OrderPanel extends JPanel{
         } catch (Exception e) {
             searchButton.setText("🔍"); // fallback nếu ảnh lỗi
         }
+//
+//        searchButton.addActionListener(e -> {
+//            String keyword = searchField.getText();
+//            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
+//        });
+        searchButton.addActionListener(e -> onSearchButtonClicked(searchField.getText()));
 
-        searchButton.addActionListener(e -> {
-            String keyword = searchField.getText();
-            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
-        });
 
         panel.add(searchField, BorderLayout.WEST);
         panel.add(searchButton, BorderLayout.EAST);
 
         return panel;
+    }
+
+    private void onSearchButtonClicked(String keyword) {
+        JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
+
     }
 
     private final String[][] coffeeDrinks = {
@@ -265,42 +283,73 @@ public class OrderPanel extends JPanel{
         btn.add(infoPanel, BorderLayout.SOUTH);
 
         //  Thêm chức năng khi bấm nút
-        btn.addActionListener(e -> {
-//            orderListModel.addElement(name + " - " + price + "\u0111");
+//        btn.addActionListener(e -> {
+////            orderListModel.addElement(name + " - " + price + "\u0111");
+////            updateTotal();
+//
+//            // Kiểm tra nếu là topping thì phải chọn trà trước
+//            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
+//                if (!hasSelectedTea) {
+//                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
+//                    return;
+//                }
+//            }
+//
+//            if (name.contains("Trà")) {
+//                hasSelectedTea = true; // Đã chọn trà rồi
+//            }
+//
+//            OrderItem orderItem = new OrderItem(name, price);
+//            JPanel itemPanel = orderItem.createPanel(
+//                    this::updateTotal,
+//                    () -> {
+//                        orderItemsPanel.remove(orderItem.panel);
+//                        orderItems.remove(orderItem);
+//                        updateTotal();
+//                        orderItemsPanel.revalidate();
+//                        orderItemsPanel.repaint();
+//                    }
+//            );
+//            orderItems.add(orderItem);
+//            orderItemsPanel.add(itemPanel);
+//            orderItemsPanel.revalidate();
+//            orderItemsPanel.repaint();
 //            updateTotal();
-
-            // Kiểm tra nếu là topping thì phải chọn trà trước
-            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
-                if (!hasSelectedTea) {
-                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
-                    return;
-                }
-            }
-
-            if (name.contains("Trà")) {
-                hasSelectedTea = true; // Đã chọn trà rồi
-            }
-
-            OrderItem orderItem = new OrderItem(name, price);
-            JPanel itemPanel = orderItem.createPanel(
-                    this::updateTotal,
-                    () -> {
-                        orderItemsPanel.remove(orderItem.panel);
-                        orderItems.remove(orderItem);
-                        updateTotal();
-                        orderItemsPanel.revalidate();
-                        orderItemsPanel.repaint();
-                    }
-            );
-            orderItems.add(orderItem);
-            orderItemsPanel.add(itemPanel);
-            orderItemsPanel.revalidate();
-            orderItemsPanel.repaint();
-            updateTotal();
-
-        });
+//
+//        });
+btn.addActionListener(e -> onDrinkButtonClicked(name,price));
 
         return btn;
+    }
+
+    private void onDrinkButtonClicked(String name, int price) {
+        if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
+            if (!hasSelectedTea) {
+                JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
+                return;
+            }
+        }
+
+        if (name.contains("Trà")) {
+            hasSelectedTea = true; // Đã chọn trà rồi
+        }
+
+        OrderItem orderItem = new OrderItem(name, price);
+        JPanel itemPanel = orderItem.createPanel(
+                this::updateTotal,
+                () -> {
+                    orderItemsPanel.remove(orderItem.panel);
+                    orderItems.remove(orderItem);
+                    updateTotal();
+                    orderItemsPanel.revalidate();
+                    orderItemsPanel.repaint();
+                }
+        );
+        orderItems.add(orderItem);
+        orderItemsPanel.add(itemPanel);
+        orderItemsPanel.revalidate();
+        orderItemsPanel.repaint();
+        updateTotal();
     }
 
     private JPanel createFilteredPanel(String filter) {
