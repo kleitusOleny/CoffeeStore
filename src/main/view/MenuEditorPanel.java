@@ -9,9 +9,12 @@ public class MenuEditorPanel extends JPanel {
     private JPanel mainPanel, toolbar;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn;
-    private JDialog dialog;
-    
+
+    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
+    private JLabel nameLabel, priceLabel;
+
+    private CustomTextField searchField;
+
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
     private final String[] types = {"coffee", "tea", "topping"};
     

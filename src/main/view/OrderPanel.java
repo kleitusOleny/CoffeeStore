@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class OrderPanel extends JPanel{
-    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel;
+public class OrderPanel extends JPanel {
+    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel;
     JButton cafe, tea, topping, searchButton;
     private DefaultListModel<String> orderListModel = new DefaultListModel<>();
     private JLabel totalLabel, title;
@@ -17,8 +17,10 @@ public class OrderPanel extends JPanel{
     private boolean hasSelectedTea = false;
     private CustomTextField searchField;
     private JScrollPane scrollPane;
+    private JRadioButton sizeM, sizeL;
+    private ButtonGroup sizeGroup;
 
-    public OrderPanel(){
+    public OrderPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
 
@@ -154,6 +156,7 @@ public class OrderPanel extends JPanel{
         button.setBorderRadius(20);
         return button;
     }
+
     private CustomButton createDrinkBtn(String text) {
         CustomButton button = new CustomButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -294,57 +297,88 @@ public class OrderPanel extends JPanel{
         btn.add(infoPanel, BorderLayout.SOUTH);
 
         //  Thêm chức năng khi bấm nút
-//        btn.addActionListener(e -> {
-////            orderListModel.addElement(name + " - " + price + "\u0111");
-////            updateTotal();
-//
-//            // Kiểm tra nếu là topping thì phải chọn trà trước
-//            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
-//                if (!hasSelectedTea) {
-//                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
-//                    return;
-//                }
-//            }
-//
-//            if (name.contains("Trà")) {
-//                hasSelectedTea = true; // Đã chọn trà rồi
-//            }
-//
-//            OrderItem orderItem = new OrderItem(name, price);
-//            JPanel itemPanel = orderItem.createPanel(
-//                    this::updateTotal,
-//                    () -> {
-//                        orderItemsPanel.remove(orderItem.panel);
-//                        orderItems.remove(orderItem);
-//                        updateTotal();
-//                        orderItemsPanel.revalidate();
-//                        orderItemsPanel.repaint();
-//                    }
-//            );
-//            orderItems.add(orderItem);
-//            orderItemsPanel.add(itemPanel);
-//            orderItemsPanel.revalidate();
-//            orderItemsPanel.repaint();
-//            updateTotal();
-//
-//        });
-btn.addActionListener(e -> onDrinkButtonClicked(name,price));
 
+        btn.addActionListener(e -> {
+            // Nếu là topping và chưa chọn trà
+            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
+                if (!hasSelectedTea) {
+                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
+                    return;
+                }
 
-        return btn;
-    }
-
-    private void onDrinkButtonClicked(String name, int price) {
-        if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
-            if (!hasSelectedTea) {
-                JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
+                // Thêm topping không cần chọn size
+                OrderItem orderItem = new OrderItem(name, price);
+                JPanel itemPanel = orderItem.createPanel(
+                        this::updateTotal,
+                        () -> {
+                            orderItemsPanel.remove(orderItem.panel);
+                            orderItems.remove(orderItem);
+                            updateTotal();
+                            orderItemsPanel.revalidate();
+                            orderItemsPanel.repaint();
+                        }
+                );
+                orderItems.add(orderItem);
+                orderItemsPanel.add(itemPanel);
+                orderItemsPanel.revalidate();
+                orderItemsPanel.repaint();
+                updateTotal();
                 return;
+            }
+
+            // Nếu là trà, đánh dấu đã chọn
+            if (name.contains("Trà")) {
+                hasSelectedTea = true;
+
             }
         }
 
-        if (name.contains("Trà")) {
-            hasSelectedTea = true; // Đã chọn trà rồi
-        }
+            // Hộp thoại chọn size (chỉ cho cà phê và trà)
+            JRadioButton sizeM = new JRadioButton("Size M (mặc định)");
+            JRadioButton sizeL = new JRadioButton("Size L (+5.000đ)");
+            sizeM.setSelected(true);
+            ButtonGroup group = new ButtonGroup();
+            group.add(sizeM);
+            group.add(sizeL);
+
+            JPanel sizePanel = new JPanel(new GridLayout(2, 1));
+            sizePanel.add(sizeM);
+            sizePanel.add(sizeL);
+
+            int option = JOptionPane.showConfirmDialog(
+                    this,
+                    sizePanel,
+                    "Chọn size cho " + name,
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if (option == JOptionPane.OK_OPTION) {
+                String size = sizeM.isSelected() ? "M" : "L";
+                int finalPrice = price + (size.equals("L") ? 5000 : 0);
+                String finalName = name + " (Size " + size + ")";
+
+                OrderItem orderItem = new OrderItem(finalName, finalPrice);
+                JPanel itemPanel = orderItem.createPanel(
+                        this::updateTotal,
+                        () -> {
+                            orderItemsPanel.remove(orderItem.panel);
+                            orderItems.remove(orderItem);
+                            updateTotal();
+                            orderItemsPanel.revalidate();
+                            orderItemsPanel.repaint();
+                        }
+                );
+                orderItems.add(orderItem);
+                orderItemsPanel.add(itemPanel);
+                orderItemsPanel.revalidate();
+                orderItemsPanel.repaint();
+                updateTotal();
+            }
+
+        });
+
+
 
         OrderItem orderItem = new OrderItem(name, price);
         JPanel itemPanel = orderItem.createPanel(
@@ -364,41 +398,42 @@ btn.addActionListener(e -> onDrinkButtonClicked(name,price));
         updateTotal();
     }
 
-    private JPanel createFilteredPanel(String filter) {
-        JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
-        panel.setBackground(new Color(255, 245, 204));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Gộp toàn bộ drink lại để lọc
-        java.util.List<String[]> allDrinks = new ArrayList<>();
-        for (String[] drink : coffeeDrinks) allDrinks.add(drink);
-        for (String[] drink : teaDrinks) allDrinks.add(drink);
-        for (String[] drink : toppings) allDrinks.add(drink);
 
-        for (String[] drink : allDrinks) {
-            int price = Integer.parseInt(drink[1]);
-            boolean match = switch (filter) {
-                case "< 25.000đ" -> price < 25000;
-                case "25.000 - 30.000đ" -> price >= 25000 && price <= 30000;
-                case "> 30.000đ" -> price > 30000;
-                default -> true;
-            };
-            if (match) {
-                JButton btn = createDrinkButton(drink[0], drink[1], drink[2]);
-                panel.add(btn);
+        private JPanel createFilteredPanel (String filter){
+            JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
+            panel.setBackground(new Color(255, 245, 204));
+            panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            // Gộp toàn bộ drink lại để lọc
+            java.util.List<String[]> allDrinks = new ArrayList<>();
+            for (String[] drink : coffeeDrinks) allDrinks.add(drink);
+            for (String[] drink : teaDrinks) allDrinks.add(drink);
+            for (String[] drink : toppings) allDrinks.add(drink);
+
+            for (String[] drink : allDrinks) {
+                int price = Integer.parseInt(drink[1]);
+                boolean match = switch (filter) {
+                    case "< 25.000đ" -> price < 25000;
+                    case "25.000 - 30.000đ" -> price >= 25000 && price <= 30000;
+                    case "> 30.000đ" -> price > 30000;
+                    default -> true;
+                };
+                if (match) {
+                    JButton btn = createDrinkButton(drink[0], drink[1], drink[2]);
+                    panel.add(btn);
+                }
             }
+            return panel;
         }
-        return panel;
-    }
 
 
-
-    private void updateTotal() {
-        int total = 0;
-        for (OrderItem item : orderItems) {
-            total += item.getTotal();
+        private void updateTotal () {
+            int total = 0;
+            for (OrderItem item : orderItems) {
+                total += item.getTotal();
+            }
+            totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
         }
-        totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
-    }
 
-}
+    }
