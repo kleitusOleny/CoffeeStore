@@ -14,7 +14,7 @@ public class PaymentPanel extends JPanel {
     private JLabel giamGiaLabel;
     private JLabel tongTienLabel;
 
-    private JButton historyButton;
+    private CustomButton historyButton;
 
     private CustomButton confirmBtn;
     private CustomButton invoiceBtn;
@@ -22,6 +22,7 @@ public class PaymentPanel extends JPanel {
     private CustomCheckBox card;
     private CustomCheckBox bank;
 
+    private CustomTable table;
 
     public PaymentPanel() {
         setLayout(new BorderLayout());
@@ -43,19 +44,15 @@ public class PaymentPanel extends JPanel {
         JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topLeftPanel.setOpaque(false);
 
-        historyButton = new JButton("Xem Lịch Sử Giao Dịch");
-        historyButton.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        historyButton = new CustomButton("Xem Lịch Sử Giao Dịch");
+        historyButton.setFont(new Font("Roboto", Font.BOLD, 14));
         historyButton.setPreferredSize(new Dimension(200, 30));
         historyButton.setFocusPainted(false);
-        historyButton.setBackground(new Color(255, 204, 153));
-        historyButton.setForeground(Color.BLACK);
+        historyButton.setBackgroundColor(new Color(255, 204, 153));
+        historyButton.setTextColor(Color.BLACK);
+        historyButton.setBorderRadius(20);
         topLeftPanel.add(historyButton);
 
-//        historyButton.addActionListener(e -> {
-//            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-//            TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
-//            dialog.setVisible(true);
-//        });
         historyButton.addActionListener(e -> onHistoryButtonClicked());
 
         contentPanel.add(topLeftPanel);
@@ -108,14 +105,16 @@ public class PaymentPanel extends JPanel {
                 {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
         };
 
-        JTable table = new JTable(new DefaultTableModel(data, headers)) {
+        table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
+        DefaultTableModel model = new DefaultTableModel(data, headers) {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
-        Font tableFont = new Font("SansSerif", Font.PLAIN, 18);
-        Font headerFont = new Font("SansSerif", Font.BOLD, 20);
+        table.setModel(model);
+        Font tableFont = new Font("Roboto", Font.PLAIN, 18);
+        Font headerFont = new Font("Roboto", Font.BOLD, 20);
 
         table.setFont(tableFont);
         table.setRowHeight(35);
@@ -203,40 +202,6 @@ public class PaymentPanel extends JPanel {
         confirmBtn.setBorderRadius(20);
         confirmBtn.setFocusPainted(false);
         buttonPanel.add(confirmBtn);
-//        confirmBtn.addActionListener(e -> {
-//            JOptionPane.showMessageDialog(
-//                    this,
-//                    "Thanh toán thành công!",
-//                    "Thông báo",
-//                    JOptionPane.INFORMATION_MESSAGE
-//            );
-//
-//            JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent(); // Panel chính chứa mọi thứ
-//
-//// Tìm lại topLeftPanel (panel chứa nút lịch sử)
-//            Component[] components = contentPanel1.getComponents();
-//            JPanel topLeftPanel1 = null;
-//            for (Component c : components) {
-//                if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
-//                    Component first = ((JPanel) c).getComponent(0);
-//                    if (first == historyButton) {
-//                        topLeftPanel1 = (JPanel) c;
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            contentPanel1.removeAll();
-//            if (topLeftPanel1 != null) {
-//                contentPanel1.add(topLeftPanel1);
-//                contentPanel1.add(Box.createVerticalStrut(20));
-//            }
-//
-//            contentPanel1.setBackground(new Color(255, 248, 220)); // màu nền gốc
-//            contentPanel1.revalidate();
-//            contentPanel1.repaint();
-//
-//        });
         confirmBtn.addActionListener(e -> onConfirmButtonClicked());
 
 
@@ -250,11 +215,6 @@ public class PaymentPanel extends JPanel {
         invoiceBtn.setBorderRadius(20);
         invoiceBtn.setFocusPainted(false);
 
-//        invoiceBtn.addActionListener(e -> {
-//            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-//            InvoiceDialog dialog = new InvoiceDialog(parentFrame);
-//            dialog.setVisible(true);
-//        });
         invoiceBtn.addActionListener(e -> onInvoiceButtonClicked());
 
 
