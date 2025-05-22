@@ -37,7 +37,7 @@ public class ReadFileJson {
     }
 
     // Xử lý phần account login page
-    public static List<FormatAccounts> readFileJSON() {
+    public static List<FormatAccounts> readFileJSONForAccount() {
         try {
             Gson gson = new Gson();
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
@@ -88,7 +88,7 @@ public class ReadFileJson {
     }
 
     // Xử lý phần DiscountPanel ở dòng 228
-    public static void readWithOverwriteJSONForClient(String ten, String sdt){
+    public static void addClient(String ten, String sdt){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
@@ -107,7 +107,7 @@ public class ReadFileJson {
     }
 
     // Đang xử lý dòng thứ 83 của ChangeInforCustomerDialog, và nghi ngờ dòng từ 120 của DiscountPanel
-    public static void saveChangedClientInformationAndOverwriteItOnClientJSON(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
+    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
@@ -115,7 +115,7 @@ public class ReadFileJson {
             formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
 
             for (FormatClient formatClient : formatClientList){
-                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) { // Phương thức này không hoạt động vì ko đủ điều kiện, nếu bỏ dòng if này sẽ set hết trong tất cả trong client.json với cái data mới nhất
+                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) {
                     formatClient.setHoTen(nameChange);
                     formatClient.setSoDienThoai(phoneChange);
                     formatClient.setDiemTichLuy(scoreChange);
@@ -130,24 +130,26 @@ public class ReadFileJson {
             throw new RuntimeException(e);
         }
     }
-    
-    public static void main(String[] args) {
-//        List<FormatClient> formatClients = ReadFileJson.readFileJSONForClient();
-//        for (int i = 0; i < khachData.length; i++) {
-//            for (int j = 0; j < khachData[i].length; j++) {
-//                System.out.print(khachData[i][j] + " | ");
-//            }
-//            System.out.println();
-//        }
-//        ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON("Phạm Văn F","0123456789","Nguyễn Văn E","0382918432","100");
-//
-//        System.out.println("");
-//        formatClients = ReadFileJson.readFileJSONForClient();
-//        for (int i = 0; i < khachData.length; i++) {
-//            for (int j = 0; j < khachData[i].length; j++) {
-//                System.out.print(khachData[i][j] + " | ");
-//            }
-//            System.out.println();
-//        }
+
+    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "client.json").toString();
+            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            for (FormatClient formatClient : formatClientList){
+                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)){
+                    formatClientList.remove(formatClient);
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

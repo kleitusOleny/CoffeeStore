@@ -1,6 +1,5 @@
 package view;
 
-import data.FormatClient;
 import data.ReadFileJson;
 
 import javax.swing.*;
@@ -83,7 +82,7 @@ public class ChangeInforCustomerDialog extends JDialog {
                 String ten = tenField.getText();
                 String sdt = sdtField.getText();
                 String diem = diemField.getText();
-                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(inputName,inputPhone,ten, sdt, diem);
+                ReadFileJson.saveChangedClientInformation(inputName,inputPhone,ten, sdt, diem);
             }
             confirmed = true;
             deleted = false;
@@ -94,6 +93,9 @@ public class ChangeInforCustomerDialog extends JDialog {
             int confirm = JOptionPane.showConfirmDialog(this,
                     "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
+                String inputName = this.inputName;
+                String inputPhone = this.inputPhone;
+                ReadFileJson.deteleClientInformation(inputName, inputPhone);
                 deleted = true;
                 confirmed = false;
                 setVisible(false);
@@ -149,5 +151,7 @@ public class ChangeInforCustomerDialog extends JDialog {
         this.inputName = inputName;
     }
     
-    public void setInputPhone(String inputPhone) {this.inputPhone = inputPhone;}
+    public void setInputPhone(String inputPhone) {
+        this.inputPhone = inputPhone;
+    }
 }
