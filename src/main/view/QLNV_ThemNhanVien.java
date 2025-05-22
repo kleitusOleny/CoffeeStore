@@ -104,9 +104,9 @@ public class QLNV_ThemNhanVien extends JDialog {
 
 		jSeparator1 = new JSeparator();
 
-		jLabel8 = new JLabel("Ngày vào làm");
+		jLabel8 = new JLabel("Ngày vào làm(dd/mm/yyyy)");
 		jLabel9 = new JLabel("Ca làm");
-		jLabel10 = new JLabel("Lương Theo Gi");
+		jLabel10 = new JLabel("Lương Cơ Bản");
 
 		jTextField7 = new CustomTextField(20);
 		jTextField8 = new CustomTextField(20);

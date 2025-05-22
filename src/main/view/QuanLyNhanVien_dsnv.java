@@ -58,18 +58,17 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(220, 26));
+        panel.setPreferredSize(new Dimension(160, 26)); // ✅ Giảm chiều dài
+
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(20);
+        searchField = new CustomTextField(15); // ✅ Giảm chiều dài text field
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(120, 26));
+        searchField.setPreferredSize(new Dimension(110, 26));
         searchField.setOpaque(true);
         searchField.setBorderRadius(20);
         searchField.setForeground(new Color(166, 123, 91));
-
-        timButton = new CustomButton("Tìm Button");
 
         JButton searchIconButton = new JButton();
         searchIconButton.setFocusable(false);
@@ -91,6 +90,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         panel.add(searchIconButton, BorderLayout.EAST);
         return panel;
     }
+
 
     private void initEmployeeTable() {
         String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
