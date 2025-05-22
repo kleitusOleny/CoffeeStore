@@ -132,12 +132,17 @@ public class DiscountPanel extends JPanel {
                     JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(DiscountPanel.this);
                     dialog1 = new ChangeInforCustomerDialog(topFrame);
                     dialog1.setKhachHang(ten, sdt, diem);
+                    dialog1.setInputName(ten);
+                    dialog1.setInputPhone(sdt);
+                    System.out.println("ten = " + ten + ", sdt = " + sdt + ", diem = " + diem);
                     dialog1.setVisible(true);
-
+                    
+                    
                     if (dialog1.isConfirmed()) {
                         model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
                         model.setValueAt(dialog1.getSDT(), modelRow, 1);
                         model.setValueAt(dialog1.getDiem(), modelRow, 2);
+                        
                     }
                 }
             }

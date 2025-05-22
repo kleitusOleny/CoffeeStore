@@ -130,4 +130,24 @@ public class ReadFileJson {
             throw new RuntimeException(e);
         }
     }
+    
+    public static void main(String[] args) {
+//        List<FormatClient> formatClients = ReadFileJson.readFileJSONForClient();
+//        for (int i = 0; i < khachData.length; i++) {
+//            for (int j = 0; j < khachData[i].length; j++) {
+//                System.out.print(khachData[i][j] + " | ");
+//            }
+//            System.out.println();
+//        }
+//        ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON("Phạm Văn F","0123456789","Nguyễn Văn E","0382918432","100");
+//
+//        System.out.println("");
+//        formatClients = ReadFileJson.readFileJSONForClient();
+//        for (int i = 0; i < khachData.length; i++) {
+//            for (int j = 0; j < khachData[i].length; j++) {
+//                System.out.print(khachData[i][j] + " | ");
+//            }
+//            System.out.println();
+//        }
+    }
 }

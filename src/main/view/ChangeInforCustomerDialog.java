@@ -14,6 +14,8 @@ public class ChangeInforCustomerDialog extends JDialog {
     private boolean confirmed = false;
     private boolean deleted = false;
 
+    private String inputName;
+    private String inputPhone;
     public ChangeInforCustomerDialog(Frame owner) {
         super(owner, "Thông tin khách hàng", true);
         setSize(420, 320);
@@ -76,10 +78,12 @@ public class ChangeInforCustomerDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
+                String inputName = this.inputName;
+                String inputPhone = this.inputPhone;
                 String ten = tenField.getText();
                 String sdt = sdtField.getText();
                 String diem = diemField.getText();
-//                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(ten, sdt, diem);
+                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(inputName,inputPhone,ten, sdt, diem);
             }
             confirmed = true;
             deleted = false;
@@ -118,6 +122,7 @@ public class ChangeInforCustomerDialog extends JDialog {
         tenField.setText(ten);
         sdtField.setText(sdt);
         diemField.setText(diem);
+        
     }
 
     public String getTenKhach() {
@@ -139,4 +144,10 @@ public class ChangeInforCustomerDialog extends JDialog {
     public boolean isDeleted() {
         return deleted;
     }
+    
+    public void setInputName(String inputName) {
+        this.inputName = inputName;
+    }
+    
+    public void setInputPhone(String inputPhone) {this.inputPhone = inputPhone;}
 }
