@@ -31,7 +31,7 @@ public class ManagerPanel extends JPanel {
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
-
+      
         // Gán sự kiện cho các nút
         menuPanel.setProductCatalogBtListener(e -> {
             showPanel(QUAN_LY_MENU);
@@ -60,7 +60,6 @@ public class ManagerPanel extends JPanel {
                 mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
             }
         });
-
 
     }
 

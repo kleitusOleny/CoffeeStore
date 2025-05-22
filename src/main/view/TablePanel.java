@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,8 +23,8 @@ public class TablePanel extends JPanel {
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
         statusFilter = new JComboBox<>(new String[]{"Tất cả", "Trống", "Đang sử dụng", "Đã đặt"});
-        statusFilter.addActionListener(e -> filterTables());
-
+//        statusFilter.addActionListener(e -> filterTables());
+        addStatusFilterListener();
         topPanel.add(new JLabel("Trạng thái:"));
         topPanel.add(statusFilter);
 
@@ -38,7 +39,8 @@ public class TablePanel extends JPanel {
             tableStatusMap.put(tableButton, "Trống");
             tableButtons.add(tableButton);
 
-            tableButton.addActionListener(e -> showStatusDialog(tableButton));
+//            tableButton.addActionListener(e -> showStatusDialog(tableButton));
+            addTableButtonListener(tableButton);
             tableGrid.add(tableButton);
         }
 
@@ -53,6 +55,23 @@ public class TablePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    private void addTableButtonListener(JButton tableButton) {
+        tableButton.addActionListener((ActionEvent e)-> showStatusDialog(tableButton));
+    }
+
+    private void addStatusFilterListener() {
+        statusFilter.addActionListener((ActionEvent e) -> filterTables() );
+    }
+
+    private CustomButton createMenuButton(String text) {
+        CustomButton button = new CustomButton(text);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(new Dimension(1000, 200));
+        button.setBackgroundColor(Color.LIGHT_GRAY);
+        button.setTextColor(Color.BLACK);
+        button.setBorderRadius(20);
+        return button;
+    }
     private void setStatus(JButton button, String status) {
         tableStatusMap.put(button, status);
 
