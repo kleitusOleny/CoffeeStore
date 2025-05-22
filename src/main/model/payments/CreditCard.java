@@ -23,4 +23,5 @@ public class CreditCard implements PaymentStrategy {
         bankAccount.deposit(amount,this.getClass().getSimpleName(),customer);
         return amount;
     }
+
 }
