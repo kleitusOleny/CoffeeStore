@@ -35,9 +35,10 @@ public class OrderItem {
         deleteBtn.setIcon(icon);
         deleteBtn.setForeground(Color.RED);
         deleteBtn.setMargin(new Insets(2, 6, 2, 6));
-        deleteBtn.addActionListener(e -> {
-            removeCallback.run();
-        });
+//        deleteBtn.addActionListener(e -> {
+//            removeCallback.run();
+//        });
+        deleteBtn.addActionListener(e -> onDeleteClicked(removeCallback));
 
         // Nút tăng giảm
         JButton plusBtn = new JButton();
@@ -47,11 +48,12 @@ public class OrderItem {
         ImageIcon icon2 = new ImageIcon(newImage2);
         plusBtn.setIcon(icon2);
         plusBtn.setMargin(new Insets(2, 6, 2, 6));
-        plusBtn.addActionListener(e -> {
-            quantity++;
-            quantityLabel.setText("x" + quantity);
-            updateTotalCallback.run();
-        });
+//        plusBtn.addActionListener(e -> {
+//            quantity++;
+//            quantityLabel.setText("x" + quantity);
+//            updateTotalCallback.run();
+//        });
+        plusBtn.addActionListener(e -> onPlusClicked(updateTotalCallback));
 
         JButton minusBtn = new JButton();
         ImageIcon iconMinus = new ImageIcon("src\\main\\image\\minus.png");
@@ -60,13 +62,14 @@ public class OrderItem {
         ImageIcon icon3 = new ImageIcon(newImage3);
         minusBtn.setIcon(icon3);
         minusBtn.setMargin(new Insets(2, 6, 2, 6));
-        minusBtn.addActionListener(e -> {
-            if (quantity > 1) {
-                quantity--;
-                quantityLabel.setText("x" + quantity);
-                updateTotalCallback.run();
-            }
-        });
+//        minusBtn.addActionListener(e -> {
+//            if (quantity > 1) {
+//                quantity--;
+//                quantityLabel.setText("x" + quantity);
+//                updateTotalCallback.run();
+//            }
+//        });
+        minusBtn.addActionListener(e -> onMinusClicked(updateTotalCallback));
 
         quantityLabel = new JLabel("x" + quantity);
         quantityLabel.setPreferredSize(new Dimension(30, 20));
@@ -83,6 +86,24 @@ public class OrderItem {
         panel.add(controlPanel, BorderLayout.EAST);
 
         return panel;
+    }
+
+    private void onMinusClicked(Runnable updateTotalCallback) {
+        if (quantity > 1){
+            quantity--;
+            quantityLabel.setText("x" + quantity);
+            updateTotalCallback.run();
+        }
+    }
+
+    private void onPlusClicked(Runnable updateTotalCallback) {
+        quantity++;
+        quantityLabel.setText("x" + quantity);
+        updateTotalCallback.run();
+    }
+
+    private void onDeleteClicked(Runnable removeCallback) {
+        removeCallback.run();
     }
 
     public int getTotal() {
