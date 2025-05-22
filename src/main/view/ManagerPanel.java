@@ -49,12 +49,6 @@ public class ManagerPanel extends JPanel {
         setHover(QUAN_LY_MENU);
     }
 
-        // Gán sự kiện cho các nút
-        menuPanel.setProductCatalogBtListener(e -> {
-            showPanel(QUAN_LY_MENU);
-            setHover(QUAN_LY_MENU);
-        });
-
     private void handleShowEmployeePanel() {
         showPanel(QUAN_LY_NV);
         setHover(QUAN_LY_NV);
@@ -70,21 +64,16 @@ public class ManagerPanel extends JPanel {
         setHover(THONG_KE);
     }
 
+    private void handleLogout() {
         menuPanel.setLogoutBtListener(e -> {
             int confirmed = JOptionPane.showConfirmDialog(
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirmed == JOptionPane.YES_OPTION) {
                 mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getUserField().setText("");
+                mainFrame.getLoginPanel().getPassField().setText("");
             }
         });
-
-    private void handleLogout() {
-        int confirmed = JOptionPane.showConfirmDialog(
-                null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirmed == JOptionPane.YES_OPTION) {
-            // Nếu có thể, bạn nên gọi MainFrame.logOut() thay vì System.exit()
-            System.exit(0);
-        }
     }
 
     public void showPanel(String name) {

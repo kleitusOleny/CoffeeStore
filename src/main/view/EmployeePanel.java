@@ -12,7 +12,7 @@ public class EmployeePanel extends JPanel {
     private EmployeeMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
-    private  MainFrame mainFrame;
+    private MainFrame mainFrame;
 
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -58,6 +58,8 @@ public class EmployeePanel extends JPanel {
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirmed == JOptionPane.YES_OPTION) {
                 mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getPassField().setText("");
+                mainFrame.getLoginPanel().getUserField().setText("");
             }
         });
     }
