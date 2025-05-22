@@ -9,7 +9,6 @@ public class MenuEditorPanel extends JPanel{
     private JPanel mainPanel, toolbar, searchResultPanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-
     private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
     private JLabel nameLabel, priceLabel;
 
