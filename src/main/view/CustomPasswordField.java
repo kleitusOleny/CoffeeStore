@@ -5,9 +5,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class CustomPasswordField extends JPasswordField {
-    private Color borderColor = Color.BLUE;
-    private Color startGradientColor = Color.CYAN;
-    private Color endGradientColor = Color.BLUE;
+    private Color borderColor = new Color(162, 120, 90);
+    private Color startGradientColor = new Color(162, 120, 90);
+    private Color endGradientColor = new Color(162, 120, 90);
     private Color backgroundColor = Color.WHITE;
     private Color hoverColor;
     private Color textColor = Color.BLACK;
@@ -36,6 +36,19 @@ public class CustomPasswordField extends JPasswordField {
                 repaint();
             }
         });
+        // Thêm FocusListener để hiện viền khi được focus
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                setDrawBorder(true);  // hiện viền khi focus
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                setDrawBorder(false); // ẩn viền khi mất focus
+            }
+        });
+
     }
 
     @Override
@@ -57,7 +70,7 @@ public class CustomPasswordField extends JPasswordField {
 
     @Override
     protected void paintBorder(Graphics g) {
-        if (drawBorder) {
+        if (drawBorder==true) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setStroke(new BasicStroke(thickness));
@@ -81,6 +94,7 @@ public class CustomPasswordField extends JPasswordField {
         repaint();
     }
 
+    //Do Dam Cua Vien
     public void setBorderThickness(int thickness) {
         this.thickness = thickness;
         repaint();

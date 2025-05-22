@@ -11,6 +11,9 @@ public class Date {
         this.year = year;
     }
 
+    public Date() {
+    }
+
     public int getDay() {
         return day;
     }

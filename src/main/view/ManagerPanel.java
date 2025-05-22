@@ -65,6 +65,7 @@ public class ManagerPanel extends JPanel {
     }
 
     private void handleLogout() {
+
         menuPanel.setLogoutBtListener(e -> {
             int confirmed = JOptionPane.showConfirmDialog(
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);

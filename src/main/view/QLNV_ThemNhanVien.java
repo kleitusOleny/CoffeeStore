@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class QLNV_ThemNhanVien extends JDialog {
@@ -12,9 +13,11 @@ public class QLNV_ThemNhanVien extends JDialog {
 	private JSeparator jSeparator1;
 	private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
 			jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
+	private DefaultTableModel tableModel;
 
-	public QLNV_ThemNhanVien(JFrame parent, boolean modal) {
+	public QLNV_ThemNhanVien(JFrame parent, boolean modal, DefaultTableModel model) {
 		super(parent, modal);
+		this.tableModel = model;
 		initComponents();
 		setLocationRelativeTo(parent); // căn giữa dialog theo frame cha
 	}
@@ -205,7 +208,15 @@ public class QLNV_ThemNhanVien extends JDialog {
 	}
 
 	private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO: Xử lý thêm nhân viên (lấy dữ liệu, validate, lưu,...)
+		String ten = jTextField1.getText();
+		String ma = jTextField2.getText();
+		String sdt = jTextField3.getText();
+		String ngaySinh = jTextField6.getText();
+		String luong = jTextField9.getText();
+
+		// Thêm dòng vào model
+		tableModel.addRow(new Object[]{ten, ma, sdt, ngaySinh, luong});
+
 		JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
 		dispose();
 	}
@@ -215,21 +226,11 @@ public class QLNV_ThemNhanVien extends JDialog {
 		tf.setFont(new Font("Roboto", Font.BOLD, 14));
 		tf.setBorderRadius(20);
 		tf.setForeground(new Color(166, 123, 91));
-		// Nếu có hover effect trên textfield, tắt nếu muốn:
-		// tf.setDrawHover(false);
 	}
 
 	public static void main(String[] args) {
-		try {
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-		} catch (Exception ignored) {}
-
 		SwingUtilities.invokeLater(() -> {
-			QLNV_ThemNhanVien dialog = new QLNV_ThemNhanVien(null, true);
+			QLNV_ThemNhanVien dialog = new QLNV_ThemNhanVien(null, true,null);
 			dialog.setVisible(true);
 		});
 	}

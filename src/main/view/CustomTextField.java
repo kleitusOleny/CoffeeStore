@@ -5,13 +5,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class CustomTextField extends JTextField {
-    private Color borderColor = Color.BLUE;
-    private Color startGradientColor = Color.CYAN;
-    private Color endGradientColor = Color.BLUE;
+    private Color borderColor = new Color(162, 120, 90);
+    private Color startGradientColor = new Color(162, 120, 90);
+    private Color endGradientColor = new Color(162, 120, 90);
     private Color backgroundColor = Color.WHITE;
     private Color hoverColor;
     private Color textColor = Color.BLACK;
-    private int thickness = 3;
+    private int thickness = 2;
     private int borderRadius = 15;
     private boolean drawBorder = false;  // Mặc định không vẽ viền
     private boolean isHovered = false;
@@ -37,6 +37,19 @@ public class CustomTextField extends JTextField {
                 repaint();
             }
         });
+        // Thêm FocusListener để hiện viền khi được focus
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                setDrawBorder(true);  // hiện viền khi focus
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                setDrawBorder(false); // ẩn viền khi mất focus
+            }
+        });
+
     }
 
     @Override

@@ -2,12 +2,12 @@ package model.reservation_system;
 
 public class Table {
     private int idTable;
-    private int capacity;
+//    private int capacity;
     private boolean status;
 
-    public Table(int idTable, int capacity, boolean status) {
+    public Table(int idTable, boolean status) {
         this.idTable = idTable;
-        this.capacity = capacity;
+//        this.capacity = capacity;
         this.status = status;
     }
 
@@ -19,9 +19,9 @@ public class Table {
         return idTable;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
+//    public int getCapacity() {
+//        return capacity;
+//    }
 
     public boolean isStatus() {
         return status;

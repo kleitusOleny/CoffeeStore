@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionLog {
-    private static  final List<Transaction> transactions = new ArrayList<>();
+    private static   List<Transaction> transactions = new ArrayList<>();
     public static void log(Transaction transaction) {
         transactions.add(transaction);
     }
@@ -22,11 +22,12 @@ public class TransactionLog {
         sb.append("=============================\n");
         return sb.toString();
     }
-    public static  List<Transaction> getTransactions() {
+    public  static List<Transaction> getTransactions() {
         return transactions;
     }
 
     public static void addTransaction(Transaction transaction) {
-    
+
+
     }
 }

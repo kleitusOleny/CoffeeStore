@@ -64,7 +64,7 @@ public class MainFrame extends JFrame implements IView{
         StringBuilder sb = new StringBuilder("Danh sách bàn trống:\n");
         for (Reservation r : emptyTable){
             sb.append("Bàn số: ").append(r.getTable().getIdTable())
-                    .append(" | Sức chứa: ").append(r.getTable().getCapacity())
+
                     .append("\n");
         }
         showTextDialog("Bàn trống", sb.toString());

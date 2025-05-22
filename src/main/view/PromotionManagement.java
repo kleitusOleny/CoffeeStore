@@ -8,7 +8,7 @@ import java.awt.*;
 public class PromotionManagement extends JPanel {
     // Variables declaration - do not modify
     private CustomButton jButton1;
-    private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5;
+    private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, tableTitle;
     private JPanel jPanel1, jPanel2, btnPanel, inputArea;
     private JSeparator jSeparator1;
     private JTable table;
@@ -119,6 +119,7 @@ public class PromotionManagement extends JPanel {
         table.setModel(model);
         table.setFont(new Font("Roboto", Font.PLAIN, 16));
         table.getTableHeader().setBackground(new Color(255, 224, 178));
+        table.getTableHeader().setReorderingAllowed(false);
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Roboto", Font.BOLD, 16));
         header.setBackground(new Color(255, 224, 178));
@@ -132,7 +133,19 @@ public class PromotionManagement extends JPanel {
         scrollPane = new JScrollPane(table);
 
         add(inputArea, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        // Label góc trái trên bảng
+        JLabel tableTitle = new JLabel("Danh sách khuyến mãi");
+        tableTitle.setFont(new Font("Roboto", Font.BOLD, 16));
+        tableTitle.setForeground(new Color(102, 51, 0));
+        tableTitle.setBorder(BorderFactory.createEmptyBorder(10, 20, 5, 0)); // căn trái và đệm
+
+// Panel chứa label + bảng
+        JPanel tableArea = new JPanel(new BorderLayout());
+        tableArea.setBackground(new Color(255, 245, 204));
+        tableArea.add(tableTitle, BorderLayout.NORTH);
+        tableArea.add(scrollPane, BorderLayout.CENTER);
+
+        add(tableArea, BorderLayout.CENTER);
 
         jButton1.addActionListener(e -> {
             String ma = jTextField1.getText().trim();
