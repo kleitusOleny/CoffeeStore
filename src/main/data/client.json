@@ -1,0 +1,37 @@
+[
+  {
+    "hoTen": "Nguyễn Văn A",
+    "soDienThoai": "0987654321",
+    "diemTichLuy": "120",
+    "trangThai": "VIP",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn B",
+    "soDienThoai": "098765343434",
+    "diemTichLuy": "120",
+    "trangThai": "Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn C",
+    "soDienThoai": "0984672561",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn D",
+    "soDienThoai": "0987233331",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn E",
+    "soDienThoai": "0369130891",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  }
+]

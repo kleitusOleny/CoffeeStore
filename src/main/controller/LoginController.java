@@ -1,40 +1,36 @@
 package controller;
 
-import model.IModel;
-import model.MainSystem;
-import view.IView;
+import data.FormatAccounts;
+import utils.LoginModel;
+import view.LoginPanel;
 import view.MainFrame;
 
-import javax.swing.*;
-import java.io.FileNotFoundException;
-
 public class LoginController {
-//    private IView view;
-//    private IModel mainSystem;
-//
-//    public LoginController(IView view, IModel mainSystem) {
-//        this.view = view;
-//        this.mainSystem = mainSystem;
-//    }
-//
-//    public void handleLogin(String userName, String password) throws FileNotFoundException {
-//        String role = mainSystem.validateUser(userName, password);
-//        if (role == null) {
-//            JOptionPane.showMessageDialog(view,
-//                    "Tên đăng nhập hoặc mật khẩu không đúng!",
-//                    "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        switch (role.toUpperCase()) {
-//            case "MANAGER":
-//                view.showPanel(MainFrame.MANAGER);
-//                break;
-//            case "EMPLOYEE":
-//                view.showPanel(MainFrame.EMPLOYEE);
-//                break;
-//            default:
-//                JOptionPane.showMessageDialog(view, "Vai trò không xác định: " +
-//                        role, "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
+    private LoginModel model;
+    private LoginPanel view;
+    
+    public LoginController(LoginModel loginModel, LoginPanel loginPanel) {
+        this.model = loginModel;
+        this.view = loginPanel;
+    }
+    
+    public void Login() {
+        view.setLoginListener(e -> {
+            String username = view.userField.getText().trim();
+            String password = new String(view.passField.getPassword()).trim();
+            
+            for (FormatAccounts accounts : view.accountsList) {
+                if (username.equals(accounts.getUsername()) && password.equals(accounts.getPassword())) {
+                    if (accounts.getRole().equals("Manager")) {
+                        view.getMainFrame().showPanel(MainFrame.MANAGER);
+                    } else {
+                        view.getMainFrame().showPanel(MainFrame.EMPLOYEE);
+                    }
+                    
+                    return;
+                }
+            }
+        });
+        
+    }
 }

@@ -6,14 +6,17 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class OrderPanel extends JPanel{
-    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel;
-    JButton cafe, tea, topping;
+    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel;
+    JButton cafe, tea, topping, searchButton;
     private DefaultListModel<String> orderListModel = new DefaultListModel<>();
-    private JLabel totalLabel;
+    private JLabel totalLabel, title;
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private java.util.List<OrderItem> orderItems = new ArrayList<>();
+    private JComboBox<String> priceFilter;
     private boolean hasSelectedTea = false;
+    private CustomTextField searchField;
+    private JScrollPane scrollPane;
 
     public OrderPanel(){
         setLayout(new BorderLayout());
@@ -45,20 +48,21 @@ public class OrderPanel extends JPanel{
         orderBillPanel.setPreferredSize(new Dimension(280, 0));
         orderBillPanel.setBackground(Color.WHITE);
 
-        JLabel title = new JLabel("Order bill", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 16));
+        title = new JLabel("Order bill", JLabel.CENTER);
+
+        title.setFont(new Font("Roboto", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
         orderItemsPanel = new JPanel();
         orderItemsPanel.setLayout(new BoxLayout(orderItemsPanel, BoxLayout.Y_AXIS));
         orderItemsPanel.setBackground(Color.WHITE);
 
-        JScrollPane scrollPane = new JScrollPane(orderItemsPanel);
+        scrollPane = new JScrollPane(orderItemsPanel);
         scrollPane.setBorder(null);
         orderBillPanel.add(scrollPane, BorderLayout.CENTER);
 
         totalLabel = new JLabel("Tổng tiền: ...", JLabel.CENTER);
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        totalLabel.setFont(new Font("Roboto", Font.BOLD, 20));
         orderBillPanel.add(totalLabel, BorderLayout.SOUTH);
 
         return orderBillPanel;
@@ -102,7 +106,8 @@ public class OrderPanel extends JPanel{
         tea.addActionListener(e -> cardLayout.show(cardPanel, "tea"));
         topping.addActionListener(e -> cardLayout.show(cardPanel, "topping"));
 
-        JPanel searchPanel = createSearchBoxWithButton();
+        searchPanel = createSearchBoxWithButton();
+
 
         JComboBox<String> priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
 //        priceFilter.addActionListener(e -> {
@@ -115,9 +120,13 @@ public class OrderPanel extends JPanel{
         priceFilter.addActionListener(this::onPriceFilterChanged);
 
 
+
         toolbar.add(cafe);
         toolbar.add(tea);
         toolbar.add(topping);
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(searchPanel);
         toolbar.add(Box.createHorizontalStrut(20));
@@ -158,17 +167,20 @@ public class OrderPanel extends JPanel{
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(160, 28));
+        panel.setPreferredSize(new Dimension(200, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        JTextField searchField = new JTextField();
+        searchField = new CustomTextField(10);
+
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(130, 28));
+        searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
+        searchField.setFont(new Font("Roboto", Font.BOLD, 16));
+        searchField.setForeground(new Color(166, 123, 91));
 
         // Tạo nút tìm kiếm có icon
-        JButton searchButton = new JButton();
+        searchButton = new JButton();
         searchButton.setFocusable(false);
         searchButton.setBorder(null);
         searchButton.setContentAreaFilled(false);
@@ -190,7 +202,6 @@ public class OrderPanel extends JPanel{
 //            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
 //        });
         searchButton.addActionListener(e -> onSearchButtonClicked(searchField.getText()));
-
 
         panel.add(searchField, BorderLayout.WEST);
         panel.add(searchButton, BorderLayout.EAST);
@@ -270,10 +281,10 @@ public class OrderPanel extends JPanel{
         }
 
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 25));
 
         JLabel priceLabel = new JLabel(price + "\u0111", JLabel.CENTER);
-        priceLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
 
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
         infoPanel.setOpaque(false);
@@ -318,6 +329,7 @@ public class OrderPanel extends JPanel{
 //
 //        });
 btn.addActionListener(e -> onDrinkButtonClicked(name,price));
+
 
         return btn;
     }
@@ -382,37 +394,11 @@ btn.addActionListener(e -> onDrinkButtonClicked(name,price));
 
 
     private void updateTotal() {
-//        int total = 0;
-//        for (int i = 0; i < orderListModel.getSize(); i++) {
-//            String item = orderListModel.getElementAt(i);
-//            String[] parts = item.split(" - ");
-//            if (parts.length == 2) {
-//                String priceStr = parts[1].replace("đ", "").replace(".", "").trim();
-//                try {
-//                    total += Integer.parseInt(priceStr);
-//                } catch (NumberFormatException ignored) {
-//                }
-//            }
-//        }
-//        totalLabel.setText("Tổng tiền: " + total + "đ");
-
         int total = 0;
         for (OrderItem item : orderItems) {
             total += item.getTotal();
         }
-        totalLabel.setText("Tổng tiền: " + total + "đ");
-    }
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Đặt món - Giao diện hoàn chỉnh");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000, 600);
-            frame.setContentPane(new OrderPanel());
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
+        totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
     }
 
 }

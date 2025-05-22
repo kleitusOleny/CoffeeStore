@@ -34,7 +34,7 @@ function generateAccount() {
 
 function toolRandomAccount(count = 20) {
     const accounts = Array.from({ length: count }, () => generateAccount());
-    const filePath = path.join(__dirname, '..', '..', 'main', 'model', 'data', 'listaccounts.json');
+    const filePath = path.join(__dirname, '..', '..', 'main', 'data', 'listaccounts.json');
     fs.writeFileSync(filePath, JSON.stringify(accounts, null, 2), 'utf-8');
     console.log('Đã ghi danh sách tài khoản vào file accounts.json');
 }

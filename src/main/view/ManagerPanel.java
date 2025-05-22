@@ -23,8 +23,8 @@ public class ManagerPanel extends JPanel {
 
         // Thêm các panel con vào contentPanel
         contentPanel.add(new MenuEditorPanel(), QUAN_LY_MENU);
-        contentPanel.add(new JLabel("QuanLyNhanVien"), QUAN_LY_NV);
-        contentPanel.add(new JLabel("QuanLyKhuyenMai"), KHUYEN_MAI);
+        contentPanel.add(new QuanLyNhanVien_dsnv(), QUAN_LY_NV);
+        contentPanel.add(new PromotionManagement(), KHUYEN_MAI);
         contentPanel.add(new ThongKe(), THONG_KE);
 
         add(menuPanel, BorderLayout.WEST);

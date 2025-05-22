@@ -1,0 +1,18 @@
+[
+  {
+    "maKM" : "KM01",
+    "tenKM" : "Tết Sale",
+    "noiDung" : "Giảm 10%",
+    "ngayBatDau" : "2025-01-01",
+    "ngayKetThuc" : "2025-01-10",
+    "chon" : false
+  },
+  {
+    "maKM" : "KM01",
+    "tenKM" : "Xuân Sale",
+    "noiDung" : "Giảm 5%",
+    "ngayBatDau" : "2025-01-01",
+    "ngayKetThuc" : "2025-03-01",
+    "chon" : false
+  }
+]

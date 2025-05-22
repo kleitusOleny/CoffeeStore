@@ -19,16 +19,21 @@ public class TransactionHistoryDialog extends JDialog {
                 {"2", "Trần Thị B", "0933447788", "100.000đ", "Thẻ tín dụng", "16/05/2025"}
         };
 
-        JTable table = new JTable(new DefaultTableModel(data, columns)) {
+        CustomTable table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
+        DefaultTableModel model = new DefaultTableModel(data, columns) {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        table.setModel(model);
 
         table.setFont(new Font("SansSerif", Font.PLAIN, 16));
         table.setRowHeight(35);
         table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
         table.getTableHeader().setPreferredSize(new Dimension(100, 40));
+        table.getTableHeader().setBackground(new Color(255, 224, 178)); // Tuỳ chọn thẩm mỹ
+        table.getTableHeader().setForeground(Color.BLACK);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
