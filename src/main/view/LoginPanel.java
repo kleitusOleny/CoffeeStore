@@ -89,7 +89,7 @@ public class LoginPanel extends JPanel {
         
         gbc.gridy++;
         userField = new CustomTextField(20);
-        userField.setFont(new Font("Arial", Font.PLAIN, 20));
+        userField.setFont(new Font("Roboto", Font.PLAIN, 20));
         userField.setPreferredSize(new Dimension(400, 50));
         userField.setDrawBorder(true);
         userField.setBorderRadius(30);
