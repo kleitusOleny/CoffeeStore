@@ -14,15 +14,13 @@ public class PaymentPanel extends JPanel {
     private JLabel giamGiaLabel;
     private JLabel tongTienLabel;
 
-    private CustomButton historyButton;
+    private JButton historyButton;
 
     private CustomButton confirmBtn;
     private CustomButton invoiceBtn;
     private CustomCheckBox cash;
     private CustomCheckBox card;
     private CustomCheckBox bank;
-    private InvoiceDialog dialog;
-    private TransactionHistoryDialog dialog1;
 
 
     public PaymentPanel() {
@@ -45,12 +43,12 @@ public class PaymentPanel extends JPanel {
         JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topLeftPanel.setOpaque(false);
 
-        historyButton = new CustomButton("Xem Lịch Sử Giao Dịch"); // Tạo một nút với nội dung hiển thị
-        historyButton.setFont(new Font("Roboto", Font.BOLD, 14)); // Thiết lập font chữ là Roboto, thường, cỡ 14
-        historyButton.setBackgroundColor(new Color(236, 177, 118));
-        historyButton.setHoverColor(new Color(254, 243, 226));
-
-
+        historyButton = new JButton("Xem Lịch Sử Giao Dịch");
+        historyButton.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        historyButton.setPreferredSize(new Dimension(200, 30));
+        historyButton.setFocusPainted(false);
+        historyButton.setBackground(new Color(255, 204, 153));
+        historyButton.setForeground(Color.BLACK);
         topLeftPanel.add(historyButton);
 
 //        historyButton.addActionListener(e -> {
@@ -60,12 +58,11 @@ public class PaymentPanel extends JPanel {
 //        });
         historyButton.addActionListener(e -> onHistoryButtonClicked());
 
-
         contentPanel.add(topLeftPanel);
         contentPanel.add(Box.createVerticalStrut(10));
 
         JLabel titleLabel = new JLabel("Thông tin khách hàng");
-        titleLabel.setFont(new Font("Roboto", Font.BOLD, 30));
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(titleLabel);
         contentPanel.add(Box.createVerticalStrut(20));
@@ -111,25 +108,22 @@ public class PaymentPanel extends JPanel {
                 {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
         };
 
-        CustomTable table = new CustomTable();
-        DefaultTableModel model = new DefaultTableModel(data, headers) {
+        JTable table = new JTable(new DefaultTableModel(data, headers)) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        table.setModel(model);
 
-
-        Font tableFont = new Font("Roboto", Font.PLAIN, 18);
-        Font headerFont = new Font("Roboto", Font.BOLD, 20);
+        Font tableFont = new Font("SansSerif", Font.PLAIN, 18);
+        Font headerFont = new Font("SansSerif", Font.BOLD, 20);
 
         table.setFont(tableFont);
         table.setRowHeight(35);
         table.getTableHeader().setFont(headerFont);
         table.getTableHeader().setPreferredSize(new Dimension(100, 35));
         table.getTableHeader().setReorderingAllowed(false);
-
         table.getTableHeader().setBackground(new Color(255, 224, 178));
+
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(3).setPreferredWidth(300);
 
@@ -164,7 +158,7 @@ public class PaymentPanel extends JPanel {
         JPanel checkBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         checkBoxPanel.setOpaque(false);
 
-        Font checkFont = new Font("Roboto", Font.PLAIN, 16);
+        Font checkFont = new Font("SansSerif", Font.PLAIN, 16);
         Dimension checkSize = new Dimension(150, 30);
 
         cash = new CustomCheckBox("Tiền mặt");
@@ -201,7 +195,7 @@ public class PaymentPanel extends JPanel {
         buttonPanel.setOpaque(false);
 
         confirmBtn = new CustomButton("XÁC NHẬN THANH TOÁN");
-        confirmBtn.setFont(new Font("Roboto", Font.BOLD, 16));
+        confirmBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
         confirmBtn.setPreferredSize(new Dimension(250, 45));
         confirmBtn.setBackgroundColor(new Color(236, 177, 118));
         confirmBtn.setHoverColor(new Color(254, 243, 226));
@@ -247,7 +241,7 @@ public class PaymentPanel extends JPanel {
 
 
         invoiceBtn = new CustomButton("In hóa đơn");
-        invoiceBtn.setFont(new Font("Roboto", Font.BOLD, 16));
+        invoiceBtn.setFont(new Font("SansSerif", Font.BOLD, 16));
         invoiceBtn.setPreferredSize(new Dimension(250, 45));
         invoiceBtn.setBackgroundColor(new Color(255, 255, 255));
         invoiceBtn.setHoverColor(new Color(254, 243, 226));

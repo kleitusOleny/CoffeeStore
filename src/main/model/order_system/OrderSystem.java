@@ -18,4 +18,8 @@ public class OrderSystem {
     public void addOrder(Order o){
         listStoreOrder.add(o);
     }
+
+    public List<Order> getListStoreOrder() {
+        return listStoreOrder;
+    }
 }

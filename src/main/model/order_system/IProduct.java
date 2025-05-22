@@ -7,4 +7,5 @@ public interface IProduct {
     public String getSize();
     public String getDescription();
     public int getQuantity();
+//    public  Order getOrder();
 }
