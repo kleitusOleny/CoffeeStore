@@ -59,6 +59,8 @@ public class InvoiceDialog extends JDialog {
         table.setRowHeight(30);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+
         table.setFont(new Font("Roboto", Font.PLAIN, 14));
         table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
 

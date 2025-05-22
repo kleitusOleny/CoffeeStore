@@ -23,15 +23,16 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
     private void initComponents() {
         // === THANH CÔNG CỤ PHÍA TRÊN ===
-        JPanel topPanel = new JPanel();
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(254, 216, 177));
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         jbutThemNV = createAddEmployeeButton();
-        topPanel.add(jbutThemNV);
-        topPanel.add(Box.createHorizontalGlue());
-        topPanel.add(createSearchBoxWithButton());
+        JPanel searchPanel = createSearchBoxWithButton();
+
+        // Căn trái nút, căn phải ô tìm kiếm
+        topPanel.add(jbutThemNV, BorderLayout.WEST);
+        topPanel.add(searchPanel, BorderLayout.EAST);
 
         // === BẢNG DỮ LIỆU ===
         initEmployeeTable();
@@ -40,6 +41,8 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(tableScrollPane, BorderLayout.CENTER);
     }
+
+
 
     private CustomButton createAddEmployeeButton() {
         CustomButton button = new CustomButton("Thêm nhân viên");
@@ -58,7 +61,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(160, 26)); // ✅ Giảm chiều dài
+        panel.setPreferredSize(new Dimension(260, 26)); // ✅ Giảm chiều dài
 
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -107,6 +110,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
         emsTable = new CustomTable();
         emsTable.getTableHeader().setBackground(new Color(255, 224, 178));
+        emsTable.getTableHeader().setReorderingAllowed(false);
         emsTable.setModel(model);
         emsTable.setFont(new Font("Roboto", Font.PLAIN, 15));
 
