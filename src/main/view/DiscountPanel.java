@@ -1,9 +1,6 @@
 package view;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import data.FormatClient;
 import data.FormatDiscount;
 import data.ReadFileJson;
@@ -13,11 +10,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.lang.reflect.Type;
 import java.util.List;
-import java.nio.file.Paths;
 
 public class DiscountPanel extends JPanel {
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
@@ -132,12 +125,17 @@ public class DiscountPanel extends JPanel {
                     JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(DiscountPanel.this);
                     dialog1 = new ChangeInforCustomerDialog(topFrame);
                     dialog1.setKhachHang(ten, sdt, diem);
+                    dialog1.setInputName(ten);
+                    dialog1.setInputPhone(sdt);
+                    System.out.println("ten = " + ten + ", sdt = " + sdt + ", diem = " + diem);
                     dialog1.setVisible(true);
-
+                    
+                    
                     if (dialog1.isConfirmed()) {
                         model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
                         model.setValueAt(dialog1.getSDT(), modelRow, 1);
                         model.setValueAt(dialog1.getDiem(), modelRow, 2);
+                        
                     }
                 }
             }
@@ -231,7 +229,7 @@ public class DiscountPanel extends JPanel {
             if (!ten.isEmpty() && !sdt.isEmpty()) {
                 DefaultTableModel model = (DefaultTableModel) khachTable.getModel();
                 model.addRow(new Object[]{ten, sdt, "0", "Bình Thường", false});
-                ReadFileJson.readWithOverwriteJSONForClient(ten, sdt);
+                ReadFileJson.addClient(ten, sdt);
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }

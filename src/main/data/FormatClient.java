@@ -12,6 +12,26 @@ public class FormatClient {
         this.chon = chon;
     }
 
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public void setDiemTichLuy(String diemTichLuy) {
+        this.diemTichLuy = diemTichLuy;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setChon(boolean chon) {
+        this.chon = chon;
+    }
+
     public String getHoTen() {
         return hoTen;
     }

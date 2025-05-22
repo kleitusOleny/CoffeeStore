@@ -1,5 +1,7 @@
 package view;
 
+import data.ReadFileJson;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,17 +10,17 @@ public class ChangeInforCustomerDialog extends JDialog {
     private CustomTextField tenField;
     private CustomTextField sdtField;
     private CustomTextField diemField;
-
     private boolean confirmed = false;
     private boolean deleted = false;
 
+    private String inputName;
+    private String inputPhone;
     public ChangeInforCustomerDialog(Frame owner) {
         super(owner, "Thông tin khách hàng", true);
         setSize(420, 320);
         setLocationRelativeTo(owner);
         getContentPane().setBackground(new Color(255, 245, 204));
         setLayout(new BorderLayout());
-
         // Tiêu đề
         JLabel titleLabel = new JLabel("Thông tin khách hàng", JLabel.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -74,6 +76,13 @@ public class ChangeInforCustomerDialog extends JDialog {
             if (tenField.getText().trim().isEmpty() || sdtField.getText().trim().isEmpty() || diemField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
+            } else {
+                String inputName = this.inputName;
+                String inputPhone = this.inputPhone;
+                String ten = tenField.getText();
+                String sdt = sdtField.getText();
+                String diem = diemField.getText();
+                ReadFileJson.saveChangedClientInformation(inputName,inputPhone,ten, sdt, diem);
             }
             confirmed = true;
             deleted = false;
@@ -84,6 +93,9 @@ public class ChangeInforCustomerDialog extends JDialog {
             int confirm = JOptionPane.showConfirmDialog(this,
                     "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
+                String inputName = this.inputName;
+                String inputPhone = this.inputPhone;
+                ReadFileJson.deteleClientInformation(inputName, inputPhone);
                 deleted = true;
                 confirmed = false;
                 setVisible(false);
@@ -112,6 +124,7 @@ public class ChangeInforCustomerDialog extends JDialog {
         tenField.setText(ten);
         sdtField.setText(sdt);
         diemField.setText(diem);
+        
     }
 
     public String getTenKhach() {
@@ -132,5 +145,13 @@ public class ChangeInforCustomerDialog extends JDialog {
 
     public boolean isDeleted() {
         return deleted;
+    }
+    
+    public void setInputName(String inputName) {
+        this.inputName = inputName;
+    }
+    
+    public void setInputPhone(String inputPhone) {
+        this.inputPhone = inputPhone;
     }
 }
