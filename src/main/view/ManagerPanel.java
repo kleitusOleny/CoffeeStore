@@ -12,8 +12,10 @@ public class ManagerPanel extends JPanel {
     private ManagerMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+    private MainFrame mainFrame;
 
-    public ManagerPanel() {
+    public ManagerPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         menuPanel = new ManagerMenuPanel();
@@ -55,11 +57,11 @@ public class ManagerPanel extends JPanel {
             int confirmed = JOptionPane.showConfirmDialog(
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirmed == JOptionPane.YES_OPTION) {
-                // Ví dụ: chuyển về màn hình đăng nhập nếu bạn có lớp MainFrame
-                // MainFrame.getInstance().showPanel(MainFrame.LOGIN);
-                System.exit(0); // hoặc thoát tạm thời
+                mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
             }
         });
+
+
     }
 
     public void showPanel(String name) {
