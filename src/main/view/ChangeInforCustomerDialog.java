@@ -11,7 +11,6 @@ public class ChangeInforCustomerDialog extends JDialog {
     private CustomTextField tenField;
     private CustomTextField sdtField;
     private CustomTextField diemField;
-
     private boolean confirmed = false;
     private boolean deleted = false;
 
@@ -21,7 +20,6 @@ public class ChangeInforCustomerDialog extends JDialog {
         setLocationRelativeTo(owner);
         getContentPane().setBackground(new Color(255, 245, 204));
         setLayout(new BorderLayout());
-
         // Tiêu đề
         JLabel titleLabel = new JLabel("Thông tin khách hàng", JLabel.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -81,7 +79,7 @@ public class ChangeInforCustomerDialog extends JDialog {
                 String ten = tenField.getText();
                 String sdt = sdtField.getText();
                 String diem = diemField.getText();
-                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(ten, sdt, diem);
+//                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(ten, sdt, diem);
             }
             confirmed = true;
             deleted = false;

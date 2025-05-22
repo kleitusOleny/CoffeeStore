@@ -106,7 +106,8 @@ public class ReadFileJson {
         }
     }
 
-    public static void saveChangedClientInformationAndOverwriteItOnClientJSON(String nameChange, String phoneChange, String scoreChange){
+    // Đang xử lý dòng thứ 83 của ChangeInforCustomerDialog, và nghi ngờ dòng từ 120 của DiscountPanel
+    public static void saveChangedClientInformationAndOverwriteItOnClientJSON(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
@@ -114,10 +115,12 @@ public class ReadFileJson {
             formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
 
             for (FormatClient formatClient : formatClientList){
-                formatClient.setHoTen(nameChange);
-                formatClient.setSoDienThoai(phoneChange);
-                formatClient.setDiemTichLuy(scoreChange);
-                break;
+                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) { // Phương thức này không hoạt động vì ko đủ điều kiện, nếu bỏ dòng if này sẽ set hết trong tất cả trong client.json với cái data mới nhất
+                    formatClient.setHoTen(nameChange);
+                    formatClient.setSoDienThoai(phoneChange);
+                    formatClient.setDiemTichLuy(scoreChange);
+                    break;
+                }
             }
             FileWriter fileWriter = new FileWriter(path);
             gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
