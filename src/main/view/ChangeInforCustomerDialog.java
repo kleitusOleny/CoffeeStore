@@ -1,5 +1,8 @@
 package view;
 
+import data.FormatClient;
+import data.ReadFileJson;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -99,6 +102,11 @@ public class ChangeInforCustomerDialog extends JDialog {
             if (tenField.getText().trim().isEmpty() || sdtField.getText().trim().isEmpty() || diemField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
+            } else {
+                String ten = tenField.getText();
+                String sdt = sdtField.getText();
+                String diem = diemField.getText();
+                ReadFileJson.saveChangedClientInformationAndOverwriteItOnClientJSON(ten, sdt, diem);
             }
             confirmed = true;
             deleted = false;
