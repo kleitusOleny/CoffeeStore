@@ -75,7 +75,6 @@ public class TablePanel extends JPanel {
         button.setBorderRadius(20);
         return button;
     }
-
     private void setStatus(JButton button, String status) {
         tableStatusMap.put(button, status);
 

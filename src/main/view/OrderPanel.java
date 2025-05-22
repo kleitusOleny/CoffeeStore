@@ -2,20 +2,24 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class OrderPanel extends JPanel{
-    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel;
-    JButton cafe, tea, topping;
+public class OrderPanel extends JPanel {
+    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel;
+    JButton cafe, tea, topping, searchButton;
     private DefaultListModel<String> orderListModel = new DefaultListModel<>();
-    private JLabel totalLabel;
+    private JLabel totalLabel, title;
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private java.util.List<OrderItem> orderItems = new ArrayList<>();
+    private JComboBox<String> priceFilter;
     private boolean hasSelectedTea = false;
+    private CustomTextField searchField;
+    private JScrollPane scrollPane;
+    private JRadioButton sizeM, sizeL;
+    private ButtonGroup sizeGroup;
 
-    public OrderPanel(){
+    public OrderPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
 
@@ -45,20 +49,21 @@ public class OrderPanel extends JPanel{
         orderBillPanel.setPreferredSize(new Dimension(280, 0));
         orderBillPanel.setBackground(Color.WHITE);
 
-        JLabel title = new JLabel("Order bill", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 16));
+        title = new JLabel("Order bill", JLabel.CENTER);
+
+        title.setFont(new Font("Roboto", Font.BOLD, 16));
         orderBillPanel.add(title, BorderLayout.NORTH);
 
         orderItemsPanel = new JPanel();
         orderItemsPanel.setLayout(new BoxLayout(orderItemsPanel, BoxLayout.Y_AXIS));
         orderItemsPanel.setBackground(Color.WHITE);
 
-        JScrollPane scrollPane = new JScrollPane(orderItemsPanel);
+        scrollPane = new JScrollPane(orderItemsPanel);
         scrollPane.setBorder(null);
         orderBillPanel.add(scrollPane, BorderLayout.CENTER);
 
         totalLabel = new JLabel("Tổng tiền: ...", JLabel.CENTER);
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        totalLabel.setFont(new Font("Roboto", Font.BOLD, 20));
         orderBillPanel.add(totalLabel, BorderLayout.SOUTH);
 
         return orderBillPanel;
@@ -102,22 +107,26 @@ public class OrderPanel extends JPanel{
         tea.addActionListener(e -> cardLayout.show(cardPanel, "tea"));
         topping.addActionListener(e -> cardLayout.show(cardPanel, "topping"));
 
-        JPanel searchPanel = createSearchBoxWithButton();
+        searchPanel = createSearchBoxWithButton();
 
-        JComboBox<String> priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
-//        priceFilter.addActionListener(e -> {
-//            String selected = (String) priceFilter.getSelectedItem();
-//            JPanel filteredPanel = createFilteredPanel(selected);
-//            cardPanel.add(filteredPanel, "filter");
-//            cardLayout.show(cardPanel, "filter");
-//
-//        });
-        priceFilter.addActionListener(this::onPriceFilterChanged);
 
+        priceFilter = new JComboBox<>(new String[]{"Tất cả", "< 25.000đ", "25.000 - 30.000đ", "> 30.000đ"});
+
+        priceFilter.setFont(new Font("Roboto", Font.BOLD, 15));
+        priceFilter.addActionListener(e -> {
+            String selected = (String) priceFilter.getSelectedItem();
+            JPanel filteredPanel = createFilteredPanel(selected);
+            cardPanel.add(filteredPanel, "filter");
+            cardLayout.show(cardPanel, "filter");
+
+        });
 
         toolbar.add(cafe);
         toolbar.add(tea);
         toolbar.add(topping);
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(searchPanel);
         toolbar.add(Box.createHorizontalStrut(20));
@@ -125,14 +134,6 @@ public class OrderPanel extends JPanel{
 
 
         return toolbar;
-    }
-
-    private void onPriceFilterChanged(ActionEvent e) {
-        JComboBox<?> cb = (JComboBox<?>) e.getSource();
-        String selected = (String) cb.getSelectedItem();
-        JPanel filteredPanel = createFilteredPanel(selected);
-        cardPanel.add(filteredPanel, "filter");
-        cardLayout.show(cardPanel, "filter");
     }
 
     private CustomButton createMenuButton(String text) {
@@ -145,6 +146,7 @@ public class OrderPanel extends JPanel{
         button.setBorderRadius(20);
         return button;
     }
+
     private CustomButton createDrinkBtn(String text) {
         CustomButton button = new CustomButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -158,17 +160,20 @@ public class OrderPanel extends JPanel{
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(160, 28));
+        panel.setPreferredSize(new Dimension(200, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        JTextField searchField = new JTextField();
+        searchField = new CustomTextField(10);
+
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(130, 28));
+        searchField.setPreferredSize(new Dimension(200, 30));
         searchField.setOpaque(true);
+        searchField.setFont(new Font("Roboto", Font.BOLD, 16));
+        searchField.setForeground(new Color(166, 123, 91));
 
         // Tạo nút tìm kiếm có icon
-        JButton searchButton = new JButton();
+        searchButton = new JButton();
         searchButton.setFocusable(false);
         searchButton.setBorder(null);
         searchButton.setContentAreaFilled(false);
@@ -184,23 +189,36 @@ public class OrderPanel extends JPanel{
         } catch (Exception e) {
             searchButton.setText("🔍"); // fallback nếu ảnh lỗi
         }
-//
-//        searchButton.addActionListener(e -> {
-//            String keyword = searchField.getText();
-//            JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
-//        });
-        searchButton.addActionListener(e -> onSearchButtonClicked(searchField.getText()));
 
+        searchButton.addActionListener(e -> {
+            String keyword = searchField.getText().trim().toLowerCase();
+            if (keyword.isEmpty()) return;
+
+            searchResultPanel = new JPanel(new GridLayout(3, 3, 10, 10));
+            searchResultPanel.setBackground(new Color(255, 245, 204));
+            searchResultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            java.util.List<String[]> allDrinks = new ArrayList<>();
+            for (String[] drink : coffeeDrinks) allDrinks.add(drink);
+            for (String[] drink : teaDrinks) allDrinks.add(drink);
+            for (String[] drink : toppings) allDrinks.add(drink);
+
+            for (String[] drink : allDrinks) {
+                String name = drink[0].toLowerCase();
+                if (name.contains(keyword)) {
+                    JButton btn = createDrinkButton(drink[0], drink[1], drink[2]);
+                    searchResultPanel.add(btn);
+                }
+            }
+
+            cardPanel.add(searchResultPanel, "search");
+            cardLayout.show(cardPanel, "search");
+        });
 
         panel.add(searchField, BorderLayout.WEST);
         panel.add(searchButton, BorderLayout.EAST);
 
         return panel;
-    }
-
-    private void onSearchButtonClicked(String keyword) {
-        JOptionPane.showMessageDialog(this, "Đang tìm: " + keyword);
-
     }
 
     private final String[][] coffeeDrinks = {
@@ -270,10 +288,10 @@ public class OrderPanel extends JPanel{
         }
 
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 25));
 
         JLabel priceLabel = new JLabel(price + "\u0111", JLabel.CENTER);
-        priceLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        priceLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
 
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
         infoPanel.setOpaque(false);
@@ -283,76 +301,90 @@ public class OrderPanel extends JPanel{
         btn.add(infoPanel, BorderLayout.SOUTH);
 
         //  Thêm chức năng khi bấm nút
-//        btn.addActionListener(e -> {
-////            orderListModel.addElement(name + " - " + price + "\u0111");
-////            updateTotal();
-//
-//            // Kiểm tra nếu là topping thì phải chọn trà trước
-//            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
-//                if (!hasSelectedTea) {
-//                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
-//                    return;
-//                }
-//            }
-//
-//            if (name.contains("Trà")) {
-//                hasSelectedTea = true; // Đã chọn trà rồi
-//            }
-//
-//            OrderItem orderItem = new OrderItem(name, price);
-//            JPanel itemPanel = orderItem.createPanel(
-//                    this::updateTotal,
-//                    () -> {
-//                        orderItemsPanel.remove(orderItem.panel);
-//                        orderItems.remove(orderItem);
-//                        updateTotal();
-//                        orderItemsPanel.revalidate();
-//                        orderItemsPanel.repaint();
-//                    }
-//            );
-//            orderItems.add(orderItem);
-//            orderItemsPanel.add(itemPanel);
-//            orderItemsPanel.revalidate();
-//            orderItemsPanel.repaint();
-//            updateTotal();
-//
-//        });
-btn.addActionListener(e -> onDrinkButtonClicked(name,price));
+        btn.addActionListener(e -> {
+            // Nếu là topping và chưa chọn trà
+            if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
+                if (!hasSelectedTea) {
+                    JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
+                    return;
+                }
+
+                // Thêm topping không cần chọn size
+                OrderItem orderItem = new OrderItem(name, price);
+                JPanel itemPanel = orderItem.createPanel(
+                        this::updateTotal,
+                        () -> {
+                            orderItemsPanel.remove(orderItem.panel);
+                            orderItems.remove(orderItem);
+                            updateTotal();
+                            orderItemsPanel.revalidate();
+                            orderItemsPanel.repaint();
+                        }
+                );
+                orderItems.add(orderItem);
+                orderItemsPanel.add(itemPanel);
+                orderItemsPanel.revalidate();
+                orderItemsPanel.repaint();
+                updateTotal();
+                return;
+            }
+
+            // Nếu là trà, đánh dấu đã chọn
+            if (name.contains("Trà")) {
+                hasSelectedTea = true;
+            }
+
+            // Hộp thoại chọn size (chỉ cho cà phê và trà)
+            JRadioButton sizeM = new JRadioButton("Size M (mặc định)");
+            JRadioButton sizeL = new JRadioButton("Size L (+5.000đ)");
+            sizeM.setSelected(true);
+            ButtonGroup group = new ButtonGroup();
+            group.add(sizeM);
+            group.add(sizeL);
+
+            JPanel sizePanel = new JPanel(new GridLayout(2, 1));
+            sizePanel.add(sizeM);
+            sizePanel.add(sizeL);
+
+            int option = JOptionPane.showConfirmDialog(
+                    this,
+                    sizePanel,
+                    "Chọn size cho " + name,
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if (option == JOptionPane.OK_OPTION) {
+                String size = sizeM.isSelected() ? "M" : "L";
+                int finalPrice = price + (size.equals("L") ? 5000 : 0);
+                String finalName = name + " (Size " + size + ")";
+
+                OrderItem orderItem = new OrderItem(finalName, finalPrice);
+                JPanel itemPanel = orderItem.createPanel(
+                        this::updateTotal,
+                        () -> {
+                            orderItemsPanel.remove(orderItem.panel);
+                            orderItems.remove(orderItem);
+                            updateTotal();
+                            orderItemsPanel.revalidate();
+                            orderItemsPanel.repaint();
+                        }
+                );
+                orderItems.add(orderItem);
+                orderItemsPanel.add(itemPanel);
+                orderItemsPanel.revalidate();
+                orderItemsPanel.repaint();
+                updateTotal();
+            }
+
+        });
 
         return btn;
     }
 
-    private void onDrinkButtonClicked(String name, int price) {
-        if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
-            if (!hasSelectedTea) {
-                JOptionPane.showMessageDialog(this, "Bạn cần chọn loại trà trước khi thêm topping.");
-                return;
-            }
-        }
 
-        if (name.contains("Trà")) {
-            hasSelectedTea = true; // Đã chọn trà rồi
-        }
 
-        OrderItem orderItem = new OrderItem(name, price);
-        JPanel itemPanel = orderItem.createPanel(
-                this::updateTotal,
-                () -> {
-                    orderItemsPanel.remove(orderItem.panel);
-                    orderItems.remove(orderItem);
-                    updateTotal();
-                    orderItemsPanel.revalidate();
-                    orderItemsPanel.repaint();
-                }
-        );
-        orderItems.add(orderItem);
-        orderItemsPanel.add(itemPanel);
-        orderItemsPanel.revalidate();
-        orderItemsPanel.repaint();
-        updateTotal();
-    }
-
-    private JPanel createFilteredPanel(String filter) {
+    private JPanel createFilteredPanel (String filter){
         JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
         panel.setBackground(new Color(255, 245, 204));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -380,27 +412,12 @@ btn.addActionListener(e -> onDrinkButtonClicked(name,price));
     }
 
 
-
-    private void updateTotal() {
-//        int total = 0;
-//        for (int i = 0; i < orderListModel.getSize(); i++) {
-//            String item = orderListModel.getElementAt(i);
-//            String[] parts = item.split(" - ");
-//            if (parts.length == 2) {
-//                String priceStr = parts[1].replace("đ", "").replace(".", "").trim();
-//                try {
-//                    total += Integer.parseInt(priceStr);
-//                } catch (NumberFormatException ignored) {
-//                }
-//            }
-//        }
-//        totalLabel.setText("Tổng tiền: " + total + "đ");
-
+    private void updateTotal () {
         int total = 0;
         for (OrderItem item : orderItems) {
             total += item.getTotal();
         }
-        totalLabel.setText("Tổng tiền: " + total + "đ");
+        totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
     }
 
 }

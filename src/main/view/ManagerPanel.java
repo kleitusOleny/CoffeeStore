@@ -12,8 +12,10 @@ public class ManagerPanel extends JPanel {
     private ManagerMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+    private MainFrame mainFrame;
 
-    public ManagerPanel() {
+    public ManagerPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         menuPanel = new ManagerMenuPanel();
@@ -63,12 +65,16 @@ public class ManagerPanel extends JPanel {
     }
 
     private void handleLogout() {
-        int confirmed = JOptionPane.showConfirmDialog(
-                null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirmed == JOptionPane.YES_OPTION) {
-            // Nếu có thể, bạn nên gọi MainFrame.logOut() thay vì System.exit()
-            System.exit(0);
-        }
+
+        menuPanel.setLogoutBtListener(e -> {
+            int confirmed = JOptionPane.showConfirmDialog(
+                    null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirmed == JOptionPane.YES_OPTION) {
+                mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getUserField().setText("");
+                mainFrame.getLoginPanel().getPassField().setText("");
+            }
+        });
     }
 
     public void showPanel(String name) {

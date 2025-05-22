@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ManagerMenuPanel extends JPanel{
+public class ManagerMenuPanel extends JPanel {
     public CustomButton datMon, datBan, apDungKM, thanhToan, dangXuat;
     private CustomButton selectedButton = null;
 
@@ -109,7 +109,23 @@ public class ManagerMenuPanel extends JPanel{
         datBan.addActionListener(e -> handleButtonSelection(datBan));
         apDungKM.addActionListener(e -> handleButtonSelection(apDungKM));
         thanhToan.addActionListener(e -> handleButtonSelection(thanhToan));
-        dangXuat.addActionListener(e -> handleButtonSelection(dangXuat));
+//        dangXuat.addActionListener(e -> {
+//            handleButtonSelection(dangXuat);
+//
+//            // Đóng cửa sổ hiện tại
+//            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            if (parent != null) {
+//                parent.dispose(); // Đóng toàn bộ giao diện hiện tại
+//            }
+//
+//            // Mở lại giao diện MainFrame (giả sử đây là LoginFrame hoặc trang chính)
+//            SwingUtilities.invokeLater(() -> {
+//                MainFrame mainFrame = new MainFrame(); // hoặc LoginFrame nếu bạn định về lại trang login
+//                mainFrame.setVisible(true);
+//            });
+//        });
+
+
 
     }
 
@@ -147,6 +163,7 @@ public class ManagerMenuPanel extends JPanel{
     public void setChangeInfoBtListener(ActionListener listener) {
         thanhToan.addActionListener(listener);
     }
+
     public void setLogoutBtListener(ActionListener listener) {
         dangXuat.addActionListener(listener);
     }
@@ -158,7 +175,6 @@ public class ManagerMenuPanel extends JPanel{
         button.setSelected(true);               // Chọn nút hiện tại
         selectedButton = button;
     }
-    
-    
-    
+
+
 }

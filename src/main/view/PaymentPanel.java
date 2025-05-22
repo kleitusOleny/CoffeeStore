@@ -121,6 +121,9 @@ public class PaymentPanel extends JPanel {
         table.setRowHeight(35);
         table.getTableHeader().setFont(headerFont);
         table.getTableHeader().setPreferredSize(new Dimension(100, 35));
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setBackground(new Color(255, 224, 178));
+
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(3).setPreferredWidth(300);
 

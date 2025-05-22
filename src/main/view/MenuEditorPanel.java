@@ -1,5 +1,7 @@
 package view;
 
+import view.CustomTextField;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,8 +11,13 @@ public class MenuEditorPanel extends JPanel {
     private JPanel mainPanel, toolbar;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn;
+
     private JDialog dialog;
+    private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
+    private JLabel nameLabel, priceLabel;
+
+    private CustomTextField searchField;
+
 
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
     private final String[] types = {"coffee", "tea", "topping"};
@@ -77,7 +84,9 @@ public class MenuEditorPanel extends JPanel {
         Image newImage1 = image1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon1 = new ImageIcon(newImage1);
         addButton.setIcon(icon1);
+
         addButton.addActionListener(e -> openAddDrinkDialog());
+
 
         toolbar.add(cafeBtn);
         toolbar.add(teaBtn);
@@ -147,6 +156,7 @@ public class MenuEditorPanel extends JPanel {
         Image newImage2 = image2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(newImage2);
         deleteBtn.setIcon(icon2);
+
         deleteBtn.setMargin(new Insets(2, 5, 2, 5));
 
 //        deleteBtn.addActionListener(e -> {
@@ -175,6 +185,7 @@ public class MenuEditorPanel extends JPanel {
         deleteBtn.addActionListener(e ->deleteDrink(name));
 
         btn.add(deleteBtn, BorderLayout.SOUTH);
+
 
         // chuc nang sua thong tin mon
         btn.addActionListener(e -> openEditDrinkDialog(drinkInfo, index));
