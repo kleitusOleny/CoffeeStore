@@ -317,11 +317,18 @@ public class DiscountPanel extends JPanel {
     }
 
     private static class CustomCheckBoxEditor extends AbstractCellEditor implements TableCellEditor {
-        private CustomCheckBox checkBox;
+        private final CustomCheckBox checkBox;
 
         public CustomCheckBoxEditor() {
             checkBox = new CustomCheckBox("");
-            checkBox.addActionListener(e -> fireEditingStopped());
+            checkBox.setOpaque(false);
+            checkBox.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    checkBox.setSelected(!checkBox.isSelected());
+                    fireEditingStopped(); // Dừng chỉnh sửa để JTable cập nhật giá trị ngay
+                }
+            });
         }
 
         @Override
@@ -334,10 +341,14 @@ public class DiscountPanel extends JPanel {
                                                      boolean isSelected, int row, int column) {
             if (value instanceof Boolean) {
                 checkBox.setSelected((Boolean) value);
+            } else {
+                checkBox.setSelected(false);
             }
+
             return checkBox;
         }
     }
+
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setPreferredSize(new Dimension(300, 28));

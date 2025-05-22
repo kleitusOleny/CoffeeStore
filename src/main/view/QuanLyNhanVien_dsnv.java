@@ -106,11 +106,12 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         };
 
         emsTable = new CustomTable();
+        emsTable.getTableHeader().setBackground(new Color(255, 224, 178));
         emsTable.setModel(model);
-        emsTable.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        emsTable.setFont(new Font("Roboto", Font.PLAIN, 15));
 
         JTableHeader header = emsTable.getTableHeader();
-        header.setFont(new Font("SansSerif", Font.BOLD, 16));
+        header.setFont(new Font("Roboto", Font.BOLD, 16));
         header.setBackground(new Color(255, 224, 178));
         header.setForeground(Color.BLACK);
 

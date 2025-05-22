@@ -36,7 +36,7 @@ public class QLNV_ThemNhanVien extends JDialog {
 		jLabel3 = new JLabel("SĐT");
 		jLabel4 = new JLabel("Số CCCD/CMND");
 		jLabel5 = new JLabel("Địa chỉ");
-		jLabel6 = new JLabel("Ngày sinh");
+		jLabel6 = new JLabel("Ngày sinh(dd/mm/yyyy)");
 
 		jTextField1 = new CustomTextField(20);
 		jTextField2 = new CustomTextField(20);
@@ -106,7 +106,7 @@ public class QLNV_ThemNhanVien extends JDialog {
 
 		jLabel8 = new JLabel("Ngày vào làm");
 		jLabel9 = new JLabel("Ca làm");
-		jLabel10 = new JLabel("Lương");
+		jLabel10 = new JLabel("Lương Theo Gi");
 
 		jTextField7 = new CustomTextField(20);
 		jTextField8 = new CustomTextField(20);
