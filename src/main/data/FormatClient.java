@@ -4,6 +4,14 @@ public class FormatClient {
     private String hoTen, soDienThoai, diemTichLuy, trangThai;
     private boolean chon;
 
+    public FormatClient(String hoTen, String soDienThoai, String diemTichLuy, String trangThai, boolean chon) {
+        this.hoTen = hoTen;
+        this.soDienThoai = soDienThoai;
+        this.diemTichLuy = diemTichLuy;
+        this.trangThai = trangThai;
+        this.chon = chon;
+    }
+
     public String getHoTen() {
         return hoTen;
     }

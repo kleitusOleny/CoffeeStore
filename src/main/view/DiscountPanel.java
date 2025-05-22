@@ -2,27 +2,28 @@ package view;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import data.FormatClient;
 import data.FormatDiscount;
+import data.ReadFileJson;
 
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Paths;
 
 public class DiscountPanel extends JPanel {
-    private List<FormatClient> formatClientList;
-    private List<FormatDiscount> formatDiscountsList;
-    Object[][] kmData;
-    Object[][] khachData ;
+    private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
+    private List<FormatDiscount> formatDiscountsList = ReadFileJson.readFileJSONForDiscount();
+    Object[][] kmData = ReadFileJson.getKmData();
+    Object[][] khachData = ReadFileJson.getKhachData() ;
 
     private CustomTable khachTable;
     private CustomTextField searchField;
@@ -78,30 +79,6 @@ public class DiscountPanel extends JPanel {
 
         // Bảng khách hàng
         String[] khachHeaders = {"Họ Tên", "SĐT", "Điểm Tích Lũy", "Trạng Thái", "Chọn"};
-        try {
-            String path = Paths.get("src", "main", "data", "client.json").toString();
-            FileReader fileReader = new FileReader(path);
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = gson.fromJson(fileReader, listType);
-            khachData = new Object[formatClientList.size()][5];
-            for (int i = 0; i < formatClientList.size(); i++) {
-                FormatClient formatClient = formatClientList.get(i);
-                khachData[i][0] = formatClient.getHoTen();
-                khachData[i][1] = formatClient.getSoDienThoai();
-                khachData[i][2] = formatClient.getDiemTichLuy();
-                khachData[i][3] = formatClient.getTrangThai();
-                khachData[i][4] = formatClient.isChon();
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-//        Object[][] khachData = {
-//                {"Nguyễn Văn A", "1234567891", "70", "Bình Thường", false},
-//                {"Trần Thị B", "0987654321", "120", "VIP", false},
-//                {"Lê Văn C", "0911222333", "45", "Bình Thường", false},
-//                {"Phạm Thị D", "0999888777", "200", "VIP", false},
-//        };
 
         DefaultTableModel khachModel = new DefaultTableModel(khachData, khachHeaders) {
             @Override
@@ -165,29 +142,6 @@ public class DiscountPanel extends JPanel {
         kmPanel.setBorder(BorderFactory.createTitledBorder("Danh sách khuyến mãi"));
 
         String[] kmHeaders = {"Mã KM", "Tên KM", "Nội Dung", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Chọn"};
-        try {
-            String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
-            FileReader fileReader = new FileReader(path);
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FormatDiscount>>() {}.getType();
-            formatDiscountsList = gson.fromJson(fileReader, listType);
-            kmData = new Object[formatDiscountsList.size()][6];
-            for (int i = 0; i < formatDiscountsList.size(); i++) {
-                FormatDiscount formatDiscount = formatDiscountsList.get(i);
-                kmData[i][0] = formatDiscount.getMaKM();
-                kmData[i][1] = formatDiscount.getTenKM();
-                kmData[i][2] = formatDiscount.getNoiDung();
-                kmData[i][3] = formatDiscount.getNgayBatDau();
-                kmData[i][4] = formatDiscount.getNgayKetThuc();
-                kmData[i][5] = formatDiscount.isChon();
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-//        Object[][] kmData = {
-//                {"KM01", "Tết Sale", "Giảm 10%", "2025-01-01", "2025-01-10", false},
-//                {"KM02", "Hè Rực Rỡ", "Tặng quà", "2025-06-01", "2025-06-30", false}
-//        };
 
         DefaultTableModel kmModel = new DefaultTableModel(kmData, kmHeaders) {
             @Override
@@ -271,6 +225,7 @@ public class DiscountPanel extends JPanel {
             if (!ten.isEmpty() && !sdt.isEmpty()) {
                 DefaultTableModel model = (DefaultTableModel) khachTable.getModel();
                 model.addRow(new Object[]{ten, sdt, "0", "Bình Thường", false});
+                ReadFileJson.readWithOverwriteJSONForClient(ten, sdt);
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
