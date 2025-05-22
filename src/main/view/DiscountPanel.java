@@ -23,21 +23,27 @@ public class DiscountPanel extends JPanel {
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
     private List<FormatDiscount> formatDiscountsList = ReadFileJson.readFileJSONForDiscount();
     Object[][] kmData = ReadFileJson.getKmData();
-    Object[][] khachData = ReadFileJson.getKhachData() ;
+    Object[][] khachData = ReadFileJson.getKhachData();
 
     private CustomTable khachTable;
     private CustomTextField searchField;
     private CustomTable kmTable;
     private TableRowSorter<TableModel> sorter;
-    // ✅ Thêm các nút cần getter
+
     private CustomButton tatCaButton;
     private CustomButton khachThuongButton;
     private CustomButton khachVIPButton;
     private CustomButton themKHButton;
     private CustomButton timButton;
-    private  CustomButton apDung;
+    private CustomButton apDung;
     private AddCustomerDialog dialog;
     private ChangeInforCustomerDialog dialog1;
+
+    private JScrollPane khachScroll;
+    private JScrollPane kmScroll;
+
+    private DefaultTableModel kmModel;
+    private DefaultTableModel khachModel;
 
     public DiscountPanel() {
         setLayout(new BorderLayout());
@@ -72,7 +78,6 @@ public class DiscountPanel extends JPanel {
         rightSearchPanel.add(searchBoxPanel);
 
 
-
         topButtonPanel.add(leftButtonPanel, BorderLayout.WEST);
         topButtonPanel.add(rightSearchPanel, BorderLayout.EAST);
         danhSachKHPanel.add(topButtonPanel, BorderLayout.NORTH);
@@ -80,7 +85,7 @@ public class DiscountPanel extends JPanel {
         // Bảng khách hàng
         String[] khachHeaders = {"Họ Tên", "SĐT", "Điểm Tích Lũy", "Trạng Thái", "Chọn"};
 
-        DefaultTableModel khachModel = new DefaultTableModel(khachData, khachHeaders) {
+        khachModel = new DefaultTableModel(khachData, khachHeaders) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return columnIndex == 4 ? Boolean.class : String.class;
@@ -108,7 +113,7 @@ public class DiscountPanel extends JPanel {
         khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer());
         khachTable.getColumnModel().getColumn(4).setCellEditor(new CustomCheckBoxEditor());
 
-        JScrollPane khachScroll = new JScrollPane(khachTable);
+        khachScroll = new JScrollPane(khachTable);
         danhSachKHPanel.add(khachScroll, BorderLayout.CENTER);
         mainPanel.add(danhSachKHPanel);
 
@@ -145,7 +150,7 @@ public class DiscountPanel extends JPanel {
 
         String[] kmHeaders = {"Mã KM", "Tên KM", "Nội Dung", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Chọn"};
 
-        DefaultTableModel kmModel = new DefaultTableModel(kmData, kmHeaders) {
+        kmModel = new DefaultTableModel(kmData, kmHeaders) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return columnIndex == 5 ? Boolean.class : String.class;
@@ -168,16 +173,13 @@ public class DiscountPanel extends JPanel {
         kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer());
         kmTable.getColumnModel().getColumn(5).setCellEditor(new CustomCheckBoxEditor());
 
-        JScrollPane kmScroll = new JScrollPane(kmTable);
+        kmScroll = new JScrollPane(kmTable);
         kmPanel.add(kmScroll, BorderLayout.CENTER);
 
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(kmPanel);
 
         add(mainPanel, BorderLayout.CENTER);
-
-        // Sự kiện tìm kiếm
-//        searchButton.addActionListener(e -> performSearch());
 
     }
 
@@ -208,9 +210,9 @@ public class DiscountPanel extends JPanel {
                 button.addActionListener(e -> filterByTrangThai(null));
                 break;
             case "Áp Dụng":
-            apDung = button;
-            button.addActionListener(e -> xuLyApDungKhuyenMai());
-            break;
+                apDung = button;
+                button.addActionListener(e -> xuLyApDungKhuyenMai());
+                break;
 
         }
 
@@ -391,6 +393,7 @@ public class DiscountPanel extends JPanel {
 
         return panel;
     }
+
     private void xuLyApDungKhuyenMai() {
         DefaultTableModel khachModel = (DefaultTableModel) khachTable.getModel();
         DefaultTableModel kmModel = (DefaultTableModel) kmTable.getModel();
@@ -414,6 +417,7 @@ public class DiscountPanel extends JPanel {
                 thongBao.length() == 0 ? "Chưa chọn khách hàng nào." : thongBao.toString(),
                 "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
+
     public CustomTable getKmTable() {
         return kmTable;
     }
@@ -429,7 +433,6 @@ public class DiscountPanel extends JPanel {
     public ChangeInforCustomerDialog getDialog1() {
         return dialog1;
     }
-
 
 
     public static void main(String[] args) {

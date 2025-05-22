@@ -53,7 +53,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         button.setBorderRadius(20);
         button.addActionListener((ActionEvent e) -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien(parentFrame, true);
+            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien(parentFrame, true, (DefaultTableModel) emsTable.getModel());
             themNhanVienFrame.setVisible(true);
         });
         return button;

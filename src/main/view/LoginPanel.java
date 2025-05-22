@@ -80,7 +80,8 @@ public class LoginPanel extends JPanel {
         userField.setBackgroundColor(Color.WHITE);
         userField.setHoverColor(new Color(245, 245, 245));
         userField.setBorderThickness(2);
-        userField.setGradientColors(new Color(200, 200, 200), new Color(180, 180, 180));
+        userField.setDrawBorder(false);
+        userField.setGradientColors(new Color(162, 120, 90), new Color(162, 120, 90));
         rightPanel.add(userField, gbc);
 
         // Mật khẩu
@@ -97,8 +98,9 @@ public class LoginPanel extends JPanel {
         passField.setBorderRadius(30);
         passField.setBackgroundColor(Color.WHITE);
         passField.setHoverColor(new Color(245, 245, 245));
-        passField.setBorderThickness(2);
-        passField.setGradientColors(new Color(200, 200, 200), new Color(180, 180, 180));
+        passField.setBorderThickness(2);//do dam cua vien
+        passField.setDrawBorder(false);
+        passField.setGradientColors(new Color(162, 120, 90), new Color(162, 120, 90));
         rightPanel.add(passField, gbc);
 
         // Nút đăng nhập
