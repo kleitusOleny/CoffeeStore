@@ -53,11 +53,13 @@ public class PaymentPanel extends JPanel {
 
         topLeftPanel.add(historyButton);
 
-        historyButton.addActionListener(e -> {
-            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            dialog1 = new TransactionHistoryDialog(parentFrame);
-            dialog1.setVisible(true);
-        });
+//        historyButton.addActionListener(e -> {
+//            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
+//            dialog.setVisible(true);
+//        });
+        historyButton.addActionListener(e -> onHistoryButtonClicked());
+
 
         contentPanel.add(topLeftPanel);
         contentPanel.add(Box.createVerticalStrut(10));
@@ -125,6 +127,8 @@ public class PaymentPanel extends JPanel {
         table.setRowHeight(35);
         table.getTableHeader().setFont(headerFont);
         table.getTableHeader().setPreferredSize(new Dimension(100, 35));
+        table.getTableHeader().setReorderingAllowed(false);
+
         table.getTableHeader().setBackground(new Color(255, 224, 178));
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(3).setPreferredWidth(300);
@@ -204,41 +208,43 @@ public class PaymentPanel extends JPanel {
         confirmBtn.setTextColor(Color.BLACK);
         confirmBtn.setBorderRadius(20);
         confirmBtn.setFocusPainted(false);
+        buttonPanel.add(confirmBtn);
+//        confirmBtn.addActionListener(e -> {
+//            JOptionPane.showMessageDialog(
+//                    this,
+//                    "Thanh toán thành công!",
+//                    "Thông báo",
+//                    JOptionPane.INFORMATION_MESSAGE
+//            );
+//
+//            JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent(); // Panel chính chứa mọi thứ
+//
+//// Tìm lại topLeftPanel (panel chứa nút lịch sử)
+//            Component[] components = contentPanel1.getComponents();
+//            JPanel topLeftPanel1 = null;
+//            for (Component c : components) {
+//                if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
+//                    Component first = ((JPanel) c).getComponent(0);
+//                    if (first == historyButton) {
+//                        topLeftPanel1 = (JPanel) c;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            contentPanel1.removeAll();
+//            if (topLeftPanel1 != null) {
+//                contentPanel1.add(topLeftPanel1);
+//                contentPanel1.add(Box.createVerticalStrut(20));
+//            }
+//
+//            contentPanel1.setBackground(new Color(255, 248, 220)); // màu nền gốc
+//            contentPanel1.revalidate();
+//            contentPanel1.repaint();
+//
+//        });
+        confirmBtn.addActionListener(e -> onConfirmButtonClicked());
 
-        confirmBtn.addActionListener(e -> {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Thanh toán thành công!",
-                    "Thông báo",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent(); // Panel chính chứa mọi thứ
-
-// Tìm lại topLeftPanel (panel chứa nút lịch sử)
-            Component[] components = contentPanel1.getComponents();
-            JPanel topLeftPanel1 = null;
-            for (Component c : components) {
-                if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
-                    Component first = ((JPanel) c).getComponent(0);
-                    if (first == historyButton) {
-                        topLeftPanel1 = (JPanel) c;
-                        break;
-                    }
-                }
-            }
-
-            contentPanel1.removeAll();
-            if (topLeftPanel1 != null) {
-                contentPanel1.add(topLeftPanel1);
-                contentPanel1.add(Box.createVerticalStrut(20));
-            }
-
-            contentPanel1.setBackground(new Color(255, 248, 220)); // màu nền gốc
-            contentPanel1.revalidate();
-            contentPanel1.repaint();
-
-        });
 
         invoiceBtn = new CustomButton("In hóa đơn");
         invoiceBtn.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -250,18 +256,64 @@ public class PaymentPanel extends JPanel {
         invoiceBtn.setBorderRadius(20);
         invoiceBtn.setFocusPainted(false);
 
-        invoiceBtn.addActionListener(e -> {
-            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            dialog = new InvoiceDialog(parentFrame);
-            dialog.setVisible(true);
-        });
+//        invoiceBtn.addActionListener(e -> {
+//            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            InvoiceDialog dialog = new InvoiceDialog(parentFrame);
+//            dialog.setVisible(true);
+//        });
+        invoiceBtn.addActionListener(e -> onInvoiceButtonClicked());
 
-        buttonPanel.add(confirmBtn);
+
         buttonPanel.add(Box.createHorizontalStrut(10));
         buttonPanel.add(invoiceBtn);
         contentPanel.add(buttonPanel);
 
         return contentPanel;
+    }
+
+    private void onInvoiceButtonClicked() {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        InvoiceDialog dialog = new InvoiceDialog(parentFrame);
+        dialog.setVisible(true);
+    }
+
+    private void onConfirmButtonClicked() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Thanh toán thành công!",
+                "Thông báo",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent();
+
+        Component[] components = contentPanel1.getComponents();
+        JPanel topLeftPanel1 = null;
+        for (Component c : components) {
+            if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
+                Component first = ((JPanel) c).getComponent(0);
+                if (first == historyButton) {
+                    topLeftPanel1 = (JPanel) c;
+                    break;
+                }
+            }
+        }
+
+        contentPanel1.removeAll();
+        if (topLeftPanel1 != null) {
+            contentPanel1.add(topLeftPanel1);
+            contentPanel1.add(Box.createVerticalStrut(20));
+        }
+
+        contentPanel1.setBackground(new Color(255, 248, 220));
+        contentPanel1.revalidate();
+        contentPanel1.repaint();
+    }
+
+    private void onHistoryButtonClicked() {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
+        dialog.setVisible(true);
     }
 
     private JLabel createBoldLabel(String text) {

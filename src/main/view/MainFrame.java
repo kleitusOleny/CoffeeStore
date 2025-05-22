@@ -34,8 +34,8 @@ public class MainFrame extends JFrame implements IView{
         mainPanel = new JPanel(cardLayout);
 
         loginPanel = new LoginPanel(this);
-        EmployeePanel managerPanel = new EmployeePanel();
-        ManagerPanel managerPanel1 = new ManagerPanel();
+        EmployeePanel managerPanel = new EmployeePanel(this);
+        ManagerPanel managerPanel1 = new ManagerPanel(this);
 
         mainPanel.add(loginPanel, LOGIN);
         mainPanel.add(managerPanel, EMPLOYEE);

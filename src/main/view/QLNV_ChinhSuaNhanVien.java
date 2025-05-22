@@ -8,7 +8,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
     private CustomPanel jPanel1, jPanel2, jPanel3;
     private CustomButton btnTinhLuong, btnXoa;
     private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,
-            jLabel7, jLabel8, jLabel9, jLabel10;
+            jLabel7, jLabel8, jLabel9, jLabel10, jLabelTongLuong;
     private JSeparator jSeparator1;
     private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
             jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
@@ -16,7 +16,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
     public QLNV_ChinhSuaNhanVien(JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(parent); // căn giữa dialog theo frame cha
+        setLocationRelativeTo(parent);
     }
 
     private void initComponents() {
@@ -27,7 +27,6 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
         jPanel1.setBorderColor(new Color(200, 170, 120));
         jPanel1.setBorderThickness(3);
 
-        // Label & textfield thông tin nhân viên
         jLabel1 = new JLabel("Tên NV");
         jLabel2 = new JLabel("Mã NV");
         jLabel3 = new JLabel("SĐT");
@@ -95,9 +94,9 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
         jLabel7.setFont(jLabel7.getFont().deriveFont(Font.BOLD, 16f));
         jSeparator1 = new JSeparator();
 
-        jLabel8 = new JLabel("Ngày vào làm");
+        jLabel8 = new JLabel("Ngày vào làm(dd/mm/yyyy)");
         jLabel9 = new JLabel("Ca làm");
-        jLabel10 = new JLabel("Lương");
+        jLabel10 = new JLabel("Lương Cơ Bản");
 
         jTextField7 = new CustomTextField(20);
         jTextField8 = new CustomTextField(20);
@@ -141,12 +140,16 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
                         .addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         );
 
-        // Các nút chức năng
+        // Thêm JLabel tổng lương
+        jLabelTongLuong = new JLabel("Tổng Lương: ...");
+        jLabelTongLuong.setFont(new Font("Roboto", Font.BOLD, 18));
+        jLabelTongLuong.setForeground(new Color(166, 123, 91));
+
+        // Nút chức năng
         btnTinhLuong = new CustomButton("Tính lương");
         btnTinhLuong.setBackgroundColor(new Color(166, 123, 91));
         btnTinhLuong.setForeground(Color.WHITE);
         btnTinhLuong.setFont(new Font("Roboto", Font.BOLD, 16));
-//        button.setFocusPainted(false);
         btnTinhLuong.setBorderRadius(20);
         btnTinhLuong.addActionListener(evt -> btnTinhLuongActionPerformed(evt));
 
@@ -154,11 +157,9 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
         btnXoa.setBackgroundColor(Color.red);
         btnXoa.setForeground(Color.WHITE);
         btnXoa.setFont(new Font("Roboto", Font.BOLD, 16));
-//        button.setFocusPainted(false);
         btnXoa.setBorderRadius(20);
         btnXoa.addActionListener(evt -> btnXoaActionPerformed(evt));
 
-        // Layout tổng thể panel1
         GroupLayout layout1 = new GroupLayout(jPanel1);
         jPanel1.setLayout(layout1);
         layout1.setAutoCreateGaps(true);
@@ -170,6 +171,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
                         .addGap(50)
                         .addGroup(layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(jPanel3)
+                                .addComponent(jLabelTongLuong)
                                 .addGroup(layout1.createSequentialGroup()
                                         .addComponent(btnTinhLuong, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                                         .addGap(20)
@@ -181,7 +183,9 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
                         .addComponent(jPanel2)
                         .addGroup(layout1.createSequentialGroup()
                                 .addComponent(jPanel3)
-                                .addGap(30)
+                                .addGap(20)
+                                .addComponent(jLabelTongLuong)
+                                .addGap(10)
                                 .addGroup(layout1.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btnTinhLuong, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnXoa, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
@@ -204,8 +208,12 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
     }
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO: Xử lý tính lương cho nhân viên
-        JOptionPane.showMessageDialog(this, "Tính lương thành công!");
+        try {
+            double luongCoBan = Double.parseDouble(jTextField9.getText().trim());
+            jLabelTongLuong.setText("Tổng Lương: " + String.format("%.0f", luongCoBan) + " VND");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Lương cơ bản không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +231,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
         tf.setBorderRadius(20);
         tf.setForeground(new Color(166, 123, 91));
     }
+
     public void setData(String ten, String ma, String sdt, String ngaySinh, String luong) {
         jTextField1.setText(ten);
         jTextField2.setText(ma);
@@ -232,14 +241,6 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
     }
 
     public static void main(String[] args) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-        } catch (Exception ignored) {}
-
         SwingUtilities.invokeLater(() -> {
             QLNV_ChinhSuaNhanVien dialog = new QLNV_ChinhSuaNhanVien(null, true);
             dialog.setVisible(true);

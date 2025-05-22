@@ -12,8 +12,10 @@ public class EmployeePanel extends JPanel {
     private EmployeeMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+    private MainFrame mainFrame;
 
-    public EmployeePanel() {
+    public EmployeePanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         menuPanel = new EmployeeMenuPanel();
@@ -50,14 +52,16 @@ public class EmployeePanel extends JPanel {
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);
         });
-//
-//        menuPanel.setLogoutBtListener(e -> {
-//            int confirmed = JOptionPane.showConfirmDialog(
-//                    null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-//            if (confirmed == JOptionPane.YES_OPTION) {
-//                MainFrame.getInstance().showPanel(MainFrame.LOGIN);
-//            }
-//        });
+
+        menuPanel.setLogoutBtListener(e -> {
+            int confirmed = JOptionPane.showConfirmDialog(
+                    null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirmed == JOptionPane.YES_OPTION) {
+                mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getPassField().setText("");
+                mainFrame.getLoginPanel().getUserField().setText("");
+            }
+        });
     }
 
     public void showPanel(String name) {

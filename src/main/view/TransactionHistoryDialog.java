@@ -30,7 +30,9 @@ public class TransactionHistoryDialog extends JDialog {
 
         table.setFont(new Font("SansSerif", Font.PLAIN, 16));
         table.setRowHeight(35);
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+        table.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 18));
+        table.getTableHeader().setReorderingAllowed(false);
+
         table.getTableHeader().setPreferredSize(new Dimension(100, 40));
         table.getTableHeader().setBackground(new Color(255, 224, 178)); // Tuỳ chọn thẩm mỹ
         table.getTableHeader().setForeground(Color.BLACK);

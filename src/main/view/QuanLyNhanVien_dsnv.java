@@ -23,15 +23,16 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
     private void initComponents() {
         // === THANH CÔNG CỤ PHÍA TRÊN ===
-        JPanel topPanel = new JPanel();
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(254, 216, 177));
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         jbutThemNV = createAddEmployeeButton();
-        topPanel.add(jbutThemNV);
-        topPanel.add(Box.createHorizontalGlue());
-        topPanel.add(createSearchBoxWithButton());
+        JPanel searchPanel = createSearchBoxWithButton();
+
+        // Căn trái nút, căn phải ô tìm kiếm
+        topPanel.add(jbutThemNV, BorderLayout.WEST);
+        topPanel.add(searchPanel, BorderLayout.EAST);
 
         // === BẢNG DỮ LIỆU ===
         initEmployeeTable();
@@ -40,6 +41,8 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(tableScrollPane, BorderLayout.CENTER);
     }
+
+
 
     private CustomButton createAddEmployeeButton() {
         CustomButton button = new CustomButton("Thêm nhân viên");
@@ -58,18 +61,17 @@ public class QuanLyNhanVien_dsnv extends JPanel {
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(220, 26));
+        panel.setPreferredSize(new Dimension(260, 26)); // ✅ Giảm chiều dài
+
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(20);
+        searchField = new CustomTextField(15); // ✅ Giảm chiều dài text field
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(120, 26));
+        searchField.setPreferredSize(new Dimension(110, 26));
         searchField.setOpaque(true);
         searchField.setBorderRadius(20);
         searchField.setForeground(new Color(166, 123, 91));
-
-        timButton = new CustomButton("Tìm Button");
 
         JButton searchIconButton = new JButton();
         searchIconButton.setFocusable(false);
@@ -92,6 +94,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         return panel;
     }
 
+
     private void initEmployeeTable() {
         String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
         Object[][] data = {
@@ -106,11 +109,13 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         };
 
         emsTable = new CustomTable();
+        emsTable.getTableHeader().setBackground(new Color(255, 224, 178));
+        emsTable.getTableHeader().setReorderingAllowed(false);
         emsTable.setModel(model);
-        emsTable.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        emsTable.setFont(new Font("Roboto", Font.PLAIN, 15));
 
         JTableHeader header = emsTable.getTableHeader();
-        header.setFont(new Font("SansSerif", Font.BOLD, 16));
+        header.setFont(new Font("Roboto", Font.BOLD, 16));
         header.setBackground(new Color(255, 224, 178));
         header.setForeground(Color.BLACK);
 

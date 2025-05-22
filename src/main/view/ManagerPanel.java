@@ -12,8 +12,10 @@ public class ManagerPanel extends JPanel {
     private ManagerMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
+    private MainFrame mainFrame;
 
-    public ManagerPanel() {
+    public ManagerPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         menuPanel = new ManagerMenuPanel();
@@ -30,34 +32,46 @@ public class ManagerPanel extends JPanel {
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
 
-        // Gán sự kiện cho các nút
-        menuPanel.setProductCatalogBtListener(e -> {
-            showPanel(QUAN_LY_MENU);
-            setHover(QUAN_LY_MENU);
-        });
+        // Gán sự kiện bằng phương thức riêng
+        initListeners();
+    }
 
-        menuPanel.setNotificationBtListener(e -> {
-            showPanel(QUAN_LY_NV);
-            setHover(QUAN_LY_NV);
-        });
+    private void initListeners() {
+        menuPanel.setProductCatalogBtListener(e -> handleShowMenuPanel());
+        menuPanel.setNotificationBtListener(e -> handleShowEmployeePanel());
+        menuPanel.setPurchasedBtListener(e -> handleShowDiscountPanel());
+        menuPanel.setChangeInfoBtListener(e -> handleShowStatisticsPanel());
+        menuPanel.setLogoutBtListener(e -> handleLogout());
+    }
 
-        menuPanel.setPurchasedBtListener(e -> {
-            showPanel(KHUYEN_MAI);
-            setHover(KHUYEN_MAI);
-        });
+    private void handleShowMenuPanel() {
+        showPanel(QUAN_LY_MENU);
+        setHover(QUAN_LY_MENU);
+    }
 
-        menuPanel.setChangeInfoBtListener(e -> {
-            showPanel(THONG_KE);
-            setHover(THONG_KE);
-        });
+    private void handleShowEmployeePanel() {
+        showPanel(QUAN_LY_NV);
+        setHover(QUAN_LY_NV);
+    }
 
+    private void handleShowDiscountPanel() {
+        showPanel(KHUYEN_MAI);
+        setHover(KHUYEN_MAI);
+    }
+
+    private void handleShowStatisticsPanel() {
+        showPanel(THONG_KE);
+        setHover(THONG_KE);
+    }
+
+    private void handleLogout() {
         menuPanel.setLogoutBtListener(e -> {
             int confirmed = JOptionPane.showConfirmDialog(
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirmed == JOptionPane.YES_OPTION) {
-                // Ví dụ: chuyển về màn hình đăng nhập nếu bạn có lớp MainFrame
-                // MainFrame.getInstance().showPanel(MainFrame.LOGIN);
-                System.exit(0); // hoặc thoát tạm thời
+                mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getUserField().setText("");
+                mainFrame.getLoginPanel().getPassField().setText("");
             }
         });
     }
