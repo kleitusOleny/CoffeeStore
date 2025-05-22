@@ -119,6 +119,7 @@ public class PromotionManagement extends JPanel {
         table.setModel(model);
         table.setFont(new Font("Roboto", Font.PLAIN, 16));
         table.getTableHeader().setBackground(new Color(255, 224, 178));
+        table.getTableHeader().setReorderingAllowed(false);
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Roboto", Font.BOLD, 16));
         header.setBackground(new Color(255, 224, 178));
