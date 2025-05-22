@@ -31,36 +31,49 @@ public class ManagerPanel extends JPanel {
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
-      
-        // Gán sự kiện cho các nút
-        menuPanel.setProductCatalogBtListener(e -> {
-            showPanel(QUAN_LY_MENU);
-            setHover(QUAN_LY_MENU);
-        });
 
-        menuPanel.setNotificationBtListener(e -> {
-            showPanel(QUAN_LY_NV);
-            setHover(QUAN_LY_NV);
-        });
+        // Gán sự kiện bằng phương thức riêng
+        initListeners();
+    }
 
-        menuPanel.setPurchasedBtListener(e -> {
-            showPanel(KHUYEN_MAI);
-            setHover(KHUYEN_MAI);
-        });
+    private void initListeners() {
+        menuPanel.setProductCatalogBtListener(e -> handleShowMenuPanel());
+        menuPanel.setNotificationBtListener(e -> handleShowEmployeePanel());
+        menuPanel.setPurchasedBtListener(e -> handleShowDiscountPanel());
+        menuPanel.setChangeInfoBtListener(e -> handleShowStatisticsPanel());
+        menuPanel.setLogoutBtListener(e -> handleLogout());
+    }
 
-        menuPanel.setChangeInfoBtListener(e -> {
-            showPanel(THONG_KE);
-            setHover(THONG_KE);
-        });
+    private void handleShowMenuPanel() {
+        showPanel(QUAN_LY_MENU);
+        setHover(QUAN_LY_MENU);
+    }
 
+    private void handleShowEmployeePanel() {
+        showPanel(QUAN_LY_NV);
+        setHover(QUAN_LY_NV);
+    }
+
+    private void handleShowDiscountPanel() {
+        showPanel(KHUYEN_MAI);
+        setHover(KHUYEN_MAI);
+    }
+
+    private void handleShowStatisticsPanel() {
+        showPanel(THONG_KE);
+        setHover(THONG_KE);
+    }
+
+    private void handleLogout() {
         menuPanel.setLogoutBtListener(e -> {
             int confirmed = JOptionPane.showConfirmDialog(
                     null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirmed == JOptionPane.YES_OPTION) {
                 mainFrame.showPanel(MainFrame.LOGIN); // Quay lại màn hình login
+                mainFrame.getLoginPanel().getUserField().setText("");
+                mainFrame.getLoginPanel().getPassField().setText("");
             }
         });
-
     }
 
     public void showPanel(String name) {

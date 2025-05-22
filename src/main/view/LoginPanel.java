@@ -142,6 +142,13 @@ public class LoginPanel extends JPanel {
         return frame;
     }
 
+    public CustomTextField getUserField() {
+        return userField;
+    }
+
+    public CustomPasswordField getPassField() {
+        return passField;
+    }
 }
 
 
