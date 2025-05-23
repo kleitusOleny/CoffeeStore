@@ -11,6 +11,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscountPanel extends JPanel {
@@ -35,6 +36,9 @@ public class DiscountPanel extends JPanel {
 
     private JScrollPane khachScroll;
     private JScrollPane kmScroll;
+
+    private List<CustomCheckBox> khachCheckBoxes = new ArrayList<>();
+    private List<CustomCheckBox> kmCheckBoxes = new ArrayList<>();
 
     private DefaultTableModel kmModel;
     private DefaultTableModel khachModel;
@@ -104,7 +108,7 @@ public class DiscountPanel extends JPanel {
         khachTable.getTableHeader().setReorderingAllowed(false);
 
 
-        khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer());
+        khachTable.getColumnModel().getColumn(4).setCellRenderer(new CustomCheckBoxRenderer(khachCheckBoxes));
         khachTable.getColumnModel().getColumn(4).setCellEditor(new CustomCheckBoxEditor());
 
         khachScroll = new JScrollPane(khachTable);
@@ -132,13 +136,13 @@ public class DiscountPanel extends JPanel {
                     
                     System.out.println("ten = " + ten + ", sdt = " + sdt + ", diem = " + diem);
                     dialog1.setVisible(true);
-                    
-                    
+
+
                     if (dialog1.isConfirmed()) {
                         model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
                         model.setValueAt(dialog1.getSDT(), modelRow, 1);
                         model.setValueAt(dialog1.getDiem(), modelRow, 2);
-                        
+
                     }
                 }
             }
@@ -171,7 +175,7 @@ public class DiscountPanel extends JPanel {
         kmTable.getTableHeader().setReorderingAllowed(false);
 
         kmTable.getTableHeader().setBackground(new Color(255, 224, 178));
-        kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer());
+        kmTable.getColumnModel().getColumn(5).setCellRenderer(new CustomCheckBoxRenderer(kmCheckBoxes));
         kmTable.getColumnModel().getColumn(5).setCellEditor(new CustomCheckBoxEditor());
 
         kmScroll = new JScrollPane(kmTable);
@@ -301,19 +305,25 @@ public class DiscountPanel extends JPanel {
 
     // Custom renderer và editor giữ nguyên như cũ...
     private static class CustomCheckBoxRenderer extends JPanel implements TableCellRenderer {
-        private CustomCheckBox checkBox;
+        private final List<CustomCheckBox> checkBoxList;
 
-        public CustomCheckBoxRenderer() {
+        public CustomCheckBoxRenderer(List<CustomCheckBox> checkBoxList) {
+            this.checkBoxList = checkBoxList;
             setLayout(new GridBagLayout());
-            checkBox = new CustomCheckBox("");
-            checkBox.setOpaque(false);
-            add(checkBox);
             setOpaque(false);
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int row, int column) {
+            CustomCheckBox checkBox;
+            if (checkBoxList.size() > row) {
+                checkBox = checkBoxList.get(row);
+            } else {
+                checkBox = new CustomCheckBox("");
+                checkBox.setOpaque(false);
+                checkBoxList.add(checkBox);
+            }
 
             if (value instanceof Boolean) {
                 checkBox.setSelected((Boolean) value);
@@ -321,15 +331,13 @@ public class DiscountPanel extends JPanel {
                 checkBox.setSelected(false);
             }
 
-            if (isSelected) {
-                setBackground(table.getSelectionBackground());
-            } else {
-                setBackground(table.getBackground());
-            }
+            removeAll();
+            add(checkBox);
 
             return this;
         }
     }
+
 
     private static class CustomCheckBoxEditor extends AbstractCellEditor implements TableCellEditor {
         private final CustomCheckBox checkBox;
@@ -374,7 +382,7 @@ public class DiscountPanel extends JPanel {
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(140, 28));
         searchField.setOpaque(true);
-        searchField.setFont(new Font("Roboto",Font.BOLD,16));
+        searchField.setFont(new Font("Roboto", Font.BOLD, 16));
         searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchButton = new JButton();
