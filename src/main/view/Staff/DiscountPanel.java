@@ -1,9 +1,10 @@
-package view;
+package view.Staff;
 
 
 import data.FormatClient;
 import data.FormatDiscount;
 import data.ReadFileJson;
+import view.*;
 
 import javax.swing.*;
 import javax.swing.table.*;

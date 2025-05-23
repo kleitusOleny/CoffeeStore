@@ -1,4 +1,6 @@
-package view;
+package view.Manager;
+
+import view.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -6,7 +8,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class QuanLyNhanVien_dsnv extends JPanel {
+public class EmployeeManagement extends JPanel {
 
     private CustomButton jbutThemNV;
     private CustomTable emsTable;
@@ -15,7 +17,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
     private CustomTextField searchField;
     private CustomButton timButton;
 
-    public QuanLyNhanVien_dsnv() {
+    public EmployeeManagement() {
         setLayout(new BorderLayout());
         setBackground(new Color(254, 216, 177));
         initComponents();
@@ -53,7 +55,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
         button.setBorderRadius(20);
         button.addActionListener((ActionEvent e) -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            QLNV_ThemNhanVien themNhanVienFrame = new QLNV_ThemNhanVien(parentFrame, true, (DefaultTableModel) emsTable.getModel());
+            AddEmployeeDialog themNhanVienFrame = new AddEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
             themNhanVienFrame.setVisible(true);
         });
         return button;
@@ -142,7 +144,7 @@ public class QuanLyNhanVien_dsnv extends JPanel {
             String ngaySinh = emsTable.getValueAt(selectedRow, 3).toString();
             String luong = emsTable.getValueAt(selectedRow, 4).toString();
 
-            QLNV_ChinhSuaNhanVien dialog = new QLNV_ChinhSuaNhanVien(parentFrame, true);
+            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true);
             dialog.setData(ten, ma, sdt, ngaySinh, luong);
             dialog.setVisible(true);
         }
