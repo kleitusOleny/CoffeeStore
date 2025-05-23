@@ -1,4 +1,6 @@
-package view;
+package view.Manager;
+
+import view.CustomButton;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,6 @@
-package view;
+package view.Staff;
+
+import view.CustomTable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

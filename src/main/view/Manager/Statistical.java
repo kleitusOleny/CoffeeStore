@@ -1,4 +1,4 @@
-package view;
+package view.Manager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-public class ThongKe extends JPanel {
+public class Statistical extends JPanel {
 
     private JPanel contentPanel;
     private JPanel chartPanel;
@@ -20,7 +20,7 @@ public class ThongKe extends JPanel {
     private JToggleButton btnPie;
     private ButtonGroup chartButtonGroup;
 
-    public ThongKe() {
+    public Statistical() {
         setLayout(new BorderLayout());
 
         contentPanel = new JPanel(new BorderLayout());
@@ -126,7 +126,7 @@ public class ThongKe extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1200, 800);
             frame.setLocationRelativeTo(null);
-            frame.setContentPane(new ThongKe());
+            frame.setContentPane(new Statistical());
             frame.setVisible(true);
         });
     }

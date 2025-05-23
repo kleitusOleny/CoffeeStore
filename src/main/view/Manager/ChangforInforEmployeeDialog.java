@@ -1,9 +1,13 @@
-package view;
+package view.Manager;
+
+import view.CustomButton;
+import view.CustomPanel;
+import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class QLNV_ChinhSuaNhanVien extends JDialog {
+public class ChangforInforEmployeeDialog extends JDialog {
 
     private CustomPanel jPanel1, jPanel2, jPanel3;
     private CustomButton btnTinhLuong, btnXoa;
@@ -13,7 +17,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
     private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
             jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
 
-    public QLNV_ChinhSuaNhanVien(JFrame parent, boolean modal) {
+    public ChangforInforEmployeeDialog(JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
@@ -242,7 +246,7 @@ public class QLNV_ChinhSuaNhanVien extends JDialog {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            QLNV_ChinhSuaNhanVien dialog = new QLNV_ChinhSuaNhanVien(null, true);
+            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(null, true);
             dialog.setVisible(true);
         });
     }

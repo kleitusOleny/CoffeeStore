@@ -4,6 +4,9 @@ import model.customer_system.Customer;
 import model.payments.*;
 import model.reservation_system.Table;
 import view.*;
+import view.Staff.InvoiceDialog;
+import view.Staff.PaymentPanel;
+import view.Staff.TransactionHistoryDialog;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
