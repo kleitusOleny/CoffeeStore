@@ -1,4 +1,6 @@
-package view;
+package view.Staff;
+
+import view.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
