@@ -12,7 +12,7 @@ import view.MainFrame;
 
 public class Application {
     public static void execute() {
-        EmployeeSystem employeeSystem = new EmployeeSystem(new ManagerAttendent());
+        EmployeeSystem employeeSystem = new EmployeeSystem();
         OrderSystem orderSystem = new OrderSystem();
         CustomerSystem customerSystem = new CustomerSystem();
         ReservationSystem reservationSystem = new ReservationSystem();

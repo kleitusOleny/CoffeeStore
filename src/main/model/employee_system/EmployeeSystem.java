@@ -7,10 +7,12 @@ public class EmployeeSystem {
     private List<Employee> listEmp;
     private ManagerAttendent managerAttendent;
     
-    public EmployeeSystem( ManagerAttendent managerAttendent) {
+    public EmployeeSystem() {
         this.listEmp = new ArrayList<>();
-        this.managerAttendent = managerAttendent;
+        this.managerAttendent = new ManagerAttendent();
     }
+    
+    
     
     //Them nhan vien vao danh sach
     public void addEmployee(Employee e){
