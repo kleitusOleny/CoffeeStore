@@ -2,6 +2,7 @@ package data;
 import com.google.gson.Gson;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import data.dto.FormatAccounts;
 import data.dto.FormatClient;
 import data.dto.FormatDiscount;
+import data.dto.FormatEmployee;
 
 import java.util.List;
 
@@ -16,8 +18,11 @@ public class ReadFileJson {
     private static List<FormatAccounts> formatAccountsList;
     private static List<FormatClient> formatClientList;
     private static List<FormatDiscount> formatDiscountsList;
+    private static List<FormatEmployee> formatEmployeeList;
+
     private static Object[][] kmData;
     private static Object[][] khachData ;
+    private static Object[][] employeeData;
 
     public static Object[][] getKhachData() {
         return khachData;
@@ -25,6 +30,10 @@ public class ReadFileJson {
 
     public static Object[][] getKmData() {
         return kmData;
+    }
+
+    public static Object[][] getEmployeeData() {
+        return employeeData;
     }
 
     // Template for all methods using gson
@@ -77,6 +86,23 @@ public class ReadFileJson {
         return formatClientList;
     }
 
+    public static List<FormatEmployee> readFileJSONForEmployee() {
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "listemployee.json").toString();
+        Type listType = new TypeToken<List<FormatEmployee>>() {}.getType();
+        formatEmployeeList = initializeGson(path, listType, gson);
+        employeeData = new Object[formatEmployeeList.size()][5];
+        for (int i = 0; i < formatEmployeeList.size(); i++) {
+            FormatEmployee formatEmployee = formatEmployeeList.get(i);
+            employeeData[i][0] = formatEmployee.getName();
+            employeeData[i][1] = formatEmployee.getId();
+            employeeData[i][2] = formatEmployee.getPhoneNumber();
+            employeeData[i][3] = formatEmployee.getBirth();
+            employeeData[i][4] = formatEmployee.getSalary();
+        }
+        return formatEmployeeList;
+    }
+
     // Xử lý phần DiscountPanel ở dòng 145
     public static List<FormatDiscount> readFileJSONForDiscount(){
         Gson gson = new Gson();
@@ -113,6 +139,10 @@ public class ReadFileJson {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void addEmployee(){
+
     }
 
     // Đang xử lý dòng thứ 83 của ChangeInforCustomerDialog, và nghi ngờ dòng từ 120 của DiscountPanel

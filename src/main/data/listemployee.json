@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Nguyễn Văn A",
+    "id": "NV01",
+    "phoneNumber": "0909123456",
+    "birth": "01/01/1990",
+    "salary": "10.000.000đ"
+  },
+  {
+    "name": "Jukis Yuri",
+    "id": "NV02",
+    "phoneNumber" : "0369103821",
+    "birth" : "05/09/2000",
+    "salary" : "12.000.000đ"
+  },
+  {
+    "name" : "Kleitus Oleny",
+    "id": "NV03",
+    "phoneNumber" : "0369103821",
+    "birth" : "01/09/2000",
+    "salary" : "12.000.000đ"
+  }
+]
