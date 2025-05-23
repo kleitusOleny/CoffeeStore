@@ -1,5 +1,6 @@
 package view.Manager;
 
+import data.ReadFileJson;
 import view.CustomButton;
 import view.CustomPanel;
 import view.CustomTextField;
@@ -215,8 +216,13 @@ public class AddEmployeeDialog extends JDialog {
 		String ten = jTextField1.getText();
 		String ma = jTextField2.getText();
 		String sdt = jTextField3.getText();
+		String cccd = jTextField4.getText();
+		String diaChi = jTextField5.getText();
 		String ngaySinh = jTextField6.getText();
+		String ngayVaoLam = jTextField7.getText();
+		String caLam = jTextField8.getText();
 		String luong = jTextField9.getText();
+		ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
 
 		// Thêm dòng vào model
 		tableModel.addRow(new Object[]{ten, ma, sdt, ngaySinh, luong});

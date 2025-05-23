@@ -9,15 +9,37 @@
   {
     "name": "Jukis Yuri",
     "id": "NV02",
-    "phoneNumber" : "0369103821",
-    "birth" : "05/09/2000",
-    "salary" : "12.000.000đ"
+    "phoneNumber": "0369103821",
+    "birth": "05/09/2000",
+    "salary": "12.000.000đ",
+    "identifyNumber": "0283911023",
+    "address": "3XX Tran Hung Dao Street",
+    "startingDate": "05/09/2020",
+    "shift": "6h30 - 11h30"
   },
   {
-    "name" : "Kleitus Oleny",
+    "name": "Kleitus Oleny",
     "id": "NV03",
-    "phoneNumber" : "0369103821",
-    "birth" : "01/09/2000",
-    "salary" : "12.000.000đ"
+    "phoneNumber": "0369103821",
+    "birth": "01/09/2000",
+    "salary": "12.000.000đ"
+  },
+  {
+    "name": "Pilos Yukis",
+    "id": "NV04",
+    "phoneNumber": "03829102220",
+    "birth": "08/02/2001",
+    "salary": "15.000.000"
+  },
+  {
+    "name": "TenNV5",
+    "id": "NV05",
+    "phoneNumber": "03692023331",
+    "birth": "09/09/2009",
+    "salary": "5.000.000",
+    "identifyNumber": "02933823102",
+    "address": "Hello World",
+    "startingDate": "09/09/2025",
+    "shift": "6h30 - 11h30"
   }
 ]

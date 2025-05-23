@@ -1,5 +1,7 @@
 package view.Manager;
 
+import data.ReadFileJson;
+import data.dto.FormatEmployee;
 import view.*;
 
 import javax.swing.*;
@@ -7,12 +9,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class EmployeeManagement extends JPanel {
 
     private CustomButton jbutThemNV;
     private CustomTable emsTable;
     private JScrollPane tableScrollPane;
+
+    private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
+    Object[][] employeeData = ReadFileJson.getEmployeeData();
 
     private CustomTextField searchField;
     private CustomButton timButton;
@@ -99,12 +105,12 @@ public class EmployeeManagement extends JPanel {
 
     private void initEmployeeTable() {
         String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
-        Object[][] data = {
-                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
-                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
-        };
+//        Object[][] data = {
+//                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
+//                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
+//        };
 
-        DefaultTableModel model = new DefaultTableModel(data, columns) {
+        DefaultTableModel model = new DefaultTableModel(employeeData, columns) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
