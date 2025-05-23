@@ -62,12 +62,12 @@ public class ReadFileJson {
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
             Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
             formatAccountsList = initializeGson(path, listType, gson);
-            for (FormatAccounts formatAccounts : formatAccountsList){
-                System.out.println("Role: " + formatAccounts.getRole());
-                System.out.println("Username: " + formatAccounts.getUsername());
-                System.out.println("Password: " + formatAccounts.getPassword());
-                System.out.println("-------------\n");
-            }
+//            for (FormatAccounts formatAccounts : formatAccountsList){
+//                System.out.println("Role: " + formatAccounts.getRole());
+//                System.out.println("Username: " + formatAccounts.getUsername());
+//                System.out.println("Password: " + formatAccounts.getPassword());
+//                System.out.println("-------------\n");
+//            }
         } catch (Exception exception){
             throw new RuntimeException(exception);
         }
