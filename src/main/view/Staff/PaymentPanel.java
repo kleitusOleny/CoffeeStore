@@ -46,13 +46,17 @@ public class PaymentPanel extends JPanel {
         JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topLeftPanel.setOpaque(false);
 
-        historyButton = new CustomButton("Xem Lịch Sử Giao Dịch");
+        historyButton = new CustomButton("Lịch Sử Giao Dịch");
         historyButton.setFont(new Font("Roboto", Font.BOLD, 14));
         historyButton.setPreferredSize(new Dimension(200, 30));
         historyButton.setFocusPainted(false);
-        historyButton.setBackgroundColor(new Color(255, 204, 153));
-        historyButton.setTextColor(Color.BLACK);
+        historyButton.setBackgroundColor(new Color(166, 123, 91));
+        historyButton.setTextColor(Color.white);
         historyButton.setBorderRadius(20);
+        ImageIcon avatarIcon = new ImageIcon("src\\main\\image\\history.png");
+        Image avatarImg = avatarIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(avatarImg);
+        historyButton.setIcon(resizedIcon);
         topLeftPanel.add(historyButton);
 
         historyButton.addActionListener(e -> onHistoryButtonClicked());

@@ -19,6 +19,8 @@ public interface IView {
     void displayReservedTables(List<Reservation> reservedTables);
 
     public LoginPanel getLoginPanel();
+    void displayCustomer(Customer customer); // Hiển thị thông tin một khách hàng
+    void displayCustomerList(List<Customer> customers); // Hiển thị danh sách khách hàng
 
 
 }

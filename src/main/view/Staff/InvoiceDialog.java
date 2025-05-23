@@ -39,9 +39,9 @@ public class InvoiceDialog extends JDialog {
         mainPanel.add(subTitleLabel);
 
         // Panel thông tin
-        mainPanel.add(createInfoRow("Khách hàng:", "Nguyễn Văn A"));
-        mainPanel.add(createInfoRow("Trạng thái:", "VIP"));
-        mainPanel.add(createInfoRow("Bàn:", "Bàn 2"));
+        mainPanel.add(createInfoRow("Khách hàng:", DiscountPanel.customer[0]));
+        mainPanel.add(createInfoRow("Trạng thái:", DiscountPanel.customer[3]));
+        mainPanel.add(createInfoRow("Bàn:", TablePanel.getTableNo()));
 
         mainPanel.add(Box.createVerticalStrut(15));
 
