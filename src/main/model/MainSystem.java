@@ -31,6 +31,12 @@ public class MainSystem implements Subject,IModel{
     }
 
     public MainSystem() {
+        this.listObsever = new ArrayList<Observer>();
+        this.empSys = new EmployeeSystem();
+        this.orderSystem = new OrderSystem();
+        this.reservationSystem = new ReservationSystem();
+        this.customerSystem = new CustomerSystem();
+        this.loginModel = new LoginModel();
     }
 
     @Override

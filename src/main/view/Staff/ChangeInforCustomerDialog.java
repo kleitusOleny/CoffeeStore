@@ -100,6 +100,7 @@ public class ChangeInforCustomerDialog extends JDialog {
                 ReadFileJson.deteleClientInformation(inputName, inputPhone);
                 deleted = true;
                 confirmed = false;
+                
                 setVisible(false);
             }
         });
