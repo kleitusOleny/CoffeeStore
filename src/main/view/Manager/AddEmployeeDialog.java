@@ -225,7 +225,7 @@ public class AddEmployeeDialog extends JDialog {
 		ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
 
 		// Thêm dòng vào model
-		tableModel.addRow(new Object[]{ten, ma, sdt, ngaySinh, luong});
+		tableModel.addRow(new Object[]{ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong});
 
 		JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
 		dispose();

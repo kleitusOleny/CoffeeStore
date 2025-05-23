@@ -2,7 +2,6 @@ package data;
 import com.google.gson.Gson;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
@@ -62,8 +61,7 @@ public class ReadFileJson {
                 System.out.println("-------------\n");
             }
         } catch (Exception exception){
-            exception.printStackTrace();
-            System.out.println("Đã có lỗi phát sinh trong quá trình đọc file");
+            throw new RuntimeException(exception);
         }
         return formatAccountsList;
     }
@@ -161,6 +159,28 @@ public class ReadFileJson {
             fileWriter.flush();
             fileWriter.close();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteEmployee(String verifyId){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "listemployee.json").toString();
+            Type listType = new TypeToken<List<FormatEmployee>>() {}.getType();
+            formatEmployeeList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            for (FormatEmployee formatEmployee : formatEmployeeList){
+                if (formatEmployee.getId().equals(verifyId)){
+                    formatEmployeeList.remove(formatEmployee);
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatEmployeeList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e){
             throw new RuntimeException(e);
         }
     }
