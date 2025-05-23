@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class OrderPanel extends JPanel {
-    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel;
+    JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel, sumPanel;
     JButton cafe, tea, topping, searchButton;
     private DefaultListModel<String> orderListModel = new DefaultListModel<>();
     private JLabel totalLabel, title;
@@ -17,7 +17,7 @@ public class OrderPanel extends JPanel {
     private java.util.List<OrderItem> orderItems = new ArrayList<>();
     private JComboBox<String> priceFilter;
     private boolean hasSelectedTea = false;
-    private CustomTextField searchField;
+    private JTextField searchField;
     private JScrollPane scrollPane;
     private JRadioButton sizeM, sizeL;
     private ButtonGroup sizeGroup;
@@ -49,7 +49,7 @@ public class OrderPanel extends JPanel {
     private JPanel createOrderBillPanel() {
         orderBillPanel = new JPanel();
         orderBillPanel.setLayout(new BorderLayout());
-        orderBillPanel.setPreferredSize(new Dimension(280, 0));
+        orderBillPanel.setPreferredSize(new Dimension(350, 0));
         orderBillPanel.setBackground(Color.WHITE);
 
         title = new JLabel("Order bill", JLabel.CENTER);
@@ -65,10 +65,14 @@ public class OrderPanel extends JPanel {
         scrollPane.setBorder(null);
         orderBillPanel.add(scrollPane, BorderLayout.CENTER);
 
-        totalLabel = new JLabel("Tổng tiền: ...", JLabel.CENTER);
+        totalLabel = new JLabel("Tổng tiền: ", JLabel.CENTER);
+        totalLabel.setForeground(Color.WHITE);
         totalLabel.setFont(new Font("Roboto", Font.BOLD, 20));
-        orderBillPanel.add(totalLabel, BorderLayout.SOUTH);
-
+        sumPanel = new JPanel();
+        sumPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        sumPanel.setBackground(new Color(166, 123, 91));
+        sumPanel.add(totalLabel);
+        orderBillPanel.add(sumPanel, BorderLayout.SOUTH);
         return orderBillPanel;
     }
 
@@ -163,14 +167,14 @@ public class OrderPanel extends JPanel {
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(200, 28));
+        panel.setPreferredSize(new Dimension(300, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(10);
+        searchField = new JTextField(20);
 
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(200, 30));
+        searchField.setPreferredSize(new Dimension(200, 28));
         searchField.setOpaque(true);
         searchField.setFont(new Font("Roboto", Font.BOLD, 16));
         searchField.setForeground(new Color(166, 123, 91));
@@ -324,6 +328,12 @@ public class OrderPanel extends JPanel {
                             orderItemsPanel.repaint();
                         }
                 );
+
+// Thêm khoảng thụt vào trái nếu là topping
+                if (name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong")) {
+                    itemPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0)); // 30px lề trái
+                }
+
                 orderItems.add(orderItem);
                 orderItemsPanel.add(itemPanel);
                 orderItemsPanel.revalidate();
@@ -338,14 +348,14 @@ public class OrderPanel extends JPanel {
             }
 
             // Hộp thoại chọn size (chỉ cho cà phê và trà)
-            JRadioButton sizeM = new JRadioButton("Size M (mặc định)");
-            JRadioButton sizeL = new JRadioButton("Size L (+5.000đ)");
+            sizeM = new JRadioButton("Size M (mặc định)");
+            sizeL = new JRadioButton("Size L (+5.000đ)");
             sizeM.setSelected(true);
-            ButtonGroup group = new ButtonGroup();
-            group.add(sizeM);
-            group.add(sizeL);
+            sizeGroup = new ButtonGroup();
+            sizeGroup.add(sizeM);
+            sizeGroup.add(sizeL);
 
-            JPanel sizePanel = new JPanel(new GridLayout(2, 1));
+            sizePanel = new JPanel(new GridLayout(2, 1));
             sizePanel.add(sizeM);
             sizePanel.add(sizeL);
 

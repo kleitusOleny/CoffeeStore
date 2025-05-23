@@ -22,7 +22,7 @@ public class OrderItem {
         panel.setBackground(Color.WHITE);
 //        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        JLabel nameLabel = new JLabel(" " + name);
+        JLabel nameLabel = new JLabel(name);
         nameLabel.setFont(new Font("Roboto", Font.BOLD, 14));
         nameLabel.setPreferredSize(new Dimension(80, 20));
 

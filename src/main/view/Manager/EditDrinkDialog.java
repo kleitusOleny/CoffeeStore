@@ -13,7 +13,8 @@ public class EditDrinkDialog extends javax.swing.JDialog {
     private CustomButton saveBtn, cancelBtn;
     public EditDrinkDialog(JFrame parent, String[] drinkInfo, Runnable refreshCallback) {
         super(parent, "Chỉnh sửa đồ uống", true);
-        setSize(500, 500);
+        setSize(400, 400);
+        setBackground(new Color(240, 200, 160));
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -23,30 +24,32 @@ public class EditDrinkDialog extends javax.swing.JDialog {
         // Tên
         gbc.gridx = 0; gbc.gridy = 0;
         name = new JLabel("Tên đồ uống:");
-        name.setFont(new Font("Roboto", Font.PLAIN, 20));
+        name.setFont(new Font("Roboto", Font.PLAIN, 15));
         add(name, gbc);
         nameField = new JTextField(drinkInfo[0]);
+        nameField.setFont(new Font("Roboto", Font.PLAIN, 15));
         gbc.gridx = 1;
         add(nameField, gbc);
 
         // Giá
         gbc.gridx = 0; gbc.gridy = 1;
         priceMLabel = new JLabel("Giá size M:");
-        priceMLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
+        priceMLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
         add(priceMLabel, gbc);
 
         priceMField = new JTextField(drinkInfo[1]);
+        priceMField.setFont(new Font("Roboto", Font.PLAIN, 15));
         gbc.gridx = 1;
         add(priceMField, gbc);
 
         // Giá size L (tự động +5000)
         gbc.gridx = 0; gbc.gridy = 2;
         priceLLabel = new JLabel("Giá size L:");
-        priceLLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
+        priceLLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
         add(priceLLabel, gbc);
 
         priceLValueLabel = new JLabel(); // sẽ cập nhật sau
-        priceLValueLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
+        priceLValueLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
         gbc.gridx = 1;
         add(priceLValueLabel, gbc);
 
@@ -54,7 +57,7 @@ public class EditDrinkDialog extends javax.swing.JDialog {
         // Hình ảnh
         gbc.gridx = 0; gbc.gridy = 3;
         imageLable = new JLabel("Hình ảnh:");
-        imageLable.setFont(new Font("Roboto", Font.PLAIN, 20));
+        imageLable.setFont(new Font("Roboto", Font.PLAIN, 15));
         add(imageLable, gbc);
         JComboBox<String> imageCombo = new JComboBox<>(new String[] {
                 "src\\main\\image\\coffee.png", "src\\main\\image\\milkcoffee.png",
@@ -62,7 +65,7 @@ public class EditDrinkDialog extends javax.swing.JDialog {
                 "src\\main\\image\\milktea.png", "src\\main\\image\\boba.png",
                 "src\\main\\image\\creamcheese.png"
         });
-        imageCombo.setFont(new Font("Roboto", Font.PLAIN, 20));
+        imageCombo.setFont(new Font("Roboto", Font.PLAIN, 15));
         imageCombo.setSelectedItem(drinkInfo[2]);
         gbc.gridx = 1;
         add(imageCombo, gbc);
