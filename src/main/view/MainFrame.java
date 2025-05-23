@@ -3,6 +3,7 @@ package view;
 import controller.IController;
 import controller.MainController;
 import model.MainSystem;
+import model.customer_system.Customer;
 import model.reservation_system.Reservation;
 
 import javax.swing.*;
@@ -98,6 +99,45 @@ public class MainFrame extends JFrame implements IView{
     public LoginPanel getLoginPanel() {
         return loginPanel;
     }
+
+    @Override
+    public void displayCustomer(Customer customer) {
+        if (customer == null) {
+            displayMessage("Không tìm thấy khách hàng.");
+            return;
+        }
+        StringBuilder sb = new StringBuilder("Thông tin khách hàng:\n");
+        sb.append("Tên: ").append(customer.getName()).append("\n")
+                .append("Số điện thoại: ").append(customer.getNumsPhone()).append("\n")
+                .append("Loại: ").append(customer.getType()).append("\n")
+                .append("Đăng ký nhận thông báo: ").append(customer.isRegister() ? "Có" : "Không").append("\n");
+        if (customer.isVIP()) {
+            sb.append("Điểm tích lũy: ").append(customer.pointAccumulated()).append("\n");
+        }
+        showTextDialog("Thông tin khách hàng", sb.toString());
+    }
+
+
+    @Override
+    public void displayCustomerList(List<Customer> customers) {
+        if (customers == null || customers.isEmpty()) {
+            displayMessage("Không có khách hàng trong danh sách.");
+            return;
+        }
+        StringBuilder sb = new StringBuilder("Danh sách khách hàng:\n");
+        for (Customer customer : customers) {
+            sb.append("Tên: ").append(customer.getName())
+                    .append(", SĐT: ").append(customer.getNumsPhone())
+                    .append(", Loại: ").append(customer.getType())
+                    .append(", Đăng ký: ").append(customer.isRegister() ? "Có" : "Không");
+            if (customer.isVIP()) {
+                sb.append(", Điểm: ").append(customer.pointAccumulated());
+            }
+            sb.append("\n");
+        }
+        showTextDialog("Danh sách khách hàng", sb.toString());
+    }
+
     public void showTextDialog(String title, String content) {
         JTextArea textArea = new JTextArea(content);
         textArea.setEditable(false);
