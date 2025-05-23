@@ -6,6 +6,10 @@ import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import data.dto.FormatAccounts;
+import data.dto.FormatClient;
+import data.dto.FormatDiscount;
+import data.dto.FormatEmployee;
 
 import java.util.List;
 
@@ -13,8 +17,11 @@ public class ReadFileJson {
     private static List<FormatAccounts> formatAccountsList;
     private static List<FormatClient> formatClientList;
     private static List<FormatDiscount> formatDiscountsList;
+    private static List<FormatEmployee> formatEmployeeList;
+
     private static Object[][] kmData;
     private static Object[][] khachData ;
+    private static Object[][] employeeData;
 
     public static Object[][] getKhachData() {
         return khachData;
@@ -22,6 +29,10 @@ public class ReadFileJson {
 
     public static Object[][] getKmData() {
         return kmData;
+    }
+
+    public static Object[][] getEmployeeData() {
+        return employeeData;
     }
 
     // Template for all methods using gson
@@ -36,21 +47,26 @@ public class ReadFileJson {
         }
     }
 
-    // Xử lý phần account login page
+    // [LoginPage]
     public static List<FormatAccounts> readFileJSONForAccount() {
         try {
             Gson gson = new Gson();
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
             Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
             formatAccountsList = initializeGson(path, listType, gson);
+            for (FormatAccounts formatAccounts : formatAccountsList){
+                System.out.println("Role: " + formatAccounts.getRole());
+                System.out.println("Username: " + formatAccounts.getUsername());
+                System.out.println("Password: " + formatAccounts.getPassword());
+                System.out.println("-------------\n");
+            }
         } catch (Exception exception){
-            exception.printStackTrace();
-            System.out.println("Đã có lỗi phát sinh trong quá trình đọc file");
+            throw new RuntimeException(exception);
         }
         return formatAccountsList;
     }
 
-    // Xử lý phần DiscountPanel ở dòng 82
+    // [DiscountPanel]
     public static List<FormatClient> readFileJSONForClient() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "client.json").toString();
@@ -68,7 +84,29 @@ public class ReadFileJson {
         return formatClientList;
     }
 
-    // Xử lý phần DiscountPanel ở dòng 145
+    // [EmployeeManagement]
+    public static List<FormatEmployee> readFileJSONForEmployee() {
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "listemployee.json").toString();
+        Type listType = new TypeToken<List<FormatEmployee>>() {}.getType();
+        formatEmployeeList = initializeGson(path, listType, gson);
+        employeeData = new Object[formatEmployeeList.size()][5];
+        for (int i = 0; i < formatEmployeeList.size(); i++) {
+            FormatEmployee formatEmployee = formatEmployeeList.get(i);
+            employeeData[i][0] = formatEmployee.getName();
+            employeeData[i][1] = formatEmployee.getId();
+            employeeData[i][2] = formatEmployee.getPhoneNumber();
+//            employeeData[n][n] = formatEmployee.getIdentifyNumber();
+//            employeeData[n][n] = formatEmployee.getAddress();
+            employeeData[i][3] = formatEmployee.getBirth();
+//            employeeData[n][n] = formatEmployee.getStartingDate();
+//            employeeData[n][n] = formatEmployee.getShift();
+            employeeData[i][4] = formatEmployee.getSalary();
+        }
+        return formatEmployeeList;
+    }
+
+    // [DiscountPanel]
     public static List<FormatDiscount> readFileJSONForDiscount(){
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
@@ -87,7 +125,7 @@ public class ReadFileJson {
         return formatDiscountsList;
     }
 
-    // Xử lý phần DiscountPanel ở dòng 228
+    // [DiscountPanel]
     public static void addClient(String ten, String sdt){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
@@ -106,7 +144,48 @@ public class ReadFileJson {
         }
     }
 
-    // Đang xử lý dòng thứ 83 của ChangeInforCustomerDialog, và nghi ngờ dòng từ 120 của DiscountPanel
+    // [AddEmployeeDialog]
+    public static void addEmployee(String name, String id, String phoneNumber, String identifyNumber, String address, String birth, String startingDate, String shift, String salary){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "listemployee.json").toString();
+            Type listType = new TypeToken<List<FormatEmployee>>() {}.getType();
+            formatEmployeeList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            FormatEmployee formatEmployee = new FormatEmployee(name, id, phoneNumber, identifyNumber, address, birth, startingDate, shift, salary);
+            formatEmployeeList.add(formatEmployee);
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatEmployeeList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteEmployee(String verifyId){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "listemployee.json").toString();
+            Type listType = new TypeToken<List<FormatEmployee>>() {}.getType();
+            formatEmployeeList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            for (FormatEmployee formatEmployee : formatEmployeeList){
+                if (formatEmployee.getId().equals(verifyId)){
+                    formatEmployeeList.remove(formatEmployee);
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatEmployeeList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    // [ChangeInforCustomerDialog], [DiscountPanel]
     public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
@@ -131,6 +210,7 @@ public class ReadFileJson {
         }
     }
 
+    // [ChangeInforCustomerDialog]
     public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();

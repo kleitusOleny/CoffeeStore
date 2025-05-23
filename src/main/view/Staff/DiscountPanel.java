@@ -1,8 +1,8 @@
 package view.Staff;
 
 
-import data.FormatClient;
-import data.FormatDiscount;
+import data.dto.FormatClient;
+import data.dto.FormatDiscount;
 import data.ReadFileJson;
 import model.MainSystem;
 import model.customer_system.Customer;

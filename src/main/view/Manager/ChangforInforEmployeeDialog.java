@@ -1,5 +1,6 @@
 package view.Manager;
 
+import data.ReadFileJson;
 import view.CustomButton;
 import view.CustomPanel;
 import view.CustomTextField;
@@ -155,14 +156,14 @@ public class ChangforInforEmployeeDialog extends JDialog {
         btnTinhLuong.setForeground(Color.WHITE);
         btnTinhLuong.setFont(new Font("Roboto", Font.BOLD, 16));
         btnTinhLuong.setBorderRadius(20);
-        btnTinhLuong.addActionListener(evt -> btnTinhLuongActionPerformed(evt));
+        btnTinhLuong.addActionListener(this::btnTinhLuongActionPerformed);
 
         btnXoa = new CustomButton("Xoá");
         btnXoa.setBackgroundColor(Color.red);
         btnXoa.setForeground(Color.WHITE);
         btnXoa.setFont(new Font("Roboto", Font.BOLD, 16));
         btnXoa.setBorderRadius(20);
-        btnXoa.addActionListener(evt -> btnXoaActionPerformed(evt));
+        btnXoa.addActionListener(this::btnXoaActionPerformed);
 
         GroupLayout layout1 = new GroupLayout(jPanel1);
         jPanel1.setLayout(layout1);
@@ -224,6 +225,8 @@ public class ChangforInforEmployeeDialog extends JDialog {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá nhân viên này?", "Xác nhận xoá", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             // TODO: Xử lý xoá nhân viên
+            String idEmp = jTextField2.getText();
+            ReadFileJson.deleteEmployee(idEmp);
             JOptionPane.showMessageDialog(this, "Xoá nhân viên thành công!");
             dispose();
         }

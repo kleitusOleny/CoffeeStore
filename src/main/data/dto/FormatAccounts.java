@@ -1,4 +1,4 @@
-package data;
+package data.dto;
 
 public class FormatAccounts {
     private String role;

@@ -1,5 +1,7 @@
 package view.Manager;
 
+import data.ReadFileJson;
+import data.dto.FormatEmployee;
 import view.*;
 
 import javax.swing.*;
@@ -7,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class EmployeeManagement extends JPanel {
 
@@ -14,7 +17,10 @@ public class EmployeeManagement extends JPanel {
     private CustomTable emsTable;
     private JScrollPane tableScrollPane;
 
-    private JTextField searchField;
+    private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
+    Object[][] employeeData = ReadFileJson.getEmployeeData();
+
+    private CustomTextField searchField;
     private CustomButton timButton;
 
     public EmployeeManagement() {
@@ -50,12 +56,8 @@ public class EmployeeManagement extends JPanel {
         CustomButton button = new CustomButton("Thêm nhân viên");
         button.setBackgroundColor(new Color(166, 123, 91));
         button.setForeground(Color.WHITE);
-        button.setSize(new Dimension(200,200));
         button.setFont(new Font("Roboto", Font.BOLD, 14));
-        ImageIcon iconAdd = new ImageIcon("src\\main\\image\\add.png");
-        Image image = iconAdd.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-        button.setIcon(new ImageIcon(image));
-        button.setHorizontalTextPosition(SwingConstants.RIGHT); // chữ nằm bên phải icon
+//        button.setFocusPainted(false);
         button.setBorderRadius(20);
         button.addActionListener((ActionEvent e) -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -72,11 +74,11 @@ public class EmployeeManagement extends JPanel {
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new JTextField(15); // ✅ Giảm chiều dài text field
+        searchField = new CustomTextField(15); // ✅ Giảm chiều dài text field
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(110, 26));
         searchField.setOpaque(true);
-        searchField.setFont(new Font("Roboto",Font.BOLD, 16));
+        searchField.setBorderRadius(20);
         searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchIconButton = new JButton();
@@ -102,13 +104,13 @@ public class EmployeeManagement extends JPanel {
 
 
     private void initEmployeeTable() {
-        String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương Cơ Bản" };
-        Object[][] data = {
-                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
-                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
-        };
+        String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
+//        Object[][] data = {
+//                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
+//                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
+//        };
 
-        DefaultTableModel model = new DefaultTableModel(data, columns) {
+        DefaultTableModel model = new DefaultTableModel(employeeData, columns) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -161,7 +163,7 @@ public class EmployeeManagement extends JPanel {
     }
 
     // === Getter nếu cần dùng bên ngoài ===
-    public JTextField getSearchField() {
+    public CustomTextField getSearchField() {
         return searchField;
     }
 
