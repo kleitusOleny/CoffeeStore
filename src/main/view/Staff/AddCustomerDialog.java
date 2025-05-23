@@ -1,4 +1,7 @@
-package view;
+package view.Staff;
+
+import view.CustomButton;
+import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;

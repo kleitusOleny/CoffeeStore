@@ -1,8 +1,9 @@
-package view;
+package view.Manager;
+
+import view.CustomButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class EditDrinkDialog extends javax.swing.JDialog {
     private JLabel name, priceMLabel, priceLLabel, imageLable;

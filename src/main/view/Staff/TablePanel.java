@@ -1,4 +1,8 @@
-package view;
+package view.Staff;
+
+import view.CustomButton;
+import view.EmployeeMenuPanel;
+import view.WrapLayout;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,14 @@
-package view;
+package view.Manager;
+
+import view.CustomButton;
+import view.CustomPanel;
+import view.CustomTextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class QLNV_ThemNhanVien extends JDialog {
+public class AddEmployeeDialog extends JDialog {
 
 	private CustomPanel jPanel1, jPanel2, jPanel3;
 	private CustomButton btnThem;
@@ -15,7 +19,7 @@ public class QLNV_ThemNhanVien extends JDialog {
 			jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
 	private DefaultTableModel tableModel;
 
-	public QLNV_ThemNhanVien(JFrame parent, boolean modal, DefaultTableModel model) {
+	public AddEmployeeDialog(JFrame parent, boolean modal, DefaultTableModel model) {
 		super(parent, modal);
 		this.tableModel = model;
 		initComponents();
@@ -230,7 +234,7 @@ public class QLNV_ThemNhanVien extends JDialog {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			QLNV_ThemNhanVien dialog = new QLNV_ThemNhanVien(null, true,null);
+			AddEmployeeDialog dialog = new AddEmployeeDialog(null, true,null);
 			dialog.setVisible(true);
 		});
 	}

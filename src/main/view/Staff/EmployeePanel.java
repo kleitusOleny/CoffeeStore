@@ -1,4 +1,7 @@
-package view;
+package view.Staff;
+
+import view.EmployeeMenuPanel;
+import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
