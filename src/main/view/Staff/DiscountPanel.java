@@ -20,7 +20,7 @@ public class DiscountPanel extends JPanel {
     Object[][] khachData = ReadFileJson.getKhachData();
 
     private CustomTable khachTable;
-    private CustomTextField searchField;
+    private JTextField searchField;
     private CustomTable kmTable;
     private TableRowSorter<TableModel> sorter;
 
@@ -194,6 +194,14 @@ public class DiscountPanel extends JPanel {
         switch (text) {
             case "Thêm KH":
                 themKHButton = button;
+                try {
+                    ImageIcon iconAdd = new ImageIcon("src\\main\\image\\add.png");
+                    Image image = iconAdd.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+                    button.setIcon(new ImageIcon(image));
+                    button.setHorizontalTextPosition(SwingConstants.RIGHT); // chữ nằm bên phải icon
+                } catch (Exception e) {
+                    System.out.println("Không tìm thấy icon add.png");
+                }
                 button.addActionListener(e -> addKhachHang());
                 break;
             case "khách thường":
@@ -360,11 +368,11 @@ public class DiscountPanel extends JPanel {
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(20); // dùng biến toàn cục
+        searchField = new JTextField(20); // dùng biến toàn cục
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(140, 28));
         searchField.setOpaque(true);
-        searchField.setBorderRadius(20);
+        searchField.setFont(new Font("Roboto",Font.BOLD,16));
         searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchButton = new JButton();
