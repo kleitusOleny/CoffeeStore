@@ -24,21 +24,25 @@ public class ReadFileJson {
         return kmData;
     }
 
-    // Xử lý phần account login page
-    public static List<FormatAccounts> readFileJSON() {
+    // Template for all methods using gson
+    public static <T> List<T> initializeGson(String path, Type typeOfT, Gson gson){
         try {
-            String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
-            Gson gson = new Gson();
             FileReader fileReader = new FileReader(path);
-            Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
-            formatAccountsList = gson.fromJson(fileReader, listType);
-            for (FormatAccounts accounts : formatAccountsList){
-                System.out.println("Role: " + accounts.getRole());
-                System.out.println("Username: " + accounts.getUsername());
-                System.out.println("Password: " + accounts.getPassword());
-                System.out.println("-----------------");
-            }
+            List<T> listT = gson.fromJson(fileReader, typeOfT);
             fileReader.close();
+            return listT;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Xử lý phần account login page
+    public static List<FormatAccounts> readFileJSONForAccount() {
+        try {
+            Gson gson = new Gson();
+            String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
+            Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
+            formatAccountsList = initializeGson(path, listType, gson);
         } catch (Exception exception){
             exception.printStackTrace();
             System.out.println("Đã có lỗi phát sinh trong quá trình đọc file");
@@ -48,67 +52,103 @@ public class ReadFileJson {
 
     // Xử lý phần DiscountPanel ở dòng 82
     public static List<FormatClient> readFileJSONForClient() {
-        try {
-            String path = Paths.get("src", "main", "data", "client.json").toString();
-            FileReader fileReader = new FileReader(path);
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = gson.fromJson(fileReader, listType);
-            khachData = new Object[formatClientList.size()][5];
-            for (int i = 0; i < formatClientList.size(); i++) {
-                FormatClient formatClient = formatClientList.get(i);
-                khachData[i][0] = formatClient.getHoTen();
-                khachData[i][1] = formatClient.getSoDienThoai();
-                khachData[i][2] = formatClient.getDiemTichLuy();
-                khachData[i][3] = formatClient.getTrangThai();
-                khachData[i][4] = formatClient.isChon();
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "client.json").toString();
+        Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+        formatClientList = initializeGson(path, listType, gson);
+        khachData = new Object[formatClientList.size()][5];
+        for (int i = 0; i < formatClientList.size(); i++) {
+            FormatClient formatClient = formatClientList.get(i);
+            khachData[i][0] = formatClient.getHoTen();
+            khachData[i][1] = formatClient.getSoDienThoai();
+            khachData[i][2] = formatClient.getDiemTichLuy();
+            khachData[i][3] = formatClient.getTrangThai();
+            khachData[i][4] = formatClient.isChon();
         }
         return formatClientList;
     }
 
     // Xử lý phần DiscountPanel ở dòng 145
     public static List<FormatDiscount> readFileJSONForDiscount(){
-        try {
-            String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
-            FileReader fileReader = new FileReader(path);
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<FormatDiscount>>() {}.getType();
-            formatDiscountsList = gson.fromJson(fileReader, listType);
-            kmData = new Object[formatDiscountsList.size()][6];
-            for (int i = 0; i < formatDiscountsList.size(); i++) {
-                FormatDiscount formatDiscount = formatDiscountsList.get(i);
-                kmData[i][0] = formatDiscount.getMaKM();
-                kmData[i][1] = formatDiscount.getTenKM();
-                kmData[i][2] = formatDiscount.getNoiDung();
-                kmData[i][3] = formatDiscount.getNgayBatDau();
-                kmData[i][4] = formatDiscount.getNgayKetThuc();
-                kmData[i][5] = formatDiscount.isChon();
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
+        Type listType = new TypeToken<List<FormatDiscount>>() {}.getType();
+        formatDiscountsList = initializeGson(path, listType, gson);
+        kmData = new Object[formatDiscountsList.size()][6];
+        for (int i = 0; i < formatDiscountsList.size(); i++) {
+            FormatDiscount formatDiscount = formatDiscountsList.get(i);
+            kmData[i][0] = formatDiscount.getMaKM();
+            kmData[i][1] = formatDiscount.getTenKM();
+            kmData[i][2] = formatDiscount.getNoiDung();
+            kmData[i][3] = formatDiscount.getNgayBatDau();
+            kmData[i][4] = formatDiscount.getNgayKetThuc();
+            kmData[i][5] = formatDiscount.isChon();
         }
         return formatDiscountsList;
     }
 
     // Xử lý phần DiscountPanel ở dòng 228
-    public static void readWithOverwriteJSONForClient(String ten, String sdt){
+    public static void addClient(String ten, String sdt){
         try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
-            FileReader fileReader = new FileReader(path);
             Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = gson.fromJson(fileReader, listType);
-            fileReader.close();
+            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+
             FormatClient formatClient = new FormatClient(ten, sdt, "0", "Bình Thường", false);
             formatClientList.add(formatClient);
             FileWriter fileWriter = new FileWriter(path);
-            gson.toJson(formatClientList, fileWriter);
+            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
             fileWriter.flush();
             fileWriter.close();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Đang xử lý dòng thứ 83 của ChangeInforCustomerDialog, và nghi ngờ dòng từ 120 của DiscountPanel
+    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "client.json").toString();
+            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            for (FormatClient formatClient : formatClientList){
+                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) {
+                    formatClient.setHoTen(nameChange);
+                    formatClient.setSoDienThoai(phoneChange);
+                    formatClient.setDiemTichLuy(scoreChange);
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "client.json").toString();
+            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            for (FormatClient formatClient : formatClientList){
+                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)){
+                    formatClientList.remove(formatClient);
+                    break;
+                }
+            }
+            FileWriter fileWriter = new FileWriter(path);
+            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

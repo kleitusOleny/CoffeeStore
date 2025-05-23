@@ -12,7 +12,7 @@ public class LoginPanel extends JPanel {
     public CustomButton loginBtn;
     public CustomTextField userField;
     public CustomPasswordField passField;
-    public List<FormatAccounts> accountsList = ReadFileJson.readFileJSON();
+    public List<FormatAccounts> accountsList = ReadFileJson.readFileJSONForAccount();
     public MainFrame frame;
 
     public LoginPanel(MainFrame mainFrame) {
