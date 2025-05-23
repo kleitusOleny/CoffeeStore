@@ -50,7 +50,7 @@ public class ChangeInforCustomerDialog extends JDialog {
 
         // Nút điều khiển
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBackground(new Color(255, 245, 204));
 
         CustomButton luuButton = new CustomButton("Lưu thay đổi");
         luuButton.setBackgroundColor(new Color(166, 123, 91));
