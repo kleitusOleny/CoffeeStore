@@ -73,6 +73,7 @@ public class LoginPanel extends JPanel {
 
         gbc.gridy++;
         userField = new CustomTextField(20);
+        userField.setText("nhanvien");
         userField.setFont(new Font("Roboto", Font.PLAIN, 20));
         userField.setPreferredSize(new Dimension(400, 50));
         userField.setDrawBorder(true);
@@ -92,6 +93,7 @@ public class LoginPanel extends JPanel {
 
         gbc.gridy++;
         passField = new CustomPasswordField(20);
+        passField.setText("1234");
         passField.setFont(new Font("Roboto", Font.PLAIN, 20));
         passField.setPreferredSize(new Dimension(400, 50));
         passField.setDrawBorder(true);

@@ -115,6 +115,7 @@ public class DiscountPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 int row = khachTable.rowAtPoint(evt.getPoint());
+                System.out.println(evt.getPoint());
                 if (row >= 0) {
                     int modelRow = khachTable.convertRowIndexToModel(row);
                     DefaultTableModel model = (DefaultTableModel) khachTable.getModel();
@@ -128,6 +129,7 @@ public class DiscountPanel extends JPanel {
                     dialog1.setKhachHang(ten, sdt, diem);
                     dialog1.setInputName(ten);
                     dialog1.setInputPhone(sdt);
+                    
                     System.out.println("ten = " + ten + ", sdt = " + sdt + ", diem = " + diem);
                     dialog1.setVisible(true);
                     
