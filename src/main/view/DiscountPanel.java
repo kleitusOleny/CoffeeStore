@@ -1,8 +1,8 @@
 package view;
 
 
-import data.FormatClient;
-import data.FormatDiscount;
+import data.dto.FormatClient;
+import data.dto.FormatDiscount;
 import data.ReadFileJson;
 
 import javax.swing.*;

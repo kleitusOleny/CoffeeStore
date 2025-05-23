@@ -1,4 +1,4 @@
-package data;
+package data.dto;
 
 public class FormatClient {
     private String hoTen, soDienThoai, diemTichLuy, trangThai;

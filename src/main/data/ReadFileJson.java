@@ -6,6 +6,9 @@ import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import data.dto.FormatAccounts;
+import data.dto.FormatClient;
+import data.dto.FormatDiscount;
 
 import java.util.List;
 
@@ -43,6 +46,12 @@ public class ReadFileJson {
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
             Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
             formatAccountsList = initializeGson(path, listType, gson);
+            for (FormatAccounts formatAccounts : formatAccountsList){
+                System.out.println("Role: " + formatAccounts.getRole());
+                System.out.println("Username: " + formatAccounts.getUsername());
+                System.out.println("Password: " + formatAccounts.getPassword());
+                System.out.println("-------------\n");
+            }
         } catch (Exception exception){
             exception.printStackTrace();
             System.out.println("Đã có lỗi phát sinh trong quá trình đọc file");

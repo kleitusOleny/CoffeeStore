@@ -1,6 +1,6 @@
 package view;
 
-import data.FormatAccounts;
+import data.dto.FormatAccounts;
 import data.ReadFileJson;
 
 import javax.swing.*;
