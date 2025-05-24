@@ -5,7 +5,9 @@ import controller.MainController;
 import model.MainSystem;
 import model.customer_system.Customer;
 import model.reservation_system.Reservation;
+import model.reservation_system.Table;
 import view.Staff.EmployeePanel;
+import view.Staff.TablePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +60,7 @@ public class MainFrame extends JFrame implements IView{
     }
 
     @Override
-    public void displayEmptyTables(List<Reservation> emptyTable) {
+    public void displayEmptyTables(List<Table> emptyTable) {
         if (emptyTable.isEmpty() || emptyTable == null){
             displayMessage("Không có bàn trống.");
             return;
@@ -137,6 +139,13 @@ public class MainFrame extends JFrame implements IView{
             sb.append("\n");
         }
         showTextDialog("Danh sách khách hàng", sb.toString());
+    }
+
+    @Override
+    public void updatetableStatus(int tableId, String newStatus) {
+        TablePanel tablePanel = (TablePanel) mainPanel.getComponent(tableId);
+        tablePanel.updatetableStatus(tableId,newStatus);
+
     }
 
     public void showTextDialog(String title, String content) {

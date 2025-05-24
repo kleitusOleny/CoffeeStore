@@ -5,15 +5,17 @@ import java.util.List;
 
 public class ReservationSystem {
     private List<Reservation> listReser;
+    private List<Table> tables = new ArrayList<>();
 
     public ReservationSystem() {
         this.listReser = new ArrayList<>();
     }
 
     public void makeReservation(Reservation reservation) {
-        if (!reservation.checkStatus()){
+        if (reservation.checkStatus()){
             System.out.println("This reservation has already been made");
         } else {
+            reservation.getTable().setStatus(true);
             listReser.add(reservation);
             System.out.println("Reservation has been made successfully");
         }
@@ -25,16 +27,18 @@ public class ReservationSystem {
 
     /**
      * tra ra danh sach cac ban chua co khach dat
+     *
      * @return
      */
 
-    public List<Reservation> emptyTableList(){
-       List<Reservation> result = new ArrayList<>();
-       for (Reservation reservation : listReser) {
-           if (!reservation.checkStatus()){
-               result.add(reservation);
+    public List<Table> emptyTableList(){
+       List<Table> result = new ArrayList<>();
+       for (Table table : tables) {
+           if (!table.isStatus()){
+               result.add(table);
            }
        }
+
         return result;
     }
     /**
@@ -48,6 +52,19 @@ public class ReservationSystem {
             }
         }
         return result;
+    }
+
+    public List<Reservation> getListReser() {
+        return listReser;
+    }
+
+    public List<Table> getTables() {
+        return tables;
+    }
+
+    public void addTable(Table table) {
+        tables.add(table);
+
     }
 
 }
