@@ -1,6 +1,7 @@
 package utils;
 
 import data.ReadFileJson;
+import data.dto.FormatAccounts;
 import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.dto.FormatEmployee;
@@ -18,9 +19,12 @@ public class LoadDataToModel {
     private static List<FormatClient> clientsData = ReadFileJson.readFileJSONForClient();
     private static List<FormatEmployee> employeesData = ReadFileJson.readFileJSONForEmployee();
     private static List<FormatDiscount> discounts = ReadFileJson.readFileJSONForDiscount();
+    private static List<FormatAccounts> accounts = ReadFileJson.readFileJSONForAccount();
+    
     
     private static Map<String,List<Customer>> customers = new HashMap<>();
     private static List<Employee> employees = new ArrayList<>();
+    private static Map<String,String[]> acc = new HashMap<>();
     public static void LoadCustomerDataToModel() {
         for (FormatClient customer: clientsData){
             List<Customer> list = new ArrayList<>();
@@ -47,12 +51,30 @@ public class LoadDataToModel {
     
     }
     
+    public static Map<String, String[]> loadAccountDataToModel() {
+        for (FormatAccounts account: accounts){
+            String role = "";
+            if (account.getRole().equals("Manager")){
+                role += 1;
+            }else {
+                role += 2;
+            }
+            String[] inf = {account.getPassword(),role};
+            acc.put(account.getUsername(),inf);
+        }
+        return acc;
+    }
+    
     public static Map<String, List<Customer>> getCustomers() {
         return customers;
     }
     
     public static List<Employee> getEmployees() {
         return employees;
+    }
+    
+    public static Map<String, String[]> getAcc() {
+        return acc;
     }
     public static void main(String[] args) {
         LoadCustomerDataToModel();

@@ -7,12 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Observer;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel{
     public CustomButton loginBtn;
     public CustomTextField userField;
     public CustomPasswordField passField;
-    public List<FormatAccounts> accountsList = ReadFileJson.readFileJSONForAccount();
     public MainFrame frame;
 
     public LoginPanel(MainFrame mainFrame) {
