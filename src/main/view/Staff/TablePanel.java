@@ -18,7 +18,9 @@ public class TablePanel extends JPanel {
     private List<JButton> tableButtons = new ArrayList<>();
     private final Map<JButton, String> tableStatusMap = new HashMap<>();
     private JPanel topPanel, tableGrid;
+    private JLabel statusLabel;
 
+    private static String tableNo;
     public TablePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
@@ -27,9 +29,12 @@ public class TablePanel extends JPanel {
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
         statusFilter = new JComboBox<>(new String[]{"Tất cả", "Trống", "Đang sử dụng", "Đã đặt"});
+        statusFilter.setFont(new Font("Roboto", Font.BOLD, 15));
 //        statusFilter.addActionListener(e -> filterTables());
         addStatusFilterListener();
-        topPanel.add(new JLabel("Trạng thái:"));
+        statusLabel = new JLabel("Trạng thái:");
+        statusLabel.setFont(new Font("Roboto", Font.BOLD, 15));
+        topPanel.add(statusLabel);
         topPanel.add(statusFilter);
 
         // Panel sơ đồ bàn trung tâm
@@ -39,13 +44,14 @@ public class TablePanel extends JPanel {
 
         for (int i = 1; i <= 20; i++) {
             JButton tableButton = new JButton("Bàn " + i);
+            tableButton.setFont(new Font("Roboto", Font.BOLD, 15));
             tableButton.setPreferredSize(new Dimension(100, 60));
             tableButton.setBackground(Color.LIGHT_GRAY); // Trống mặc định
             tableStatusMap.put(tableButton, "Trống");
             tableButtons.add(tableButton);
 
 //            tableButton.addActionListener(e -> showStatusDialog(tableButton));
-            addTableButtonListener(tableButton);
+            addTableButtonListener(tableButton,i);
             tableGrid.add(tableButton);
         }
 
@@ -62,8 +68,8 @@ public class TablePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void addTableButtonListener(JButton tableButton) {
-        tableButton.addActionListener((ActionEvent e)-> showStatusDialog(tableButton));
+    private void addTableButtonListener(JButton tableButton,int index) {
+        tableButton.addActionListener((ActionEvent e)-> showStatusDialog(tableButton,index));
     }
 
     private void addStatusFilterListener() {
@@ -86,25 +92,25 @@ public class TablePanel extends JPanel {
             case "Trống":
                 button.setBackground(Color.LIGHT_GRAY);
                 break;
-            case "Đang sử dụng":
+            case "Chọn bàn":
                 button.setBackground(new Color(255, 160, 122)); // đỏ nhạt
                 break;
-            case "Đã đặt":
+            case "Đặt bàn":
                 button.setBackground(new Color(144, 238, 144)); // xanh lá nhạt
                 break;
         }
     }
 
-    private void showStatusDialog(JButton button) {
+    private void showStatusDialog(JButton button,int index) {
         String currentStatus = tableStatusMap.get(button);
         List<String> options = new ArrayList<>();
 
         if ("Trống".equals(currentStatus)) {
-            options = Arrays.asList("Đang sử dụng", "Đã đặt");
-        } else if ("Đang sử dụng".equals(currentStatus)) {
-            options = Arrays.asList("Trống", "Đã đặt");
-        } else if ("Đã đặt".equals(currentStatus)) {
-            options = Arrays.asList("Trống", "Đang sử dụng");
+            options = Arrays.asList("Chọn bàn", "Đặt bàn");
+        } else if ("Chọn bàn".equals(currentStatus)) {
+            options = Arrays.asList("Trống", "Đặt bàn");
+        } else if ("Đặt bàn".equals(currentStatus)) {
+            options = Arrays.asList("Trống", "Chọn bàn");
         }
 
         Object newStatus = JOptionPane.showInputDialog(
@@ -116,9 +122,10 @@ public class TablePanel extends JPanel {
                 options.toArray(),
                 options.get(0)
         );
-
+        
         if (newStatus != null) {
             setStatus(button, newStatus.toString());
+            if (newStatus.toString().equals("Chọn bàn") || newStatus.toString().equals("Đặt bàn")) tableNo = String.valueOf(index);
             filterTables(); // Cập nhật lại hiển thị nếu đang lọc
         }
     }
@@ -148,7 +155,6 @@ public class TablePanel extends JPanel {
         frame.setVisible(true);
     }
 
-
     public void updatetableStatus(int tableId, String newStatus) {
         for (JButton btn : tableButtons) {
             if (btn.getText().equals("Bàn " + tableId)) {
@@ -158,4 +164,8 @@ public class TablePanel extends JPanel {
         }
         filterTables();
     }
+    public static String getTableNo(){
+        return tableNo;
+    }
+
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import data.FormatAccounts;
+import data.dto.FormatAccounts;
 import utils.LoginModel;
 import view.LoginPanel;
 import view.MainFrame;

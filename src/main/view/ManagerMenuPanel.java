@@ -29,6 +29,16 @@ public class ManagerMenuPanel extends JPanel {
 //        add(avatar);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(name);
+
+        // Thêm ảnh nhân viên ở giữa
+        ImageIcon avatarIcon = new ImageIcon("src\\main\\image\\quanLy.png");
+        Image avatarImg = avatarIcon.getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+        JLabel avatarLabel = new JLabel(new ImageIcon(avatarImg));
+        avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(avatarLabel);
+
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(role);
         add(Box.createRigidArea(new Dimension(0, 20)));
 

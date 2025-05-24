@@ -15,7 +15,7 @@ public class MenuEditorPanel extends JPanel{
     private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
     private JLabel nameLabel, priceLabel;
 
-    private CustomTextField searchField;
+    private JTextField searchField;
 
     private final java.util.List<String[][]> drinkData = new ArrayList<>();
     private final String[] types = {"coffee", "tea", "topping"};
@@ -96,6 +96,15 @@ public class MenuEditorPanel extends JPanel{
         toolbar.add(cafeBtn);
         toolbar.add(teaBtn);
         toolbar.add(toppingBtn);
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
+        toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
         toolbar.add(Box.createHorizontalStrut(30));
@@ -245,13 +254,13 @@ public class MenuEditorPanel extends JPanel{
 
     private JPanel createSearchBoxWithButton() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(160, 28));
+        panel.setPreferredSize(new Dimension(300, 28));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(10);
+        searchField = new JTextField(20);
         searchField.setBorder(null);
-        searchField.setPreferredSize(new Dimension(200, 30));
+        searchField.setPreferredSize(new Dimension(140, 28));
         searchField.setOpaque(true);
         searchField.setFont(new Font("Roboto", Font.BOLD, 16));
         searchField.setForeground(new Color(166, 123, 91));

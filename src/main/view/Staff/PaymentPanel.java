@@ -28,13 +28,12 @@ public class PaymentPanel extends JPanel {
 
     public PaymentPanel() {
         setLayout(new BorderLayout());
-        setBackground(new Color(255, 245, 204)); // Màu nền
+        setBackground(new Color(255, 245, 204));
 
-//        EmployeeMenuPanel menuPanel = new EmployeeMenuPanel(); // Menu bên trái
-//        add(menuPanel, BorderLayout.WEST);
-
-        add(createContentPanel(), BorderLayout.CENTER); // Nội dung chính
+        add(createMenuBar(), BorderLayout.NORTH); // thêm button vào menu bar ở trên
+        add(createContentPanel(), BorderLayout.CENTER); // nội dung chính
     }
+
 
     private JPanel createContentPanel() {
         JPanel contentPanel = new JPanel();
@@ -42,22 +41,6 @@ public class PaymentPanel extends JPanel {
         contentPanel.setBackground(new Color(255, 245, 204));
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Nút "Xem Lịch Sử Giao Dịch"
-        JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topLeftPanel.setOpaque(false);
-
-        historyButton = new CustomButton("Xem Lịch Sử Giao Dịch");
-        historyButton.setFont(new Font("Roboto", Font.BOLD, 14));
-        historyButton.setPreferredSize(new Dimension(200, 30));
-        historyButton.setFocusPainted(false);
-        historyButton.setBackgroundColor(new Color(255, 204, 153));
-        historyButton.setTextColor(Color.BLACK);
-        historyButton.setBorderRadius(20);
-        topLeftPanel.add(historyButton);
-
-        historyButton.addActionListener(e -> onHistoryButtonClicked());
-
-        contentPanel.add(topLeftPanel);
         contentPanel.add(Box.createVerticalStrut(10));
 
         JLabel titleLabel = new JLabel("Thông tin khách hàng");
@@ -329,6 +312,32 @@ public class PaymentPanel extends JPanel {
     public CustomCheckBox getBank() {
         return bank;
     }
+
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(new Color(255, 224, 178));
+        menuBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        historyButton = new CustomButton("Lịch Sử Giao Dịch");
+        historyButton.setFont(new Font("Roboto", Font.BOLD, 14));
+        historyButton.setPreferredSize(new Dimension(180, 30));
+        historyButton.setFocusPainted(false);
+        historyButton.setBackgroundColor(new Color(166, 123, 91));
+        historyButton.setTextColor(Color.white);
+        historyButton.setBorderRadius(20);
+
+        ImageIcon icon = new ImageIcon("src\\main\\image\\history.png");
+        Image avatarImg = icon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        historyButton.setIcon(new ImageIcon(avatarImg));
+
+        historyButton.addActionListener(e -> onHistoryButtonClicked());
+
+        // Thêm nút trực tiếp vào menu bar
+        menuBar.add(historyButton);
+
+        return menuBar;
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

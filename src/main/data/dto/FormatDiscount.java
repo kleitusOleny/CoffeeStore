@@ -1,8 +1,17 @@
-package data;
+package data.dto;
 
 public class FormatDiscount {
     private String maKM, tenKM, noiDung, ngayBatDau, ngayKetThuc;
     private boolean chon;
+
+    public FormatDiscount(String maKM, String tenKM, String noiDung, String ngayBatDau, String ngayKetThuc, boolean chon) {
+        this.maKM = maKM;
+        this.tenKM = tenKM;
+        this.noiDung = noiDung;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.chon = chon;
+    }
 
     public String getMaKM() {
         return maKM;
