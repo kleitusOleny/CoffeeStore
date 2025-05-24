@@ -1,20 +1,32 @@
 package view.Staff;
 
+import data.ReadFileJson;
+import data.dto.FormatClient;
+import data.dto.FormatDiscount;
+import data.dto.FormatPay;
 import view.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class PaymentPanel extends JPanel {
 
-    private JLabel tenLabel;
-    private JLabel sdtLabel;
-    private JLabel trangThaiLabel;
+    private JLabel tenLabel = createBoldLabel("<<Unknown>>");
+    private JLabel sdtLabel = createBoldLabel("<<Unknown>>");
+    private JLabel trangThaiLabel = createBoldLabel("<<Unknown>>");
     private JLabel banLabel;
     private JLabel giamGiaLabel;
     private JLabel tongTienLabel;
+
+    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
+    private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
+    private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
+    Object[][] payData = ReadFileJson.getPayData();
+    Object[][] clientData = ReadFileJson.getKhachData();
+    Object[][] discountData = ReadFileJson.getKmData();
 
     private CustomButton historyButton;
 
@@ -53,22 +65,36 @@ public class PaymentPanel extends JPanel {
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setOpaque(false);
         row1.add(createBoldLabel("Tên:"));
-        tenLabel = createBoldLabel("Nguyễn Văn A");
+        for (FormatClient formatClient : formatClientList){
+            boolean found = false;
+            if (formatClient.isChon()) {
+                tenLabel = createBoldLabel(formatClient.getHoTen());
+                sdtLabel = createBoldLabel(formatClient.getSoDienThoai());
+                trangThaiLabel = createBoldLabel(formatClient.getTrangThai());
+                found = true;
+            }
+        }
         row1.add(tenLabel);
 
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("SĐT:"));
-        sdtLabel = createBoldLabel("0393445667");
         row1.add(sdtLabel);
 
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("Trạng Thái:"));
-        trangThaiLabel = createBoldLabel("VIP");
         row1.add(trangThaiLabel);
 
         contentPanel.add(row1);
 
         // Dòng 2: Thông tin bàn và mã giảm giá
+        for (FormatDiscount formatDiscount : formatDiscountList){
+            boolean found = false;
+            if (formatDiscount.isChon()){
+                giamGiaLabel = createBoldLabel(formatDiscount.getTenKM() + "(" + formatDiscount.getNoiDung() + ")");
+                // banLabel = qq j đó
+                found = true;
+            }
+        }
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
@@ -77,7 +103,6 @@ public class PaymentPanel extends JPanel {
 
         row2.add(Box.createHorizontalStrut(30));
         row2.add(createBoldLabel("Mã giảm giá:"));
-        giamGiaLabel = createBoldLabel("50%");
         row2.add(giamGiaLabel);
 
         contentPanel.add(row2);
@@ -85,13 +110,13 @@ public class PaymentPanel extends JPanel {
 
         // Bảng món ăn
         String[] headers = {"Tên món", "Số lượng", "Giá", "Topping (kèm giá)"};
-        Object[][] data = {
-                {"Cà phê sữa", 1, "25.000đ", "Không có"},
-                {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
-        };
+//        Object[][] data = {
+//                {"Cà phê sữa", 1, "25.000đ", "Không có"},
+//                {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
+//        };
 
         table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
-        DefaultTableModel model = new DefaultTableModel(data, headers) {
+        DefaultTableModel model = new DefaultTableModel(payData, headers) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;

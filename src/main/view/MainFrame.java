@@ -66,8 +66,8 @@ public class MainFrame extends JFrame implements IView{
             return;
         }
         StringBuilder sb = new StringBuilder("Danh sách bàn trống:\n");
-        for (Reservation r : emptyTable){
-            sb.append("Bàn số: ").append(r.getTable().getIdTable())
+        for (Table r : emptyTable){
+            sb.append("Bàn số: ").append(r.getIdTable())
 
                     .append("\n");
         }

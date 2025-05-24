@@ -1,0 +1,38 @@
+[
+  {
+    "tenMon": "Cà phê sữa",
+    "soLuong": 2,
+    "gia": "25.000",
+    "topping": "Không có"
+  },
+  {
+    "tenMon": "Cà phê đen đá",
+    "soLuong": 1,
+    "gia": "20.000",
+    "topping": "Không có"
+  },
+  {
+    "tenMon": "Bạc xỉu",
+    "soLuong": 1,
+    "gia": "22.000",
+    "topping": "Không có"
+  },
+  {
+    "tenMon": "Trà sữa truyền thống",
+    "soLuong": 2,
+    "gia": "XX.XXX",
+    "topping": "Trân châu đen - 5.000"
+  },
+  {
+    "tenMon": "Trà sữa XX",
+    "soLuong": 1,
+    "gia": "XX.XXX",
+    "topping": "Không có"
+  },
+  {
+    "tenMon": "Trà sữa XX",
+    "soLuong": 1,
+    "gia": "XX.XXX",
+    "topping": "Không có"
+  }
+]

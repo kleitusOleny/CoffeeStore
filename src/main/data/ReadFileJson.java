@@ -6,11 +6,9 @@ import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import data.dto.FormatAccounts;
-import data.dto.FormatClient;
-import data.dto.FormatDiscount;
-import data.dto.FormatEmployee;
+import data.dto.*;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public class ReadFileJson {
@@ -18,10 +16,12 @@ public class ReadFileJson {
     private static List<FormatClient> formatClientList;
     private static List<FormatDiscount> formatDiscountsList;
     private static List<FormatEmployee> formatEmployeeList;
+    private static List<FormatPay> formatPayList;
 
     private static Object[][] kmData;
     private static Object[][] khachData ;
     private static Object[][] employeeData;
+    private static Object[][] payData;
 
     public static Object[][] getKhachData() {
         return khachData;
@@ -33,6 +33,10 @@ public class ReadFileJson {
 
     public static Object[][] getEmployeeData() {
         return employeeData;
+    }
+
+    public static Object[][] getPayData(){
+        return payData;
     }
 
     // Template for all methods using gson
@@ -53,6 +57,22 @@ public class ReadFileJson {
         gsonWithPrettyPrint.toJson(listFormat, fileWriter);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public static List<FormatPay> readFileJSONForPay(){
+            Gson gson = new Gson();
+            String path = Paths.get("src", "main", "data", "listpay.json").toString();
+            Type listType = new TypeToken<List<FormatPay>>() {}.getType();
+            formatPayList = initializeGson(path, listType, gson);
+            payData = new Object[formatPayList.size()][5];
+            for (int i = 0; i < formatPayList.size(); i++) {
+                FormatPay formatPay = formatPayList.get(i);
+                payData[i][0] = formatPay.getTenMon();
+                payData[i][1] = formatPay.getSoLuong();
+                payData[i][2] = formatPay.getGia();
+                payData[i][3] = formatPay.getTopping();
+            }
+        return formatPayList;
     }
 
     // [LoginPage]
@@ -114,6 +134,37 @@ public class ReadFileJson {
         return formatEmployeeList;
     }
 
+    public static void updateFormatDiscountsFromTable(DefaultTableModel kmModel){
+        for (int i = 0; i < formatDiscountsList.size(); i++) {
+            // Lấy trạng thái đã tick (true/false) từ cột 5
+            Object value = kmModel.getValueAt(i, 5);
+            boolean isSelected = Boolean.TRUE.equals(value);
+            formatDiscountsList.get(i).setChon(isSelected);
+        }
+        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+        String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
+        try {
+            initializeOverrideData(path, formatDiscountsList, gsonWithPrettyPrint);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateFormatClientFromTable(DefaultTableModel khachModel){
+        for (int i = 0; i < formatClientList.size(); i++) {
+            Object value = khachModel.getValueAt(i, 4);
+            boolean isSelected = Boolean.TRUE.equals(value);
+            formatClientList.get(i).setChon(isSelected);
+        }
+        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+        String path = Paths.get("src", "main", "data", "client.json").toString();
+        try {
+            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     // [DiscountPanel] && [PromotionManagement]
     public static List<FormatDiscount> readFileJSONForDiscount(){
         Gson gson = new Gson();
@@ -132,7 +183,20 @@ public class ReadFileJson {
         }
         return formatDiscountsList;
     }
+    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
+        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+        String path = Paths.get("src", "main", "data", "listpay.json").toString();
+        Type listType = new TypeToken<List<FormatPay>>() {}.getType();
+        formatPayList = initializeGson(path, listType, gsonWithPrettyPrint);
 
+        FormatPay formatPay = new FormatPay(tenMon, soLuong, gia, topping);
+        formatPayList.add(formatPay);
+        try {
+            initializeOverrideData(path, formatPayList, gsonWithPrettyPrint);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
     // [PromotionManagement]
     public static void addDiscount(String maKM, String tenKM, String loaiKM, String ngayBatDau, String ngayHetHan){
         try {

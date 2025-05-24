@@ -15,6 +15,8 @@ public class ChangeInforCustomerDialog extends JDialog {
     private boolean confirmed = false;
     private boolean deleted = false;
 
+    private DiscountPanel discountPanel;
+
     private String inputName;
     private String inputPhone;
     public ChangeInforCustomerDialog(Frame owner) {

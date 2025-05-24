@@ -87,7 +87,6 @@ public class DiscountPanel extends JPanel {
         
         // Bảng khách hàng
         String[] khachHeaders = {"Họ Tên", "SĐT", "Điểm Tích Lũy", "Trạng Thái", "Chọn"};
-        
         khachModel = new DefaultTableModel(khachData, khachHeaders) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -99,7 +98,11 @@ public class DiscountPanel extends JPanel {
                 return column == 4;
             }
         };
-        
+        khachModel.addTableModelListener(e -> {
+            if (e.getColumn() == 4) {
+                ReadFileJson.updateFormatClientFromTable(khachModel);
+            }
+        });
         khachTable = new CustomTable();
         khachTable.setModel(khachModel);
         khachTable.setRowHeight(30);
@@ -171,7 +174,6 @@ public class DiscountPanel extends JPanel {
         kmPanel.setBorder(BorderFactory.createTitledBorder("Danh sách khuyến mãi"));
         
         String[] kmHeaders = {"Mã KM", "Tên KM", "Nội Dung", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Chọn"};
-        
         kmModel = new DefaultTableModel(kmData, kmHeaders) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -183,7 +185,11 @@ public class DiscountPanel extends JPanel {
                 return column == 5;
             }
         };
-        
+        kmModel.addTableModelListener(e -> {
+            if (e.getColumn() == 5) {
+                ReadFileJson.updateFormatDiscountsFromTable(kmModel);
+            }
+        });
         kmTable = new CustomTable();
         kmTable.setModel(kmModel);
         kmTable.setRowHeight(30);
@@ -467,8 +473,11 @@ public class DiscountPanel extends JPanel {
     public ChangeInforCustomerDialog getDialog1() {
         return dialog1;
     }
-    
-    
+
+    public DefaultTableModel getKmModel() {
+        return kmModel;
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Khuyến Mãi");
