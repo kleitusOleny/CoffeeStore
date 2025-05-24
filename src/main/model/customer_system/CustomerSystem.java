@@ -1,15 +1,20 @@
 package model.customer_system;
 
+import utils.LoadDataToModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static utils.LoadDataToModel.LoadCustomerDataToModel;
+
 public class CustomerSystem {
     public Map<String, List<Customer>> listCus;
-
-    public CustomerSystem(Map<String, List<Customer>> listCus) {
-        this.listCus = new HashMap<>();
+    
+    public CustomerSystem() {
+        LoadCustomerDataToModel();
+        this.listCus = LoadDataToModel.getCustomers();
     }
 
     @Override
@@ -17,10 +22,6 @@ public class CustomerSystem {
         return "CustomerSystem{" +
                 "listCus=" + listCus +
                 '}';
-    }
-
-    public CustomerSystem() {
-        this.listCus = new HashMap<>();
     }
 
     public Map<String, List<Customer>> getListCus() {
@@ -84,5 +85,14 @@ public class CustomerSystem {
     public List<Customer> getNormalCustomers() {
         return listCus.getOrDefault("Normal", new ArrayList<>());
     }
-
+    
+    public static void main(String[] args) {
+        CustomerSystem cs = new CustomerSystem();
+        for (String key : cs.listCus.keySet()) {
+            System.out.println(key);
+            for (Customer customer : cs.listCus.get(key)) {
+                System.out.println(customer);
+            }
+        }
+    }
 }

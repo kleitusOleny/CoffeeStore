@@ -1,5 +1,7 @@
 package model.employee_system;
 
+import model.Date;
+
 public abstract class Employee {
     protected String emp_no;
     protected String name;
@@ -24,4 +26,16 @@ public abstract class Employee {
     public abstract void setSalary(double salary);
     
     public abstract boolean isManager();
+    
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "emp_no='" + emp_no + '\'' +
+                ", name='" + name + '\'' +
+                ", numsPhone='" + numsPhone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", dayOfBirth=" + dayOfBirth +
+                '}';
+    }
 }

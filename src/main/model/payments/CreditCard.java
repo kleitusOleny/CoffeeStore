@@ -1,7 +1,7 @@
 package model.payments;
 
+import model.Date;
 import model.customer_system.Customer;
-import model.employee_system.Date;
 
 public class CreditCard implements PaymentStrategy {
     private String CardNo, name;

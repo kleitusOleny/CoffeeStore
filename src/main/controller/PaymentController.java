@@ -1,5 +1,6 @@
 package controller;
 
+import model.Date;
 import model.customer_system.Customer;
 import model.payments.*;
 import model.reservation_system.Table;
@@ -67,7 +68,7 @@ public class PaymentController {
         PaymentStrategy paymentStrategy = new Cash();//mac dinh se la tra tien mat
         if (paymentPanel.getCard().isSelected()){
             BankAccount bankAccount = new BankAccount();
-            paymentStrategy = new CreditCard("1234-5678-9012-3456", customer.getName(), new model.employee_system.Date(), 123, bankAccount);
+            paymentStrategy = new CreditCard("1234-5678-9012-3456", customer.getName(), new Date(), 123, bankAccount);
         }else if (paymentPanel.getBank().isSelected()){
             BankAccount bankAccount = new BankAccount();
             paymentStrategy = new BankTransfer("987654321", customer.getName(), bankAccount);
@@ -86,7 +87,7 @@ public class PaymentController {
             // Assuming a default BankAccount and CreditCard details for demo
             // In a real system, these should come from user input or a database
             BankAccount bankAccount = new BankAccount(); // Placeholder
-            paymentStrategy = new CreditCard("1234-5678-9012-3456", customer.getName(), new model.employee_system.Date(), 123, bankAccount);
+            paymentStrategy = new CreditCard("1234-5678-9012-3456", customer.getName(), new Date(), 123, bankAccount);
         } else if (paymentPanel.getBank().isSelected()) {
             // Assuming a default BankAccount and BankTransfer details for demo
             BankAccount bankAccount = new BankAccount(); // Placeholder
