@@ -1,0 +1,23 @@
+[
+  {
+    "hoTen": "Nguyễn Văn B",
+    "soDienThoai": "098765343434",
+    "diemTichLuy": "120",
+    "trangThai": "Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Nguyễn Văn C",
+    "soDienThoai": "0984672561",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
+  },
+  {
+    "hoTen": "Phạm Thi Hồng Mỹ",
+    "soDienThoai": "09271832212",
+    "diemTichLuy": "30",
+    "trangThai": "Bình Thường",
+    "chon": false
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "maKM": "KM02",
+    "tenKM": "Hè Rực Rỡ",
+    "noiDung": "Giảm 15%",
+    "ngayBatDau": "01/06/2025",
+    "ngayKetThuc": "15/06/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM03",
+    "tenKM": "Mừng Quốc Khánh",
+    "noiDung": "Giảm 20% cho hóa đơn từ 500k",
+    "ngayBatDau": "01/09/2025",
+    "ngayKetThuc": "05/09/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM04",
+    "tenKM": "Back To School",
+    "noiDung": "Giảm 10% cho học sinh sinh viên",
+    "ngayBatDau": "15/08/2025",
+    "ngayKetThuc": "15/09/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM05",
+    "tenKM": "Noel Siêu Ưu Đãi",
+    "noiDung": "Mua 1 tặng 1",
+    "ngayBatDau": "20/12/2025",
+    "ngayKetThuc": "25/12/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM06",
+    "tenKM": "Flash Sale Tháng 7",
+    "noiDung": "Giảm 30% trong 3 ngày",
+    "ngayBatDau": "01/07/2025",
+    "ngayKetThuc": "03/07/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM07",
+    "tenKM": "Sinh Nhật Shop",
+    "noiDung": "Voucher 50k cho đơn từ 300k",
+    "ngayBatDau": "01/11/2025",
+    "ngayKetThuc": "10/11/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM08",
+    "tenKM": "Black Friday",
+    "noiDung": "Giảm 40% toàn bộ sản phẩm",
+    "ngayBatDau": "28/11/2025",
+    "ngayKetThuc": "28/11/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM09",
+    "tenKM": "Cyber Monday",
+    "noiDung": "Free ship toàn quốc",
+    "ngayBatDau": "01/12/2025",
+    "ngayKetThuc": "01/12/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM10",
+    "tenKM": "Ngày Của Mẹ",
+    "noiDung": "Tặng quà kèm cho đơn bất kỳ",
+    "ngayBatDau": "11/05/2025",
+    "ngayKetThuc": "11/05/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM11",
+    "tenKM": "Giảm giá ngắn hạn",
+    "noiDung": "Giảm 50% trong vòng từ 18h đến 21h",
+    "ngayBatDau": "03/08/2025",
+    "ngayKetThuc": "03/08/2025",
+    "chon": false
+  },
+  {
+    "maKM": "KM12",
+    "tenKM": "Hello World",
+    "noiDung": "Mua 1 ly tặng 1 topping",
+    "ngayBatDau": "05/09/2025",
+    "ngayKetThuc": "12/09/2025",
+    "chon": false
+  }
+]
