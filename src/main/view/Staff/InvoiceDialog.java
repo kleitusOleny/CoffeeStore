@@ -51,7 +51,7 @@ public class InvoiceDialog extends JDialog {
         mainPanel.add(Box.createVerticalStrut(15));
 
         // Bảng món
-        String[] headers = {"Tên Món", "SL", "Đơn Giá", "Topping"};
+        String[] headers = {"Tên Món", "Số lượng", "Đơn Giá", "Topping"};
 //        Object[][] data = {
 //                {"Cà phê sữa", "1", "25.000đ", ""},
 //                {"Trà đào", "2", "20.000đ", "+ Đào (2) - 5.000đ"}
