@@ -1,11 +1,14 @@
 package view.Manager;
 
+import data.ReadFileJson;
+import data.dto.FormatDiscount;
 import view.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.util.List;
 
 public class PromotionManagement extends JPanel {
     // Variables declaration - do not modify
@@ -17,6 +20,9 @@ public class PromotionManagement extends JPanel {
     private DefaultTableModel model;
     private JScrollPane scrollPane;
     private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5;
+
+    private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
+    Object[][] kmData = ReadFileJson.getKmData();
 
     public PromotionManagement() {
         initComponents();
@@ -116,7 +122,8 @@ public class PromotionManagement extends JPanel {
         inputArea.add(btnPanel, BorderLayout.CENTER);
 
         // Panel bảng
-        model = new DefaultTableModel(new Object[]{"Mã KM", "Tên KM", "Loại", "Ngày BĐ", "Ngày KT", ""}, 0);
+        String[] infor = {"Mã KM", "Tên KM", "Loại", "Ngày BĐ", "Ngày KT", ""};
+        model = new DefaultTableModel(kmData, infor);
         table = new CustomTable();
         table.setModel(model);
         table.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -159,6 +166,8 @@ public class PromotionManagement extends JPanel {
             if (ma.isEmpty() || ten.isEmpty() || loai.isEmpty() || bd.isEmpty() || kt.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
                 return;
+            } else {
+                ReadFileJson.addDiscount(ma, ten, loai, bd, kt);
             }
 
             model.addRow(new Object[]{ma, ten, loai, bd, kt, "X"});

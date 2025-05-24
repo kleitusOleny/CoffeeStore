@@ -36,7 +36,7 @@ public class ReadFileJson {
     }
 
     // Template for all methods using gson
-    public static <T> List<T> initializeGson(String path, Type typeOfT, Gson gson){
+    private static <T> List<T> initializeGson(String path, Type typeOfT, Gson gson){
         try {
             FileReader fileReader = new FileReader(path);
             List<T> listT = gson.fromJson(fileReader, typeOfT);
@@ -47,6 +47,14 @@ public class ReadFileJson {
         }
     }
 
+    // Template plug for all methods using gson fileWriter
+    private static <T> void initializeOverrideData(String path, List<T> listFormat, Gson gsonWithPrettyPrint) throws IOException {
+        FileWriter fileWriter = new FileWriter(path);
+        gsonWithPrettyPrint.toJson(listFormat, fileWriter);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
     // [LoginPage]
     public static List<FormatAccounts> readFileJSONForAccount() {
         try {
@@ -54,12 +62,12 @@ public class ReadFileJson {
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
             Type listType = new TypeToken<List<FormatAccounts>>(){}.getType();
             formatAccountsList = initializeGson(path, listType, gson);
-            for (FormatAccounts formatAccounts : formatAccountsList){
-                System.out.println("Role: " + formatAccounts.getRole());
-                System.out.println("Username: " + formatAccounts.getUsername());
-                System.out.println("Password: " + formatAccounts.getPassword());
-                System.out.println("-------------\n");
-            }
+//            for (FormatAccounts formatAccounts : formatAccountsList){
+//                System.out.println("Role: " + formatAccounts.getRole());
+//                System.out.println("Username: " + formatAccounts.getUsername());
+//                System.out.println("Password: " + formatAccounts.getPassword());
+//                System.out.println("-------------\n");
+//            }
         } catch (Exception exception){
             throw new RuntimeException(exception);
         }
@@ -106,7 +114,7 @@ public class ReadFileJson {
         return formatEmployeeList;
     }
 
-    // [DiscountPanel]
+    // [DiscountPanel] && [PromotionManagement]
     public static List<FormatDiscount> readFileJSONForDiscount(){
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
@@ -125,6 +133,22 @@ public class ReadFileJson {
         return formatDiscountsList;
     }
 
+    // [PromotionManagement]
+    public static void addDiscount(String maKM, String tenKM, String loaiKM, String ngayBatDau, String ngayHetHan){
+        try {
+            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+            String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
+            Type listType = new TypeToken<List<FormatDiscount>>() {}.getType();
+            formatDiscountsList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+            FormatDiscount formatDiscount = new FormatDiscount(maKM, tenKM, loaiKM, ngayBatDau, ngayHetHan, false);
+            formatDiscountsList.add(formatDiscount);
+            initializeOverrideData(path, formatDiscountsList, gsonWithPrettyPrint);
+        } catch (Exception exception){
+            throw new RuntimeException(exception);
+        }
+    }
+
     // [DiscountPanel]
     public static void addClient(String ten, String sdt){
         try {
@@ -135,10 +159,7 @@ public class ReadFileJson {
 
             FormatClient formatClient = new FormatClient(ten, sdt, "0", "Bình Thường", false);
             formatClientList.add(formatClient);
-            FileWriter fileWriter = new FileWriter(path);
-            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
+            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -154,10 +175,7 @@ public class ReadFileJson {
 
             FormatEmployee formatEmployee = new FormatEmployee(name, id, phoneNumber, identifyNumber, address, birth, startingDate, shift, salary);
             formatEmployeeList.add(formatEmployee);
-            FileWriter fileWriter = new FileWriter(path);
-            gsonWithPrettyPrint.toJson(formatEmployeeList, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
+            initializeOverrideData(path, formatEmployeeList, gsonWithPrettyPrint);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -176,10 +194,7 @@ public class ReadFileJson {
                     break;
                 }
             }
-            FileWriter fileWriter = new FileWriter(path);
-            gsonWithPrettyPrint.toJson(formatEmployeeList, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
+            initializeOverrideData(path, formatEmployeeList, gsonWithPrettyPrint);
         } catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -201,10 +216,7 @@ public class ReadFileJson {
                     break;
                 }
             }
-            FileWriter fileWriter = new FileWriter(path);
-            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
+            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
         } catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -224,10 +236,7 @@ public class ReadFileJson {
                     break;
                 }
             }
-            FileWriter fileWriter = new FileWriter(path);
-            gsonWithPrettyPrint.toJson(formatClientList, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
+            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
