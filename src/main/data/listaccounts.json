@@ -98,5 +98,11 @@
     "role": "Seller",
     "username": "dangphuc231",
     "password": "9RK3KGSUZ2"
+  },
+  {
+    "role": "Manager",
+    "username": "sa",
+    "password": "1"
   }
+
 ]

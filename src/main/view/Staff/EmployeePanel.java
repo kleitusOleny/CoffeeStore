@@ -15,10 +15,9 @@ public class EmployeePanel extends JPanel {
     private EmployeeMenuPanel menuPanel;
     private JPanel contentPanel;
     private CardLayout cardLayout;
-    private MainFrame mainFrame;
-
+    
+    private PaymentPanel paymentPanel = new PaymentPanel();
     public EmployeePanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
 
         menuPanel = new EmployeeMenuPanel();
@@ -30,7 +29,8 @@ public class EmployeePanel extends JPanel {
         contentPanel.add(new OrderPanel(), DAT_MON);
         contentPanel.add(new TablePanel(), DAT_BAN);
         contentPanel.add(new DiscountPanel(), KHUYEN_MAI);
-        contentPanel.add(new PaymentPanel(), THANH_TOAN);
+        
+        contentPanel.add(paymentPanel, THANH_TOAN);
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
@@ -52,6 +52,9 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setChangeInfoBtListener(e -> {
+            contentPanel.remove(paymentPanel);
+            paymentPanel = new PaymentPanel();
+            contentPanel.add(paymentPanel, THANH_TOAN);
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);
         });
@@ -77,6 +80,7 @@ public class EmployeePanel extends JPanel {
                 menuPanel.datBan,
                 menuPanel.apDungKM,
                 menuPanel.thanhToan
+                
         };
         String[] names = {
                 DAT_MON,

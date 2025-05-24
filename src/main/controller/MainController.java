@@ -19,7 +19,7 @@ public class MainController implements IController{
         model = model;
         this.view = view;
         customerController = new CustomerController(model.getCustomerSystem(),view.getView());
-        employeeController = new EmployeeController(model.getEmployeeSystem(),view.getView());
+//        employeeController = new EmployeeController(model.getEmployeeSystem(),view.getView());
         reservationController = new ReservationController(model.getReservationSystem(),view.getView());
         orderController = new OrderController(model.getOrderSystem(),view.getView());
 //        loginController = new LoginController(view,model);

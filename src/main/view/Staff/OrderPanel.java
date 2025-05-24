@@ -5,7 +5,9 @@ import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
+
 
 public class OrderPanel extends JPanel {
     JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel, sumPanel;
@@ -14,7 +16,7 @@ public class OrderPanel extends JPanel {
     private JLabel totalLabel, title;
     private JPanel cardPanel;
     private CardLayout cardLayout;
-    private java.util.List<OrderItem> orderItems = new ArrayList<>();
+    private static List<OrderItem> orderItems = new ArrayList<>();
     private JComboBox<String> priceFilter;
     private boolean hasSelectedTea = false;
     private JTextField searchField;
@@ -433,4 +435,15 @@ public class OrderPanel extends JPanel {
         totalLabel.setText("Tổng tiền: " + String.format("%,d", total) + "đ");
     }
 
+    public static int getTotal(){
+        int total = 0;
+        for (OrderItem item : orderItems) {
+            total += item.getTotal();
+        }
+        return total;
+    }
+    
+    public static List<OrderItem> getOrderItems(){
+        return orderItems;
+    }
 }

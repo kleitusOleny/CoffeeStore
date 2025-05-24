@@ -4,9 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceDialog extends JDialog {
-
     public InvoiceDialog(JFrame parent) {
         super(parent, "Hóa đơn thanh toán", true);
         setSize(420, 580);
@@ -51,7 +52,6 @@ public class InvoiceDialog extends JDialog {
                 {"Cà phê sữa", "1", "25.000đ", ""},
                 {"Trà đào", "2", "20.000đ", "+ Đào (2) - 5.000đ"}
         };
-
         JTable table = new JTable(new DefaultTableModel(data, headers) {
             public boolean isCellEditable(int row, int col) { return false; }
         });
@@ -72,7 +72,7 @@ public class InvoiceDialog extends JDialog {
         mainPanel.add(Box.createVerticalStrut(10));
 
         // Tạm tính, giảm giá, thành tiền
-        mainPanel.add(createInfoRow("Tạm tính:", "65.000đ"));
+        mainPanel.add(createInfoRow("Tạm tính:", String.format("%,d", OrderPanel.getTotal()) + "đ"));
         mainPanel.add(createInfoRow("Giảm giá:", "50%"));
 
         JPanel totalPanel = createInfoRow("Thành tiền:", "75.000đ");

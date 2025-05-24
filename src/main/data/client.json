@@ -19,5 +19,12 @@
     "diemTichLuy": "30",
     "trangThai": "Bình Thường",
     "chon": false
+  },
+  {
+    "hoTen": "KleiTus",
+    "soDienThoai": "03333333",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
+    "chon": false
   }
 ]

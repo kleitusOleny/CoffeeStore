@@ -6,6 +6,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class PaymentPanel extends JPanel {
 
@@ -25,13 +28,15 @@ public class PaymentPanel extends JPanel {
     private CustomCheckBox bank;
 
     private CustomTable table;
-
+    
+    private JPanel contentPanel = createContentPanel();
     public PaymentPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-
+        
+        
         add(createMenuBar(), BorderLayout.NORTH); // thêm button vào menu bar ở trên
-        add(createContentPanel(), BorderLayout.CENTER); // nội dung chính
+        add(contentPanel, BorderLayout.CENTER);// nội dung chính
     }
 
 
@@ -53,17 +58,17 @@ public class PaymentPanel extends JPanel {
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setOpaque(false);
         row1.add(createBoldLabel("Tên:"));
-        tenLabel = createBoldLabel("Nguyễn Văn A");
+        tenLabel = createBoldLabel(DiscountPanel.customer[0]);
         row1.add(tenLabel);
 
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("SĐT:"));
-        sdtLabel = createBoldLabel("0393445667");
+        sdtLabel = createBoldLabel(DiscountPanel.customer[1]);
         row1.add(sdtLabel);
 
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("Trạng Thái:"));
-        trangThaiLabel = createBoldLabel("VIP");
+        trangThaiLabel = createBoldLabel(DiscountPanel.customer[3]);
         row1.add(trangThaiLabel);
 
         contentPanel.add(row1);
@@ -337,7 +342,8 @@ public class PaymentPanel extends JPanel {
 
         return menuBar;
     }
-
+    
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

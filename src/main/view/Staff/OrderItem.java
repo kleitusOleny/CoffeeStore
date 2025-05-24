@@ -109,4 +109,16 @@ public class OrderItem {
     public int getTotal() {
         return unitPrice * quantity;
     }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getUnitPrice() {
+        return unitPrice;
+    }
+    
+    public int getQuantity() {
+        return quantity;
+    }
 }

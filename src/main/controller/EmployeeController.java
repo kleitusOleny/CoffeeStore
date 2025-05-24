@@ -2,13 +2,15 @@ package controller;
 
 import model.employee_system.EmployeeSystem;
 import view.IView;
+import view.Manager.EmployeeManagement;
 
 public class EmployeeController{
     EmployeeSystem employeeSystem;
-    IView view;
-    public EmployeeController(EmployeeSystem employeeSystem, IView view) {
+    EmployeeManagement view;
+    public EmployeeController(EmployeeSystem employeeSystem, EmployeeManagement view) {
         this.employeeSystem = employeeSystem;
         this.view = view;
     }
 
+    
 }
