@@ -10,13 +10,13 @@ import java.awt.*;
 
 public class ChangforInforEmployeeDialog extends JDialog {
 
-    private CustomPanel jPanel1, jPanel2, jPanel3;
+    private CustomPanel mainPanel, personalInfoPanel, workInfoPanel;
     private CustomButton btnTinhLuong, btnXoa;
-    private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,
-            jLabel7, jLabel8, jLabel9, jLabel10, jLabelTongLuong;
+    private JLabel nameLabel, idLabel, phoneLabel, cccdLabel, addressLabel, dobLabel,
+            timekeepingStatus, startDateLabel , shiftLabel, baseSalaryLabel, jLabelTongLuong;
     private JSeparator jSeparator1;
-    private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
-            jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
+    private CustomTextField nameField, idField, phoneField, cccdField,
+            addressField, dobField, startDateField, shiftField, baseSalaryField;
 
     public ChangforInforEmployeeDialog(JFrame parent, boolean modal) {
         super(parent, modal);
@@ -25,124 +25,124 @@ public class ChangforInforEmployeeDialog extends JDialog {
     }
 
     private void initComponents() {
-        jPanel1 = new CustomPanel();
-        jPanel1.setDrawShadow(true);
-        jPanel1.setBorderRadius(25);
-        jPanel1.setBackgroundColor(new Color(255, 245, 204));
-        jPanel1.setBorderColor(new Color(200, 170, 120));
-        jPanel1.setBorderThickness(3);
+        mainPanel = new CustomPanel();
+        mainPanel.setDrawShadow(true);
+        mainPanel.setBorderRadius(25);
+        mainPanel.setBackgroundColor(new Color(255, 245, 204));
+        mainPanel.setBorderColor(new Color(200, 170, 120));
+        mainPanel.setBorderThickness(3);
 
-        jLabel1 = new JLabel("Tên NV");
-        jLabel2 = new JLabel("Mã NV");
-        jLabel3 = new JLabel("SĐT");
-        jLabel4 = new JLabel("Số CCCD/CMND");
-        jLabel5 = new JLabel("Địa chỉ");
-        jLabel6 = new JLabel("Ngày sinh");
+        nameLabel = new JLabel("Tên NV");
+        idLabel = new JLabel("Mã NV");
+        phoneLabel = new JLabel("SĐT");
+        cccdLabel = new JLabel("Số CCCD/CMND");
+        addressLabel = new JLabel("Địa chỉ");
+        dobLabel = new JLabel("Ngày sinh");
 
-        jTextField1 = new CustomTextField(20);
-        jTextField2 = new CustomTextField(20);
-        jTextField3 = new CustomTextField(20);
-        jTextField4 = new CustomTextField(20);
-        jTextField5 = new CustomTextField(20);
-        jTextField6 = new CustomTextField(20);
+        nameField = new CustomTextField(20);
+        idField = new CustomTextField(20);
+        phoneField = new CustomTextField(20);
+        cccdField = new CustomTextField(20);
+        addressField = new CustomTextField(20);
+        dobField = new CustomTextField(20);
 
-        styleCustomField(jTextField1);
-        styleCustomField(jTextField2);
-        styleCustomField(jTextField3);
-        styleCustomField(jTextField4);
-        styleCustomField(jTextField5);
-        styleCustomField(jTextField6);
+        styleCustomField(nameField);
+        styleCustomField(idField);
+        styleCustomField(phoneField);
+        styleCustomField(cccdField);
+        styleCustomField(addressField);
+        styleCustomField(dobField);
 
-        jPanel2 = new CustomPanel();
-        jPanel2.setDrawShadow(false);
-        jPanel2.setBorderRadius(30);
-        jPanel2.setBorderColor(new Color(180, 180, 180));
+        personalInfoPanel = new CustomPanel();
+        personalInfoPanel.setDrawShadow(false);
+        personalInfoPanel.setBorderRadius(30);
+        personalInfoPanel.setBorderColor(new Color(180, 180, 180));
 
-        GroupLayout layout2 = new GroupLayout(jPanel2);
-        jPanel2.setLayout(layout2);
+        GroupLayout layout2 = new GroupLayout(personalInfoPanel);
+        personalInfoPanel.setLayout(layout2);
         layout2.setAutoCreateGaps(true);
         layout2.setAutoCreateContainerGaps(true);
 
         layout2.setHorizontalGroup(
                 layout2.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jTextField1)
-                        .addComponent(jLabel2)
-                        .addComponent(jTextField2)
-                        .addComponent(jLabel3)
-                        .addComponent(jTextField3)
-                        .addComponent(jLabel4)
-                        .addComponent(jTextField4)
-                        .addComponent(jLabel5)
-                        .addComponent(jTextField5)
-                        .addComponent(jLabel6)
-                        .addComponent(jTextField6)
+                        .addComponent(nameLabel)
+                        .addComponent(nameField)
+                        .addComponent(idLabel)
+                        .addComponent(idField)
+                        .addComponent(phoneLabel)
+                        .addComponent(phoneField)
+                        .addComponent(cccdLabel)
+                        .addComponent(cccdField)
+                        .addComponent(addressLabel)
+                        .addComponent(addressField)
+                        .addComponent(dobLabel)
+                        .addComponent(dobField)
         );
 
         layout2.setVerticalGroup(
                 layout2.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nameLabel)
+                        .addComponent(nameField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(idLabel)
+                        .addComponent(idField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(phoneLabel)
+                        .addComponent(phoneField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cccdLabel)
+                        .addComponent(cccdField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addressLabel)
+                        .addComponent(addressField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dobLabel)
+                        .addComponent(dobField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         );
 
-        jLabel7 = new JLabel("Trạng thái chấm công");
-        jLabel7.setFont(jLabel7.getFont().deriveFont(Font.BOLD, 16f));
+        timekeepingStatus = new JLabel("Trạng thái chấm công");
+        timekeepingStatus.setFont(timekeepingStatus.getFont().deriveFont(Font.BOLD, 16f));
         jSeparator1 = new JSeparator();
 
-        jLabel8 = new JLabel("Ngày vào làm(dd/mm/yyyy)");
-        jLabel9 = new JLabel("Ca làm");
-        jLabel10 = new JLabel("Lương Cơ Bản");
+        startDateLabel = new JLabel("Ngày vào làm(dd/mm/yyyy)");
+        startDateLabel = new JLabel("Ca làm");
+        baseSalaryLabel = new JLabel("Lương Cơ Bản");
 
-        jTextField7 = new CustomTextField(20);
-        jTextField8 = new CustomTextField(20);
-        jTextField9 = new CustomTextField(20);
+        startDateField = new CustomTextField(20);
+        shiftField = new CustomTextField(20);
+        baseSalaryField = new CustomTextField(20);
 
-        styleCustomField(jTextField7);
-        styleCustomField(jTextField8);
-        styleCustomField(jTextField9);
+        styleCustomField(startDateField);
+        styleCustomField(shiftField);
+        styleCustomField(baseSalaryField);
 
-        jPanel3 = new CustomPanel();
-        jPanel3.setDrawShadow(false);
-        jPanel3.setBorderRadius(30);
-        jPanel3.setBorderColor(new Color(180, 180, 180));
+        workInfoPanel = new CustomPanel();
+        workInfoPanel.setDrawShadow(false);
+        workInfoPanel.setBorderRadius(30);
+        workInfoPanel.setBorderColor(new Color(180, 180, 180));
 
-        GroupLayout layout3 = new GroupLayout(jPanel3);
-        jPanel3.setLayout(layout3);
+        GroupLayout layout3 = new GroupLayout(workInfoPanel);
+        workInfoPanel.setLayout(layout3);
         layout3.setAutoCreateGaps(true);
         layout3.setAutoCreateContainerGaps(true);
 
         layout3.setHorizontalGroup(
                 layout3.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7)
+                        .addComponent(timekeepingStatus)
                         .addComponent(jSeparator1)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField7)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField8)
-                        .addComponent(jLabel10)
-                        .addComponent(jTextField9)
+                        .addComponent(startDateLabel)
+                        .addComponent(startDateField)
+                        .addComponent(startDateLabel)
+                        .addComponent(shiftField)
+                        .addComponent(baseSalaryLabel)
+                        .addComponent(baseSalaryField)
         );
 
         layout3.setVerticalGroup(
                 layout3.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(timekeepingStatus)
                         .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10)
-                        .addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(startDateLabel)
+                        .addComponent(startDateField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(startDateLabel)
+                        .addComponent(shiftField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(baseSalaryLabel)
+                        .addComponent(baseSalaryField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         );
 
         // Thêm JLabel tổng lương
@@ -165,17 +165,17 @@ public class ChangforInforEmployeeDialog extends JDialog {
         btnXoa.setBorderRadius(20);
         btnXoa.addActionListener(this::btnXoaActionPerformed);
 
-        GroupLayout layout1 = new GroupLayout(jPanel1);
-        jPanel1.setLayout(layout1);
+        GroupLayout layout1 = new GroupLayout(mainPanel);
+        mainPanel.setLayout(layout1);
         layout1.setAutoCreateGaps(true);
         layout1.setAutoCreateContainerGaps(true);
 
         layout1.setHorizontalGroup(
                 layout1.createSequentialGroup()
-                        .addComponent(jPanel2)
+                        .addComponent(personalInfoPanel)
                         .addGap(50)
                         .addGroup(layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel3)
+                                .addComponent(workInfoPanel)
                                 .addComponent(jLabelTongLuong)
                                 .addGroup(layout1.createSequentialGroup()
                                         .addComponent(btnTinhLuong, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
@@ -185,9 +185,9 @@ public class ChangforInforEmployeeDialog extends JDialog {
 
         layout1.setVerticalGroup(
                 layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2)
+                        .addComponent(personalInfoPanel)
                         .addGroup(layout1.createSequentialGroup()
-                                .addComponent(jPanel3)
+                                .addComponent(workInfoPanel)
                                 .addGap(20)
                                 .addComponent(jLabelTongLuong)
                                 .addGap(10)
@@ -201,12 +201,12 @@ public class ChangforInforEmployeeDialog extends JDialog {
 
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1)
+                        .addComponent(mainPanel)
         );
 
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1)
+                        .addComponent(mainPanel)
         );
 
         pack();
@@ -214,7 +214,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            double luongCoBan = Double.parseDouble(jTextField9.getText().trim());
+            double luongCoBan = Double.parseDouble(baseSalaryField.getText().trim());
             jLabelTongLuong.setText("Tổng Lương: " + String.format("%.0f", luongCoBan) + " VND");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Lương cơ bản không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -225,7 +225,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá nhân viên này?", "Xác nhận xoá", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             // TODO: Xử lý xoá nhân viên
-            String idEmp = jTextField2.getText();
+            String idEmp = idField.getText();
             ReadFileJson.deleteEmployee(idEmp);
             JOptionPane.showMessageDialog(this, "Xoá nhân viên thành công!");
             dispose();
@@ -240,11 +240,11 @@ public class ChangforInforEmployeeDialog extends JDialog {
     }
 
     public void setData(String ten, String ma, String sdt, String ngaySinh, String luong) {
-        jTextField1.setText(ten);
-        jTextField2.setText(ma);
-        jTextField3.setText(sdt);
-        jTextField6.setText(ngaySinh);
-        jTextField9.setText(luong);
+        nameField.setText(ten);
+        idField.setText(ma);
+        phoneField.setText(sdt);
+        dobField.setText(ngaySinh);
+        baseSalaryField.setText(luong);
     }
 
     public static void main(String[] args) {
