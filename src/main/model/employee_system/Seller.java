@@ -1,10 +1,11 @@
 package model.employee_system;
 
+import model.Date;
+
 public class Seller extends WageEmployee{
     public Seller(String emp_no, String name, String numsPhone, String email, String address, Date dayOfBirth, int hours, double hourlyRate) {
         super(emp_no, name, numsPhone, email, address, dayOfBirth, hours, hourlyRate);
     }
-    
     
     //Tính Lương
     public double totalSalary(){

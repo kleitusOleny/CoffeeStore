@@ -1,5 +1,7 @@
 package model.employee_system;
 
+import model.Date;
+
 public class Manager extends Employee{
     private double salary;//Lương cố đính của quản lí
     

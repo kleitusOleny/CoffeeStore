@@ -7,7 +7,7 @@ public class VIPCustomer extends Customer {
     public VIPCustomer(String name, String idCus, String numsPhone, Subject subject, int accumulatedPoints) {
         super(name, idCus, numsPhone, subject);
         this.accumulatedPoints = accumulatedPoints;
-        subject.addObserver((Observer)this);
+//        subject.addObserver((Observer)this);
     }
     
     @Override

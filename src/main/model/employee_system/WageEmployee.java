@@ -1,5 +1,7 @@
 package model.employee_system;
 
+import model.Date;
+
 public abstract class WageEmployee extends Employee{
     protected int hours;//So gio lam viec
     protected double hourlyRate;//Lương tính theo từng giờ

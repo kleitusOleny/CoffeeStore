@@ -1,6 +1,6 @@
 package model;
 
-public class Date {
+public class Date{
     private int day;
     private int month;
     private int year;
@@ -24,5 +24,10 @@ public class Date {
 
     public int getYear() {
         return year;
+    }
+    
+    public static Date convertToDate(String date) {
+        String[] dateParts = date.split("/");
+        return new Date(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
     }
 }

@@ -1,5 +1,7 @@
 package model.employee_system;
 
+import utils.LoadDataToModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,8 @@ public class EmployeeSystem {
     private ManagerAttendent managerAttendent;
     
     public EmployeeSystem() {
-        this.listEmp = new ArrayList<>();
+        LoadDataToModel.LoadEmployeeDataToModel();
+        this.listEmp = LoadDataToModel.getEmployees();
         this.managerAttendent = new ManagerAttendent();
     }
     
@@ -27,5 +30,4 @@ public class EmployeeSystem {
     public double stateSalary(){
         return 0.0;
     }
-    
 }

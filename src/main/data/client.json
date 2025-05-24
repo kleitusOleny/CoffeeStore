@@ -19,5 +19,12 @@
     "diemTichLuy": "30",
     "trangThai": "Bình Thường",
     "chon": true
+  },
+  {
+    "hoTen": "Nguyễn Lê Thảo Trinh",
+    "soDienThoai": "09271832212",
+    "diemTichLuy": "30",
+    "trangThai": "VIP",
+    "chon": true
   }
 ]
