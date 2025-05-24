@@ -14,12 +14,15 @@ import java.util.List;
 
 public class PaymentPanel extends JPanel {
 
-    private JLabel tenLabel = createBoldLabel("<<Unknown>>");
-    private JLabel sdtLabel = createBoldLabel("<<Unknown>>");
-    private JLabel trangThaiLabel = createBoldLabel("<<Unknown>>");
+    public JLabel tenLabel = createBoldLabel("Cần cập nhật");
+    public JLabel sdtLabel = createBoldLabel("Cần cập nhật");
+    public JLabel trangThaiLabel = createBoldLabel("Cần cập nhật");
     private JLabel banLabel;
-    private JLabel giamGiaLabel;
+    private JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
     private JLabel tongTienLabel;
+
+    private JPanel row1, row2;
+    private JPanel contentPanel;
 
     private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
@@ -29,6 +32,7 @@ public class PaymentPanel extends JPanel {
     Object[][] discountData = ReadFileJson.getKmData();
 
     private CustomButton historyButton;
+    private CustomButton updateButton;
 
     private CustomButton confirmBtn;
     private CustomButton invoiceBtn;
@@ -46,9 +50,8 @@ public class PaymentPanel extends JPanel {
         add(createContentPanel(), BorderLayout.CENTER); // nội dung chính
     }
 
-
     private JPanel createContentPanel() {
-        JPanel contentPanel = new JPanel();
+        contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(255, 245, 204));
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -62,18 +65,9 @@ public class PaymentPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(20));
 
         // Dòng 1: Thông tin cá nhân
-        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setOpaque(false);
         row1.add(createBoldLabel("Tên:"));
-        for (FormatClient formatClient : formatClientList){
-            boolean found = false;
-            if (formatClient.isChon()) {
-                tenLabel = createBoldLabel(formatClient.getHoTen());
-                sdtLabel = createBoldLabel(formatClient.getSoDienThoai());
-                trangThaiLabel = createBoldLabel(formatClient.getTrangThai());
-                found = true;
-            }
-        }
         row1.add(tenLabel);
 
         row1.add(Box.createHorizontalStrut(30));
@@ -83,19 +77,10 @@ public class PaymentPanel extends JPanel {
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("Trạng Thái:"));
         row1.add(trangThaiLabel);
-
         contentPanel.add(row1);
 
         // Dòng 2: Thông tin bàn và mã giảm giá
-        for (FormatDiscount formatDiscount : formatDiscountList){
-            boolean found = false;
-            if (formatDiscount.isChon()){
-                giamGiaLabel = createBoldLabel(formatDiscount.getTenKM() + "(" + formatDiscount.getNoiDung() + ")");
-                // banLabel = qq j đó
-                found = true;
-            }
-        }
-        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
         banLabel = createBoldLabel("Bàn 2");
@@ -235,6 +220,39 @@ public class PaymentPanel extends JPanel {
         return contentPanel;
     }
 
+    private void refreshClientInfoPanel() {
+        boolean foundTickedClient = false;
+        boolean foundDiscount = false;
+        for (FormatClient formatClient : formatClientList){
+            if (formatClient.isChon()) {
+                tenLabel.setText(formatClient.getHoTen());
+                sdtLabel.setText(formatClient.getSoDienThoai());
+                trangThaiLabel.setText(formatClient.getTrangThai());
+                foundTickedClient = true;
+                break;
+            }
+        }
+        if (!foundTickedClient) {
+            tenLabel.setText("Unknown");
+            sdtLabel.setText("Unknown");
+            trangThaiLabel.setText("Unknown");
+        }
+
+        for (FormatDiscount formatDiscount : formatDiscountList){
+            if (formatDiscount.isChon()) {
+                giamGiaLabel.setText(formatDiscount.getTenKM() + "(" + formatDiscount.getNoiDung() + ")");
+                foundDiscount = true;
+                break;
+            }
+        }
+        if (!foundDiscount){
+            giamGiaLabel.setText("Không giảm giá");
+        }
+        contentPanel.revalidate();
+        contentPanel.repaint();
+        System.out.println(giamGiaLabel.getText());
+    }
+
     private void onInvoiceButtonClicked() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         InvoiceDialog dialog = new InvoiceDialog(parentFrame);
@@ -351,14 +369,24 @@ public class PaymentPanel extends JPanel {
         historyButton.setTextColor(Color.white);
         historyButton.setBorderRadius(20);
 
+        updateButton = new CustomButton("Cập nhật");
+        updateButton.setFont(new Font("Roboto", Font.BOLD, 14));
+        updateButton.setPreferredSize(new Dimension(180, 30));
+        updateButton.setFocusPainted(false);
+        updateButton.setBackgroundColor(new Color(166, 123, 91));
+        updateButton.setTextColor(Color.white);
+        updateButton.setBorderRadius(20);
+
         ImageIcon icon = new ImageIcon("src\\main\\image\\history.png");
         Image avatarImg = icon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         historyButton.setIcon(new ImageIcon(avatarImg));
 
         historyButton.addActionListener(e -> onHistoryButtonClicked());
-
+        updateButton.addActionListener(e -> refreshClientInfoPanel());
         // Thêm nút trực tiếp vào menu bar
         menuBar.add(historyButton);
+        menuBar.add(Box.createHorizontalStrut(5));
+        menuBar.add(updateButton);
 
         return menuBar;
     }

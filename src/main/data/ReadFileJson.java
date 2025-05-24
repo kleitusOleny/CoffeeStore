@@ -183,6 +183,7 @@ public class ReadFileJson {
         }
         return formatDiscountsList;
     }
+    // Phần thêm thông tin từ OrderBill sang phần thanh toán
     public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
         Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
         String path = Paths.get("src", "main", "data", "listpay.json").toString();
