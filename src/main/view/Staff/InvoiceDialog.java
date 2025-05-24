@@ -1,12 +1,17 @@
 package view.Staff;
 
+import data.ReadFileJson;
+import data.dto.FormatPay;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class InvoiceDialog extends JDialog {
-
+    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
+    Object[][] payData = ReadFileJson.getPayData();
     public InvoiceDialog(JFrame parent) {
         super(parent, "Hóa đơn thanh toán", true);
         setSize(420, 580);
@@ -47,12 +52,12 @@ public class InvoiceDialog extends JDialog {
 
         // Bảng món
         String[] headers = {"Tên Món", "SL", "Đơn Giá", "Topping"};
-        Object[][] data = {
-                {"Cà phê sữa", "1", "25.000đ", ""},
-                {"Trà đào", "2", "20.000đ", "+ Đào (2) - 5.000đ"}
-        };
+//        Object[][] data = {
+//                {"Cà phê sữa", "1", "25.000đ", ""},
+//                {"Trà đào", "2", "20.000đ", "+ Đào (2) - 5.000đ"}
+//        };
 
-        JTable table = new JTable(new DefaultTableModel(data, headers) {
+        JTable table = new JTable(new DefaultTableModel(payData, headers) {
             public boolean isCellEditable(int row, int col) { return false; }
         });
 

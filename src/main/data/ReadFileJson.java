@@ -6,10 +6,7 @@ import java.nio.file.Paths;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import data.dto.FormatAccounts;
-import data.dto.FormatClient;
-import data.dto.FormatDiscount;
-import data.dto.FormatEmployee;
+import data.dto.*;
 
 import java.util.List;
 
@@ -18,10 +15,12 @@ public class ReadFileJson {
     private static List<FormatClient> formatClientList;
     private static List<FormatDiscount> formatDiscountsList;
     private static List<FormatEmployee> formatEmployeeList;
+    private static List<FormatPay> formatPayList;
 
     private static Object[][] kmData;
     private static Object[][] khachData ;
     private static Object[][] employeeData;
+    private static Object[][] payData;
 
     public static Object[][] getKhachData() {
         return khachData;
@@ -33,6 +32,10 @@ public class ReadFileJson {
 
     public static Object[][] getEmployeeData() {
         return employeeData;
+    }
+
+    public static Object[][] getPayData(){
+        return payData;
     }
 
     // Template for all methods using gson
@@ -53,6 +56,22 @@ public class ReadFileJson {
         gsonWithPrettyPrint.toJson(listFormat, fileWriter);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public static List<FormatPay> readFileJSONForPay(){
+            Gson gson = new Gson();
+            String path = Paths.get("src", "main", "data", "listpay.json").toString();
+            Type listType = new TypeToken<List<FormatPay>>() {}.getType();
+            formatPayList = initializeGson(path, listType, gson);
+            payData = new Object[formatPayList.size()][5];
+            for (int i = 0; i < formatPayList.size(); i++) {
+                FormatPay formatPay = formatPayList.get(i);
+                payData[i][0] = formatPay.getTenMon();
+                payData[i][1] = formatPay.getSoLuong();
+                payData[i][2] = formatPay.getGia();
+                payData[i][3] = formatPay.getTopping();
+            }
+        return formatPayList;
     }
 
     // [LoginPage]

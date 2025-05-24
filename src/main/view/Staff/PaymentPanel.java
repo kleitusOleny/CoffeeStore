@@ -1,11 +1,14 @@
 package view.Staff;
 
+import data.ReadFileJson;
+import data.dto.FormatPay;
 import view.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class PaymentPanel extends JPanel {
 
@@ -15,6 +18,9 @@ public class PaymentPanel extends JPanel {
     private JLabel banLabel;
     private JLabel giamGiaLabel;
     private JLabel tongTienLabel;
+
+    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
+    Object[][] payData = ReadFileJson.getPayData();
 
     private CustomButton historyButton;
 
@@ -106,13 +112,13 @@ public class PaymentPanel extends JPanel {
 
         // Bảng món ăn
         String[] headers = {"Tên món", "Số lượng", "Giá", "Topping (kèm giá)"};
-        Object[][] data = {
-                {"Cà phê sữa", 1, "25.000đ", "Không có"},
-                {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
-        };
+//        Object[][] data = {
+//                {"Cà phê sữa", 1, "25.000đ", "Không có"},
+//                {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
+//        };
 
         table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
-        DefaultTableModel model = new DefaultTableModel(data, headers) {
+        DefaultTableModel model = new DefaultTableModel(payData, headers) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
