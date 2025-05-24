@@ -36,4 +36,28 @@ public class FormatDiscount {
     public boolean isChon() {
         return chon;
     }
+
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
+
+    public void setTenKM(String tenKM) {
+        this.tenKM = tenKM;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    public void setNgayBatDau(String ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public void setNgayKetThuc(String ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public void setChon(boolean chon) {
+        this.chon = chon;
+    }
 }

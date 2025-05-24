@@ -3,7 +3,7 @@
     "hoTen": "Nguyễn Văn B",
     "soDienThoai": "098765343434",
     "diemTichLuy": "120",
-    "trangThai": "Thường",
+    "trangThai": "Bình Thường",
     "chon": false
   },
   {
@@ -18,6 +18,6 @@
     "soDienThoai": "09271832212",
     "diemTichLuy": "30",
     "trangThai": "Bình Thường",
-    "chon": false
+    "chon": true
   }
 ]

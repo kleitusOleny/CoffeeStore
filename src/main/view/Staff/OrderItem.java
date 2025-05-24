@@ -1,9 +1,16 @@
 package view.Staff;
 
+import data.ReadFileJson;
+import data.dto.FormatPay;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class OrderItem {
+    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
+    Object[][] payData = ReadFileJson.getPayData();
+
     String name;
     int unitPrice;
     int quantity = 1;
