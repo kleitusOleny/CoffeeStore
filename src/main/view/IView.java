@@ -5,7 +5,8 @@ import model.customer_system.Customer;
 import model.reservation_system.Reservation;
 
 import java.util.List;
-import utils.LoginModel;
+
+import model.reservation_system.Table;
 
 
 public interface IView {
@@ -14,7 +15,7 @@ public interface IView {
 
     void displayMessage(String s);
 
-    void displayEmptyTables(List<Reservation> emptyTable);
+    void displayEmptyTables(List<Table> emptyTable);
 
     void displayReservedTables(List<Reservation> reservedTables);
 
@@ -23,4 +24,5 @@ public interface IView {
     void displayCustomerList(List<Customer> customers); // Hiển thị danh sách khách hàng
 
 
+    void updatetableStatus(int tableId, String newStatus);
 }

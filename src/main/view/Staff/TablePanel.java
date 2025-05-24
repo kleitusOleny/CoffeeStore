@@ -155,6 +155,15 @@ public class TablePanel extends JPanel {
         frame.setVisible(true);
     }
 
+    public void updatetableStatus(int tableId, String newStatus) {
+        for (JButton btn : tableButtons) {
+            if (btn.getText().equals("Bàn " + tableId)) {
+                setStatus(btn, newStatus);
+                break;
+            }
+        }
+        filterTables();
+    }
     public static String getTableNo(){
         return tableNo;
     }
