@@ -12,7 +12,7 @@ public class OrderController implements IController {
     private Order currentOrder;
     private final Menu menu;
     private IProduct lastBaseProduct;
-    
+
     public OrderController(OrderSystem orderSystem, OrderPanel view, Menu menu) {
         this.orderSystem = orderSystem;
         this.view = view;
@@ -21,31 +21,31 @@ public class OrderController implements IController {
         orderSystem.addOrder(currentOrder);
         init();
     }
-    
+
     private void init() {
         view.getCafe().addActionListener(e -> view.showCard("coffee"));
         view.getTea().addActionListener(e -> view.showCard("tea"));
         view.getTopping().addActionListener(e -> view.showCard("topping"));
-        
+
         view.setSearchListener(e -> {
             String keyword = view.getSearchField().getText().trim().toLowerCase();
             view.showSearchResults(keyword);
         });
-        
+
         view.setPriceFilterListener(e -> {
             String filter = (String) view.getPriceFilter().getSelectedItem();
             view.showFilteredPanel(filter);
         });
     }
-    
+
     public void addProduct(String name, String size, double price, String itemType) {
         IProduct product = null;
         boolean isTopping = itemType.equals("Boba") || itemType.equals("Flan") ||
                 itemType.equals("HoneyBoba") || itemType.equals("CreamCheese");
-        
+
         String[][] drinkList = isTopping ? menu.getToppings() :
                 (name.contains("Trà") ? menu.getTeaDrinks() : menu.getCoffeeDrinks());
-        
+
         for (String[] drink : drinkList) {
             if ((isTopping && drink[0].equals(name)) ||
                     (!isTopping && drink[0].equals(itemType))) {
@@ -100,12 +100,12 @@ public class OrderController implements IController {
                 break;
             }
         }
-        
+
         if (product == null && !isTopping) {
             view.showMessage("Không tìm thấy món: " + name);
         }
     }
-    
+
     public void removeProduct(IProduct product) {
         if (product instanceof Topping) {
             ((Topping) product).removeFromBaseProduct();
@@ -120,7 +120,7 @@ public class OrderController implements IController {
             view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
         }
     }
-    
+
     public void updateProductQuantity(IProduct product, int quantity) {
         if (product instanceof Topping) {
             ((Topping) product).updateQuantity(quantity);
