@@ -1,6 +1,7 @@
 package view.Staff;
 
 import model.order_system.OrderSystem;
+import model.reservation_system.ReservationSystem;
 import view.EmployeeMenuPanel;
 import view.MainFrame;
 
@@ -29,7 +30,7 @@ public class EmployeePanel extends JPanel {
 
         // Thêm các panel con vào CardLayout
         contentPanel.add(new OrderPanel(new OrderSystem()), DAT_MON);
-        contentPanel.add(new TablePanel(), DAT_BAN);
+        contentPanel.add(new TablePanel(new ReservationSystem()), DAT_BAN);
         contentPanel.add(new DiscountPanel(), KHUYEN_MAI);
         contentPanel.add(new PaymentPanel(), THANH_TOAN);
 
