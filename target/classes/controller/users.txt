@@ -1,0 +1,2 @@
+nhanvien,123,EMPLOYEE
+quanly,123,MANAGER
