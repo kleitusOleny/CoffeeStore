@@ -11,7 +11,7 @@
     "soDienThoai": "09846725615",
     "diemTichLuy": "0",
     "trangThai": "Bình Thường",
-    "chon": false
+    "chon": true
   },
   {
     "hoTen": "Phạm Thi Hồng Mỹ",
@@ -25,6 +25,13 @@
     "soDienThoai": "09271832212",
     "diemTichLuy": "30",
     "trangThai": "VIP",
+    "chon": false
+  },
+  {
+    "hoTen": "Đỗ Lan Anh",
+    "soDienThoai": "08291823315",
+    "diemTichLuy": "0",
+    "trangThai": "Bình Thường",
     "chon": false
   }
 ]

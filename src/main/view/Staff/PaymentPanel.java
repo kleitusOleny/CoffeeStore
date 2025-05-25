@@ -17,9 +17,9 @@ public class PaymentPanel extends JPanel {
     public JLabel tenLabel = createBoldLabel("Cần cập nhật");
     public JLabel sdtLabel = createBoldLabel("Cần cập nhật");
     public JLabel trangThaiLabel = createBoldLabel("Cần cập nhật");
-    private JLabel banLabel;
-    private JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
-    private JLabel tongTienLabel;
+    public JLabel banLabel;
+    public JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
+    public JLabel tongTienLabel;
 
     private JPanel row1, row2;
     private JPanel contentPanel;
@@ -354,6 +354,22 @@ public class PaymentPanel extends JPanel {
 
     public CustomCheckBox getBank() {
         return bank;
+    }
+
+    public void setTenLabel(JLabel tenLabel) {
+        this.tenLabel = tenLabel;
+    }
+
+    public void setSdtLabel(JLabel sdtLabel) {
+        this.sdtLabel = sdtLabel;
+    }
+
+    public void setTrangThaiLabel(JLabel trangThaiLabel) {
+        this.trangThaiLabel = trangThaiLabel;
+    }
+
+    public void setGiamGiaLabel(JLabel giamGiaLabel) {
+        this.giamGiaLabel = giamGiaLabel;
     }
 
     private JMenuBar createMenuBar() {

@@ -26,7 +26,9 @@ public class DiscountPanel extends JPanel {
     private JTextField searchField;
     private CustomTable kmTable;
     private TableRowSorter<TableModel> sorter;
-    
+
+//    private PaymentPanel paymentPanel;
+
     private CustomButton tatCaButton;
     private CustomButton khachThuongButton;
     private CustomButton khachVIPButton;
@@ -445,15 +447,23 @@ public class DiscountPanel extends JPanel {
 //            boolean chonKH = (boolean) khachModel.getValueAt(i, 4);
 //            if (chonKH) {
 //                String ten = (String) khachModel.getValueAt(i, 0);
+//                String sdt = (String) khachModel.getValueAt(i, 1);
+//                String trangThai = (String) khachModel.getValueAt(i, 3);
+//                String maGiamGia = kmModel.getValueAt(i, 1) + "(" + kmModel.getValueAt(i, 2) + ")";
+//                JLabel labelTen = new JLabel(ten);
+//                JLabel labelSdt = new JLabel(sdt);
+//                JLabel labelTrangThai = new JLabel(trangThai);
+//                JLabel labelMaGiamGia = new JLabel(maGiamGia);
+//                paymentPanel.setTenLabel(labelTen);
+//                paymentPanel.setSdtLabel(labelSdt);
+//                paymentPanel.setTrangThaiLabel(labelTrangThai);
+//                paymentPanel.setGiamGiaLabel(labelMaGiamGia);
 //                thongBao.append("Áp dụng khuyến mãi cho: ").append(ten).append("\n");
 //            }
 //        }
 //
-//        // Xóa tất cả dòng trong bảng khuyến mãi
-//        kmModel.setRowCount(0); // ✅ Đây là lệnh xóa toàn bộ dòng
-//
 //        JOptionPane.showMessageDialog(this,
-//                thongBao.length() == 0 ? "Chưa chọn khách hàng nào." : thongBao.toString(),
+//                thongBao.isEmpty() ? "Chưa chọn khách hàng nào." : thongBao.toString(),
 //                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 //    }
     
