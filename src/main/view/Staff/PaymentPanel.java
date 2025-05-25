@@ -13,11 +13,13 @@ import java.awt.*;
 import java.util.List;
 
 public class PaymentPanel extends JPanel {
+    private TablePanel tablePanel;
 
+    private int tableNumber = -1;
     public JLabel tenLabel = createBoldLabel("Cần cập nhật");
     public JLabel sdtLabel = createBoldLabel("Cần cập nhật");
     public JLabel trangThaiLabel = createBoldLabel("Cần cập nhật");
-    public JLabel banLabel;
+    public JLabel banLabel = createBoldLabel("Cần cập nhật");
     public JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
     public JLabel tongTienLabel;
 
@@ -83,7 +85,6 @@ public class PaymentPanel extends JPanel {
         row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
-        banLabel = createBoldLabel("Bàn 2");
         row2.add(banLabel);
 
         row2.add(Box.createHorizontalStrut(30));
@@ -220,9 +221,16 @@ public class PaymentPanel extends JPanel {
         return contentPanel;
     }
 
-    private void refreshClientInfoPanel() {
+    public void setTableNumber(int tableSelectedFromTablePanel){
+        this.tableNumber = tableSelectedFromTablePanel;
+        System.out.println(">>> [setTableNumber] Được gọi với: " + tableSelectedFromTablePanel + ", instance: " + this);
+    }
+
+    public void refreshClientInfoPanel() {
         boolean foundTickedClient = false;
         boolean foundDiscount = false;
+        System.out.println(">>> [refreshClientInfoPanel] tableNumber = " + tableNumber + ", instance: " + this);
+        banLabel.setText("Bàn " + tableNumber);
         for (FormatClient formatClient : formatClientList){
             if (formatClient.isChon()) {
                 tenLabel.setText(formatClient.getHoTen());
@@ -250,7 +258,6 @@ public class PaymentPanel extends JPanel {
         }
         contentPanel.revalidate();
         contentPanel.repaint();
-        System.out.println(giamGiaLabel.getText());
     }
 
     private void onInvoiceButtonClicked() {
