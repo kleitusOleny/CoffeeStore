@@ -4,6 +4,7 @@ import model.reservation_system.Reservation;
 import model.reservation_system.ReservationSystem;
 import model.reservation_system.Table;
 import view.IView;
+import view.Staff.DiscountPanel;
 import view.Staff.TablePanel;
 
 import javax.swing.*;
@@ -54,7 +55,6 @@ public class ReservationController implements IController {
         for (Table table : reservationSystem.getTables()) {
             if (table.getIdTable() == tableId) {
                 if (table.isStatus()) {
-                    // Kiểm tra xem bàn có trong danh sách đặt không
                     for (Reservation reservation : reservationSystem.getListReser()) {
                         if (reservation.getTable().getIdTable() == tableId) {
                             return "Đã đặt";
@@ -72,7 +72,6 @@ public class ReservationController implements IController {
     private void handleStatusChange(int tableId, String newStatus) {
         switch (newStatus) {
             case "Trống":
-                // Hủy đặt bàn nếu có
                 Reservation reservationToRemove = null;
                 for (Reservation reservation : reservationSystem.getListReser()) {
                     if (reservation.getTable().getIdTable() == tableId) {
@@ -100,14 +99,10 @@ public class ReservationController implements IController {
                     }
                 }
                 if (table != null) {
-                    // Thu thập thông tin đặt bàn từ người dùng
-                    String idEmp = JOptionPane.showInputDialog(view, "Nhập ID nhân viên:");
-                    String idCus = JOptionPane.showInputDialog(view, "Nhập ID khách hàng:");
-                    String nameCus = JOptionPane.showInputDialog(view, "Nhập tên khách hàng:");
                     String numOfPersonsStr = JOptionPane.showInputDialog(view, "Nhập số người:");
                     int numOfPersons = Integer.parseInt(numOfPersonsStr);
                     
-                    Reservation reservation = new Reservation(table, idEmp, idCus, nameCus, numOfPersons);
+                    Reservation reservation = new Reservation(table, "NV01", "KH01", DiscountPanel.customer[0], numOfPersons);
                     reservationSystem.makeReservation(reservation);
                     view.updateTableStatus(tableId, "Đã đặt");
                 }
