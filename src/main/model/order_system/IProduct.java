@@ -5,7 +5,6 @@ public interface IProduct {
     public double getPrice();
     public String getName();
     public String getSize();
-    public String getDescription();
     public int getQuantity();
 //    public  Order getOrder();
 }
