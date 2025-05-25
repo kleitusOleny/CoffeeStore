@@ -1,14 +1,14 @@
 [
   {
     "hoTen": "Nguyễn Văn B",
-    "soDienThoai": "098765343434",
+    "soDienThoai": "09876534343",
     "diemTichLuy": "120",
     "trangThai": "Bình Thường",
     "chon": false
   },
   {
     "hoTen": "Nguyễn Văn C",
-    "soDienThoai": "0984672561",
+    "soDienThoai": "09846725615",
     "diemTichLuy": "0",
     "trangThai": "Bình Thường",
     "chon": false
@@ -18,13 +18,13 @@
     "soDienThoai": "09271832212",
     "diemTichLuy": "30",
     "trangThai": "Bình Thường",
-    "chon": true
+    "chon": false
   },
   {
     "hoTen": "Nguyễn Lê Thảo Trinh",
     "soDienThoai": "09271832212",
     "diemTichLuy": "30",
     "trangThai": "VIP",
-    "chon": true
+    "chon": false
   }
 ]
