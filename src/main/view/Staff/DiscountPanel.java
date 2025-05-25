@@ -4,9 +4,6 @@ package view.Staff;
 import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.ReadFileJson;
-import model.MainSystem;
-import model.customer_system.Customer;
-import model.customer_system.VIPCustomer;
 import view.*;
 
 import javax.swing.*;

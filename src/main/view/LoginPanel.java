@@ -1,22 +1,33 @@
 package view;
 
+import controller.IController;
+import controller.LoginController;
 import data.dto.FormatAccounts;
 import data.ReadFileJson;
+import model.IModel;
+import utils.LoginHandle;
+import utils.LoginStatus;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
 
-public class LoginPanel extends JPanel{
+public class LoginPanel extends JPanel implements Observer{
     public CustomButton loginBtn;
     public CustomTextField userField;
     public CustomPasswordField passField;
     public MainFrame frame;
 
-    public LoginPanel(MainFrame mainFrame) {
-        this.frame = mainFrame;
+    public IModel model;
+    public IController controller;
+    
+    public LoginPanel(IModel model) {
+        this.model = model;
+        model.addObserver(this);
+        
         setLayout(new BorderLayout());
 
         // Panel trái - chiếm 1/3 chiều rộng
@@ -135,7 +146,7 @@ public class LoginPanel extends JPanel{
                 revalidate();
             }
         });
-
+        this.controller = new LoginController((LoginHandle) model,this);
     }
 
     public void setLoginListener(ActionListener actionListener) {
@@ -152,6 +163,24 @@ public class LoginPanel extends JPanel{
 
     public CustomPasswordField getPassField() {
         return passField;
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof LoginStatus) {
+            LoginStatus status = (LoginStatus) arg;
+            switch (status.getStatusCode()) {
+                case 0:
+                    JOptionPane.showMessageDialog(this, status.getMessage(), "Xác thực không thành công", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 1:
+                    frame.showPanel(MainFrame.MANAGER);
+                    break;
+                case 2:
+                    frame.showPanel(MainFrame.EMPLOYEE);
+                    break;
+            }
+        }
     }
 }
 

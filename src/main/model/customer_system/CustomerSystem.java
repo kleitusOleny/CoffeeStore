@@ -1,19 +1,19 @@
 package model.customer_system;
 
+import model.IModel;
 import utils.LoadDataToModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
-import static utils.LoadDataToModel.LoadCustomerDataToModel;
 
-public class CustomerSystem {
+public class CustomerSystem extends Observable implements IModel {
     public Map<String, List<Customer>> listCus;
     
     public CustomerSystem() {
-        LoadCustomerDataToModel();
+        LoadDataToModel.LoadCustomerDataToModel();
         this.listCus = LoadDataToModel.getCustomers();
     }
 

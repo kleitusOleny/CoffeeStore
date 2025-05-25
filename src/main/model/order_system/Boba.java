@@ -1,19 +1,12 @@
 package model.order_system;
 
-public class Boba extends Topping{
-    private double toppingPrice;
-
-    public Boba(IProduct product, double toppingPrice) {
-        super(product);
-        this.toppingPrice = toppingPrice;
+public class Boba extends Topping {
+    public Boba(IProduct baseProduct, double price) {
+        super(baseProduct, price);
     }
-
+    
     @Override
     public String getInformation() {
-        return product.getInformation() + " + Boba";
-    }
-    public double getPrice(){
-        return product.getPrice() + (toppingPrice * product.getQuantity());
+        return "Trân châu x" + quantity;
     }
 }
-

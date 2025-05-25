@@ -1,25 +1,43 @@
 package utils;
 
+import model.IModel;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
-public class LoginHandle {
+public class LoginHandle extends Observable implements IModel {
     
     private static Map<String,String[]> accounts = LoadDataToModel.loadAccountDataToModel();
     
-    public static int verifyLogin(String username, String password) {
+    public int verifyLogin(String username, String password) {
+        int statusCode;
+        String message;
+        
         if (accounts.containsKey(username)) {
             if (accounts.get(username)[0].equals(password)) {
-                return Integer.parseInt(accounts.get(username)[1]);
-            }else {
-                System.out.println("Sai mật khẩu");
-                return 0;
+                statusCode = Integer.parseInt(accounts.get(username)[1]);
+                message = "Đăng nhập thành công";
+            } else {
+                statusCode = 0;
+                message = "Sai mật khẩu";
+                System.out.println(message);
             }
-        }else {
-            System.out.println("Tài khoản không tồn tại");
-            return 0;
+        } else {
+            statusCode = 0;
+            message = "Tài khoản không tồn tại";
+            System.out.println(message);
         }
+        
+        // Notify observers with login status
+        setChanged();
+        notifyObservers(new LoginStatus(statusCode, message));
+        return statusCode;
     }
-
+    
+    @Override
+    public void notifyObservers(Object arg) {
+        super.notifyObservers(arg);
+    }
 
 }
