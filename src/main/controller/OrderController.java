@@ -51,19 +51,15 @@ public class OrderController implements IController {
                     (!isTopping && drink[0].equals(itemType))) {
                 double basePrice = Double.parseDouble(drink[1]);
                 if (!isTopping) {
-                    if (itemType.equals("Cà phê đen")) {
-                        product = new BlackCoffee(name, size, "", 1, price);
-                    } else if (itemType.equals("Bạc xỉu")) {
-                        product = new WhiteCoffee(name, size, "", 1, price);
-                    } else if (itemType.equals("Espresso")) {
-                        product = new Espresso(name, size, "", 1, price);
-                    } else if (itemType.equals("Americano")) {
-                        product = new Americano(name, size, "", 1, price);
-                    } else if (itemType.equals("Trà đào")) {
-                        product = new PeachTea(name, size, "", 1, price);
-                    } else if (itemType.equals("Trà sữa trân châu")) {
-                        product = new BubbleTea(name, size, "", 1, price);
-                    }
+                    product = switch (itemType) {
+                        case "Cà phê đen" -> new BlackCoffee(name, size, "", 1, price);
+                        case "Bạc xỉu" -> new WhiteCoffee(name, size, "", 1, price);
+                        case "Espresso" -> new Espresso(name, size, "", 1, price);
+                        case "Americano" -> new Americano(name, size, "", 1, price);
+                        case "Trà đào" -> new PeachTea(name, size, "", 1, price);
+                        case "Trà sữa trân châu" -> new BubbleTea(name, size, "", 1, price);
+                        default -> product;
+                    };
                     orderSystem.addProductToOrder(currentOrder, product);
                     lastBaseProduct = product;
                     view.setLastBaseProduct(product);
@@ -77,20 +73,13 @@ public class OrderController implements IController {
                         view.showMessage("Vui lòng chọn một món chính (cà phê hoặc trà) trước khi thêm topping.");
                         return;
                     }
-                    switch (itemType) {
-                        case "Boba":
-                            product = new Boba(lastBaseProduct, basePrice);
-                            break;
-                        case "Flan":
-                            product = new Flan(lastBaseProduct, basePrice);
-                            break;
-                        case "HoneyBoba":
-                            product = new HoneyBoba(lastBaseProduct, basePrice);
-                            break;
-                        case "CreamCheese":
-                            product = new CreamCheese(lastBaseProduct, basePrice);
-                            break;
-                    }
+                    product = switch (itemType) {
+                        case "Boba" -> new Boba(lastBaseProduct, basePrice);
+                        case "Flan" -> new Flan(lastBaseProduct, basePrice);
+                        case "HoneyBoba" -> new HoneyBoba(lastBaseProduct, basePrice);
+                        case "CreamCheese" -> new CreamCheese(lastBaseProduct, basePrice);
+                        default -> product;
+                    };
                     if (product instanceof Topping) {
                         ((Topping) product).applyToBaseProduct();
                         view.refreshOrderItems();
@@ -131,4 +120,6 @@ public class OrderController implements IController {
             view.refreshOrderItems();
         }
     }
+    
+    
 }

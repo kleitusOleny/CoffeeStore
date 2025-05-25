@@ -1,9 +1,23 @@
 package view.Staff;
 
+import controller.OrderController;
+import controller.PaymentController;
+import controller.ReservationController;
 import data.ReadFileJson;
 import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.dto.FormatPay;
+import model.IModel;
+import model.customer_system.CustomerSystem;
+import model.order_system.BaseProduct;
+import model.order_system.IProduct;
+import model.order_system.OrderSystem;
+import model.order_system.Topping;
+import model.reservation_system.ReservationStatus;
+import model.reservation_system.ReservationSystem;
+import model.reservation_system.Table;
+import utils.CustomerStatus;
+import utils.OrderStatus;
 import view.*;
 
 import javax.swing.*;
@@ -11,41 +25,138 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class PaymentPanel extends JPanel {
-
+public class PaymentPanel extends JPanel implements Observer {
     private JLabel tenLabel = createBoldLabel("<<Unknown>>");
     private JLabel sdtLabel = createBoldLabel("<<Unknown>>");
     private JLabel trangThaiLabel = createBoldLabel("<<Unknown>>");
+    private JLabel giamGiaLabel = createBoldLabel("<<Unknown>>");
+    private JLabel tongTienLabel = createBoldLabel("0đ");
     private JLabel banLabel;
-    private JLabel giamGiaLabel;
-    private JLabel tongTienLabel;
-
+    
     private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
     private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
     Object[][] payData = ReadFileJson.getPayData();
     Object[][] clientData = ReadFileJson.getKhachData();
     Object[][] discountData = ReadFileJson.getKmData();
-
+    
+    private CustomerSystem customerModel;
+    private OrderSystem orderModel;
+    private ReservationSystem reservationModel;
+    private PaymentController controller;
+    private ReservationController reservationController;
+    
     private CustomButton historyButton;
-
     private CustomButton confirmBtn;
     private CustomButton invoiceBtn;
     private CustomCheckBox cash;
     private CustomCheckBox card;
     private CustomCheckBox bank;
-
     private CustomTable table;
-
-    public PaymentPanel() {
+    
+    public PaymentPanel(CustomerSystem customerModel, OrderSystem orderModel, ReservationSystem reservationModel) {
+        this.customerModel = customerModel;
+        this.orderModel = orderModel;
+        this.reservationModel = reservationModel;
+        
+        // Đăng ký làm Observer cho các mô hình
+        customerModel.addObserver(this);
+        orderModel.addObserver(this);
+        reservationModel.addObserver(this);
+        
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-
-        add(createMenuBar(), BorderLayout.NORTH); // thêm button vào menu bar ở trên
-        add(createContentPanel(), BorderLayout.CENTER); // nội dung chính
+        
+        add(createMenuBar(), BorderLayout.NORTH);
+        add(createContentPanel(), BorderLayout.CENTER);
+        
+        this.controller = new PaymentController(this, customerModel, orderModel, reservationModel);
+        updateView(); // Khởi tạo giao diện với dữ liệu ban đầu
     }
-
+    
+    public void updateView() {
+        boolean customerFound = false;
+        for (FormatClient formatClient : formatClientList) {
+            if (formatClient.isChon()) {
+                tenLabel.setText(formatClient.getHoTen());
+                sdtLabel.setText(formatClient.getSoDienThoai());
+                trangThaiLabel.setText(formatClient.getTrangThai());
+                customerFound = true;
+                break;
+            }
+        }
+        if (!customerFound) {
+            tenLabel.setText("<<Unknown>>");
+            sdtLabel.setText("<<Unknown>>");
+            trangThaiLabel.setText("<<Unknown>>");
+        }
+        
+        boolean discountFound = false;
+        for (FormatDiscount formatDiscount : formatDiscountList) {
+            if (formatDiscount.isChon()) {
+                giamGiaLabel.setText(formatDiscount.getTenKM() + " (" + formatDiscount.getNoiDung() + ")");
+                discountFound = true;
+                break;
+            }
+        }
+        if (!discountFound) {
+            giamGiaLabel.setText("<<Unknown>>");
+        }
+        boolean tableFound = false;
+        for (int i = 0; i < 20; i++) {
+            if (reservationModel.getTables().get(i).isStatus()) {
+                banLabel = createBoldLabel("Bàn " + (i + 1));
+                tableFound = true;
+                break;
+            }
+        }
+        if (!tableFound) {
+            banLabel.setText("<<Unknown>>");
+        }
+        
+        // 4. Lấy danh sách món và tổng tiền từ OrderSystem
+        updateOrderTable();
+    }
+    
+    // Cập nhật bảng món ăn và tổng tiền
+    private void updateOrderTable() {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0); // Xóa dữ liệu cũ
+        
+        double totalPrice = 0.0;
+        if (!orderModel.getListStoreOrder().isEmpty()) {
+            List<IProduct> products = orderModel.getListStoreOrder().get(0).getListP();
+            for (IProduct product : products) {
+                String toppingInfo = "";
+                if (product instanceof BaseProduct) {
+                    List<Topping> toppings = ((BaseProduct) product).getToppings();
+                    if (!toppings.isEmpty()) {
+                        StringBuilder toppingStr = new StringBuilder();
+                        for (Topping topping : toppings) {
+                            toppingStr.append(topping.getInformation())
+                                    .append(" (")
+                                    .append(String.format("%,.0f", topping.getPrice()))
+                                    .append("đ), ");
+                        }
+                        toppingInfo = toppingStr.substring(0, toppingStr.length() - 2);
+                    }
+                }
+                tableModel.addRow(new Object[]{
+                        product.getInformation(),
+                        product.getQuantity(),
+                        String.format("%,.0f", product.getPrice()),
+                        toppingInfo
+                });
+                totalPrice += product.getPrice() * product.getQuantity();
+            }
+        }
+        
+        // Cập nhật tổng tiền
+        tongTienLabel.setText(String.format("%,.0f", totalPrice) + "đ");
+    }
 
     private JPanel createContentPanel() {
         JPanel contentPanel = new JPanel();
@@ -91,7 +202,6 @@ public class PaymentPanel extends JPanel {
             boolean found = false;
             if (formatDiscount.isChon()){
                 giamGiaLabel = createBoldLabel(formatDiscount.getTenKM() + "(" + formatDiscount.getNoiDung() + ")");
-                // banLabel = qq j đó
                 found = true;
             }
         }
@@ -110,10 +220,6 @@ public class PaymentPanel extends JPanel {
 
         // Bảng món ăn
         String[] headers = {"Tên món", "Số lượng", "Giá", "Topping (kèm giá)"};
-//        Object[][] data = {
-//                {"Cà phê sữa", 1, "25.000đ", "Không có"},
-//                {"Trà đào", 2, "20.000đ", "Đào (2) - 5.000đ"}
-//        };
 
         table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
         DefaultTableModel model = new DefaultTableModel(payData, headers) {
@@ -235,7 +341,7 @@ public class PaymentPanel extends JPanel {
         return contentPanel;
     }
 
-    private void onInvoiceButtonClicked() {
+    public void onInvoiceButtonClicked() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         InvoiceDialog dialog = new InvoiceDialog(parentFrame);
         dialog.setVisible(true);
@@ -274,7 +380,7 @@ public class PaymentPanel extends JPanel {
         contentPanel1.repaint();
     }
 
-    private void onHistoryButtonClicked() {
+    public void onHistoryButtonClicked() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);
         dialog.setVisible(true);
@@ -338,7 +444,7 @@ public class PaymentPanel extends JPanel {
         return bank;
     }
 
-    private JMenuBar createMenuBar() {
+    public JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(255, 224, 178));
         menuBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -362,16 +468,39 @@ public class PaymentPanel extends JPanel {
 
         return menuBar;
     }
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Thanh Toán");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1100, 650);
-            frame.setLocationRelativeTo(null);
-            frame.setContentPane(new PaymentPanel());
-            frame.setVisible(true);
-        });
+    
+    
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof CustomerStatus) {
+            CustomerStatus status = (CustomerStatus) arg;
+            switch (status.getAction()) {
+                case "ADD_CUSTOMER":
+                case "UPDATE_CUSTOMER":
+                case "REMOVE_CUSTOMER":
+                    formatClientList = ReadFileJson.readFileJSONForClient();
+                    updateView();
+                    break;
+            }
+        } else if (arg instanceof OrderStatus) {
+            OrderStatus status = (OrderStatus) arg;
+            switch (status.getAction()) {
+                case "ADD_PRODUCT":
+                case "REMOVE_PRODUCT":
+                case "UPDATE_QUANTITY":
+                    updateOrderTable();
+                    break;
+            }
+        } else if (arg instanceof ReservationStatus) {
+            ReservationStatus status = (ReservationStatus) arg;
+            switch (status.getAction()) {
+                case "ADD_RESERVATION":
+                case "REMOVE_RESERVATION":
+                case "UPDATE_TABLE_STATUS":
+                    updateView();
+                    break;
+            }
+        }
     }
 }

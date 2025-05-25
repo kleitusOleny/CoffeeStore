@@ -19,7 +19,10 @@ public class EmployeePanel extends JPanel {
     private JPanel contentPanel;
     private CardLayout cardLayout;
     private MainFrame mainFrame;
-
+    private OrderSystem orderSystem = new OrderSystem();
+    private CustomerSystem customerSystem = new CustomerSystem();
+    private ReservationSystem reservationSystem = new ReservationSystem();
+    private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem);
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
@@ -30,10 +33,10 @@ public class EmployeePanel extends JPanel {
         contentPanel.setLayout(cardLayout);
 
         // Thêm các panel con vào CardLayout
-        contentPanel.add(new OrderPanel(new OrderSystem()), DAT_MON);
+        contentPanel.add(new OrderPanel(orderSystem), DAT_MON);
         contentPanel.add(new TablePanel(new ReservationSystem()), DAT_BAN);
         contentPanel.add(new DiscountPanel(new CustomerSystem()), KHUYEN_MAI);
-        contentPanel.add(new PaymentPanel(), THANH_TOAN);
+        contentPanel.add(paymentPanel, THANH_TOAN);
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
@@ -55,6 +58,11 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setChangeInfoBtListener(e -> {
+            showPanel(THANH_TOAN);
+            setHover(THANH_TOAN);
+            contentPanel.remove(paymentPanel);
+            paymentPanel = new PaymentPanel(customerSystem,orderSystem,reservationSystem); // Tạo lại PaymentPanel
+            contentPanel.add(paymentPanel, THANH_TOAN);
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);
         });

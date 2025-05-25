@@ -101,7 +101,7 @@ public class ReservationController implements IController {
                 if (table != null) {
                     String numOfPersonsStr = JOptionPane.showInputDialog(view, "Nhập số người:");
                     int numOfPersons = Integer.parseInt(numOfPersonsStr);
-                    
+                    reservationSystem.updateTableStatus(tableId, true);
                     Reservation reservation = new Reservation(table, "NV01", "KH01", DiscountPanel.customer[0], numOfPersons);
                     reservationSystem.makeReservation(reservation);
                     view.updateTableStatus(tableId, "Đã đặt");

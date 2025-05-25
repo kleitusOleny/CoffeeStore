@@ -142,7 +142,7 @@ public class TablePanel extends JPanel implements Observer {
                 case "UPDATE_TABLE_STATUS":
                     for (Table table : model.getTables()) {
                         int tableId = table.getIdTable();
-                        String newStatus = table.isStatus() ? "Đã đặt" : "Trống";
+                        String newStatus = table.isStatus() ? "Đặt bàn" : "Trống";
                         updateTableStatus(tableId, newStatus);
                     }
                     break;

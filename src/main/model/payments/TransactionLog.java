@@ -22,12 +22,10 @@ public class TransactionLog {
         sb.append("=============================\n");
         return sb.toString();
     }
-    public  static List<Transaction> getTransactions() {
+    public static List<Transaction> getTransactions() {
         return transactions;
     }
 
     public static void addTransaction(Transaction transaction) {
-
-
     }
 }
