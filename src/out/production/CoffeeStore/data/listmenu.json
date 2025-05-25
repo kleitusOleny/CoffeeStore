@@ -1,0 +1,62 @@
+[
+  {
+    "type": "coffee",
+    "name": "Cà phê đen",
+    "price": "25000",
+    "sourcePicture": "src\\main\\image\\coffee.png"
+  },
+  {
+    "type": "coffee",
+    "name": "Bạc xỉu",
+    "price": "22000",
+    "sourcePicture": "src\\main\\image\\milkcoffee.png"
+  },
+  {
+    "type": "coffee",
+    "name": "Expresso",
+    "price": "30000",
+    "sourcePicture": "src\\main\\image\\expresso.png"
+  },
+  {
+    "type": "coffee",
+    "name": "Americano",
+    "price": "28000",
+    "sourcePicture": "src\\main\\image\\americano.png"
+  },
+  {
+    "type": "tea",
+    "name": "Trà đào",
+    "price": "30000",
+    "sourcePicture": "src\\main\\image\\peachtea.png"
+  },
+  {
+    "type": "tea",
+    "name": "Trà sữa trân châu",
+    "price": "32000",
+    "sourcePicture": "src\\main\\image\\milktea.png"
+  },
+  {
+    "type": "topping",
+    "name": "Trân châu mật ong",
+    "price": "5000",
+    "sourcePicture": "src\\main\\image\\honeyboba.png"
+  },
+  {
+    "type": "topping",
+    "name": "Trân châu",
+    "price": "5000",
+    "sourcePicture": "src\\main\\image\\boba.png"
+  },
+  {
+    "type": "topping",
+    "name": "Kem cheese",
+    "price": "6000",
+    "sourcePicture": "src\\main\\image\\creamcheese.png"
+  },
+  {
+    "type": "topping",
+    "name": "Bánh flan",
+    "price": "7000",
+    "sourcePicture": "src\\main\\image\\flan.png"
+  }
+]

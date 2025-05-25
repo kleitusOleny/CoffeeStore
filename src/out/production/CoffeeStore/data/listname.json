@@ -1,0 +1,92 @@
+[
+  {
+    "tenNhanVien": "Đặng Thị Nam",
+    "maNhanVien": "NV5LHSXK",
+    "soDienThoai": "0539063964",
+    "soCCCD": "272062967593",
+    "diaChi": "706 Đường FZZHA, Hà Nội",
+    "ngaySinh": "20/01/1974",
+    "ngayVaoLam": "21/03/2021"
+  },
+  {
+    "tenNhanVien": "Trần Thị Dương",
+    "maNhanVien": "NV1YLMLD",
+    "soDienThoai": "0270943102",
+    "soCCCD": "079436635313",
+    "diaChi": "196 Đường GHAEH, Huế",
+    "ngaySinh": "10/01/1998",
+    "ngayVaoLam": "23/02/2015"
+  },
+  {
+    "tenNhanVien": "Trần Minh Dương",
+    "maNhanVien": "NVFZM1NQ",
+    "soDienThoai": "0164446587",
+    "soCCCD": "715932720465",
+    "diaChi": "195 Đường R5IQ9, Huế",
+    "ngaySinh": "02/03/1995",
+    "ngayVaoLam": "02/02/2020"
+  },
+  {
+    "tenNhanVien": "Hoàng Văn Nam",
+    "maNhanVien": "NVRPOF8S",
+    "soDienThoai": "0144395401",
+    "soCCCD": "191692349154",
+    "diaChi": "545 Đường 9CVLY, Nha Trang",
+    "ngaySinh": "09/12/1972",
+    "ngayVaoLam": "04/12/2019"
+  },
+  {
+    "tenNhanVien": "Phạm Thị Linh",
+    "maNhanVien": "NVJP4CME",
+    "soDienThoai": "0034026967",
+    "soCCCD": "092672733737",
+    "diaChi": "823 Đường SNXE6, TP.HCM",
+    "ngaySinh": "02/05/1990",
+    "ngayVaoLam": "28/04/2016"
+  },
+  {
+    "tenNhanVien": "Lê Hồng Tâm",
+    "maNhanVien": "NVTIBUY6",
+    "soDienThoai": "0735664137",
+    "soCCCD": "674081892981",
+    "diaChi": "517 Đường PGXLQ, Nha Trang",
+    "ngaySinh": "07/05/1979",
+    "ngayVaoLam": "14/10/2018"
+  },
+  {
+    "tenNhanVien": "Trần Ngọc Hùng",
+    "maNhanVien": "NVY74SQE",
+    "soDienThoai": "0779229486",
+    "soCCCD": "234069971799",
+    "diaChi": "2 Đường 3NSX0, Hà Nội",
+    "ngaySinh": "26/10/2000",
+    "ngayVaoLam": "13/05/2018"
+  },
+  {
+    "tenNhanVien": "Huỳnh Ngọc Phúc",
+    "maNhanVien": "NVI98J9R",
+    "soDienThoai": "0173891368",
+    "soCCCD": "858984687712",
+    "diaChi": "305 Đường 5L29T, Nha Trang",
+    "ngaySinh": "27/09/1973",
+    "ngayVaoLam": "16/08/2020"
+  },
+  {
+    "tenNhanVien": "Trần Anh Linh",
+    "maNhanVien": "NV20WFG6",
+    "soDienThoai": "0542705016",
+    "soCCCD": "223750883787",
+    "diaChi": "257 Đường C3VZW, Huế",
+    "ngaySinh": "03/06/1991",
+    "ngayVaoLam": "08/02/2019"
+  },
+  {
+    "tenNhanVien": "Trần Thị Tâm",
+    "maNhanVien": "NVTD69YY",
+    "soDienThoai": "0312640287",
+    "soCCCD": "366696088591",
+    "diaChi": "344 Đường XQCGE, Huế",
+    "ngaySinh": "26/04/1982",
+    "ngayVaoLam": "11/08/2024"
+  }
+]
