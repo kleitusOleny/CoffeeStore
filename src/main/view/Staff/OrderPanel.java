@@ -1,11 +1,14 @@
 package view.Staff;
 
+import data.ReadFileJson;
+import data.dto.FormatMenu;
 import view.CustomButton;
 import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderPanel extends JPanel {
     JPanel toolbar, orderBillPanel, mainPanel, orderItemsPanel, searchResultPanel, searchPanel, sizePanel, sumPanel;
@@ -21,6 +24,14 @@ public class OrderPanel extends JPanel {
     private JScrollPane scrollPane;
     private JRadioButton sizeM, sizeL;
     private ButtonGroup sizeGroup;
+
+    private List<FormatMenu> formatMenuList = ReadFileJson.readFileJSONForMenu();
+
+    private List<String[]> coffeeList = new ArrayList<>();
+    private List<String[]> teaList = new ArrayList<>();
+    private List<String[]> toppingList = new ArrayList<>();
+
+    private List<String[][]> drinkData = new ArrayList<>();
 
     public OrderPanel() {
         setLayout(new BorderLayout());
