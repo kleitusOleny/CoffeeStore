@@ -93,7 +93,7 @@ public class OrderController implements IController {
                     }
                     if (product instanceof Topping) {
                         ((Topping) product).applyToBaseProduct();
-                        view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức sau khi thêm topping
+                        view.refreshOrderItems();
                     }
                     orderSystem.notifyObservers();
                 }
@@ -109,7 +109,7 @@ public class OrderController implements IController {
     public void removeProduct(IProduct product) {
         if (product instanceof Topping) {
             ((Topping) product).removeFromBaseProduct();
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
             orderSystem.notifyObservers();
         } else {
             orderSystem.removeProductFromOrder(currentOrder, product);
@@ -117,18 +117,18 @@ public class OrderController implements IController {
                 lastBaseProduct = null;
                 view.setLastBaseProduct(null);
             }
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
         }
     }
     
     public void updateProductQuantity(IProduct product, int quantity) {
         if (product instanceof Topping) {
             ((Topping) product).updateQuantity(quantity);
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
             orderSystem.notifyObservers();
         } else {
             orderSystem.updateProductQuantity(currentOrder, product, quantity);
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
         }
     }
 }
