@@ -1,25 +1,34 @@
 package model.order_system;
 
+import data.ReadFileJson;
+import data.dto.FormatMenu;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Menu {
-    private final String[][] coffeeDrinks = {
-            {"Cà phê đen", "25000", "src\\main\\image\\coffee.png"},
-            {"Bạc xỉu", "22000", "src\\main\\image\\milkcoffee.png"},
-            {"Espresso", "28000", "src\\main\\image\\expresso.png"},
-            {"Americano", "28000", "src\\main\\image\\americano.png"},
-    };
+    private List<FormatMenu> formatMenuList = ReadFileJson.readFileJSONForMenu();
+
+    private String[][] checkDrinkByType(String typeDrink) {
+        List<String[]> listResult = new ArrayList<>();
+        for (FormatMenu formatMenu : formatMenuList) {
+            if (formatMenu.getType().equals(typeDrink)) {
+                listResult.add(new String[]{
+                        formatMenu.getName(),
+                        formatMenu.getPrice(),
+                        formatMenu.getSourcePicture()
+                });
+            }
+        }
+        return listResult.toArray(new String[0][0]);
+    }
+
+    private final String[][] coffeeDrinks = checkDrinkByType("coffee");
     
-    private final String[][] teaDrinks = {
-            {"Trà đào", "30000", "src\\main\\image\\peachtea.png"},
-            {"Trà sữa trân châu", "32000", "src\\main\\image\\milktea.png"},
-    };
+    private final String[][] teaDrinks = checkDrinkByType("tea");
     
-    private final String[][] toppings = {
-            {"Trân châu mật ong", "5000", "src\\main\\image\\honeyboba.png"},
-            {"Trân châu", "5000", "src\\main\\image\\boba.png"},
-            {"Kem cheese", "6000", "src\\main\\image\\creamcheese.png"},
-            {"Bánh flan", "7000", "src\\main\\image\\flan.png"}
-    };
-    
+    private final String[][] toppings = checkDrinkByType("topping");
+
     public String[][] getCoffeeDrinks() {
         return coffeeDrinks;
     }
