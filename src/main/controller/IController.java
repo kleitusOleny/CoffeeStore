@@ -1,9 +1,6 @@
 package controller;
 
 
- public interface IController {
-
- public void run();
-
+public interface IController{
 
 }

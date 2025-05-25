@@ -1,11 +1,13 @@
 package model.employee_system;
 
+import model.IModel;
 import utils.LoadDataToModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class EmployeeSystem {
+public class EmployeeSystem extends Observable implements IModel {
     private List<Employee> listEmp;
     private ManagerAttendent managerAttendent;
     

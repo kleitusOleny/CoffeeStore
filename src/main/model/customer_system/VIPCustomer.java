@@ -1,31 +1,15 @@
 package model.customer_system;
 
-import model.Subject;
+import javax.security.auth.Subject;
 
 public class VIPCustomer extends Customer {
     private int accumulatedPoints;
-    public VIPCustomer(String name, String idCus, String numsPhone, Subject subject, int accumulatedPoints) {
-        super(name, idCus, numsPhone, subject);
+    public VIPCustomer(String name, String idCus, String numsPhone, int accumulatedPoints) {
+        super(name, idCus, numsPhone);
         this.accumulatedPoints = accumulatedPoints;
 //        subject.addObserver((Observer)this);
     }
     
-    @Override
-    public String updateNotify(String nameTB, String ndTB) {
-        String result = "";
-        result = result + "Thông báo mới cho khách hàng: " + this.name + ": " + "\n" + "Tiêu đề: " + nameTB + "\n" + "Nội dung: " + ndTB;
-        return result;
-    }
-
-    /**
-     * khach hang vip da duoc thiet lap san tinh nang nhan thong bao tu quan tri
-     * @param trangThaiDangKy
-     */
-    @Override
-    public void setRegisterStatus(boolean trangThaiDangKy) {
-
-    }
-
     @Override
     public String toString() {
         return "VIPCustomer{" +
@@ -51,17 +35,7 @@ public class VIPCustomer extends Customer {
     public String getType() {
         return "VIP";
     }
-
-    /**
-     * khach hang vip luon nhan duoc chuong trinh khuyen mai ma
-     * khong can phai thong qua dang ky
-     *
-     * @return
-     */
-    @Override
-    public boolean isRegister() {
-        return true;
-    }
+    
 
     @Override
     public int countProductedBuy() {
