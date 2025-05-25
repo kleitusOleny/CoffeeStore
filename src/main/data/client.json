@@ -18,7 +18,7 @@
     "soDienThoai": "09271832212",
     "diemTichLuy": "30",
     "trangThai": "Bình Thường",
-    "chon": false
+    "chon": true
   },
   {
     "hoTen": "Nguyễn Lê Thảo Trinh",
@@ -32,6 +32,6 @@
     "soDienThoai": "08291823315",
     "diemTichLuy": "0",
     "trangThai": "Bình Thường",
-    "chon": true
+    "chon": false
   }
 ]

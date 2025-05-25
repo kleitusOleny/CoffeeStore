@@ -19,12 +19,13 @@ public class TablePanel extends JPanel {
     private final Map<JButton, String> tableStatusMap = new HashMap<>();
     private JPanel topPanel, tableGrid;
     private JLabel statusLabel;
+    private PaymentPanel paymentPanel;
 
     private static String tableNo;
     public TablePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-
+        paymentPanel = new PaymentPanel();
         // Panel Trạng thái phía trên
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
@@ -49,6 +50,8 @@ public class TablePanel extends JPanel {
             tableButton.setBackground(Color.LIGHT_GRAY); // Trống mặc định
             tableStatusMap.put(tableButton, "Trống");
             tableButtons.add(tableButton);
+
+            tableButton.putClientProperty("tableNumber", i); // Gán số bàn vào button
 
 //            tableButton.addActionListener(e -> showStatusDialog(tableButton));
             addTableButtonListener(tableButton,i);
@@ -97,6 +100,9 @@ public class TablePanel extends JPanel {
                 break;
             case "Đặt bàn":
                 button.setBackground(new Color(144, 238, 144)); // xanh lá nhạt
+                int tableSelected = (int) button.getClientProperty("tableNumber");
+                System.out.println(">>> [TablePanel] tableSelected = " + tableSelected);
+                paymentPanel.setTableNumber(tableSelected);
                 break;
         }
     }
@@ -146,6 +152,9 @@ public class TablePanel extends JPanel {
         tableGrid.repaint();
     }
 
+    public JComboBox<String> getStatusFilter() {
+        return statusFilter;
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Đặt bàn");
