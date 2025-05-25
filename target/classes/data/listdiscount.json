@@ -37,7 +37,7 @@
     "noiDung": "Giảm 30% trong 3 ngày",
     "ngayBatDau": "01/07/2025",
     "ngayKetThuc": "03/07/2025",
-    "chon": true
+    "chon": false
   },
   {
     "maKM": "KM07",
@@ -53,7 +53,7 @@
     "noiDung": "Giảm 40% toàn bộ sản phẩm",
     "ngayBatDau": "28/11/2025",
     "ngayKetThuc": "28/11/2025",
-    "chon": false
+    "chon": true
   },
   {
     "maKM": "KM09",
