@@ -28,7 +28,7 @@ public class EmployeePanel extends JPanel {
         contentPanel.setLayout(cardLayout);
 
         // Thêm các panel con vào CardLayout
-        contentPanel.add(new OrderPanel(new OrderSystem()), DAT_MON);
+        contentPanel.add(new OrderPanel(), DAT_MON);
         contentPanel.add(new TablePanel(), DAT_BAN);
         contentPanel.add(new DiscountPanel(), KHUYEN_MAI);
         contentPanel.add(new PaymentPanel(), THANH_TOAN);
