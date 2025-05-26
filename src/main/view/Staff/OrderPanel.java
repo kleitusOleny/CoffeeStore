@@ -247,42 +247,38 @@ public class OrderPanel extends JPanel implements Observer {
         btn.add(infoPanel, BorderLayout.SOUTH);
         
         btn.addActionListener(e -> {
-            boolean isTopping = name.equals("Trân châu") || name.contains("Kem") || name.contains("Flan") || name.contains("mật ong");
+            boolean isTopping = name.equals("Trân châu") || name.contains("Kem") || name.contains("Bánh flan") || name.contains("mật ong");
             String itemType = isTopping ? getToppingType(name) : getItemType(name);
             if (isTopping) {
                 controller.addProduct(name, null, price, itemType);
                 return;
             }
-            
-            if (name.contains("Trà")) {
-                hasSelectedTea = true;
-            }
-            
-            sizeM = new JRadioButton("Size M (mặc định)");
-            sizeL = new JRadioButton("Size L (+5.000đ)");
-            sizeM.setSelected(true);
-            sizeGroup = new ButtonGroup();
-            sizeGroup.add(sizeM);
-            sizeGroup.add(sizeL);
-            
-            sizePanel = new JPanel(new GridLayout(2, 1));
-            sizePanel.add(sizeM);
-            sizePanel.add(sizeL);
-            
-            int option = JOptionPane.showConfirmDialog(
-                    this,
-                    sizePanel,
-                    "Chọn size cho " + name,
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE
-            );
-            
-            if (option == JOptionPane.OK_OPTION) {
-                String size = sizeM.isSelected() ? "M" : "L";
-                double finalPrice = price + (size.equals("L") ? 5000 : 0);
-                String finalName = name + " (Size " + size + ")";
-                controller.addProduct(finalName, size, finalPrice, itemType);
-            }
+                
+                sizeM = new JRadioButton("Size M (mặc định)");
+                sizeL = new JRadioButton("Size L (+5.000đ)");
+                sizeM.setSelected(true);
+                sizeGroup = new ButtonGroup();
+                sizeGroup.add(sizeM);
+                sizeGroup.add(sizeL);
+                
+                sizePanel = new JPanel(new GridLayout(2, 1));
+                sizePanel.add(sizeM);
+                sizePanel.add(sizeL);
+                
+                int option = JOptionPane.showConfirmDialog(
+                        this,
+                        sizePanel,
+                        "Chọn size cho " + name,
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE
+                );
+                
+                if (option == JOptionPane.OK_OPTION) {
+                    String size = sizeM.isSelected() ? "M" : "L";
+                    double finalPrice = price + (size.equals("L") ? 5000 : 0);
+                    controller.addProduct(name, size, finalPrice, itemType);
+                }
+                
         });
         
         return btn;
@@ -292,7 +288,7 @@ public class OrderPanel extends JPanel implements Observer {
         if (name.contains("Trân châu mật ong")) return "HoneyBoba";
         if (name.contains("Trân châu")) return "Boba";
         if (name.contains("Kem")) return "CreamCheese";
-        if (name.contains("Flan")) return "Flan";
+        if (name.contains("Bánh flan")) return "Bánh flan";
         return null;
     }
     

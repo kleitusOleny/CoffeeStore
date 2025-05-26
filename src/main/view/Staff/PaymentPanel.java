@@ -8,11 +8,13 @@ import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.dto.FormatPay;
 import model.IModel;
+import model.customer_system.Customer;
 import model.customer_system.CustomerSystem;
 import model.order_system.BaseProduct;
 import model.order_system.IProduct;
 import model.order_system.OrderSystem;
 import model.order_system.Topping;
+import model.reservation_system.Reservation;
 import model.reservation_system.ReservationStatus;
 import model.reservation_system.ReservationSystem;
 import model.reservation_system.Table;
@@ -25,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,7 +37,7 @@ public class PaymentPanel extends JPanel implements Observer {
     private JLabel trangThaiLabel = createBoldLabel("<<Unknown>>");
     private JLabel giamGiaLabel = createBoldLabel("<<Unknown>>");
     private JLabel tongTienLabel = createBoldLabel("0đ");
-    private JLabel banLabel;
+    private JLabel banLabel = createBoldLabel("<<Unknown>>");
     
     private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
@@ -74,24 +77,30 @@ public class PaymentPanel extends JPanel implements Observer {
         add(createContentPanel(), BorderLayout.CENTER);
         
         this.controller = new PaymentController(this, customerModel, orderModel, reservationModel);
-        updateView(); // Khởi tạo giao diện với dữ liệu ban đầu
+        updateView();
     }
     
     public void updateView() {
-        boolean customerFound = false;
-        for (FormatClient formatClient : formatClientList) {
-            if (formatClient.isChon()) {
-                tenLabel.setText(formatClient.getHoTen());
-                sdtLabel.setText(formatClient.getSoDienThoai());
-                trangThaiLabel.setText(formatClient.getTrangThai());
-                customerFound = true;
-                break;
+        try {
+            boolean customerFound = false;
+            Map<String,List<Customer>> customerMap = customerModel.getListCus();
+            List<Customer> customerList = customerMap.get(DiscountPanel.customer[3]);
+            for (Customer customer : customerList) {
+                if (customer.getNumsPhone().equals(DiscountPanel.customer[1])){
+                    customerFound = true;
+                    tenLabel.setText(customer.getName());
+                    sdtLabel.setText(customer.getNumsPhone());
+                    trangThaiLabel.setText(customer.getType());
+                    break;
+                }
             }
-        }
-        if (!customerFound) {
-            tenLabel.setText("<<Unknown>>");
-            sdtLabel.setText("<<Unknown>>");
-            trangThaiLabel.setText("<<Unknown>>");
+            if (!customerFound) {
+                tenLabel.setText("<<Unknown>>");
+                sdtLabel.setText("<<Unknown>>");
+                trangThaiLabel.setText("<<Unknown>>");
+            }
+        } catch (Exception e){
+            System.out.println("No data");
         }
         
         boolean discountFound = false;
@@ -99,25 +108,28 @@ public class PaymentPanel extends JPanel implements Observer {
             if (formatDiscount.isChon()) {
                 giamGiaLabel.setText(formatDiscount.getTenKM() + " (" + formatDiscount.getNoiDung() + ")");
                 discountFound = true;
+
                 break;
             }
         }
         if (!discountFound) {
             giamGiaLabel.setText("<<Unknown>>");
         }
+        
         boolean tableFound = false;
-        for (int i = 0; i < 20; i++) {
-            if (reservationModel.getTables().get(i).isStatus()) {
-                banLabel = createBoldLabel("Bàn " + (i + 1));
+        try {
+            if (Integer.parseInt(TablePanel.getTableNo()) > 0){
                 tableFound = true;
-                break;
+                banLabel.setText(TablePanel.getTableNo());
             }
+        }catch (Exception e){
+            System.out.println("No data Table Number");
         }
+        
         if (!tableFound) {
             banLabel.setText("<<Unknown>>");
         }
         
-        // 4. Lấy danh sách món và tổng tiền từ OrderSystem
         updateOrderTable();
     }
     
@@ -208,7 +220,7 @@ public class PaymentPanel extends JPanel implements Observer {
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
-        banLabel = createBoldLabel("Bàn 2");
+        banLabel = createBoldLabel(banLabel.getText());
         row2.add(banLabel);
 
         row2.add(Box.createHorizontalStrut(30));

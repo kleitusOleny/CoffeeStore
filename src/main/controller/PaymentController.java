@@ -22,7 +22,7 @@ public class PaymentController {
         
         // Gắn các sự kiện cho các nút
         view.getConfirmBtn().addActionListener(e -> handleConfirmPayment());
-        view.getInvoiceBtn().addActionListener(e -> handleInvoice());
+//        view.getInvoiceBtn().addActionListener(e -> handleInvoice());
         view.getHistoryButton().addActionListener(e -> handleHistory());
     }
     
@@ -39,10 +39,6 @@ public class PaymentController {
             return;
         }
         
-        if (getSelectedTableId() == -1) {
-            JOptionPane.showMessageDialog(view, "Chưa chọn bàn!", "Lỗi", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
         
         // Xử lý thanh toán
         JOptionPane.showMessageDialog(view, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -51,11 +47,6 @@ public class PaymentController {
         orderModel.getListStoreOrder().clear(); // Xóa danh sách đơn hàng
         reservationModel.updateTableStatus(getSelectedTableId(), false); // Cập nhật trạng thái bàn thành trống
         view.updateView(); // Cập nhật giao diện
-    }
-    
-    private void handleInvoice() {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(view);
-        view.onInvoiceButtonClicked();
     }
     
     private void handleHistory() {

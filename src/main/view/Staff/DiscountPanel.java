@@ -108,11 +108,11 @@ public class DiscountPanel extends JPanel implements Observer {
                 return column == 4;
             }
         };
-        khachModel.addTableModelListener(e -> {
-            if (e.getColumn() == 4) {
-                ReadFileJson.updateFormatClientFromTable(khachModel);
-            }
-        });
+//        khachModel.addTableModelListener(e -> {
+//            if (e.getColumn() == 4) {
+//                ReadFileJson.updateFormatClientFromTable(khachModel);
+//            }
+//        });
         khachTable = new CustomTable();
         khachTable.setModel(khachModel);
         khachTable.setRowHeight(30);

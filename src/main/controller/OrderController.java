@@ -40,7 +40,7 @@ public class OrderController implements IController {
     
     public void addProduct(String name, String size, double price, String itemType) {
         IProduct product = null;
-        boolean isTopping = itemType.equals("Boba") || itemType.equals("Flan") ||
+        boolean isTopping = itemType.equals("Boba") || itemType.equals("Bánh flan") ||
                 itemType.equals("HoneyBoba") || itemType.equals("CreamCheese");
         
         String[][] drinkList = isTopping ? menu.getToppings() :
@@ -75,7 +75,7 @@ public class OrderController implements IController {
                     }
                     product = switch (itemType) {
                         case "Boba" -> new Boba(lastBaseProduct, basePrice);
-                        case "Flan" -> new Flan(lastBaseProduct, basePrice);
+                        case "Bánh flan" -> new Flan(lastBaseProduct, basePrice);
                         case "HoneyBoba" -> new HoneyBoba(lastBaseProduct, basePrice);
                         case "CreamCheese" -> new CreamCheese(lastBaseProduct, basePrice);
                         default -> product;
