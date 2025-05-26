@@ -137,7 +137,12 @@ public class PromotionManagement extends JPanel {
 
         // Gán renderer và editor cho cột cuối
         table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(table));
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(table) {
+            @Override
+            protected void performAction(int row) {
+
+            }
+        });
 
         scrollPane = new JScrollPane(table);
 
@@ -199,5 +204,97 @@ public class PromotionManagement extends JPanel {
             frame.setLocationRelativeTo(null); // căn giữa màn hình
             frame.setVisible(true);
         });
+    }
+
+    public JButton getJButton1() {
+        return  jButton1;
+    }
+
+    public CustomButton getjButton1() {
+        return jButton1;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public JLabel getTableTitle() {
+        return tableTitle;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JPanel getBtnPanel() {
+        return btnPanel;
+    }
+
+    public JPanel getInputArea() {
+        return inputArea;
+    }
+
+    public JSeparator getjSeparator1() {
+        return jSeparator1;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public CustomTextField getjTextField1() {
+        return jTextField1;
+    }
+
+    public CustomTextField getjTextField2() {
+        return jTextField2;
+    }
+
+    public CustomTextField getjTextField3() {
+        return jTextField3;
+    }
+
+    public CustomTextField getjTextField4() {
+        return jTextField4;
+    }
+
+    public CustomTextField getjTextField5() {
+        return jTextField5;
+    }
+
+    public List<FormatDiscount> getFormatDiscountList() {
+        return formatDiscountList;
+    }
+
+    public Object[][] getKmData() {
+        return kmData;
     }
 }

@@ -1,5 +1,8 @@
 package view.Staff;
 
+import model.customer_system.CustomerSystem;
+import model.order_system.OrderSystem;
+import model.reservation_system.ReservationSystem;
 import view.EmployeeMenuPanel;
 import view.MainFrame;
 
@@ -16,7 +19,12 @@ public class EmployeePanel extends JPanel {
     private JPanel contentPanel;
     private CardLayout cardLayout;
     private MainFrame mainFrame;
-
+    private OrderSystem orderSystem = new OrderSystem();
+    private CustomerSystem customerSystem = new CustomerSystem();
+    private ReservationSystem reservationSystem = new ReservationSystem();
+    private OrderPanel orderPanel = new OrderPanel(orderSystem);
+    private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem,orderPanel);
+    private DiscountPanel discountPanel = new DiscountPanel(new CustomerSystem());
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
@@ -27,10 +35,10 @@ public class EmployeePanel extends JPanel {
         contentPanel.setLayout(cardLayout);
 
         // Thêm các panel con vào CardLayout
-        contentPanel.add(new OrderPanel(), DAT_MON);
-        contentPanel.add(new TablePanel(), DAT_BAN);
-        contentPanel.add(new DiscountPanel(), KHUYEN_MAI);
-        contentPanel.add(new PaymentPanel(), THANH_TOAN);
+        contentPanel.add(orderPanel, DAT_MON);
+        contentPanel.add(new TablePanel(new ReservationSystem()), DAT_BAN);
+        contentPanel.add(discountPanel, KHUYEN_MAI);
+        contentPanel.add(paymentPanel, THANH_TOAN);
 
         add(menuPanel, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
@@ -47,11 +55,17 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setNotificationBtListener(e -> {
+            
             showPanel(DAT_BAN);
             setHover(DAT_BAN);
         });
 
         menuPanel.setChangeInfoBtListener(e -> {
+            showPanel(THANH_TOAN);
+            setHover(THANH_TOAN);
+            contentPanel.remove(paymentPanel);
+            paymentPanel = new PaymentPanel(customerSystem,orderSystem,reservationSystem,orderPanel); // Tạo lại PaymentPanel
+            contentPanel.add(paymentPanel, THANH_TOAN);
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);
         });

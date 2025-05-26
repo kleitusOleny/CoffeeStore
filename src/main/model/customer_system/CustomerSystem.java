@@ -1,19 +1,20 @@
 package model.customer_system;
 
+import model.IModel;
+import utils.CustomerStatus;
 import utils.LoadDataToModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
-import static utils.LoadDataToModel.LoadCustomerDataToModel;
 
-public class CustomerSystem {
+public class CustomerSystem extends Observable implements IModel {
     public Map<String, List<Customer>> listCus;
     
     public CustomerSystem() {
-        LoadCustomerDataToModel();
+        LoadDataToModel.LoadCustomerDataToModel();
         this.listCus = LoadDataToModel.getCustomers();
     }
 
@@ -27,37 +28,33 @@ public class CustomerSystem {
     public Map<String, List<Customer>> getListCus() {
         return listCus;
     }
-
-    /**
-     *phuong thuc them khach hang
-     */
+    
 
     public void addCustomer(Customer customer) {
         String type = customer.getType(); // adjust according to your Customer class
-        listCus.put(type, new ArrayList<>());
-        listCus.get(type).add(customer);
+        listCus.computeIfAbsent(type, k -> new ArrayList<>()).add(customer);
+        setChanged();
+        notifyObservers(new CustomerStatus("ADD_CUSTOMER",customer));
     }
-
-    /**
-     * xoa mot khach hang khoi danh sach khach hang
-     * @param customer
-     */
+    
     public void removeCustomer(Customer customer) {
-        String type = customer.getType();// getType(): lay ra khach hang do la thuong hay vip
+        String type = customer.getType();
         List<Customer> customers = listCus.get(type);
-        if (customers != null) {
-            customers.remove(customer);
-            if (customers.isEmpty()) {
-                listCus.remove(type);//o xoa luon key neu khong con khach hang nao
+        if (customers != null && customers.contains(customer)) {
+            if (customers.size() > 1) {
+                listCus.remove(type);
             }
+            setChanged();
+            notifyObservers(new CustomerStatus("REMOVE_CUSTOMER",customer));
         }
     }
-
-    /**
-     * tim khach hang bang so dien thoai
-     * @param numPhone
-     * @return
-     */
+    
+    public void updateCustomer(Customer customer,String newName, String newPhone) {
+        customer.updateInforCustomer(newName,newPhone);
+        setChanged();
+        notifyObservers(new CustomerStatus("UPDATE_CUSTOMER",customer));
+    }
+    
     public Customer findCustomerByNumPhone(String numPhone) {
         for (List<Customer> customers : listCus.values()) {
             for (Customer customer : customers) {
@@ -69,30 +66,12 @@ public class CustomerSystem {
         System.out.println("Không tìm thấy khách hàng");
         return null;
     }
-
-    /**
-     * loc ra danh sach khach hang vip
-     * @return List<Customer>
-     */
+    
     public List<Customer> getVIPCustomers() {
         return listCus.getOrDefault("VIP", new ArrayList<>());
     }
-
-    /**
-     * loc ra danh sach khach hang thuong
-     * @return List<Customer>
-     */
+    
     public List<Customer> getNormalCustomers() {
         return listCus.getOrDefault("Normal", new ArrayList<>());
-    }
-    
-    public static void main(String[] args) {
-        CustomerSystem cs = new CustomerSystem();
-        for (String key : cs.listCus.keySet()) {
-            System.out.println(key);
-            for (Customer customer : cs.listCus.get(key)) {
-                System.out.println(customer);
-            }
-        }
     }
 }

@@ -1,5 +1,10 @@
 package view.Staff;
 
+import controller.ReservationController;
+import model.reservation_system.Reservation;
+import model.reservation_system.ReservationStatus;
+import model.reservation_system.ReservationSystem;
+import model.reservation_system.Table;
 import view.CustomButton;
 import view.EmployeeMenuPanel;
 import view.WrapLayout;
@@ -7,30 +12,31 @@ import view.WrapLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
-public class TablePanel extends JPanel {
+public class TablePanel extends JPanel implements Observer {
     private JComboBox<String> statusFilter;
     private List<JButton> tableButtons = new ArrayList<>();
     private final Map<JButton, String> tableStatusMap = new HashMap<>();
     private JPanel topPanel, tableGrid;
     private JLabel statusLabel;
 
+    private ReservationSystem model;
+    private ReservationController controller;
+    
     private static String tableNo;
-    public TablePanel() {
+    public TablePanel(ReservationSystem model) {
+        this.model = model;
+        this.model.addObserver(this);
+
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-
         // Panel Trạng thái phía trên
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
         statusFilter = new JComboBox<>(new String[]{"Tất cả", "Trống", "Đang sử dụng", "Đã đặt"});
         statusFilter.setFont(new Font("Roboto", Font.BOLD, 15));
-//        statusFilter.addActionListener(e -> filterTables());
         addStatusFilterListener();
         statusLabel = new JLabel("Trạng thái:");
         statusLabel.setFont(new Font("Roboto", Font.BOLD, 15));
@@ -38,22 +44,11 @@ public class TablePanel extends JPanel {
         topPanel.add(statusFilter);
 
         // Panel sơ đồ bàn trung tâm
-//        tableGrid = new JPanel(new GridLayout(3, 4, 20, 20)); // 12 bàn demo
         tableGrid = new JPanel(new WrapLayout(FlowLayout.LEFT, 20, 20));
         tableGrid.setBackground(new Color(255, 245, 204));
+        
+        initializeTableButtons();
 
-        for (int i = 1; i <= 20; i++) {
-            JButton tableButton = new JButton("Bàn " + i);
-            tableButton.setFont(new Font("Roboto", Font.BOLD, 15));
-            tableButton.setPreferredSize(new Dimension(100, 60));
-            tableButton.setBackground(Color.LIGHT_GRAY); // Trống mặc định
-            tableStatusMap.put(tableButton, "Trống");
-            tableButtons.add(tableButton);
-
-//            tableButton.addActionListener(e -> showStatusDialog(tableButton));
-            addTableButtonListener(tableButton,i);
-            tableGrid.add(tableButton);
-        }
 
         // Đặt tablePanel vào JScrollPane
         JScrollPane scrollPane = new JScrollPane(tableGrid);
@@ -61,33 +56,43 @@ public class TablePanel extends JPanel {
         scrollPane.getViewport().setBackground(new Color(255, 245, 204));
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        EmployeeMenuPanel managerMenuPanel = new EmployeeMenuPanel();
+        
         add(topPanel, BorderLayout.NORTH);
-//        add(managerMenuPanel, BorderLayout.WEST);
         add(scrollPane, BorderLayout.CENTER);
+        
+        this.controller = new ReservationController(model,this);
     }
 
+    private void initializeTableButtons() {
+        List<Table> tables = model.getTables();
+        for (Table table : tables) {
+            JButton tableButton = new JButton("Bàn " + table.getIdTable());
+            tableButton.setFont(new Font("Roboto", Font.BOLD, 15));
+            tableButton.setPreferredSize(new Dimension(100, 60));
+            String status = table.isStatus() ? "Đã đặt" : "Trống";
+            setStatus(tableButton, status);
+            tableButtons.add(tableButton);
+            addTableButtonListener(tableButton, table.getIdTable());
+            tableGrid.add(tableButton);
+        }
+    }
+    
     private void addTableButtonListener(JButton tableButton,int index) {
-        tableButton.addActionListener((ActionEvent e)-> showStatusDialog(tableButton,index));
+        tableButton.addActionListener((ActionEvent e)-> {
+            controller.showStatusDialog(tableButton, index);
+            if ("Đặt bàn".equals(tableStatusMap.get(tableButton)) || "Chọn bàn".equals(tableStatusMap.get(tableButton))) {
+                tableNo = index+"";
+                System.out.println(tableNo);
+            }
+        });
     }
 
     private void addStatusFilterListener() {
         statusFilter.addActionListener((ActionEvent e) -> filterTables() );
     }
 
-    private CustomButton createMenuButton(String text) {
-        CustomButton button = new CustomButton(text);
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMaximumSize(new Dimension(1000, 200));
-        button.setBackgroundColor(Color.LIGHT_GRAY);
-        button.setTextColor(Color.BLACK);
-        button.setBorderRadius(20);
-        return button;
-    }
     private void setStatus(JButton button, String status) {
         tableStatusMap.put(button, status);
-
         switch (status) {
             case "Trống":
                 button.setBackground(Color.LIGHT_GRAY);
@@ -100,35 +105,7 @@ public class TablePanel extends JPanel {
                 break;
         }
     }
-
-    private void showStatusDialog(JButton button,int index) {
-        String currentStatus = tableStatusMap.get(button);
-        List<String> options = new ArrayList<>();
-
-        if ("Trống".equals(currentStatus)) {
-            options = Arrays.asList("Chọn bàn", "Đặt bàn");
-        } else if ("Chọn bàn".equals(currentStatus)) {
-            options = Arrays.asList("Trống", "Đặt bàn");
-        } else if ("Đặt bàn".equals(currentStatus)) {
-            options = Arrays.asList("Trống", "Chọn bàn");
-        }
-
-        Object newStatus = JOptionPane.showInputDialog(
-                this,
-                "Chọn trạng thái mới:",
-                "Cập nhật trạng thái",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                options.toArray(),
-                options.get(0)
-        );
-        
-        if (newStatus != null) {
-            setStatus(button, newStatus.toString());
-            if (newStatus.toString().equals("Chọn bàn") || newStatus.toString().equals("Đặt bàn")) tableNo = String.valueOf(index);
-            filterTables(); // Cập nhật lại hiển thị nếu đang lọc
-        }
-    }
+    
 
     private void filterTables() {
         String selected = (String) statusFilter.getSelectedItem();
@@ -146,16 +123,9 @@ public class TablePanel extends JPanel {
         tableGrid.repaint();
     }
 
+    
+    public void updateTableStatus(int tableId, String newStatus) {
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Đặt bàn");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 600);
-        frame.setContentPane(new TablePanel());
-        frame.setVisible(true);
-    }
-
-    public void updatetableStatus(int tableId, String newStatus) {
         for (JButton btn : tableButtons) {
             if (btn.getText().equals("Bàn " + tableId)) {
                 setStatus(btn, newStatus);
@@ -167,5 +137,25 @@ public class TablePanel extends JPanel {
     public static String getTableNo(){
         return tableNo;
     }
-
+    
+    public void setTableNo(String tableNo) {
+        this.tableNo = tableNo;
+    }
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof ReservationStatus) {
+            ReservationStatus status = (ReservationStatus) arg;
+            switch (status.getAction()){
+                case "ADD_RESERVATION":
+                case "REMOVE_RESERVATION":
+                case "UPDATE_TABLE_STATUS":
+                    for (Table table : model.getTables()) {
+                        int tableId = table.getIdTable();
+                        String newStatus = table.isStatus() ? "Đặt bàn" : "Trống";
+                        updateTableStatus(tableId, newStatus);
+                    }
+                    break;
+            }
+        }
+    }
 }

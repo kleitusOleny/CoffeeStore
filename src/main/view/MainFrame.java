@@ -1,11 +1,9 @@
 package view;
 
-import controller.IController;
-import controller.MainController;
-import model.MainSystem;
 import model.customer_system.Customer;
 import model.reservation_system.Reservation;
 import model.reservation_system.Table;
+import utils.LoginHandle;
 import view.Staff.EmployeePanel;
 import view.Staff.TablePanel;
 
@@ -14,22 +12,21 @@ import java.awt.*;
 import java.util.List;
 
 public class MainFrame extends JFrame implements IView{
-    private CardLayout cardLayout;
-    private JPanel mainPanel;
-
-    private IView view;
-    private  IController controller;
+    private static CardLayout cardLayout;
+    private static JPanel mainPanel;
+    
     private LoginPanel loginPanel;
   
     public static final String LOGIN = "login";
     public static final String EMPLOYEE = "employee";
     public static final String MANAGER = "manager";
 
+    
     public MainFrame() {
-        MainSystem mainSystem = new MainSystem();
-        view = this;
-        controller = new MainController(mainSystem, view);
+
+        LoginHandle loginModel = new LoginHandle();
         setTitle("Ứng dụng quản lý");
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1000,700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,7 +34,7 @@ public class MainFrame extends JFrame implements IView{
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        loginPanel = new LoginPanel(this);
+        loginPanel = new LoginPanel(loginModel);
         EmployeePanel managerPanel = new EmployeePanel(this);
         ManagerPanel managerPanel1 = new ManagerPanel(this);
 
@@ -50,7 +47,7 @@ public class MainFrame extends JFrame implements IView{
         setVisible(true);
     }
 
-    public void showPanel(String panelName) {
+    public static void showPanel(String panelName) {
         cardLayout.show(mainPanel, panelName);
     }
 
@@ -112,8 +109,7 @@ public class MainFrame extends JFrame implements IView{
         StringBuilder sb = new StringBuilder("Thông tin khách hàng:\n");
         sb.append("Tên: ").append(customer.getName()).append("\n")
                 .append("Số điện thoại: ").append(customer.getNumsPhone()).append("\n")
-                .append("Loại: ").append(customer.getType()).append("\n")
-                .append("Đăng ký nhận thông báo: ").append(customer.isRegister() ? "Có" : "Không").append("\n");
+                .append("Loại: ").append(customer.getType()).append("\n");
         if (customer.isVIP()) {
             sb.append("Điểm tích lũy: ").append(customer.pointAccumulated()).append("\n");
         }
@@ -131,8 +127,7 @@ public class MainFrame extends JFrame implements IView{
         for (Customer customer : customers) {
             sb.append("Tên: ").append(customer.getName())
                     .append(", SĐT: ").append(customer.getNumsPhone())
-                    .append(", Loại: ").append(customer.getType())
-                    .append(", Đăng ký: ").append(customer.isRegister() ? "Có" : "Không");
+                    .append(", Loại: ").append(customer.getType());
             if (customer.isVIP()) {
                 sb.append(", Điểm: ").append(customer.pointAccumulated());
             }
@@ -144,7 +139,7 @@ public class MainFrame extends JFrame implements IView{
     @Override
     public void updatetableStatus(int tableId, String newStatus) {
         TablePanel tablePanel = (TablePanel) mainPanel.getComponent(tableId);
-        tablePanel.updatetableStatus(tableId,newStatus);
+        tablePanel.updateTableStatus(tableId,newStatus);
 
     }
 
@@ -159,5 +154,4 @@ public class MainFrame extends JFrame implements IView{
 
         JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
-
 }

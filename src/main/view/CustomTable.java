@@ -40,7 +40,7 @@ public class CustomTable extends JTable {
 
             return c;
         }
-
+        
         @Override
         protected void paintComponent(Graphics g) {
             // Chỉ tô màu nền, không vẽ viền hay bo tròn

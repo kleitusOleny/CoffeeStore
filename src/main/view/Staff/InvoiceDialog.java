@@ -52,14 +52,10 @@ public class InvoiceDialog extends JDialog {
 
         // Bảng món
         String[] headers = {"Tên Món", "Số lượng", "Đơn Giá", "Topping"};
-//        Object[][] data = {
-//                {"Cà phê sữa", "1", "25.000đ", ""},
-//                {"Trà đào", "2", "20.000đ", "+ Đào (2) - 5.000đ"}
-//        };
 
-        JTable table = new JTable(new DefaultTableModel(payData, headers) {
+        JTable table = new JTable(PaymentPanel.tableModel) {
             public boolean isCellEditable(int row, int col) { return false; }
-        });
+        };
 
         table.setRowHeight(30);
         table.getTableHeader().setReorderingAllowed(false);
@@ -77,10 +73,10 @@ public class InvoiceDialog extends JDialog {
         mainPanel.add(Box.createVerticalStrut(10));
 
         // Tạm tính, giảm giá, thành tiền
-        mainPanel.add(createInfoRow("Tạm tính:", "65.000đ"));
-        mainPanel.add(createInfoRow("Giảm giá:", "50%"));
+        mainPanel.add(createInfoRow("Tạm tính:", String.format("%,.0f", PaymentPanel.totalPrice) + "đ"));
+        mainPanel.add(createInfoRow("Giảm giá:", "0%"));
 
-        JPanel totalPanel = createInfoRow("Thành tiền:", "75.000đ");
+        JPanel totalPanel = createInfoRow("Thành tiền:", String.format("%,.0f", PaymentPanel.totalPrice) + "đ");
         JLabel label = (JLabel) totalPanel.getComponent(0);
         JLabel value = (JLabel) totalPanel.getComponent(1);
         label.setFont(new Font("Roboto", Font.BOLD, 14));

@@ -20,7 +20,7 @@ public class EmployeeManagement extends JPanel {
     private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
     Object[][] employeeData = ReadFileJson.getEmployeeData();
 
-    private CustomTextField searchField;
+    private JTextField searchField;
     private CustomButton timButton;
 
     public EmployeeManagement() {
@@ -74,11 +74,11 @@ public class EmployeeManagement extends JPanel {
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        searchField = new CustomTextField(15); // ✅ Giảm chiều dài text field
+        searchField = new JTextField(15); // ✅ Giảm chiều dài text field
         searchField.setBorder(null);
         searchField.setPreferredSize(new Dimension(110, 26));
         searchField.setOpaque(true);
-        searchField.setBorderRadius(20);
+        searchField.setFont(new Font("Roboto",Font.BOLD, 16));
         searchField.setForeground(new Color(166, 123, 91));
 
         JButton searchIconButton = new JButton();
@@ -158,16 +158,34 @@ public class EmployeeManagement extends JPanel {
 
     private void performSearch() {
         String keyword = searchField.getText().trim().toLowerCase();
-        System.out.println("Tìm kiếm: " + keyword);
-        // TODO: Lọc lại dữ liệu bảng theo từ khoá (nếu có chức năng lọc)
+
+        DefaultTableModel model = (DefaultTableModel) emsTable.getModel();
+        model.setRowCount(0); // Xóa hết dữ liệu cũ
+
+        for (FormatEmployee emp : formatEmployeeList) {
+            String ten = emp.getName().toLowerCase();
+            String ma = emp.getId().toLowerCase();
+            String sdt = emp.getPhoneNumber().toLowerCase();
+
+            if (ten.contains(keyword) || ma.contains(keyword) || sdt.contains(keyword)) {
+                model.addRow(new Object[]{
+                        emp.getName(), emp.getId(), emp.getPhoneNumber(), emp.getBirth(), emp.getSalary()
+                });
+            }
+        }
     }
 
+
     // === Getter nếu cần dùng bên ngoài ===
-    public CustomTextField getSearchField() {
+    public JTextField getSearchField() {
         return searchField;
     }
 
     public CustomButton getTimButton() {
         return timButton;
+    }
+
+    public Object getModel() {
+        return this.getModel();
     }
 }

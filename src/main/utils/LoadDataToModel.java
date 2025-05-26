@@ -6,7 +6,6 @@ import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.dto.FormatEmployee;
 import model.Date;
-import model.IModel;
 import model.customer_system.Customer;
 import model.customer_system.NormalCustomer;
 import model.customer_system.VIPCustomer;
@@ -15,7 +14,7 @@ import model.employee_system.Seller;
 
 import java.util.*;
 
-public class LoadDataToModel {
+public final class LoadDataToModel {
     private static List<FormatClient> clientsData = ReadFileJson.readFileJSONForClient();
     private static List<FormatEmployee> employeesData = ReadFileJson.readFileJSONForEmployee();
     private static List<FormatDiscount> discounts = ReadFileJson.readFileJSONForDiscount();
@@ -25,14 +24,15 @@ public class LoadDataToModel {
     private static Map<String,List<Customer>> customers = new HashMap<>();
     private static List<Employee> employees = new ArrayList<>();
     private static Map<String,String[]> acc = new HashMap<>();
+    
     public static void LoadCustomerDataToModel() {
         for (FormatClient customer: clientsData){
             List<Customer> list = new ArrayList<>();
             list = customers.getOrDefault(customer.getTrangThai(), list);
             if (customer.getTrangThai().equals("Bình Thường")){
-                list.add(new NormalCustomer(customer.getHoTen(),null,customer.getSoDienThoai(),null,false));
+                list.add(new NormalCustomer(customer.getHoTen(),null,customer.getSoDienThoai()));
             }else {
-                list.add(new VIPCustomer(customer.getHoTen(),null,customer.getSoDienThoai(),null,Integer.parseInt(customer.getDiemTichLuy())));
+                list.add(new VIPCustomer(customer.getHoTen(),null,customer.getSoDienThoai(),Integer.parseInt(customer.getDiemTichLuy())));
             }
             customers.put(customer.getTrangThai(), list);
         }

@@ -11,7 +11,6 @@ import model.reservation_system.Table;
 
 public interface IView {
     public IView getView();
-    public void showPanel(String namePanel);
 
     void displayMessage(String s);
 

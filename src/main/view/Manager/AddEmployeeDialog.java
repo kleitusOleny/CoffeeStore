@@ -12,6 +12,7 @@ import java.awt.*;
 public class AddEmployeeDialog extends JDialog {
 
 	private CustomPanel dialogPanel, PersionalPanel, timeKeepingPanel;
+
 	private CustomButton btnThem;
 	private JLabel nameE, idE, phoneNumber, CCCD, Address, dateOfBirth,
 			timeKeepingStatus, DateStart, workShift, Salary;
