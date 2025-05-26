@@ -45,4 +45,10 @@ public class OrderSystem extends Observable implements IModel {
     public List<Order> getListStoreOrder() {
         return listStoreOrder;
     }
+    
+    public void clearOrder() {
+        listStoreOrder.clear();
+        setChanged();
+        notifyObservers(new OrderStatus("CLEAR_ORDER", "Đơn hàng đã được xóa sau khi thanh toán",0));
+    }
 }

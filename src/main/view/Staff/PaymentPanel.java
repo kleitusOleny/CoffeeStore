@@ -10,10 +10,7 @@ import data.dto.FormatPay;
 import model.IModel;
 import model.customer_system.Customer;
 import model.customer_system.CustomerSystem;
-import model.order_system.BaseProduct;
-import model.order_system.IProduct;
-import model.order_system.OrderSystem;
-import model.order_system.Topping;
+import model.order_system.*;
 import model.reservation_system.ReservationStatus;
 import model.reservation_system.ReservationSystem;
 import model.reservation_system.Table;
@@ -53,6 +50,7 @@ public class PaymentPanel extends JPanel implements Observer {
     private ReservationSystem reservationModel;
     private PaymentController controller;
     private ReservationController reservationController;
+    private OrderPanel orderPanel;
     
     private CustomButton historyButton;
 
@@ -63,11 +61,11 @@ public class PaymentPanel extends JPanel implements Observer {
     private CustomCheckBox bank;
     private CustomTable table;
     
-    public PaymentPanel(CustomerSystem customerModel, OrderSystem orderModel, ReservationSystem reservationModel) {
+    public PaymentPanel(CustomerSystem customerModel, OrderSystem orderModel, ReservationSystem reservationModel, OrderPanel orderPanel) {
         this.customerModel = customerModel;
         this.orderModel = orderModel;
         this.reservationModel = reservationModel;
-        
+        this.orderPanel = orderPanel;
         // Đăng ký làm Observer cho các mô hình
         customerModel.addObserver(this);
         orderModel.addObserver(this);
@@ -362,32 +360,12 @@ public class PaymentPanel extends JPanel implements Observer {
                 "Thông báo",
                 JOptionPane.INFORMATION_MESSAGE
         );
-
-        JPanel contentPanel1 = (JPanel) confirmBtn.getParent().getParent();
-
-        Component[] components = contentPanel1.getComponents();
-        JPanel topLeftPanel1 = null;
-        for (Component c : components) {
-            if (c instanceof JPanel && ((JPanel) c).getComponentCount() > 0) {
-                Component first = ((JPanel) c).getComponent(0);
-                if (first == historyButton) {
-                    topLeftPanel1 = (JPanel) c;
-                    break;
-                }
-            }
-        }
-
-        contentPanel1.removeAll();
-        if (topLeftPanel1 != null) {
-            contentPanel1.add(topLeftPanel1);
-            contentPanel1.add(Box.createVerticalStrut(20));
-        }
-
-        contentPanel1.setBackground(new Color(255, 248, 220));
-        contentPanel1.revalidate();
-        contentPanel1.repaint();
+        OrderController.setCurrentOrder(new Order(null,null,null));
+        this.updateOrderTable();
+        orderPanel.refreshOrderItems();
     }
-
+    
+    
     public void onHistoryButtonClicked() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         TransactionHistoryDialog dialog = new TransactionHistoryDialog(parentFrame);

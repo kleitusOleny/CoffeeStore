@@ -2,14 +2,13 @@ package controller;
 
 import model.order_system.Menu;
 import model.order_system.*;
+import utils.OrderStatus;
 import view.Staff.OrderPanel;
 
-import java.awt.event.ActionListener;
-
 public class OrderController implements IController {
-    private OrderSystem orderSystem;
+    private static OrderSystem orderSystem;
     private OrderPanel view;
-    private Order currentOrder;
+    private static Order currentOrder;
     private final Menu menu;
     private IProduct lastBaseProduct;
     
@@ -121,5 +120,8 @@ public class OrderController implements IController {
         }
     }
     
-    
+    public static void setCurrentOrder(Order order) {
+        orderSystem.addOrder(order);
+        currentOrder = order;
+    }
 }

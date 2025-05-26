@@ -22,7 +22,8 @@ public class EmployeePanel extends JPanel {
     private OrderSystem orderSystem = new OrderSystem();
     private CustomerSystem customerSystem = new CustomerSystem();
     private ReservationSystem reservationSystem = new ReservationSystem();
-    private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem);
+    private OrderPanel orderPanel = new OrderPanel(orderSystem);
+    private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem,orderPanel);
     private DiscountPanel discountPanel = new DiscountPanel(new CustomerSystem());
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -34,7 +35,7 @@ public class EmployeePanel extends JPanel {
         contentPanel.setLayout(cardLayout);
 
         // Thêm các panel con vào CardLayout
-        contentPanel.add(new OrderPanel(orderSystem), DAT_MON);
+        contentPanel.add(orderPanel, DAT_MON);
         contentPanel.add(new TablePanel(new ReservationSystem()), DAT_BAN);
         contentPanel.add(discountPanel, KHUYEN_MAI);
         contentPanel.add(paymentPanel, THANH_TOAN);
@@ -63,7 +64,7 @@ public class EmployeePanel extends JPanel {
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);
             contentPanel.remove(paymentPanel);
-            paymentPanel = new PaymentPanel(customerSystem,orderSystem,reservationSystem); // Tạo lại PaymentPanel
+            paymentPanel = new PaymentPanel(customerSystem,orderSystem,reservationSystem,orderPanel); // Tạo lại PaymentPanel
             contentPanel.add(paymentPanel, THANH_TOAN);
             showPanel(THANH_TOAN);
             setHover(THANH_TOAN);

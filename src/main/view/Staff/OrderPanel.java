@@ -252,7 +252,7 @@ public class OrderPanel extends JPanel implements Observer {
             if (isTopping) {
                 controller.addProduct(name, null, price, itemType);
                 return;
-            }                
+            }
                 sizeM = new JRadioButton("Size M (mặc định)");
                 sizeL = new JRadioButton("Size L (+5.000đ)");
                 sizeM.setSelected(true);
@@ -492,4 +492,5 @@ public class OrderPanel extends JPanel implements Observer {
 
         return panel;
     }
+    
 }
