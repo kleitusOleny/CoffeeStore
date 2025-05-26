@@ -13,13 +13,15 @@ import java.awt.*;
 import java.util.List;
 
 public class PaymentPanel extends JPanel {
+    private TablePanel tablePanel;
 
+    private int tableNumber = -1;
     public JLabel tenLabel = createBoldLabel("Cần cập nhật");
     public JLabel sdtLabel = createBoldLabel("Cần cập nhật");
     public JLabel trangThaiLabel = createBoldLabel("Cần cập nhật");
-    private JLabel banLabel;
-    private JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
-    private JLabel tongTienLabel;
+    public JLabel banLabel = createBoldLabel("Cần cập nhật");
+    public JLabel giamGiaLabel = createBoldLabel("Cần cập nhật");
+    public JLabel tongTienLabel;
 
     private JPanel row1, row2;
     private JPanel contentPanel;
@@ -83,7 +85,6 @@ public class PaymentPanel extends JPanel {
         row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
-        banLabel = createBoldLabel("Bàn 2");
         row2.add(banLabel);
 
         row2.add(Box.createHorizontalStrut(30));
@@ -220,9 +221,16 @@ public class PaymentPanel extends JPanel {
         return contentPanel;
     }
 
-    private void refreshClientInfoPanel() {
+    public void setTableNumber(int tableSelectedFromTablePanel){
+        this.tableNumber = tableSelectedFromTablePanel;
+        System.out.println(">>> [setTableNumber] Được gọi với: " + tableSelectedFromTablePanel + ", instance: " + this);
+    }
+
+    public void refreshClientInfoPanel() {
         boolean foundTickedClient = false;
         boolean foundDiscount = false;
+        System.out.println(">>> [refreshClientInfoPanel] tableNumber = " + tableNumber + ", instance: " + this);
+        banLabel.setText("Bàn " + tableNumber);
         for (FormatClient formatClient : formatClientList){
             if (formatClient.isChon()) {
                 tenLabel.setText(formatClient.getHoTen());
@@ -250,7 +258,6 @@ public class PaymentPanel extends JPanel {
         }
         contentPanel.revalidate();
         contentPanel.repaint();
-        System.out.println(giamGiaLabel.getText());
     }
 
     private void onInvoiceButtonClicked() {
@@ -354,6 +361,22 @@ public class PaymentPanel extends JPanel {
 
     public CustomCheckBox getBank() {
         return bank;
+    }
+
+    public void setTenLabel(JLabel tenLabel) {
+        this.tenLabel = tenLabel;
+    }
+
+    public void setSdtLabel(JLabel sdtLabel) {
+        this.sdtLabel = sdtLabel;
+    }
+
+    public void setTrangThaiLabel(JLabel trangThaiLabel) {
+        this.trangThaiLabel = trangThaiLabel;
+    }
+
+    public void setGiamGiaLabel(JLabel giamGiaLabel) {
+        this.giamGiaLabel = giamGiaLabel;
     }
 
     private JMenuBar createMenuBar() {

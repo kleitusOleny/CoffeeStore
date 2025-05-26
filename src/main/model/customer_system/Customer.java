@@ -1,9 +1,9 @@
 package model.customer_system;
 
 
-import model.Subject;
+import javax.security.auth.Subject;
 
-public abstract class Customer implements Observer {
+public abstract class Customer{
     protected String name;
     protected String idCus;
     protected String numsPhone;
@@ -33,22 +33,17 @@ public abstract class Customer implements Observer {
 
     public Customer() {
     }
+    
 
-    public abstract String updateNotify(String nameTB, String ndTB);
-
-    public void updateInforCustomer(String newName, String newSDT, boolean trangThaiDangKy) {
+    public void updateInforCustomer(String newName, String newSDT) {
         if (newName != null && !newName.trim().isEmpty()) {
             this.name = newName;
         }
         if (newSDT != null && !newSDT.trim().isEmpty()) {
             this.numsPhone = newSDT;
         }
-
-        // Gọi phương thức trừu tượng hoặc được override ở lớp con để cập nhật trạng thái đăng ký
-        setRegisterStatus(trangThaiDangKy);
     }
-
-    public abstract void setRegisterStatus(boolean trangThaiDangKy);
+    
 
     public abstract String updatePoint(int point1);
 
@@ -60,13 +55,7 @@ public abstract class Customer implements Observer {
      * @return true: khach hang da dang ky chuong trinh khuyen mai
      * false: khach hang chua dang ky chuong trinh khuyen mai
      */
-    public abstract boolean isRegister();// kiem tra co dăng ky thong bao hay khong
-
-    /**
-     * countProductedBuy : đếm số lượng sản phẩm được mua bởi từng khách
-     *
-     * @return
-     */
+   
     public abstract int countProductedBuy();
 
     public String getName() {

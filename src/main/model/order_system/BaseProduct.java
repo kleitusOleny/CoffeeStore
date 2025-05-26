@@ -1,39 +1,69 @@
 package model.order_system;
 
-public abstract class BaseProduct implements IProduct {
-    protected String nameP, size, description;
-    protected int quantity;
-    protected double price;
+import java.util.ArrayList;
+import java.util.List;
 
-    public BaseProduct(String nameP, String size, String description, int quantity, double price) {
-        this.nameP = nameP;
+public abstract class BaseProduct implements IProduct {
+    private String name;
+    private String size;
+    private String note;
+    private int quantity;
+    private double price;
+    private List<Topping> toppings;
+    
+    public BaseProduct(String name, String size, String note, int quantity, double price) {
+        this.name = name;
         this.size = size;
-        this.description = description;
+        this.note = note;
         this.quantity = quantity;
         this.price = price;
+        this.toppings = new ArrayList<>();
     }
-
-    public String getNameP() {
-        return nameP;
+    
+    public String getName() {
+        return name;
     }
-
-    @Override
+    
     public String getSize() {
         return size;
     }
-
-    @Override
-    public String getDescription() {
-        return description;
+    
+    public String getDe() {
+        return note;
     }
-
-    @Override
+    
     public int getQuantity() {
         return quantity;
     }
-
-    @Override
-    public double getPrice() {
-        return price  * quantity;
+    
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
+    
+    public double getPrice() {
+        double totalPrice = price * quantity;
+        for (Topping topping : toppings) {
+            totalPrice += topping.getPrice() * topping.getQuantity();
+        }
+        return totalPrice;
+    }
+    
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    public List<Topping> getToppings() {
+        return toppings;
+    }
+    
+    public void addTopping(Topping topping) {
+        toppings.add(topping);
+    }
+    
+    public void removeTopping(Topping topping) {
+        toppings.remove(topping);
+    }
+    
+    @Override
+    public abstract String getInformation();
 }

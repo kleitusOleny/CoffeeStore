@@ -1,9 +1,12 @@
 package model.reservation_system;
 
+import model.IModel;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class ReservationSystem {
+public class ReservationSystem extends Observable implements IModel{
     private List<Reservation> listReser;
     private List<Table> tables = new ArrayList<>();
 

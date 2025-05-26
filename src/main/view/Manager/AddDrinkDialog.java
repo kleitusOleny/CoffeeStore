@@ -84,6 +84,6 @@ public class AddDrinkDialog extends JDialog{
 
     /* ➋ SETTER để truyền dữ liệu từ MenuEditorPanel */
     public void setDrinkData(List<String[][]> drinkData) {
-        this.drinkData = (java.util.List<String[][]>) drinkData;
+        this.drinkData = drinkData;
     }
 }

@@ -17,11 +17,13 @@ public class ReadFileJson {
     private static List<FormatDiscount> formatDiscountsList;
     private static List<FormatEmployee> formatEmployeeList;
     private static List<FormatPay> formatPayList;
+    private static List<FormatMenu> formatMenuList;
 
     private static Object[][] kmData;
     private static Object[][] khachData ;
     private static Object[][] employeeData;
     private static Object[][] payData;
+    private static Object[][] drinkData;
 
     public static Object[][] getKhachData() {
         return khachData;
@@ -37,6 +39,10 @@ public class ReadFileJson {
 
     public static Object[][] getPayData(){
         return payData;
+    }
+
+    public static Object[][] getDrinkData(){
+        return drinkData;
     }
 
     // Template for all methods using gson
@@ -110,6 +116,14 @@ public class ReadFileJson {
             khachData[i][4] = formatClient.isChon();
         }
         return formatClientList;
+    }
+
+    public static List<FormatMenu> readFileJSONForMenu(){
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "listmenu.json").toString();
+        Type listType = new TypeToken<List<FormatMenu>>() {}.getType();
+        formatMenuList = initializeGson(path, listType, gson);
+        return formatMenuList;
     }
 
     // [EmployeeManagement]

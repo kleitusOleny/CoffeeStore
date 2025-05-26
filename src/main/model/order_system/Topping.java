@@ -1,35 +1,55 @@
 package model.order_system;
 
 public abstract class Topping implements IProduct {
-    protected IProduct product;
-
-    public Topping(IProduct product) {
-        this.product = product;
+    protected IProduct baseProduct;
+    protected double price;
+    protected int quantity;
+    
+    public Topping(IProduct baseProduct, double price) {
+        this.baseProduct = baseProduct;
+        this.price = price;
+        this.quantity = 1;
     }
-
-    @Override
-    public String getName() {
-        return product.getName();
+    
+    public void applyToBaseProduct() {
+        if (baseProduct instanceof BaseProduct) {
+            ((BaseProduct) baseProduct).addTopping(this);
+        }
     }
-
-    @Override
-    public String getSize() {
-        return product.getSize();
+    
+    public void removeFromBaseProduct() {
+        if (baseProduct instanceof BaseProduct) {
+            ((BaseProduct) baseProduct).removeTopping(this);
+        }
     }
-
-    @Override
-    public String getDescription() {
-        return product.getDescription();
+    
+    public void updateQuantity(int quantity) {
+        this.quantity = quantity;
+        if (quantity <= 0) {
+            removeFromBaseProduct();
+        }
     }
-
-    @Override
-    public int getQuantity() {
-        return product.getQuantity();
-    }
-
+    
     @Override
     public double getPrice() {
-        return product.getPrice();
+        return price * quantity;
     }
-
+    
+    @Override
+    public int getQuantity() {
+        return quantity;
+    }
+    
+    @Override
+    public abstract String getInformation();
+    
+    @Override
+    public String getName() {
+        return "";
+    }
+    
+    @Override
+    public String getSize() {
+        return "";
+    }
 }

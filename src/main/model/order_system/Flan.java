@@ -2,17 +2,13 @@ package model.order_system;
 
 public class Flan extends Topping{
     private double toppingPrice;
-
-    public Flan(IProduct product, double toppingPrice) {
-        super(product);
-        this.toppingPrice = toppingPrice;
+    
+    public Flan(IProduct baseProduct, double price) {
+        super(baseProduct, price);
     }
-
+    
     @Override
     public String getInformation() {
-        return product.getInformation()+ " Flan";
-    }
-    public  double getPrice(){
-        return product.getPrice() + (toppingPrice * product.getQuantity());
+        return "Bánh flan x" + quantity;
     }
 }
