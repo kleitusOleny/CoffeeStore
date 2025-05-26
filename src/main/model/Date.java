@@ -1,6 +1,8 @@
 package model;
 
-public class Date{
+import java.time.LocalDate;
+
+public class Date {
     private int day;
     private int month;
     private int year;
@@ -9,6 +11,11 @@ public class Date{
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+    public Date(LocalDate date) {
+        this.day = date.getDayOfMonth();
+        this.month = date.getMonthValue();
+        this.year = date.getYear();
     }
 
     public Date() {

@@ -36,6 +36,7 @@ public class PaymentPanel extends JPanel implements Observer {
     private JLabel tongTienLabel = createBoldLabel("0đ");
     private JLabel banLabel;
     
+
     private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
     private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
     private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
@@ -52,6 +53,7 @@ public class PaymentPanel extends JPanel implements Observer {
     private ReservationController reservationController;
     
     private CustomButton historyButton;
+
     private CustomButton confirmBtn;
     private CustomButton invoiceBtn;
     private CustomCheckBox cash;
@@ -162,7 +164,7 @@ public class PaymentPanel extends JPanel implements Observer {
     }
 
     private JPanel createContentPanel() {
-        JPanel contentPanel = new JPanel();
+        contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(255, 245, 204));
         contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -176,18 +178,9 @@ public class PaymentPanel extends JPanel implements Observer {
         contentPanel.add(Box.createVerticalStrut(20));
 
         // Dòng 1: Thông tin cá nhân
-        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setOpaque(false);
         row1.add(createBoldLabel("Tên:"));
-        for (FormatClient formatClient : formatClientList){
-            boolean found = false;
-            if (formatClient.isChon()) {
-                tenLabel = createBoldLabel(formatClient.getHoTen());
-                sdtLabel = createBoldLabel(formatClient.getSoDienThoai());
-                trangThaiLabel = createBoldLabel(formatClient.getTrangThai());
-                found = true;
-            }
-        }
         row1.add(tenLabel);
 
         row1.add(Box.createHorizontalStrut(30));
@@ -197,7 +190,6 @@ public class PaymentPanel extends JPanel implements Observer {
         row1.add(Box.createHorizontalStrut(30));
         row1.add(createBoldLabel("Trạng Thái:"));
         row1.add(trangThaiLabel);
-
         contentPanel.add(row1);
 
         // Dòng 2: Thông tin bàn và mã giảm giá
@@ -211,7 +203,9 @@ public class PaymentPanel extends JPanel implements Observer {
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
         row2.add(createBoldLabel("Thông tin bàn:"));
+
         banLabel = createBoldLabel("Chưa có");
+
         row2.add(banLabel);
 
         row2.add(Box.createHorizontalStrut(30));
@@ -460,14 +454,24 @@ public class PaymentPanel extends JPanel implements Observer {
         historyButton.setTextColor(Color.white);
         historyButton.setBorderRadius(20);
 
+        updateButton = new CustomButton("Cập nhật");
+        updateButton.setFont(new Font("Roboto", Font.BOLD, 14));
+        updateButton.setPreferredSize(new Dimension(180, 30));
+        updateButton.setFocusPainted(false);
+        updateButton.setBackgroundColor(new Color(166, 123, 91));
+        updateButton.setTextColor(Color.white);
+        updateButton.setBorderRadius(20);
+
         ImageIcon icon = new ImageIcon("src\\main\\image\\history.png");
         Image avatarImg = icon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         historyButton.setIcon(new ImageIcon(avatarImg));
 
         historyButton.addActionListener(e -> onHistoryButtonClicked());
-
+        updateButton.addActionListener(e -> refreshClientInfoPanel());
         // Thêm nút trực tiếp vào menu bar
         menuBar.add(historyButton);
+        menuBar.add(Box.createHorizontalStrut(5));
+        menuBar.add(updateButton);
 
         return menuBar;
     }

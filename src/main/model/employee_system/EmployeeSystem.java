@@ -16,9 +16,15 @@ public class EmployeeSystem extends Observable implements IModel {
         this.listEmp = LoadDataToModel.getEmployees();
         this.managerAttendent = new ManagerAttendent();
     }
-    
-    
-    
+
+    public ManagerAttendent getManagerAttendent() {
+        return managerAttendent;
+    }
+
+    public List<Employee> getListEmp() {
+        return listEmp;
+    }
+
     //Them nhan vien vao danh sach
     public void addEmployee(Employee e){
         listEmp.add(e);

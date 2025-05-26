@@ -27,12 +27,13 @@ public class DiscountPanel extends JPanel implements Observer {
     private List<FormatDiscount> formatDiscountsList = ReadFileJson.readFileJSONForDiscount();
     Object[][] kmData = ReadFileJson.getKmData();
     Object[][] khachData = ReadFileJson.getKhachData();
-    
     public CustomTable khachTable;
     private JTextField searchField;
     private CustomTable kmTable;
     private TableRowSorter<TableModel> sorter;
-    
+
+//    private PaymentPanel paymentPanel;
+
     private CustomButton tatCaButton;
     private CustomButton khachThuongButton;
     private CustomButton khachVIPButton;
@@ -80,7 +81,7 @@ public class DiscountPanel extends JPanel implements Observer {
         leftButtonPanel.add(createTopButton("khách thường"));
         leftButtonPanel.add(createTopButton("khách vip"));
         leftButtonPanel.add(createTopButton("Thêm KH"));
-        leftButtonPanel.add(createTopButton("Áp Dụng"));
+//        leftButtonPanel.add(createTopButton("Áp Dụng"));
         
         JPanel rightSearchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         rightSearchPanel.setBackground(new Color(255, 235, 238));
@@ -251,10 +252,10 @@ public class DiscountPanel extends JPanel implements Observer {
                 tatCaButton = button;
                 button.addActionListener(e -> filterByTrangThai(null));
                 break;
-            case "Áp Dụng":
-                apDung = button;
-                button.addActionListener(e -> xuLyApDungKhuyenMai());
-                break;
+//            case "Áp Dụng":
+//                apDung = button;
+//                button.addActionListener(e -> xuLyApDungKhuyenMai());
+//                break;
             
         }
         
@@ -476,29 +477,37 @@ public class DiscountPanel extends JPanel implements Observer {
         return panel;
     }
     
-    private void xuLyApDungKhuyenMai() {
-        DefaultTableModel khachModel = (DefaultTableModel) khachTable.getModel();
-        DefaultTableModel kmModel = (DefaultTableModel) kmTable.getModel();
-        
-        int khachCount = khachModel.getRowCount();
-        StringBuilder thongBao = new StringBuilder();
-        
-        // Lấy danh sách khách hàng được chọn
-        for (int i = 0; i < khachCount; i++) {
-            boolean chonKH = (boolean) khachModel.getValueAt(i, 4);
-            if (chonKH) {
-                String ten = (String) khachModel.getValueAt(i, 0);
-                thongBao.append("Áp dụng khuyến mãi cho: ").append(ten).append("\n");
-            }
-        }
-        
-        // Xóa tất cả dòng trong bảng khuyến mãi
-        kmModel.setRowCount(0); // ✅ Đây là lệnh xóa toàn bộ dòng
-        
-        JOptionPane.showMessageDialog(this,
-                thongBao.length() == 0 ? "Chưa chọn khách hàng nào." : thongBao.toString(),
-                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-    }
+//    private void xuLyApDungKhuyenMai() {
+//        DefaultTableModel khachModel = (DefaultTableModel) khachTable.getModel();
+//        DefaultTableModel kmModel = (DefaultTableModel) kmTable.getModel();
+//
+//        int khachCount = khachModel.getRowCount();
+//        StringBuilder thongBao = new StringBuilder();
+//
+//        // Lấy danh sách khách hàng được chọn
+//        for (int i = 0; i < khachCount; i++) {
+//            boolean chonKH = (boolean) khachModel.getValueAt(i, 4);
+//            if (chonKH) {
+//                String ten = (String) khachModel.getValueAt(i, 0);
+//                String sdt = (String) khachModel.getValueAt(i, 1);
+//                String trangThai = (String) khachModel.getValueAt(i, 3);
+//                String maGiamGia = kmModel.getValueAt(i, 1) + "(" + kmModel.getValueAt(i, 2) + ")";
+//                JLabel labelTen = new JLabel(ten);
+//                JLabel labelSdt = new JLabel(sdt);
+//                JLabel labelTrangThai = new JLabel(trangThai);
+//                JLabel labelMaGiamGia = new JLabel(maGiamGia);
+//                paymentPanel.setTenLabel(labelTen);
+//                paymentPanel.setSdtLabel(labelSdt);
+//                paymentPanel.setTrangThaiLabel(labelTrangThai);
+//                paymentPanel.setGiamGiaLabel(labelMaGiamGia);
+//                thongBao.append("Áp dụng khuyến mãi cho: ").append(ten).append("\n");
+//            }
+//        }
+//
+//        JOptionPane.showMessageDialog(this,
+//                thongBao.isEmpty() ? "Chưa chọn khách hàng nào." : thongBao.toString(),
+//                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//    }
     
     public CustomTable getKmTable() {
         return kmTable;

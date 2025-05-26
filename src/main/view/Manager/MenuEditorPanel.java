@@ -1,5 +1,7 @@
 package view.Manager;
 
+import data.ReadFileJson;
+import data.dto.FormatMenu;
 import view.CustomButton;
 import view.CustomTextField;
 
@@ -7,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MenuEditorPanel extends JPanel{
     private JPanel mainPanel, toolbar, searchResultPanel;
@@ -15,32 +18,54 @@ public class MenuEditorPanel extends JPanel{
     private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
     private JLabel nameLabel, priceLabel;
 
+    private List<FormatMenu> formatMenuList = ReadFileJson.readFileJSONForMenu();
+
     private JTextField searchField;
 
-    private final java.util.List<String[][]> drinkData = new ArrayList<>();
+    private java.util.List<String[][]> drinkData = new ArrayList<>();
     private final String[] types = {"coffee", "tea", "topping"};
+
+    private java.util.List<String[]> coffeeList = new ArrayList<>();
+    private java.util.List<String[]> teaList = new ArrayList<>();
+    private java.util.List<String[]> toppingList = new ArrayList<>();
 
     public MenuEditorPanel(){
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
 
-        // Dummy drink data
-        drinkData.add(new String[][]{
-                {"Cà phê đen", "25000", "src\\main\\image\\coffee.png"},
-                {"Bạc xỉu", "22000", "src\\main\\image\\milkcoffee.png"},
-                {"Expresso", "28000", "src\\main\\image\\expresso.png"},
-                {"Americano", "28000", "src\\main\\image\\americano.png"}
-        });
-        drinkData.add(new String[][]{
-                {"Trà đào", "30000", "src\\main\\image\\peachtea.png"},
-                {"Trà sữa trân châu", "32000", "src\\main\\image\\milktea.png"}
-        });
-        drinkData.add(new String[][]{
-                {"Trân châu mật ong", "5000", "src\\main\\image\\honeyboba.png"},
-                {"Trân châu", "5000", "src\\main\\image\\boba.png"},
-                {"Kem cheese", "6000", "src\\main\\image\\creamcheese.png"},
-                {"Bánh flan", "7000", "src\\main\\image\\flan.png"}
-        });
+        for (FormatMenu formatMenu : formatMenuList){
+            String[] items = {
+                    formatMenu.getName(),
+                    formatMenu.getPrice(),
+                    formatMenu.getSourcePicture()
+            };
+            switch (formatMenu.getType()) {
+                case "coffee" -> coffeeList.add(items);
+                case "tea" -> teaList.add(items);
+                case "topping" -> toppingList.add(items);
+            }
+        }
+        drinkData.add(coffeeList.toArray(new String[0][0]));
+        drinkData.add(teaList.toArray(new String[0][0]));
+        drinkData.add(toppingList.toArray(new String[0][0]));
+
+//        // Dummy drink data
+//        drinkData.add(new String[][]{
+//                {"Cà phê đen", "25000", "src\\main\\image\\coffee.png"},
+//                {"Bạc xỉu", "22000", "src\\main\\image\\milkcoffee.png"},
+//                {"Expresso", "28000", "src\\main\\image\\expresso.png"},
+//                {"Americano", "28000", "src\\main\\image\\americano.png"}
+//        });
+//        drinkData.add(new String[][]{
+//                {"Trà đào", "30000", "src\\main\\image\\peachtea.png"},
+//                {"Trà sữa trân châu", "32000", "src\\main\\image\\milktea.png"}
+//        });
+//        drinkData.add(new String[][]{
+//                {"Trân châu mật ong", "5000", "src\\main\\image\\honeyboba.png"},
+//                {"Trân châu", "5000", "src\\main\\image\\boba.png"},
+//                {"Kem cheese", "6000", "src\\main\\image\\creamcheese.png"},
+//                {"Bánh flan", "7000", "src\\main\\image\\flan.png"}
+//        });
 
         add(createMainPanel(), BorderLayout.CENTER);
 
@@ -55,7 +80,7 @@ public class MenuEditorPanel extends JPanel{
         cardPanel = new JPanel(cardLayout);
 
         for (int i = 0; i < types.length; i++) {
-            cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
+            cardPanel.add(createDrinkGridPanel((String[][]) drinkData.get(i)), types[i]);
         }
 
         mainPanel.add(new JScrollPane(cardPanel), BorderLayout.CENTER);
@@ -187,7 +212,7 @@ public class MenuEditorPanel extends JPanel{
             if (confirm == JOptionPane.YES_OPTION) {
                 // Xóa khỏi dữ liệu
                 for (int i = 0; i < drinkData.size(); i++) {
-                    String[][] data = drinkData.get(i);
+                    String[][] data = (String[][]) drinkData.get(i);
                     if (data != null) {
                         ArrayList<String[]> list = new ArrayList<>(Arrays.asList(data));
                         list.removeIf(drink -> drink[0].equals(name));
@@ -224,7 +249,7 @@ public class MenuEditorPanel extends JPanel{
     private void refreshCardPanel() {
         cardPanel.removeAll();
         for (int i = 0; i < types.length; i++) {
-            cardPanel.add(createDrinkGridPanel(drinkData.get(i)), types[i]);
+            cardPanel.add(createDrinkGridPanel((String[][]) drinkData.get(i)), types[i]);
         }
         cardPanel.revalidate();
         cardPanel.repaint();
@@ -320,5 +345,73 @@ public class MenuEditorPanel extends JPanel{
         panel.add(searchButton, BorderLayout.EAST);
 
         return panel;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public JPanel getToolbar() {
+        return toolbar;
+    }
+
+    public JPanel getSearchResultPanel() {
+        return searchResultPanel;
+    }
+
+    public JPanel getCardPanel() {
+        return cardPanel;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public JButton getCafeBtn() {
+        return cafeBtn;
+    }
+
+    public JButton getTeaBtn() {
+        return teaBtn;
+    }
+
+    public JButton getToppingBtn() {
+        return toppingBtn;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getDeleteBtn() {
+        return deleteBtn;
+    }
+
+    public JButton getDrinkBtn() {
+        return drinkBtn;
+    }
+
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    public JLabel getPriceLabel() {
+        return priceLabel;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
+
+    public List<String[][]> getDrinkData() {
+        return drinkData;
+    }
+
+    public String[] getTypes() {
+        return types;
     }
 }
