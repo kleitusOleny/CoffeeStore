@@ -11,13 +11,13 @@ import java.awt.*;
 
 public class AddEmployeeDialog extends JDialog {
 
-	private CustomPanel jPanel1, jPanel2, jPanel3;
+	private CustomPanel dialogPanel, PersionalPanel, timeKeepingPanel;
 	private CustomButton btnThem;
-	private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,
-			jLabel7, jLabel8, jLabel9, jLabel10;
+	private JLabel nameE, idE, phoneNumber, CCCD, Address, dateOfBirth,
+			timeKeepingStatus, DateStart, workShift, Salary;
 	private JSeparator jSeparator1;
-	private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4,
-			jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
+	private CustomTextField nameField, idField, phoneNumberField, cccdField,
+			addressField, dateOfBirthField, dateStartField, workShiftField, salaryField;
 	private DefaultTableModel tableModel;
 
 	public AddEmployeeDialog(JFrame parent, boolean modal, DefaultTableModel model) {
@@ -29,136 +29,136 @@ public class AddEmployeeDialog extends JDialog {
 
 	private void initComponents() {
 		// Panel chính với hiệu ứng shadow, gradient
-		jPanel1 = new CustomPanel();
-		jPanel1.setDrawShadow(true);
-		jPanel1.setBorderRadius(25);
-		jPanel1.setBackgroundColor(new Color(255, 245, 204));
-		jPanel1.setBorderColor(new Color(200, 170, 120));
-		jPanel1.setBorderThickness(3);
+		dialogPanel = new CustomPanel();
+		dialogPanel.setDrawShadow(true);
+		dialogPanel.setBorderRadius(25);
+		dialogPanel.setBackgroundColor(new Color(255, 245, 204));
+		dialogPanel.setBorderColor(new Color(200, 170, 120));
+		dialogPanel.setBorderThickness(3);
 		// Nếu có hover effect trên panel chính, tắt nếu muốn:
 		// jPanel1.setDrawHover(false);
 
 		// Labels và CustomTextField phần Thông tin nhân viên
-		jLabel1 = new JLabel("Tên NV");
-		jLabel2 = new JLabel("Mã NV");
-		jLabel3 = new JLabel("SĐT");
-		jLabel4 = new JLabel("Số CCCD/CMND");
-		jLabel5 = new JLabel("Địa chỉ");
-		jLabel6 = new JLabel("Ngày sinh(dd/mm/yyyy)");
+		nameE = new JLabel("Tên NV");
+		idE = new JLabel("Mã NV");
+		phoneNumber = new JLabel("SĐT");
+		CCCD = new JLabel("Số CCCD/CMND");
+		Address = new JLabel("Địa chỉ");
+		dateOfBirth = new JLabel("Ngày sinh(dd/mm/yyyy)");
 
-		jTextField1 = new CustomTextField(20);
-		jTextField2 = new CustomTextField(20);
-		jTextField3 = new CustomTextField(20);
-		jTextField4 = new CustomTextField(20);
-		jTextField5 = new CustomTextField(20);
-		jTextField6 = new CustomTextField(20);
+		nameField = new CustomTextField(20);
+		idField = new CustomTextField(20);
+		phoneNumberField = new CustomTextField(20);
+		cccdField = new CustomTextField(20);
+		addressField = new CustomTextField(20);
+		dateOfBirthField = new CustomTextField(20);
 
-		styleCustomField(jTextField1);
-		styleCustomField(jTextField2);
-		styleCustomField(jTextField3);
-		styleCustomField(jTextField4);
-		styleCustomField(jTextField5);
-		styleCustomField(jTextField6);
+		styleCustomField(nameField);
+		styleCustomField(idField);
+		styleCustomField(phoneNumberField);
+		styleCustomField(cccdField);
+		styleCustomField(addressField);
+		styleCustomField(dateOfBirthField);
 
 		// Panel chứa phần Thông tin nhân viên (jPanel2)
-		jPanel2 = new CustomPanel();
-		jPanel2.setDrawShadow(false);
-		jPanel2.setBorderRadius(30);
-		jPanel2.setBorderColor(new Color(180, 180, 180));
+		PersionalPanel = new CustomPanel();
+		PersionalPanel.setDrawShadow(false);
+		PersionalPanel.setBorderRadius(30);
+		PersionalPanel.setBorderColor(new Color(180, 180, 180));
 //		jPanel2.setBorderThickness(1);
 		// Tắt hover nếu có
 		// jPanel2.setDrawHover(false);
 
-		GroupLayout layout2 = new GroupLayout(jPanel2);
-		jPanel2.setLayout(layout2);
+		GroupLayout layout2 = new GroupLayout(PersionalPanel);
+		PersionalPanel.setLayout(layout2);
 		layout2.setAutoCreateGaps(true);
 		layout2.setAutoCreateContainerGaps(true);
 
 		layout2.setHorizontalGroup(
 				layout2.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jLabel1)
-						.addComponent(jTextField1)
-						.addComponent(jLabel2)
-						.addComponent(jTextField2)
-						.addComponent(jLabel3)
-						.addComponent(jTextField3)
-						.addComponent(jLabel4)
-						.addComponent(jTextField4)
-						.addComponent(jLabel5)
-						.addComponent(jTextField5)
-						.addComponent(jLabel6)
-						.addComponent(jTextField6)
+						.addComponent(nameE)
+						.addComponent(nameField)
+						.addComponent(idE)
+						.addComponent(idField)
+						.addComponent(phoneNumber)
+						.addComponent(phoneNumberField)
+						.addComponent(CCCD)
+						.addComponent(cccdField)
+						.addComponent(Address)
+						.addComponent(addressField)
+						.addComponent(dateOfBirth)
+						.addComponent(dateOfBirthField)
 		);
 
 		layout2.setVerticalGroup(
 				layout2.createSequentialGroup()
-						.addComponent(jLabel1)
-						.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel2)
-						.addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel3)
-						.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel4)
-						.addComponent(jTextField4, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel5)
-						.addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel6)
-						.addComponent(jTextField6, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nameE)
+						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(idE)
+						.addComponent(idField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(phoneNumber)
+						.addComponent(phoneNumberField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(CCCD)
+						.addComponent(cccdField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(Address)
+						.addComponent(addressField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(dateOfBirth)
+						.addComponent(dateOfBirthField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 		);
 
 		// Phần Trạng thái chấm công
-		jLabel7 = new JLabel("Trạng thái chấm công");
-		jLabel7.setFont(jLabel7.getFont().deriveFont(Font.BOLD, 16f));
+		timeKeepingStatus = new JLabel("Trạng thái chấm công");
+		timeKeepingStatus.setFont(timeKeepingStatus.getFont().deriveFont(Font.BOLD, 16f));
 
 		jSeparator1 = new JSeparator();
 
-		jLabel8 = new JLabel("Ngày vào làm(dd/mm/yyyy)");
-		jLabel9 = new JLabel("Ca làm");
-		jLabel10 = new JLabel("Lương Cơ Bản");
+		DateStart = new JLabel("Ngày vào làm(dd/mm/yyyy)");
+		workShift = new JLabel("Ca làm");
+		Salary = new JLabel("Lương Cơ Bản");
 
-		jTextField7 = new CustomTextField(20);
-		jTextField8 = new CustomTextField(20);
-		jTextField9 = new CustomTextField(20);
+		dateStartField = new CustomTextField(20);
+		workShiftField = new CustomTextField(20);
+		salaryField = new CustomTextField(20);
 
-		styleCustomField(jTextField7);
-		styleCustomField(jTextField8);
-		styleCustomField(jTextField9);
+		styleCustomField(dateStartField);
+		styleCustomField(workShiftField);
+		styleCustomField(salaryField);
 
-		jPanel3 = new CustomPanel();
-		jPanel3.setDrawShadow(false);
-		jPanel3.setBorderRadius(30);
-		jPanel3.setBorderColor(new Color(180, 180, 180));
+		timeKeepingPanel = new CustomPanel();
+		timeKeepingPanel.setDrawShadow(false);
+		timeKeepingPanel.setBorderRadius(30);
+		timeKeepingPanel.setBorderColor(new Color(180, 180, 180));
 //		jPanel3.setBorderThickness(1);
 		// Tắt hover nếu có
 		// jPanel3.setDrawHover(false);
 
-		GroupLayout layout3 = new GroupLayout(jPanel3);
-		jPanel3.setLayout(layout3);
+		GroupLayout layout3 = new GroupLayout(timeKeepingPanel);
+		timeKeepingPanel.setLayout(layout3);
 		layout3.setAutoCreateGaps(true);
 		layout3.setAutoCreateContainerGaps(true);
 
 		layout3.setHorizontalGroup(
 				layout3.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jLabel7)
+						.addComponent(timeKeepingStatus)
 						.addComponent(jSeparator1)
-						.addComponent(jLabel8)
-						.addComponent(jTextField7)
-						.addComponent(jLabel9)
-						.addComponent(jTextField8)
-						.addComponent(jLabel10)
-						.addComponent(jTextField9)
+						.addComponent(DateStart)
+						.addComponent(dateStartField)
+						.addComponent(workShift)
+						.addComponent(workShiftField)
+						.addComponent(Salary)
+						.addComponent(salaryField)
 		);
 
 		layout3.setVerticalGroup(
 				layout3.createSequentialGroup()
-						.addComponent(jLabel7)
+						.addComponent(timeKeepingStatus)
 						.addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel8)
-						.addComponent(jTextField7, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel9)
-						.addComponent(jTextField8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel10)
-						.addComponent(jTextField9, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(DateStart)
+						.addComponent(dateStartField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(workShift)
+						.addComponent(workShiftField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(Salary)
+						.addComponent(salaryField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 		);
 
 		// Nút Thêm
@@ -170,17 +170,17 @@ public class AddEmployeeDialog extends JDialog {
 		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
 
 		// Layout tổng thể panel 1
-		GroupLayout layout1 = new GroupLayout(jPanel1);
-		jPanel1.setLayout(layout1);
+		GroupLayout layout1 = new GroupLayout(dialogPanel);
+		dialogPanel.setLayout(layout1);
 		layout1.setAutoCreateGaps(true);
 		layout1.setAutoCreateContainerGaps(true);
 
 		layout1.setHorizontalGroup(
 				layout1.createSequentialGroup()
-						.addComponent(jPanel2)
+						.addComponent(PersionalPanel)
 						.addGap(50)
 						.addGroup(layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(jPanel3)
+								.addComponent(timeKeepingPanel)
 								.addGroup(layout1.createSequentialGroup()
 										.addGap(100, 100, 100)
 										.addComponent(btnThem, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
@@ -188,9 +188,9 @@ public class AddEmployeeDialog extends JDialog {
 
 		layout1.setVerticalGroup(
 				layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jPanel2)
+						.addComponent(PersionalPanel)
 						.addGroup(layout1.createSequentialGroup()
-								.addComponent(jPanel3)
+								.addComponent(timeKeepingPanel)
 								.addGap(30)
 								.addComponent(btnThem, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 		);
@@ -201,27 +201,27 @@ public class AddEmployeeDialog extends JDialog {
 
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jPanel1)
+						.addComponent(dialogPanel)
 		);
 
 		layout.setVerticalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(jPanel1)
+						.addComponent(dialogPanel)
 		);
 
 		pack();
 	}
 
 	private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {
-		String ten = jTextField1.getText();
-		String ma = jTextField2.getText();
-		String sdt = jTextField3.getText();
-		String cccd = jTextField4.getText();
-		String diaChi = jTextField5.getText();
-		String ngaySinh = jTextField6.getText();
-		String ngayVaoLam = jTextField7.getText();
-		String caLam = jTextField8.getText();
-		String luong = jTextField9.getText();
+		String ten = nameField.getText();
+		String ma = idField.getText();
+		String sdt = phoneNumberField.getText();
+		String cccd = cccdField.getText();
+		String diaChi = addressField.getText();
+		String ngaySinh = dateOfBirthField.getText();
+		String ngayVaoLam = dateStartField.getText();
+		String caLam = workShiftField.getText();
+		String luong = salaryField.getText();
 		ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
 
 		// Thêm dòng vào model
