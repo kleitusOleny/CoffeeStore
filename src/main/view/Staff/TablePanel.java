@@ -25,7 +25,7 @@ public class TablePanel extends JPanel implements Observer {
     private ReservationSystem model;
     private ReservationController controller;
     
-    public static String tableNo;
+    private static String tableNo;
     public TablePanel(ReservationSystem model) {
         this.model = model;
         this.model.addObserver(this);
@@ -36,7 +36,7 @@ public class TablePanel extends JPanel implements Observer {
         // Panel Trạng thái phía trên
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
-        statusFilter = new JComboBox<>(new String[]{"Tất cả", "Trống","Đã chọn", "Đã đặt"});
+        statusFilter = new JComboBox<>(new String[]{"Tất cả", "Trống", "Đang sử dụng", "Đã đặt"});
         statusFilter.setFont(new Font("Roboto", Font.BOLD, 15));
         addStatusFilterListener();
         statusLabel = new JLabel("Trạng thái:");
@@ -79,9 +79,9 @@ public class TablePanel extends JPanel implements Observer {
     }
     
     private void addTableButtonListener(JButton tableButton,int index) {
-        tableButton.addActionListener((ActionEvent e)->  {
-            controller.showStatusDialog(tableButton,index);
-            if (tableButton.getText().equals("Đã đặt") ||tableButton.getText().equals("Đã chọn")){
+        tableButton.addActionListener((ActionEvent e)-> {
+            controller.showStatusDialog(tableButton, index);
+            if ("Đặt bàn".equals(tableStatusMap.get(tableButton)) || "Chọn bàn".equals(tableStatusMap.get(tableButton))) {
                 tableNo = index+"";
                 System.out.println(tableNo);
             }
@@ -114,12 +114,12 @@ public class TablePanel extends JPanel implements Observer {
     private void filterTables() {
         String selected = (String) statusFilter.getSelectedItem();
 
-        tableGrid.removeAll();
+        tableGrid.removeAll(); // Xoá hết bàn cũ
 
         for (JButton btn : tableButtons) {
             String status = tableStatusMap.get(btn);
             if ("Tất cả".equals(selected) || status.equals(selected)) {
-                tableGrid.add(btn);
+                tableGrid.add(btn); // Chỉ add lại các bàn phù hợp
             }
         }
 

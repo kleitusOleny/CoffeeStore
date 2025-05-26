@@ -277,7 +277,6 @@ public class OrderPanel extends JPanel implements Observer {
                     double finalPrice = price + (size.equals("L") ? 5000 : 0);
                     controller.addProduct(name, size, finalPrice, itemType);
                 }
-               
         });
 
         return btn;
