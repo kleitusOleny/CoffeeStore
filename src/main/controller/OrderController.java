@@ -54,7 +54,7 @@ public class OrderController implements IController {
                     product = switch (itemType) {
                         case "Cà phê đen" -> new BlackCoffee(name, size, "", 1, price);
                         case "Bạc xỉu" -> new WhiteCoffee(name, size, "", 1, price);
-                        case "Espresso" -> new Espresso(name, size, "", 1, price);
+                        case "Expresso" -> new Espresso(name, size, "", 1, price);
                         case "Americano" -> new Americano(name, size, "", 1, price);
                         case "Trà đào" -> new PeachTea(name, size, "", 1, price);
                         case "Trà sữa trân châu" -> new BubbleTea(name, size, "", 1, price);
