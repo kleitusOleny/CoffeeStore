@@ -137,7 +137,12 @@ public class PromotionManagement extends JPanel {
 
         // Gán renderer và editor cho cột cuối
         table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(table));
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(table) {
+            @Override
+            protected void performAction(int row) {
+
+            }
+        });
 
         scrollPane = new JScrollPane(table);
 
@@ -200,4 +205,9 @@ public class PromotionManagement extends JPanel {
             frame.setVisible(true);
         });
     }
+
+    public JButton getJButton1() {
+        return  jButton1;
+    }
+
 }

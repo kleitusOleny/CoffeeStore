@@ -170,4 +170,8 @@ public class EmployeeManagement extends JPanel {
     public CustomButton getTimButton() {
         return timButton;
     }
+
+    public Object getModel() {
+        return this.getModel();
+    }
 }

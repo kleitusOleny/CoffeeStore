@@ -5,7 +5,7 @@
     "noiDung": "Giảm 15%",
     "ngayBatDau": "01/06/2025",
     "ngayKetThuc": "15/06/2025",
-    "chon": false
+    "chon": true
   },
   {
     "maKM": "KM03",
@@ -29,7 +29,7 @@
     "noiDung": "Mua 1 tặng 1",
     "ngayBatDau": "20/12/2025",
     "ngayKetThuc": "25/12/2025",
-    "chon": true
+    "chon": false
   },
   {
     "maKM": "KM06",

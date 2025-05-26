@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EventObject;
 
-public class ButtonEditor extends DefaultCellEditor {
+public abstract class ButtonEditor extends DefaultCellEditor {
     private JButton button;
     private JTable table;
 
@@ -54,4 +54,6 @@ public class ButtonEditor extends DefaultCellEditor {
     public Object getCellEditorValue() {
         return "";
     }
+
+    protected abstract void performAction(int row);
 }
