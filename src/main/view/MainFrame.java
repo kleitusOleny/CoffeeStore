@@ -29,7 +29,7 @@ public class MainFrame extends JFrame implements IView{
         MainSystem mainSystem = new MainSystem();
         view = this;
         controller = new MainController(mainSystem, view);
-        setTitle("Ứng dụng quản lý");
+        setTitle("Hệ Thống Quản Lý Quán Cà Phê");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1000,700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
