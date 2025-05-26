@@ -8,6 +8,7 @@ import data.dto.FormatClient;
 import data.dto.FormatDiscount;
 import data.dto.FormatPay;
 import model.IModel;
+import model.customer_system.Customer;
 import model.customer_system.CustomerSystem;
 import model.order_system.BaseProduct;
 import model.order_system.IProduct;
@@ -25,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -83,20 +85,27 @@ public class PaymentPanel extends JPanel implements Observer {
     
     public void updateView() {
         boolean customerFound = false;
-        for (FormatClient formatClient : formatClientList) {
-            if (formatClient.isChon()) {
-                tenLabel.setText(formatClient.getHoTen());
-                sdtLabel.setText(formatClient.getSoDienThoai());
-                trangThaiLabel.setText(formatClient.getTrangThai());
-                customerFound = true;
-                break;
+        try {
+            Map<String,List<Customer>> customerMap = customerModel.getListCus();
+            List<Customer>customersList = customerMap.get(DiscountPanel.customer[3]);
+            for (Customer customer : customersList) {
+                if (customer.getNumsPhone().equals(DiscountPanel.customer[1])) {
+                    customerFound = true;
+                    tenLabel.setText(customer.getName());
+                    sdtLabel.setText(customer.getNumsPhone());
+                    trangThaiLabel.setText(customer.getType());
+                    break;
+                }
             }
+            if (!customerFound) {
+                tenLabel.setText("<<Unknown>>");
+                sdtLabel.setText("<<Unknown>>");
+                trangThaiLabel.setText("<<Unknown>>");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        if (!customerFound) {
-            tenLabel.setText("<<Unknown>>");
-            sdtLabel.setText("<<Unknown>>");
-            trangThaiLabel.setText("<<Unknown>>");
-        }
+        
         
         boolean discountFound = false;
         for (FormatDiscount formatDiscount : formatDiscountList) {
@@ -164,6 +173,7 @@ public class PaymentPanel extends JPanel implements Observer {
     }
 
     private JPanel createContentPanel() {
+        JPanel contentPanel = new JPanel();
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(255, 245, 204));
@@ -178,6 +188,7 @@ public class PaymentPanel extends JPanel implements Observer {
         contentPanel.add(Box.createVerticalStrut(20));
 
         // Dòng 1: Thông tin cá nhân
+        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setOpaque(false);
         row1.add(createBoldLabel("Tên:"));
@@ -252,7 +263,7 @@ public class PaymentPanel extends JPanel implements Observer {
         tongLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         totalPanel.add(tongLabel);
 
-        tongTienLabel = createBoldLabel("75.000đ");
+        tongTienLabel = createBoldLabel("");
         tongTienLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         totalPanel.add(tongTienLabel);
         contentPanel.add(totalPanel);
@@ -453,25 +464,15 @@ public class PaymentPanel extends JPanel implements Observer {
         historyButton.setBackgroundColor(new Color(166, 123, 91));
         historyButton.setTextColor(Color.white);
         historyButton.setBorderRadius(20);
-
-        updateButton = new CustomButton("Cập nhật");
-        updateButton.setFont(new Font("Roboto", Font.BOLD, 14));
-        updateButton.setPreferredSize(new Dimension(180, 30));
-        updateButton.setFocusPainted(false);
-        updateButton.setBackgroundColor(new Color(166, 123, 91));
-        updateButton.setTextColor(Color.white);
-        updateButton.setBorderRadius(20);
+        
 
         ImageIcon icon = new ImageIcon("src\\main\\image\\history.png");
         Image avatarImg = icon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         historyButton.setIcon(new ImageIcon(avatarImg));
-
-        historyButton.addActionListener(e -> onHistoryButtonClicked());
-        updateButton.addActionListener(e -> refreshClientInfoPanel());
+        
         // Thêm nút trực tiếp vào menu bar
         menuBar.add(historyButton);
         menuBar.add(Box.createHorizontalStrut(5));
-        menuBar.add(updateButton);
 
         return menuBar;
     }

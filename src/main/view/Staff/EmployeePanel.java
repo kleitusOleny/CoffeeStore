@@ -49,9 +49,6 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setPurchasedBtListener(e -> {
-            contentPanel.remove(discountPanel);
-            discountPanel = new DiscountPanel(new CustomerSystem());
-            contentPanel.add(discountPanel, KHUYEN_MAI);
             showPanel(KHUYEN_MAI);
             setHover(KHUYEN_MAI);
         });

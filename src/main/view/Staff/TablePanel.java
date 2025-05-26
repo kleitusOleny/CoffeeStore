@@ -32,7 +32,6 @@ public class TablePanel extends JPanel implements Observer {
 
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-        paymentPanel = new PaymentPanel();
         // Panel Trạng thái phía trên
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
@@ -103,9 +102,6 @@ public class TablePanel extends JPanel implements Observer {
                 break;
             case "Đặt bàn":
                 button.setBackground(new Color(144, 238, 144)); // xanh lá nhạt
-                int tableSelected = (int) button.getClientProperty("tableNumber");
-                System.out.println(">>> [TablePanel] tableSelected = " + tableSelected);
-                paymentPanel.setTableNumber(tableSelected);
                 break;
         }
     }
