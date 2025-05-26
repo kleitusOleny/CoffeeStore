@@ -22,7 +22,6 @@ public class PaymentController {
         
         // Gắn các sự kiện cho các nút
         view.getConfirmBtn().addActionListener(e -> handleConfirmPayment());
-//        view.getInvoiceBtn().addActionListener(e -> handleInvoice());
         view.getHistoryButton().addActionListener(e -> handleHistory());
     }
     

@@ -23,6 +23,7 @@ public class EmployeePanel extends JPanel {
     private CustomerSystem customerSystem = new CustomerSystem();
     private ReservationSystem reservationSystem = new ReservationSystem();
     private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem);
+    private DiscountPanel discountPanel = new DiscountPanel(new CustomerSystem());
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
@@ -35,7 +36,7 @@ public class EmployeePanel extends JPanel {
         // Thêm các panel con vào CardLayout
         contentPanel.add(new OrderPanel(orderSystem), DAT_MON);
         contentPanel.add(new TablePanel(new ReservationSystem()), DAT_BAN);
-        contentPanel.add(new DiscountPanel(new CustomerSystem()), KHUYEN_MAI);
+        contentPanel.add(discountPanel, KHUYEN_MAI);
         contentPanel.add(paymentPanel, THANH_TOAN);
 
         add(menuPanel, BorderLayout.WEST);
@@ -48,11 +49,15 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setPurchasedBtListener(e -> {
+            contentPanel.remove(discountPanel);
+            discountPanel = new DiscountPanel(new CustomerSystem());
+            contentPanel.add(discountPanel, KHUYEN_MAI);
             showPanel(KHUYEN_MAI);
             setHover(KHUYEN_MAI);
         });
 
         menuPanel.setNotificationBtListener(e -> {
+            
             showPanel(DAT_BAN);
             setHover(DAT_BAN);
         });

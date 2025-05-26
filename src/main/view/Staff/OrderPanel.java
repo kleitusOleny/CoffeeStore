@@ -253,32 +253,35 @@ public class OrderPanel extends JPanel implements Observer {
                 controller.addProduct(name, null, price, itemType);
                 return;
             }
-                
-                sizeM = new JRadioButton("Size M (mặc định)");
-                sizeL = new JRadioButton("Size L (+5.000đ)");
-                sizeM.setSelected(true);
-                sizeGroup = new ButtonGroup();
-                sizeGroup.add(sizeM);
-                sizeGroup.add(sizeL);
-                
-                sizePanel = new JPanel(new GridLayout(2, 1));
-                sizePanel.add(sizeM);
-                sizePanel.add(sizeL);
-                
-                int option = JOptionPane.showConfirmDialog(
-                        this,
-                        sizePanel,
-                        "Chọn size cho " + name,
-                        JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.PLAIN_MESSAGE
-                );
-                
-                if (option == JOptionPane.OK_OPTION) {
-                    String size = sizeM.isSelected() ? "M" : "L";
-                    double finalPrice = price + (size.equals("L") ? 5000 : 0);
-                    controller.addProduct(name, size, finalPrice, itemType);
-                }
-                
+            
+            if (name.contains("Trà")) {
+                hasSelectedTea = true;
+            }
+            
+            sizeM = new JRadioButton("Size M (mặc định)");
+            sizeL = new JRadioButton("Size L (+5.000đ)");
+            sizeM.setSelected(true);
+            sizeGroup = new ButtonGroup();
+            sizeGroup.add(sizeM);
+            sizeGroup.add(sizeL);
+            
+            sizePanel = new JPanel(new GridLayout(2, 1));
+            sizePanel.add(sizeM);
+            sizePanel.add(sizeL);
+            
+            int option = JOptionPane.showConfirmDialog(
+                    this,
+                    sizePanel,
+                    "Chọn size cho " + name,
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+            
+            if (option == JOptionPane.OK_OPTION) {
+                String size = sizeM.isSelected() ? "M" : "L";
+                double finalPrice = price + (size.equals("L") ? 5000 : 0);
+                controller.addProduct(name, size, finalPrice, itemType);
+            }
         });
         
         return btn;
