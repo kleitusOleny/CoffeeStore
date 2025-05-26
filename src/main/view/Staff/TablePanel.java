@@ -21,6 +21,7 @@ public class TablePanel extends JPanel implements Observer {
     private final Map<JButton, String> tableStatusMap = new HashMap<>();
     private JPanel topPanel, tableGrid;
     private JLabel statusLabel;
+
     private ReservationSystem model;
     private ReservationController controller;
     
@@ -28,10 +29,10 @@ public class TablePanel extends JPanel implements Observer {
     public TablePanel(ReservationSystem model) {
         this.model = model;
         this.model.addObserver(this);
-        
+
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
-
+        paymentPanel = new PaymentPanel();
         // Panel Trạng thái phía trên
         topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBackground(new Color(255, 245, 204));
@@ -48,6 +49,7 @@ public class TablePanel extends JPanel implements Observer {
         tableGrid.setBackground(new Color(255, 245, 204));
         
         initializeTableButtons();
+
 
         // Đặt tablePanel vào JScrollPane
         JScrollPane scrollPane = new JScrollPane(tableGrid);
@@ -101,6 +103,9 @@ public class TablePanel extends JPanel implements Observer {
                 break;
             case "Đặt bàn":
                 button.setBackground(new Color(144, 238, 144)); // xanh lá nhạt
+                int tableSelected = (int) button.getClientProperty("tableNumber");
+                System.out.println(">>> [TablePanel] tableSelected = " + tableSelected);
+                paymentPanel.setTableNumber(tableSelected);
                 break;
         }
     }
@@ -121,8 +126,10 @@ public class TablePanel extends JPanel implements Observer {
         tableGrid.revalidate();
         tableGrid.repaint();
     }
+
     
     public void updateTableStatus(int tableId, String newStatus) {
+
         for (JButton btn : tableButtons) {
             if (btn.getText().equals("Bàn " + tableId)) {
                 setStatus(btn, newStatus);
