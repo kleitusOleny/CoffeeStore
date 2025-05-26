@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class AddEmployeeDialog extends JDialog {
-
 	private CustomPanel jPanel1, jPanel2, jPanel3;
 	private CustomButton btnThem;
 	private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6,

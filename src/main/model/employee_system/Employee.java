@@ -18,7 +18,31 @@ public abstract class Employee {
         this.address = address;
         this.dayOfBirth = dayOfBirth;
     }
-    
+
+    public String getEmp_no() {
+        return emp_no;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNumsPhone() {
+        return numsPhone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Date getDayOfBirth() {
+        return dayOfBirth;
+    }
+
     //Tính Lương cho nhân viên
     public abstract double totalSalary();
     

@@ -346,4 +346,72 @@ public class MenuEditorPanel extends JPanel{
 
         return panel;
     }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public JPanel getToolbar() {
+        return toolbar;
+    }
+
+    public JPanel getSearchResultPanel() {
+        return searchResultPanel;
+    }
+
+    public JPanel getCardPanel() {
+        return cardPanel;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public JButton getCafeBtn() {
+        return cafeBtn;
+    }
+
+    public JButton getTeaBtn() {
+        return teaBtn;
+    }
+
+    public JButton getToppingBtn() {
+        return toppingBtn;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getDeleteBtn() {
+        return deleteBtn;
+    }
+
+    public JButton getDrinkBtn() {
+        return drinkBtn;
+    }
+
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    public JLabel getPriceLabel() {
+        return priceLabel;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
+
+    public List<String[][]> getDrinkData() {
+        return drinkData;
+    }
+
+    public String[] getTypes() {
+        return types;
+    }
 }

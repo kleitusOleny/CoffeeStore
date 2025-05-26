@@ -40,7 +40,7 @@ public class OrderController implements IController {
     
     public void addProduct(String name, String size, double price, String itemType) {
         IProduct product = null;
-        boolean isTopping = itemType.equals("Boba") || itemType.equals("Flan") ||
+        boolean isTopping = itemType.equals("Boba") || itemType.equals("Bánh flan") ||
                 itemType.equals("HoneyBoba") || itemType.equals("CreamCheese");
         
         String[][] drinkList = isTopping ? menu.getToppings() :
@@ -51,19 +51,15 @@ public class OrderController implements IController {
                     (!isTopping && drink[0].equals(itemType))) {
                 double basePrice = Double.parseDouble(drink[1]);
                 if (!isTopping) {
-                    if (itemType.equals("Cà phê đen")) {
-                        product = new BlackCoffee(name, size, "", 1, price);
-                    } else if (itemType.equals("Bạc xỉu")) {
-                        product = new WhiteCoffee(name, size, "", 1, price);
-                    } else if (itemType.equals("Espresso")) {
-                        product = new Espresso(name, size, "", 1, price);
-                    } else if (itemType.equals("Americano")) {
-                        product = new Americano(name, size, "", 1, price);
-                    } else if (itemType.equals("Trà đào")) {
-                        product = new PeachTea(name, size, "", 1, price);
-                    } else if (itemType.equals("Trà sữa trân châu")) {
-                        product = new BubbleTea(name, size, "", 1, price);
-                    }
+                    product = switch (itemType) {
+                        case "Cà phê đen" -> new BlackCoffee(name, size, "", 1, price);
+                        case "Bạc xỉu" -> new WhiteCoffee(name, size, "", 1, price);
+                        case "Espresso" -> new Espresso(name, size, "", 1, price);
+                        case "Americano" -> new Americano(name, size, "", 1, price);
+                        case "Trà đào" -> new PeachTea(name, size, "", 1, price);
+                        case "Trà sữa trân châu" -> new BubbleTea(name, size, "", 1, price);
+                        default -> product;
+                    };
                     orderSystem.addProductToOrder(currentOrder, product);
                     lastBaseProduct = product;
                     view.setLastBaseProduct(product);
@@ -77,23 +73,16 @@ public class OrderController implements IController {
                         view.showMessage("Vui lòng chọn một món chính (cà phê hoặc trà) trước khi thêm topping.");
                         return;
                     }
-                    switch (itemType) {
-                        case "Boba":
-                            product = new Boba(lastBaseProduct, basePrice);
-                            break;
-                        case "Flan":
-                            product = new Flan(lastBaseProduct, basePrice);
-                            break;
-                        case "HoneyBoba":
-                            product = new HoneyBoba(lastBaseProduct, basePrice);
-                            break;
-                        case "CreamCheese":
-                            product = new CreamCheese(lastBaseProduct, basePrice);
-                            break;
-                    }
+                    product = switch (itemType) {
+                        case "Boba" -> new Boba(lastBaseProduct, basePrice);
+                        case "Bánh flan" -> new Flan(lastBaseProduct, basePrice);
+                        case "HoneyBoba" -> new HoneyBoba(lastBaseProduct, basePrice);
+                        case "CreamCheese" -> new CreamCheese(lastBaseProduct, basePrice);
+                        default -> product;
+                    };
                     if (product instanceof Topping) {
                         ((Topping) product).applyToBaseProduct();
-                        view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức sau khi thêm topping
+                        view.refreshOrderItems();
                     }
                     orderSystem.notifyObservers();
                 }
@@ -109,7 +98,7 @@ public class OrderController implements IController {
     public void removeProduct(IProduct product) {
         if (product instanceof Topping) {
             ((Topping) product).removeFromBaseProduct();
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
             orderSystem.notifyObservers();
         } else {
             orderSystem.removeProductFromOrder(currentOrder, product);
@@ -117,18 +106,20 @@ public class OrderController implements IController {
                 lastBaseProduct = null;
                 view.setLastBaseProduct(null);
             }
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
         }
     }
     
     public void updateProductQuantity(IProduct product, int quantity) {
         if (product instanceof Topping) {
             ((Topping) product).updateQuantity(quantity);
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
             orderSystem.notifyObservers();
         } else {
             orderSystem.updateProductQuantity(currentOrder, product, quantity);
-            view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
+            view.refreshOrderItems();
         }
     }
+    
+    
 }

@@ -139,7 +139,7 @@ public class MainFrame extends JFrame implements IView{
     @Override
     public void updatetableStatus(int tableId, String newStatus) {
         TablePanel tablePanel = (TablePanel) mainPanel.getComponent(tableId);
-        tablePanel.updatetableStatus(tableId,newStatus);
+        tablePanel.updateTableStatus(tableId,newStatus);
 
     }
 
