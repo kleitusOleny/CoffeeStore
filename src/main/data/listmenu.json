@@ -64,5 +64,11 @@
     "name": "Cà phê sữa",
     "price": "20000",
     "sourcePicture": "src\\main\\image\\coffee.png"
+  },
+  {
+    "type": "coffee",
+    "name": "Cà phê Matcha",
+    "price": "30000",
+    "sourcePicture": "src\\main\\image\\coffee.png"
   }
 ]
