@@ -150,7 +150,7 @@ public class EmployeeManagement extends JPanel {
             String ngaySinh = emsTable.getValueAt(selectedRow, 3).toString();
             String luong = emsTable.getValueAt(selectedRow, 4).toString();
 
-            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true);
+            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
             dialog.setData(ten, ma, sdt, ngaySinh, luong);
             dialog.setVisible(true);
         }
@@ -188,4 +188,5 @@ public class EmployeeManagement extends JPanel {
     public Object getModel() {
         return this.getModel();
     }
+
 }
