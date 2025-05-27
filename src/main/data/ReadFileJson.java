@@ -248,6 +248,26 @@ public class ReadFileJson {
         }
     }
 
+    public static void editDrink(String nameVerify, String priceVerify, String nameChange, String priceChange, String sourcePictureChange){
+        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+        String path = Paths.get("src", "main", "data", "listmenu.json").toString();
+        Type listType = new TypeToken<List<FormatMenu>>() {}.getType();
+        formatMenuList = initializeGson(path, listType, gsonWithPrettyPrint);
+
+        for (FormatMenu formatMenu : formatMenuList){
+            if (formatMenu.getName().equals(nameVerify) && formatMenu.getPrice().equals(priceVerify)){
+                formatMenu.setName(nameChange);
+                formatMenu.setPrice(priceChange);
+                formatMenu.setSourcePicture(sourcePictureChange);
+            }
+        }
+        try {
+            initializeOverrideData(path, formatMenuList, gsonWithPrettyPrint);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     // --------------------------

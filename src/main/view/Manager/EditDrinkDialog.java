@@ -1,9 +1,11 @@
 package view.Manager;
 
+import data.ReadFileJson;
 import view.CustomButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class EditDrinkDialog extends javax.swing.JDialog {
     private JLabel name, priceMLabel, priceLLabel, imageLable;
@@ -11,8 +13,15 @@ public class EditDrinkDialog extends javax.swing.JDialog {
     private JLabel priceLValueLabel;
     private JPanel btnPanel;
     private CustomButton saveBtn, cancelBtn;
+
+    private String originalName;
+    private String originalPrice;
+
     public EditDrinkDialog(JFrame parent, String[] drinkInfo, Runnable refreshCallback) {
         super(parent, "Chỉnh sửa đồ uống", true);
+        this.originalName = drinkInfo[0];  // Tên gốc
+        this.originalPrice = drinkInfo[1]; // Giá gốc
+
         setSize(400, 400);
         setBackground(new Color(240, 200, 160));
         setLocationRelativeTo(null);
@@ -100,9 +109,10 @@ public class EditDrinkDialog extends javax.swing.JDialog {
         });
 
         saveBtn.addActionListener(e -> {
-            drinkInfo[0] = nameField.getText();
-            drinkInfo[1] = priceMField.getText();
-            drinkInfo[2] = (String) imageCombo.getSelectedItem();
+            String name = nameField.getText();
+            String price = priceMField.getText();
+            String image = Objects.requireNonNull(imageCombo.getSelectedItem()).toString();
+            ReadFileJson.editDrink(originalName, originalPrice, name, price, image);
             dispose();
             refreshCallback.run();
         });
