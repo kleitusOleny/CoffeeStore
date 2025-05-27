@@ -1,32 +1,32 @@
 [
   {
     "maKM": "KM02",
-    "tenKM": "Hè Rực Rỡ",
-    "noiDung": "Giảm 15%",
+    "tenKM": "Hè Mát Lạnh",
+    "noiDung": "Giảm 15% cho tất cả đồ uống lạnh",
     "ngayBatDau": "01/06/2025",
     "ngayKetThuc": "15/06/2025",
     "chon": false
   },
   {
     "maKM": "KM03",
-    "tenKM": "Mừng Quốc Khánh",
-    "noiDung": "Giảm 20% cho hóa đơn từ 500k",
+    "tenKM": "Ưu Đãi Quốc Khánh",
+    "noiDung": "Giảm 20% cho hóa đơn từ 200k",
     "ngayBatDau": "01/09/2025",
     "ngayKetThuc": "05/09/2025",
     "chon": false
   },
   {
     "maKM": "KM04",
-    "tenKM": "Back To School",
-    "noiDung": "Giảm 10% cho học sinh sinh viên",
+    "tenKM": "Back To School - Uống Là Có Quà",
+    "noiDung": "Giảm 10% cho học sinh, sinh viên khi mang thẻ",
     "ngayBatDau": "15/08/2025",
     "ngayKetThuc": "15/09/2025",
-    "chon": true
+    "chon": false
   },
   {
     "maKM": "KM05",
-    "tenKM": "Noel Siêu Ưu Đãi",
-    "noiDung": "Mua 1 tặng 1",
+    "tenKM": "Noel Ấm Áp",
+    "noiDung": "Mua 1 tặng 1 cho cà phê nóng",
     "ngayBatDau": "20/12/2025",
     "ngayKetThuc": "25/12/2025",
     "chon": false
@@ -34,57 +34,57 @@
   {
     "maKM": "KM06",
     "tenKM": "Flash Sale Tháng 7",
-    "noiDung": "Giảm 30% trong 3 ngày",
+    "noiDung": "Giảm 30% toàn menu trong 3 ngày",
     "ngayBatDau": "01/07/2025",
     "ngayKetThuc": "03/07/2025",
     "chon": false
   },
   {
     "maKM": "KM07",
-    "tenKM": "Sinh Nhật Shop",
-    "noiDung": "Voucher 50k cho đơn từ 300k",
+    "tenKM": "Mừng Sinh Nhật Quán",
+    "noiDung": "Tặng voucher 50k cho đơn từ 300k",
     "ngayBatDau": "01/11/2025",
     "ngayKetThuc": "10/11/2025",
     "chon": false
   },
   {
     "maKM": "KM08",
-    "tenKM": "Black Friday",
-    "noiDung": "Giảm 40% toàn bộ sản phẩm",
+    "tenKM": "Black Friday - Siêu Ưu Đãi",
+    "noiDung": "Giảm 40% toàn bộ đồ uống",
     "ngayBatDau": "28/11/2025",
     "ngayKetThuc": "28/11/2025",
     "chon": false
   },
   {
     "maKM": "KM09",
-    "tenKM": "Cyber Monday",
-    "noiDung": "Free ship toàn quốc",
+    "tenKM": "Cyber Monday Cafe",
+    "noiDung": "Free ship cho tất cả đơn hàng online",
     "ngayBatDau": "01/12/2025",
     "ngayKetThuc": "01/12/2025",
     "chon": false
   },
   {
     "maKM": "KM10",
-    "tenKM": "Ngày Của Mẹ",
-    "noiDung": "Tặng quà kèm cho đơn bất kỳ",
+    "tenKM": "Ngày Của Mẹ - Gửi Lời Yêu Thương",
+    "noiDung": "Tặng bánh ngọt mini cho đơn bất kỳ",
     "ngayBatDau": "11/05/2025",
     "ngayKetThuc": "11/05/2025",
     "chon": false
   },
   {
     "maKM": "KM11",
-    "tenKM": "Giảm giá ngắn hạn",
-    "noiDung": "Giảm 50% trong vòng từ 18h đến 21h",
+    "tenKM": "Happy Hour Cafe",
+    "noiDung": "Giảm 50% từ 18h đến 21h mỗi ngày",
     "ngayBatDau": "03/08/2025",
     "ngayKetThuc": "03/08/2025",
     "chon": false
   },
   {
     "maKM": "KM12",
-    "tenKM": "Hello World",
-    "noiDung": "Mua 1 ly tặng 1 topping",
+    "tenKM": "Tân Khách - Tặng Ngọt Ngào",
+    "noiDung": "Mua 1 ly tặng thêm 1 topping yêu thích",
     "ngayBatDau": "05/09/2025",
-    "ngayKetThuc": "12/09/2025",
-    "chon": false
+    "ngayKetThuc": "Vĩnh Viễn",
+    "chon": true
   }
 ]
