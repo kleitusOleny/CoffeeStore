@@ -104,7 +104,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
         jSeparator1 = new JSeparator();
 
         startDateLabel = new JLabel("Ngày vào làm(dd/mm/yyyy)");
-        startDateLabel = new JLabel("Ca làm");
+        shiftLabel = new JLabel("Ca làm");
         baseSalaryLabel = new JLabel("Lương Cơ Bản");
 
         startDateField = new CustomTextField(20);
@@ -131,7 +131,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addComponent(jSeparator1)
                         .addComponent(startDateLabel)
                         .addComponent(startDateField)
-                        .addComponent(startDateLabel)
+                        .addComponent(shiftLabel)
                         .addComponent(shiftField)
                         .addComponent(baseSalaryLabel)
                         .addComponent(baseSalaryField)
@@ -143,7 +143,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                         .addComponent(startDateLabel)
                         .addComponent(startDateField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(startDateLabel)
+                        .addComponent(shiftLabel)
                         .addComponent(shiftField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                         .addComponent(baseSalaryLabel)
                         .addComponent(baseSalaryField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
@@ -251,12 +251,16 @@ public class ChangforInforEmployeeDialog extends JDialog {
         tf.setForeground(new Color(166, 123, 91));
     }
 
-    public void setData(String ten, String ma, String sdt, String ngaySinh, String luong) {
+    public void setData(String ten, String ma, String sdt, String cccd, String diaChi, String ngaySinh, String ngayVaoLam, String caLam, String luong) {
         nameField.setText(ten);
         idField.setText(ma);
         phoneField.setText(sdt);
         dobField.setText(ngaySinh);
         baseSalaryField.setText(luong);
+        cccdField.setText(cccd);
+        addressField.setText(diaChi);
+        startDateField.setText(ngayVaoLam);
+        shiftField.setText(caLam);
     }
 
 
