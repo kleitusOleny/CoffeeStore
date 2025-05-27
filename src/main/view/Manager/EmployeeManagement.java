@@ -144,17 +144,38 @@ public class EmployeeManagement extends JPanel {
         if (selectedRow >= 0) {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            String ten = emsTable.getValueAt(selectedRow, 0).toString();
+            // Lấy mã nhân viên từ dòng đã chọn để tìm trong danh sách JSON
             String ma = emsTable.getValueAt(selectedRow, 1).toString();
-            String sdt = emsTable.getValueAt(selectedRow, 2).toString();
-            String ngaySinh = emsTable.getValueAt(selectedRow, 3).toString();
-            String luong = emsTable.getValueAt(selectedRow, 4).toString();
 
-            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true);
-            dialog.setData(ten, ma, sdt, ngaySinh, luong);
-            dialog.setVisible(true);
+            // Đọc danh sách nhân viên từ JSON
+            List<FormatEmployee> employeeList = ReadFileJson.readFileJSONForEmployee();
+
+            // Tìm đối tượng nhân viên tương ứng
+            for (FormatEmployee emp : employeeList) {
+                if (emp.getId().equals(ma)) {
+                    // Tạo và hiển thị dialog chỉnh sửa
+                    ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
+
+                    // Truyền dữ liệu đầy đủ vào dialog
+                    dialog.setData(
+                            emp.getName(),
+                            emp.getId(),
+                            emp.getPhoneNumber(),
+                            emp.getIdentifyNumber(),
+                            emp.getAddress(),
+                            emp.getBirth(),
+                            emp.getStartingDate(),
+                            emp.getShift(),
+                            emp.getSalary()
+                    );
+
+                    dialog.setVisible(true);
+                    break;
+                }
+            }
         }
     }
+
 
     private void performSearch() {
         String keyword = searchField.getText().trim().toLowerCase();
@@ -188,4 +209,5 @@ public class EmployeeManagement extends JPanel {
     public Object getModel() {
         return this.getModel();
     }
+
 }

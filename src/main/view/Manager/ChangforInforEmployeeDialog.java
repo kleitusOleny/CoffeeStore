@@ -6,20 +6,24 @@ import view.CustomPanel;
 import view.CustomTextField;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class ChangforInforEmployeeDialog extends JDialog {
 
     private CustomPanel mainPanel, personalInfoPanel, workInfoPanel;
-    private CustomButton btnTinhLuong, btnXoa;
+    private CustomButton btnCapNhat, btnXoa;
     private JLabel nameLabel, idLabel, phoneLabel, cccdLabel, addressLabel, dobLabel,
-            timekeepingStatus, startDateLabel , shiftLabel, baseSalaryLabel, jLabelTongLuong;
+            timekeepingStatus, startDateLabel, shiftLabel, baseSalaryLabel;
     private JSeparator jSeparator1;
     private CustomTextField nameField, idField, phoneField, cccdField,
             addressField, dobField, startDateField, shiftField, baseSalaryField;
+    private DefaultTableModel model;
 
-    public ChangforInforEmployeeDialog(JFrame parent, boolean modal) {
+    public ChangforInforEmployeeDialog(JFrame parent, boolean modal, DefaultTableModel model) {
         super(parent, modal);
+        this.model = model;
         initComponents();
         setLocationRelativeTo(parent);
     }
@@ -100,7 +104,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
         jSeparator1 = new JSeparator();
 
         startDateLabel = new JLabel("Ngày vào làm(dd/mm/yyyy)");
-        startDateLabel = new JLabel("Ca làm");
+        shiftLabel = new JLabel("Ca làm");
         baseSalaryLabel = new JLabel("Lương Cơ Bản");
 
         startDateField = new CustomTextField(20);
@@ -127,7 +131,7 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addComponent(jSeparator1)
                         .addComponent(startDateLabel)
                         .addComponent(startDateField)
-                        .addComponent(startDateLabel)
+                        .addComponent(shiftLabel)
                         .addComponent(shiftField)
                         .addComponent(baseSalaryLabel)
                         .addComponent(baseSalaryField)
@@ -139,24 +143,19 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                         .addComponent(startDateLabel)
                         .addComponent(startDateField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(startDateLabel)
+                        .addComponent(shiftLabel)
                         .addComponent(shiftField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                         .addComponent(baseSalaryLabel)
                         .addComponent(baseSalaryField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         );
 
-        // Thêm JLabel tổng lương
-        jLabelTongLuong = new JLabel("Tổng Lương: ...");
-        jLabelTongLuong.setFont(new Font("Roboto", Font.BOLD, 18));
-        jLabelTongLuong.setForeground(new Color(166, 123, 91));
-
         // Nút chức năng
-        btnTinhLuong = new CustomButton("Tính lương");
-        btnTinhLuong.setBackgroundColor(new Color(166, 123, 91));
-        btnTinhLuong.setForeground(Color.WHITE);
-        btnTinhLuong.setFont(new Font("Roboto", Font.BOLD, 16));
-        btnTinhLuong.setBorderRadius(20);
-        btnTinhLuong.addActionListener(this::btnTinhLuongActionPerformed);
+        btnCapNhat = new CustomButton("Cập Nhật");
+        btnCapNhat.setBackgroundColor(new Color(166, 123, 91));
+        btnCapNhat.setForeground(Color.WHITE);
+        btnCapNhat.setFont(new Font("Roboto", Font.BOLD, 16));
+        btnCapNhat.setBorderRadius(20);
+        btnCapNhat.addActionListener(this::updateEmployeeInTable);
 
         btnXoa = new CustomButton("Xoá");
         btnXoa.setBackgroundColor(Color.red);
@@ -176,9 +175,8 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addGap(50)
                         .addGroup(layout1.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(workInfoPanel)
-                                .addComponent(jLabelTongLuong)
                                 .addGroup(layout1.createSequentialGroup()
-                                        .addComponent(btnTinhLuong, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnCapNhat, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                                         .addGap(20)
                                         .addComponent(btnXoa, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
         );
@@ -189,10 +187,9 @@ public class ChangforInforEmployeeDialog extends JDialog {
                         .addGroup(layout1.createSequentialGroup()
                                 .addComponent(workInfoPanel)
                                 .addGap(20)
-                                .addComponent(jLabelTongLuong)
                                 .addGap(10)
                                 .addGroup(layout1.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnTinhLuong, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnCapNhat, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnXoa, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -212,21 +209,36 @@ public class ChangforInforEmployeeDialog extends JDialog {
         pack();
     }
 
-    private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            double luongCoBan = Double.parseDouble(baseSalaryField.getText().trim());
-            jLabelTongLuong.setText("Tổng Lương: " + String.format("%.0f", luongCoBan) + " VND");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Lương cơ bản không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    private void updateEmployeeInTable(ActionEvent actionEvent) {
+        String idEmp = idField.getText();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 1).toString().equals(idEmp)) {
+                model.setValueAt(nameField.getText(), i, 0);
+                model.setValueAt(phoneField.getText(), i, 2);
+                model.setValueAt(dobField.getText(), i, 3);
+                model.setValueAt(baseSalaryField.getText(), i, 4);
+                break;
+            }
         }
+        dispose();
+
     }
+
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá nhân viên này?", "Xác nhận xoá", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            // TODO: Xử lý xoá nhân viên
             String idEmp = idField.getText();
-            ReadFileJson.deleteEmployee(idEmp);
+            ReadFileJson.deleteEmployee(idEmp); // Xoá trong file
+
+            // Xoá trong bảng
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (model.getValueAt(i, 1).toString().equals(idEmp)) {
+                    model.removeRow(i);
+                    break;
+                }
+            }
+
             JOptionPane.showMessageDialog(this, "Xoá nhân viên thành công!");
             dispose();
         }
@@ -239,17 +251,22 @@ public class ChangforInforEmployeeDialog extends JDialog {
         tf.setForeground(new Color(166, 123, 91));
     }
 
-    public void setData(String ten, String ma, String sdt, String ngaySinh, String luong) {
+    public void setData(String ten, String ma, String sdt, String cccd, String diaChi, String ngaySinh, String ngayVaoLam, String caLam, String luong) {
         nameField.setText(ten);
         idField.setText(ma);
         phoneField.setText(sdt);
         dobField.setText(ngaySinh);
         baseSalaryField.setText(luong);
+        cccdField.setText(cccd);
+        addressField.setText(diaChi);
+        startDateField.setText(ngayVaoLam);
+        shiftField.setText(caLam);
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(null, true);
+            ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(null, true, null);
             dialog.setVisible(true);
         });
     }
