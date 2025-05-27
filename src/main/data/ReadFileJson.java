@@ -164,21 +164,6 @@ public class ReadFileJson {
         }
     }
 
-    public static void updateFormatClientFromTable(DefaultTableModel khachModel){
-        for (int i = 0; i < formatClientList.size(); i++) {
-            Object value = khachModel.getValueAt(i, 4);
-            boolean isSelected = Boolean.TRUE.equals(value);
-            formatClientList.get(i).setChon(isSelected);
-        }
-        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
-        String path = Paths.get("src", "main", "data", "client.json").toString();
-        try {
-            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
     // [DiscountPanel] && [PromotionManagement]
     public static List<FormatDiscount> readFileJSONForDiscount(){
         Gson gson = new Gson();
@@ -197,21 +182,6 @@ public class ReadFileJson {
         }
         return formatDiscountsList;
     }
-    // Phần thêm thông tin từ OrderBill sang phần thanh toán
-    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
-        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
-        String path = Paths.get("src", "main", "data", "listpay.json").toString();
-        Type listType = new TypeToken<List<FormatPay>>() {}.getType();
-        formatPayList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-        FormatPay formatPay = new FormatPay(tenMon, soLuong, gia, topping);
-        formatPayList.add(formatPay);
-        try {
-            initializeOverrideData(path, formatPayList, gsonWithPrettyPrint);
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
     // [PromotionManagement]
     public static void addDiscount(String maKM, String tenKM, String loaiKM, String ngayBatDau, String ngayHetHan){
         try {
@@ -225,22 +195,6 @@ public class ReadFileJson {
             initializeOverrideData(path, formatDiscountsList, gsonWithPrettyPrint);
         } catch (Exception exception){
             throw new RuntimeException(exception);
-        }
-    }
-
-    // [DiscountPanel]
-    public static void addClient(String ten, String sdt){
-        try {
-            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
-            String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-            FormatClient formatClient = new FormatClient(ten, sdt, "0", "Bình Thường", false);
-            formatClientList.add(formatClient);
-            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -279,45 +233,127 @@ public class ReadFileJson {
         }
     }
 
-    // [ChangeInforCustomerDialog], [DiscountPanel]
-    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
-        try {
-            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
-            String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+    public static void addDrink(String name, String price, String type, String sourcePicture){
+        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+        String path = Paths.get("src", "main", "data", "listmenu.json").toString();
+        Type listType = new TypeToken<List<FormatMenu>>() {}.getType();
+        formatMenuList = initializeGson(path, listType, gsonWithPrettyPrint);
 
-            for (FormatClient formatClient : formatClientList){
-                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) {
-                    formatClient.setHoTen(nameChange);
-                    formatClient.setSoDienThoai(phoneChange);
-                    formatClient.setDiemTichLuy(scoreChange);
-                    break;
-                }
-            }
-            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+        FormatMenu formatMenu = new FormatMenu(type, name, price, sourcePicture);
+        formatMenuList.add(formatMenu);
+        try {
+            initializeOverrideData(path, formatMenuList, gsonWithPrettyPrint);
         } catch (Exception e){
             throw new RuntimeException(e);
         }
     }
 
-    // [ChangeInforCustomerDialog]
-    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
-        try {
-            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
-            String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
-            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
 
-            for (FormatClient formatClient : formatClientList){
-                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)){
-                    formatClientList.remove(formatClient);
-                    break;
-                }
-            }
-            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+    // --------------------------
+
+
+
+    //    public static void updateFormatClientFromTable(DefaultTableModel khachModel){
+//        for (int i = 0; i < formatClientList.size(); i++) {
+//            Object value = khachModel.getValueAt(i, 4);
+//            boolean isSelected = Boolean.TRUE.equals(value);
+//            formatClientList.get(i).setChon(isSelected);
+//        }
+//        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//        String path = Paths.get("src", "main", "data", "client.json").toString();
+//        try {
+//            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
+    //    // Phần thêm thông tin từ OrderBill sang phần thanh toán
+//    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
+//        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//        String path = Paths.get("src", "main", "data", "listpay.json").toString();
+//        Type listType = new TypeToken<List<FormatPay>>() {}.getType();
+//        formatPayList = initializeGson(path, listType, gsonWithPrettyPrint);
+//
+//        FormatPay formatPay = new FormatPay(tenMon, soLuong, gia, topping);
+//        formatPayList.add(formatPay);
+//        try {
+//            initializeOverrideData(path, formatPayList, gsonWithPrettyPrint);
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    //    // [DiscountPanel]
+//    public static void addClient(String ten, String sdt){
+//        try {
+//            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//            String path = Paths.get("src", "main", "data", "client.json").toString();
+//            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+//            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+//
+//            FormatClient formatClient = new FormatClient(ten, sdt, "0", "Bình Thường", false);
+//            formatClientList.add(formatClient);
+//            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+//    // [ChangeInforCustomerDialog], [DiscountPanel]
+//    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
+//        try {
+//            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//            String path = Paths.get("src", "main", "data", "client.json").toString();
+//            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+//            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+//
+//            for (FormatClient formatClient : formatClientList){
+//                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)) {
+//                    formatClient.setHoTen(nameChange);
+//                    formatClient.setSoDienThoai(phoneChange);
+//                    formatClient.setDiemTichLuy(scoreChange);
+//                    break;
+//                }
+//            }
+//            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    // [ChangeInforCustomerDialog]
+//    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
+//        try {
+//            Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//            String path = Paths.get("src", "main", "data", "client.json").toString();
+//            Type listType = new TypeToken<List<FormatClient>>() {}.getType();
+//            formatClientList = initializeGson(path, listType, gsonWithPrettyPrint);
+//
+//            for (FormatClient formatClient : formatClientList){
+//                if (formatClient.getHoTen().equals(verifyName) && formatClient.getSoDienThoai().equals(verifyPhoneNumber)){
+//                    formatClientList.remove(formatClient);
+//                    break;
+//                }
+//            }
+//            initializeOverrideData(path, formatClientList, gsonWithPrettyPrint);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+    // Phần thêm thông tin từ OrderBill sang phần thanh toán
+//    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
+//        Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
+//        String path = Paths.get("src", "main", "data", "listpay.json").toString();
+//        Type listType = new TypeToken<List<FormatPay>>() {}.getType();
+//        formatPayList = initializeGson(path, listType, gsonWithPrettyPrint);
+//
+//        FormatPay formatPay = new FormatPay(tenMon, soLuong, gia, topping);
+//        formatPayList.add(formatPay);
+//        try {
+//            initializeOverrideData(path, formatPayList, gsonWithPrettyPrint);
+//        } catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

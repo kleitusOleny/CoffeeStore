@@ -58,5 +58,11 @@
     "name": "Bánh flan",
     "price": "7000",
     "sourcePicture": "src\\main\\image\\flan.png"
+  },
+  {
+    "type": "coffee",
+    "name": "Cà phê sữa",
+    "price": "20000",
+    "sourcePicture": "src\\main\\image\\coffee.png"
   }
 ]

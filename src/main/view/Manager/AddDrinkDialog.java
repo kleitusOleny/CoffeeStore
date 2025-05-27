@@ -1,5 +1,6 @@
 package view.Manager;
 
+import data.ReadFileJson;
 import view.CustomButton;
 
 import javax.swing.*;
@@ -58,6 +59,7 @@ public class AddDrinkDialog extends JDialog{
             String price = priceField.getText().trim();
             String type = (String) typeBox.getSelectedItem();
             String image = (String) imageBox.getSelectedItem();
+            ReadFileJson.addDrink(name, price, type, image);
 
             if (!name.isEmpty() && !price.isEmpty()) {
                 int index = switch (type) {
