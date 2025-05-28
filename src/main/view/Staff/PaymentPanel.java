@@ -99,7 +99,7 @@ public class PaymentPanel extends JPanel implements Observer {
                 trangThaiLabel.setText("<<Unknown>>");
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+        
         }
         
         
@@ -124,7 +124,6 @@ public class PaymentPanel extends JPanel implements Observer {
                 banLabel.setText("<<Unknown>>");
             }
         }catch (Exception e) {
-            System.out.println("NO_DATA");
         }
         
         // 4. Lấy danh sách món và tổng tiền từ OrderSystem

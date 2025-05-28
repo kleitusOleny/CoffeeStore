@@ -1,5 +1,6 @@
 package view;
 
+import model.employee_system.EmployeeSystem;
 import view.Manager.EmployeeManagement;
 import view.Manager.MenuEditorPanel;
 import view.Manager.PromotionManagement;
@@ -18,7 +19,7 @@ public class ManagerPanel extends JPanel {
     private JPanel contentPanel;
     private CardLayout cardLayout;
     private MainFrame mainFrame;
-
+    private EmployeeSystem employeeSystem = new EmployeeSystem();
     public ManagerPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
@@ -30,7 +31,7 @@ public class ManagerPanel extends JPanel {
 
         // Thêm các panel con vào contentPanel
         contentPanel.add(new MenuEditorPanel(), QUAN_LY_MENU);
-        contentPanel.add(new EmployeeManagement(), QUAN_LY_NV);
+        contentPanel.add(new EmployeeManagement(employeeSystem), QUAN_LY_NV);
         contentPanel.add(new PromotionManagement(), KHUYEN_MAI);
         contentPanel.add(new Statistical(), THONG_KE);
 

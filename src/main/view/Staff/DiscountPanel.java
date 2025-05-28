@@ -31,7 +31,7 @@ public class DiscountPanel extends JPanel implements Observer {
     private TableRowSorter<TableModel> sorter;
 
 //    private PaymentPanel paymentPanel;
-
+    
     private CustomButton tatCaButton;
     private CustomButton khachThuongButton;
     private CustomButton khachVIPButton;
@@ -53,10 +53,11 @@ public class DiscountPanel extends JPanel implements Observer {
     public static String[] customer = new String[4];
     private CustomerSystem model;
     private CustomerController controller;
+    
     public DiscountPanel(CustomerSystem model) {
         this.model = model;
         this.model.addObserver(this);
-        this.controller = new CustomerController(model,this);
+        this.controller = new CustomerController(model, this);
         
         setLayout(new BorderLayout());
         
@@ -140,7 +141,7 @@ public class DiscountPanel extends JPanel implements Observer {
                     
                     String ten = (String) model.getValueAt(modelRow, 0);
                     String sdt = (String) model.getValueAt(modelRow, 1);
-                    String diem = (String) model.getValueAt(modelRow, 2);
+                    String diem = (String) String.valueOf(model.getValueAt(modelRow, 2));
                     String state = (String) model.getValueAt(modelRow, 3);
                     Boolean isSelected = (Boolean) model.getValueAt(modelRow, 4);
                     
@@ -158,16 +159,11 @@ public class DiscountPanel extends JPanel implements Observer {
                     System.out.println("ten: " + ten + " sdt: " + sdt + " diem: " + diem + " state: " + state);
                     dialog1.setVisible(true);
                     if (dialog1.isDeleted()) {
-                        SwingUtilities.invokeLater(() -> {
-                            ((DefaultTableModel) khachTable.getModel()).removeRow(row);
-                        });
+                        controller.removeCustomer(sdt);
                     }
                     
                     if (dialog1.isConfirmed()) {
-                        model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
-                        model.setValueAt(dialog1.getSDT(), modelRow, 1);
-                        model.setValueAt(dialog1.getDiem(), modelRow, 2);
-                        
+                        controller.updateCustomer(sdt,dialog1.getTenKhach(),dialog1.getSDT());
                     }
                 }
             }
@@ -254,7 +250,7 @@ public class DiscountPanel extends JPanel implements Observer {
 //                apDung = button;
 //                button.addActionListener(e -> xuLyApDungKhuyenMai());
 //                break;
-            
+        
         }
         
         return button;
@@ -307,64 +303,29 @@ public class DiscountPanel extends JPanel implements Observer {
         }
         
         kmModel.setRowCount(0);
-        JOptionPane.showMessageDialog(this,notify.isEmpty() ? "Chưa chọn khách hàng nào." : notify.toString(),"Thông báo",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, notify.isEmpty() ? "Chưa chọn khách hàng nào." : notify.toString(), "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void refreshTable() {
         khachModel.setRowCount(0);
-        for (Customer customer : model.getNormalCustomers()) {
-            khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "Bình Thường", false});
-        }
-        for (Customer customer : model.getVIPCustomers()) {
-            khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "VIP", false});
-        }
-    }
-    
-    public CustomButton getTatCaButton() {
-        return tatCaButton;
-    }
-    
-    public CustomButton getKhachThuongButton() {
-        return khachThuongButton;
-    }
-    
-    public CustomButton getKhachVIPButton() {
-        return khachVIPButton;
-    }
-    
-    public CustomButton getThemKHButton() {
-        return themKHButton;
-    }
-    
-    public CustomButton getTimButton() {
-        return timButton;
-    }
-    
-    public JTextField getSearchField() {
-        return searchField;
-    }
-    
-    public JTable getKhachTable() {
-        return khachTable;
-    }
-    
-    public TableRowSorter<TableModel> getSorter() {
-        return sorter;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg instanceof CustomerStatus) {
-            CustomerStatus status = (CustomerStatus) arg;
-            switch (status.getAction()){
-                case "ADD_CUSTOMER":
-                case "REMOVE_CUSTOMER":
-                case "UPDATE_CUSTOMER":
-                    refreshTable();
-                    break;
+//        for (Customer customer : model.getNormalCustomers()) {
+//            khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "Bình Thường", false});
+//        }
+//        for (Customer customer : model.getVIPCustomers()) {
+//            khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "VIP", false});
+//        }
+        for (String key : model.getListCus().keySet()){
+            for (Customer customer: model.getListCus().get(key)){
+                if (customer.getType().equals("VIP")){
+                    khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "VIP", false});
+                }else {
+                    khachModel.addRow(new Object[]{customer.getName(), customer.getNumsPhone(), customer.pointAccumulated(), "Normal", false});
+                }
             }
         }
     }
+    
+
     
     
     // Custom renderer và editor giữ nguyên như cũ...
@@ -475,38 +436,6 @@ public class DiscountPanel extends JPanel implements Observer {
         return panel;
     }
     
-//    private void xuLyApDungKhuyenMai() {
-//        DefaultTableModel khachModel = (DefaultTableModel) khachTable.getModel();
-//        DefaultTableModel kmModel = (DefaultTableModel) kmTable.getModel();
-//
-//        int khachCount = khachModel.getRowCount();
-//        StringBuilder thongBao = new StringBuilder();
-//
-//        // Lấy danh sách khách hàng được chọn
-//        for (int i = 0; i < khachCount; i++) {
-//            boolean chonKH = (boolean) khachModel.getValueAt(i, 4);
-//            if (chonKH) {
-//                String ten = (String) khachModel.getValueAt(i, 0);
-//                String sdt = (String) khachModel.getValueAt(i, 1);
-//                String trangThai = (String) khachModel.getValueAt(i, 3);
-//                String maGiamGia = kmModel.getValueAt(i, 1) + "(" + kmModel.getValueAt(i, 2) + ")";
-//                JLabel labelTen = new JLabel(ten);
-//                JLabel labelSdt = new JLabel(sdt);
-//                JLabel labelTrangThai = new JLabel(trangThai);
-//                JLabel labelMaGiamGia = new JLabel(maGiamGia);
-//                paymentPanel.setTenLabel(labelTen);
-//                paymentPanel.setSdtLabel(labelSdt);
-//                paymentPanel.setTrangThaiLabel(labelTrangThai);
-//                paymentPanel.setGiamGiaLabel(labelMaGiamGia);
-//                thongBao.append("Áp dụng khuyến mãi cho: ").append(ten).append("\n");
-//            }
-//        }
-//
-//        JOptionPane.showMessageDialog(this,
-//                thongBao.isEmpty() ? "Chưa chọn khách hàng nào." : thongBao.toString(),
-//                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//    }
-    
     public CustomTable getKmTable() {
         return kmTable;
     }
@@ -522,8 +451,58 @@ public class DiscountPanel extends JPanel implements Observer {
     public ChangeInforCustomerDialog getDialog1() {
         return dialog1;
     }
-
+    
     public DefaultTableModel getKmModel() {
         return kmModel;
+    }
+    
+    public CustomButton getTatCaButton() {
+        return tatCaButton;
+    }
+    
+    public CustomButton getKhachThuongButton() {
+        return khachThuongButton;
+    }
+    
+    public CustomButton getKhachVIPButton() {
+        return khachVIPButton;
+    }
+    
+    public CustomButton getThemKHButton() {
+        return themKHButton;
+    }
+    
+    public CustomButton getTimButton() {
+        return timButton;
+    }
+    
+    public JTextField getSearchField() {
+        return searchField;
+    }
+    
+    public JTable getKhachTable() {
+        return khachTable;
+    }
+    
+    public TableRowSorter<TableModel> getSorter() {
+        return sorter;
+    }
+    
+    public static DefaultTableModel getKhachModel() {
+        return khachModel;
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof CustomerStatus) {
+            CustomerStatus status = (CustomerStatus) arg;
+            switch (status.getAction()) {
+                case "ADD_CUSTOMER":
+                case "REMOVE_CUSTOMER":
+                case "UPDATE_CUSTOMER":
+                    refreshTable();
+                    break;
+            }
+        }
     }
 }

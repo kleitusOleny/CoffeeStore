@@ -270,4 +270,6 @@ public class ChangforInforEmployeeDialog extends JDialog {
             dialog.setVisible(true);
         });
     }
+    
+    
 }

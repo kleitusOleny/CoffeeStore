@@ -1,7 +1,12 @@
 package view.Manager;
 
+import controller.EmployeeController;
 import data.ReadFileJson;
-import data.dto.EmployeeDTO;
+
+import data.dto.FormatEmployee;
+import model.employee_system.Employee;
+import model.employee_system.EmployeeSystem;
+
 import view.*;
 
 import javax.swing.*;
@@ -9,24 +14,37 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class EmployeeManagement extends JPanel {
+public class EmployeeManagement extends JPanel implements Observer {
 
     private CustomButton jbutThemNV;
     private CustomTable emsTable;
     private JScrollPane tableScrollPane;
 
-    private List<EmployeeDTO> employeeDTOList = ReadFileJson.readFileJSONForEmployee();
-    Object[][] employeeData = ReadFileJson.getEmployeeData();
+    private CustomButton btnAddEmployee;
+    private DefaultTableModel modelTable;
+    
+    private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
+    private Object[][] employeeData = ReadFileJson.getEmployeeData();
+    private EmployeeSystem model;
+    private EmployeeController controller;
+    private AddEmployeeDialog themNhanVienFrame;
+    
 
     private JTextField searchField;
     private CustomButton timButton;
 
-    public EmployeeManagement() {
+    public EmployeeManagement(EmployeeSystem model) {
+        this.model = model;
+        model.addObserver(this);
         setLayout(new BorderLayout());
         setBackground(new Color(254, 216, 177));
         initComponents();
+        this.controller = new EmployeeController(model,this);
     }
 
     private void initComponents() {
@@ -53,18 +71,19 @@ public class EmployeeManagement extends JPanel {
 
 
     private CustomButton createAddEmployeeButton() {
-        CustomButton button = new CustomButton("Thêm nhân viên");
-        button.setBackgroundColor(new Color(166, 123, 91));
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Roboto", Font.BOLD, 14));
+        btnAddEmployee = new CustomButton("Thêm nhân viên");
+        btnAddEmployee.setBackgroundColor(new Color(166, 123, 91));
+        btnAddEmployee.setForeground(Color.WHITE);
+        btnAddEmployee.setFont(new Font("Roboto", Font.BOLD, 14));
 //        button.setFocusPainted(false);
-        button.setBorderRadius(20);
-        button.addActionListener((ActionEvent e) -> {
+        btnAddEmployee.setBorderRadius(20);
+        btnAddEmployee.addActionListener((ActionEvent e) -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            AddEmployeeDialog themNhanVienFrame = new AddEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
+            themNhanVienFrame = new AddEmployeeDialog(parentFrame, true, modelTable);
             themNhanVienFrame.setVisible(true);
+            controller.init();
         });
-        return button;
+        return btnAddEmployee;
     }
 
     private JPanel createSearchBoxWithButton() {
@@ -105,12 +124,8 @@ public class EmployeeManagement extends JPanel {
 
     private void initEmployeeTable() {
         String[] columns = { "Tên", "Mã NV", "SĐT", "Ngày Sinh", "Lương" };
-//        Object[][] data = {
-//                { "Nguyễn Văn A", "NV01", "0909123456", "01/01/1990", "10.000.000đ" },
-//                { "Trần Thị B", "NV02", "0988123456", "15/03/1992", "12.000.000đ" },
-//        };
 
-        DefaultTableModel model = new DefaultTableModel(employeeData, columns) {
+        modelTable = new DefaultTableModel(employeeData, columns) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -119,7 +134,7 @@ public class EmployeeManagement extends JPanel {
         emsTable = new CustomTable();
         emsTable.getTableHeader().setBackground(new Color(255, 224, 178));
         emsTable.getTableHeader().setReorderingAllowed(false);
-        emsTable.setModel(model);
+        emsTable.setModel(modelTable);
         emsTable.setFont(new Font("Roboto", Font.PLAIN, 15));
 
         JTableHeader header = emsTable.getTableHeader();
@@ -206,8 +221,25 @@ public class EmployeeManagement extends JPanel {
         return timButton;
     }
 
-    public Object getModel() {
-        return this.getModel();
+    public Object getModelTable() {
+        return this.modelTable;
     }
-
+    
+    public void refreshTable() {
+        modelTable.setRowCount(0);
+        
+        for (Employee employee: model.getListEmp()){
+            modelTable.addRow(new Object[]{employee.getName(),employee.getNumsPhone(),employee.getDayOfBirth(),employee.totalSalary()});
+        }
+    }
+    
+    public AddEmployeeDialog getThemNhanVienFrame() {
+        return themNhanVienFrame;
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("updated Employee Management");
+        refreshTable();
+    }
 }

@@ -7,7 +7,7 @@ import model.employee_system.EmployeeSystem;
 import model.employee_system.Manager;
 import model.employee_system.Seller;
 import view.ButtonEditor;
-import view.IView;
+import view.Manager.AddEmployeeDialog;
 import view.Manager.EmployeeManagement;
 import view.Manager.MenuEditorPanel;
 import view.Manager.PromotionManagement;
@@ -19,38 +19,42 @@ import java.time.format.DateTimeFormatter;
 
 public class EmployeeController {
     EmployeeSystem employeeSystem;
-    IView view;
+    EmployeeManagement view;
     EmployeeManagement employeeManagementView;
     MenuEditorPanel menuEditorPanel;
     PromotionManagement promotionManagementView;
     private DefaultTableModel model;
-
-    public EmployeeController(EmployeeSystem employeeSystem, IView view) {
+    
+    public EmployeeController(EmployeeSystem employeeSystem, EmployeeManagement view) {
         this.employeeSystem = employeeSystem;
         this.view = view;
         init();
     }
 
+//    public void init() {
+//        // Khởi tạo các thành phần khung nhìn nếu chúng là một phần của IView được cung cấp
+//        if (view instanceof EmployeeManagement) {
+//            this.employeeManagementView = (EmployeeManagement) view;
+//            setupEmployeeManagementActions();
+//        } else if (view instanceof MenuEditorPanel) {
+//            this.menuEditorPanel = (MenuEditorPanel) view;
+//            //hanh dong menu da duoc xu ly trong menuEditorPanel
+//        } else if (view instanceof PromotionManagement) {
+//            this.promotionManagementView = (PromotionManagement) view;
+//            setupPromotionManagementActions();
+//        }
+//    }
+    
     public void init() {
-        // Khởi tạo các thành phần khung nhìn nếu chúng là một phần của IView được cung cấp
-        if (view instanceof EmployeeManagement) {
-            this.employeeManagementView = (EmployeeManagement) view;
-            setupEmployeeManagementActions();
-        } else if (view instanceof MenuEditorPanel) {
-            this.menuEditorPanel = (MenuEditorPanel) view;
-            //hanh dong menu da duoc xu ly trong menuEditorPanel
-        } else if (view instanceof PromotionManagement) {
-            this.promotionManagementView = (PromotionManagement) view;
-            setupPromotionManagementActions();
-        }
+//        addEmployee();
     }
-
+    
     private void setupEmployeeManagementActions() {
         // Nút "Thêm nhân viên" đã được thiết lập trong EmployeeManagement
         // Xử lý sự kiện click vào hàng để chỉnh sửa thông tin nhân viên
-        DefaultTableModel tableModel = (DefaultTableModel) employeeManagementView.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) employeeManagementView.getModelTable();
     }
-
+    
     private void setupPromotionManagementActions() {
         // Xử lý nút "Thêm khuyến mãi"
         promotionManagementView.getJButton1().addActionListener(e -> {
@@ -68,7 +72,7 @@ public class EmployeeController {
             //cap nhat bang
             model = (DefaultTableModel) promotionManagementView.getTable().getModel();
             model.addRow(new Object[]{ma, ten, loai, bd, kt});
-
+            
             // xoa cac truong nhap lieu
             promotionManagementView.getjTextField1().setText("");
             promotionManagementView.getjTextField2().setText("");
@@ -76,7 +80,7 @@ public class EmployeeController {
             promotionManagementView.getjTextField4().setText("");
             promotionManagementView.getjTextField5().setText("");
         });
-
+        
         // xu ly xoa khuyen mai
         promotionManagementView.getTable().getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(promotionManagementView.getTable()) {
             @Override
@@ -92,17 +96,54 @@ public class EmployeeController {
             }
         });
     }
-
+    
     //them nhan vien
     public void addEmployee(String ten, String ma, String sdt, String cccd, String diaChi, String ngaySinh,
                             String ngayVaoLam, String caLam, String luong) {
-        try {
-            //chueyn doi chuoi ngay sang Date
+//        try {
+//            //chueyn doi chuoi ngay sang Date
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//            Date dob = new Date(LocalDate.parse(ngaySinh, formatter));
+//
+//            // xac dinh loai nhan vien
+//            Employee employee;
+//            if (caLam != null && caLam.isEmpty()) {
+//                // Nhân viên bán hàng với ca làm và lương theo giờ
+//                int hours = parseShiftToHours(caLam);
+//                double hourlyRate = Double.parseDouble(luong) / hours;
+//                employee = new Seller(ma, ten, sdt, "", diaChi, dob, hours, hourlyRate);
+//            } else {
+//                // quan ly voi luong co dinh
+//                double salary = Double.parseDouble(luong);
+//                employee = new Manager(ma, ten, sdt, "", diaChi, dob, salary);
+//            }
+//            // them vao employeeSystem
+//            employeeSystem.addEmployee(employee);
+//            // them vao file JSON
+//            ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
+//
+//            view.addListenerToAddEmployeeButton(e ->{
+//                employeeSystem.addEmployee(employee);
+//            });
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên: " + e.getMessage(),
+//                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+//        }
+    }
+    
+    public void addEmployee() {
+        AddEmployeeDialog dialog = view.getThemNhanVienFrame();
+        dialog.addListener(e -> {
+            AddEmployeeDialog addEPanel = new AddEmployeeDialog(null, true, (DefaultTableModel) view.getModelTable());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            Date dob = new Date(LocalDate.parse(ngaySinh, formatter));
-
-            // xac dinh loai nhan vien
+            Date dob = new Date(LocalDate.parse(addEPanel.getDateOfBirthField(), formatter));
             Employee employee;
+            String caLam = addEPanel.getWorkShiftField();
+            String ma = addEPanel.getIdField();
+            String ten = addEPanel.getNameField();
+            String sdt = addEPanel.getPhoneNumberField();
+            String diaChi = addEPanel.getAddressField();
+            String luong = addEPanel.getSalaryField();
             if (caLam != null && caLam.isEmpty()) {
                 // Nhân viên bán hàng với ca làm và lương theo giờ
                 int hours = parseShiftToHours(caLam);
@@ -113,32 +154,27 @@ public class EmployeeController {
                 double salary = Double.parseDouble(luong);
                 employee = new Manager(ma, ten, sdt, "", diaChi, dob, salary);
             }
-            // them vao employeeSystem
+            System.out.println("Run");
             employeeSystem.addEmployee(employee);
-            // them vao file JSON
-            ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên: " + e.getMessage(),
-                    "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+            dialog.dispose();
+        });
     }
-
+    
     // cap nhat thong tin nhan vien
     public void updateEmployee(String ma, String ten, String sdt, String cccd, String diaChi,
                                String ngaySinh, String ngayVaoLam, String caLam, String luong) {
         try {
             // tim nhan vien trong employeeSystem
             for (Employee emp : employeeSystem.getListEmp()) {
-                if (emp.getEmp_no().equals(ma)){
+                if (emp.getEmp_no().equals(ma)) {
                     //chuyen doi ngay sinhcua nhan cien
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    Date dob = new Date(LocalDate.parse(ngaySinh,formatter));
+                    Date dob = new Date(LocalDate.parse(ngaySinh, formatter));
                     Employee updateedEmployee;
-                    if (emp.isManager()){
+                    if (emp.isManager()) {
                         double salary = Double.parseDouble(luong);
                         updateedEmployee = new Manager(ma, ten, sdt, "", diaChi, dob, salary);
-                    }else {
+                    } else {
                         int hours = parseShiftToHours(caLam);
                         double hourlyRate = Double.parseDouble(luong) / hours;
                         updateedEmployee = new Seller(ma, ten, sdt, "", diaChi, dob, hours, hourlyRate);
@@ -146,19 +182,20 @@ public class EmployeeController {
                     // xoa nhan vien cu , them nha vien moi
                     employeeSystem.removeEmployee(emp);
                     employeeSystem.addEmployee(updateedEmployee);
-
+                    
                     //cap nhat file JSON
                     ReadFileJson.deleteEmployee(ma);
                     ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
                     break;
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật nhân viên: " + e.getMessage(),
                     "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
+        
     }
+    
     // xoa nhan vien
     public void deleteEmployee(String ma) {
         try {
@@ -174,6 +211,7 @@ public class EmployeeController {
                     "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
     // Phương thức điểm danh nhân viên
     public void checkInEmployee(String employeeID) {
         for (Employee emp : employeeSystem.getListEmp()) {
@@ -183,6 +221,7 @@ public class EmployeeController {
             }
         }
     }
+    
     // tinh luong
     public double calculateSalary(String employeeID) {
         for (Employee emp : employeeSystem.getListEmp()) {
@@ -192,6 +231,7 @@ public class EmployeeController {
         }
         return 0.0;
     }
+    
     // Phương thức chuyển đổi ca làm sang số giờ
     private int parseShiftToHours(String caLam) {
         // Ví dụ: "Sáng" = 4 giờ, "Chiều" = 4 giờ, "Cả ngày" = 8 giờ
@@ -201,27 +241,27 @@ public class EmployeeController {
             default -> 8; // Mặc định 8 giờ nếu ca làm không xác định
         };
     }
-
+    
     public EmployeeSystem getEmployeeSystem() {
         return employeeSystem;
     }
 
-    public IView getView() {
-        return view;
-    }
-
+//    public IView getView() {
+//        return view;
+//    }
+    
     public EmployeeManagement getEmployeeManagementView() {
         return employeeManagementView;
     }
-
+    
     public MenuEditorPanel getMenuEditorPanel() {
         return menuEditorPanel;
     }
-
+    
     public PromotionManagement getPromotionManagementView() {
         return promotionManagementView;
     }
-
+    
     public DefaultTableModel getModel() {
         return model;
     }

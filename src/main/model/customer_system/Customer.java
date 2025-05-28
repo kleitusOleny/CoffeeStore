@@ -14,14 +14,7 @@ public abstract class Customer{
         this.idCus = idCus;
         this.numsPhone = numsPhone;
     }
-
-    public Customer(String name, String idCus, String numsPhone, Subject subject) {
-        this.name = name;
-        this.idCus = idCus;
-        this.numsPhone = numsPhone;
-        this.subject = subject;
-    }
-
+    
     @Override
     public String toString() {
         return "Customer{" +

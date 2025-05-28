@@ -26,6 +26,7 @@ public class TransactionLog {
         return transactions;
     }
 
-    public static void addTransaction(Transaction transaction) {
+    public static double stateIncome() {
+        return transactions.stream().mapToDouble(Transaction::getAmount).sum();
     }
 }

@@ -8,6 +8,7 @@ import view.CustomTextField;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class AddEmployeeDialog extends JDialog {
 
@@ -25,7 +26,7 @@ public class AddEmployeeDialog extends JDialog {
 		super(parent, modal);
 		this.tableModel = model;
 		initComponents();
-		setLocationRelativeTo(parent); // căn giữa dialog theo frame cha
+		setLocationRelativeTo(null); // căn giữa dialog theo frame cha
 	}
 
 	private void initComponents() {
@@ -168,7 +169,7 @@ public class AddEmployeeDialog extends JDialog {
 		btnThem.setForeground(Color.WHITE);
 		btnThem.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnThem.setBorderRadius(20);
-		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
+//		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
 
 		// Layout tổng thể panel 1
 		GroupLayout layout1 = new GroupLayout(dialogPanel);
@@ -238,11 +239,44 @@ public class AddEmployeeDialog extends JDialog {
 		tf.setBorderRadius(20);
 		tf.setForeground(new Color(166, 123, 91));
 	}
+	
+	public String getAddressField() {
+		return addressField.getText();
+	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-			AddEmployeeDialog dialog = new AddEmployeeDialog(null, true,null);
-			dialog.setVisible(true);
-		});
+	public String getCccdField() {
+		return cccdField.getText();
+	}
+
+	public String getDateOfBirthField() {
+		return dateOfBirthField.getText();
+	}
+
+	public String getDateStartField() {
+		return dateStartField.getText();
+	}
+
+	public String getIdField() {
+		return idField.getText();
+	}
+
+	public String getNameField() {
+		return nameField.getText();
+	}
+
+	public String getPhoneNumberField() {
+		return phoneNumberField.getText();
+	}
+
+	public String getSalaryField() {
+		return salaryField.getText();
+	}
+	
+	public String getWorkShiftField() {
+		return workShiftField.getText();
+	}
+	
+	public void addListener(ActionListener e){
+		btnThem.addActionListener(e);
 	}
 }
