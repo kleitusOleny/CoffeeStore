@@ -1,7 +1,7 @@
 package view.Staff;
 
 import data.ReadFileJson;
-import data.dto.FormatClient;
+import data.dto.TransactionHistoryDTO;
 import view.CustomTable;
 
 import javax.swing.*;
@@ -10,8 +10,8 @@ import java.awt.*;
 import java.util.List;
 
 public class TransactionHistoryDialog extends JDialog {
-    private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
-    Object[][] clientData = ReadFileJson.getKhachData();
+    private List<TransactionHistoryDTO> transactionHistoryDTOList = ReadFileJson.readFileJSONForTransactionHistory();
+    Object[][] transactionData = ReadFileJson.getTransactionData();
     public TransactionHistoryDialog(JFrame parent) {
         super(parent, "Lịch Sử Giao Dịch", true);
         setSize(900, 300);
@@ -23,7 +23,7 @@ public class TransactionHistoryDialog extends JDialog {
 
 
         CustomTable table = new CustomTable();  // Sử dụng CustomTable thay vì JTable
-        DefaultTableModel model = new DefaultTableModel(clientData, columns) {
+        DefaultTableModel model = new DefaultTableModel(transactionData, columns) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;

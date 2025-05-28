@@ -4,16 +4,14 @@ import controller.OrderController;
 import controller.PaymentController;
 import controller.ReservationController;
 import data.ReadFileJson;
-import data.dto.FormatClient;
-import data.dto.FormatDiscount;
-import data.dto.FormatPay;
-import model.IModel;
+import data.dto.ClientDTO;
+import data.dto.DiscountDTO;
+import data.dto.PayDTO;
 import model.customer_system.Customer;
 import model.customer_system.CustomerSystem;
 import model.order_system.*;
 import model.reservation_system.ReservationStatus;
 import model.reservation_system.ReservationSystem;
-import model.reservation_system.Table;
 import utils.CustomerStatus;
 import utils.OrderStatus;
 import view.*;
@@ -36,9 +34,9 @@ public class PaymentPanel extends JPanel implements Observer {
     private JLabel banLabel;
     
 
-    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
-    private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
-    private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
+    private List<PayDTO> payDTOList = ReadFileJson.readFileJSONForPay();
+    private List<ClientDTO> clientDTOList = ReadFileJson.readFileJSONForClient();
+    private List<DiscountDTO> discountDTOList = ReadFileJson.readFileJSONForDiscount();
     Object[][] payData = ReadFileJson.getPayData();
     Object[][] clientData = ReadFileJson.getKhachData();
     Object[][] discountData = ReadFileJson.getKmData();
@@ -106,9 +104,9 @@ public class PaymentPanel extends JPanel implements Observer {
         
         
         boolean discountFound = false;
-        for (FormatDiscount formatDiscount : formatDiscountList) {
-            if (formatDiscount.isChon()) {
-                giamGiaLabel.setText(formatDiscount.getTenKM() + " (" + formatDiscount.getNoiDung() + ")");
+        for (DiscountDTO discountDTO : discountDTOList) {
+            if (discountDTO.isChon()) {
+                giamGiaLabel.setText(discountDTO.getTenKM() + " (" + discountDTO.getNoiDung() + ")");
                 discountFound = true;
                 break;
             }
@@ -202,10 +200,10 @@ public class PaymentPanel extends JPanel implements Observer {
         contentPanel.add(row1);
 
         // Dòng 2: Thông tin bàn và mã giảm giá
-        for (FormatDiscount formatDiscount : formatDiscountList){
+        for (DiscountDTO discountDTO : discountDTOList){
             boolean found = false;
-            if (formatDiscount.isChon()){
-                giamGiaLabel = createBoldLabel(formatDiscount.getTenKM() + "(" + formatDiscount.getNoiDung() + ")");
+            if (discountDTO.isChon()){
+                giamGiaLabel = createBoldLabel(discountDTO.getTenKM() + "(" + discountDTO.getNoiDung() + ")");
                 found = true;
             }
         }
@@ -465,7 +463,7 @@ public class PaymentPanel extends JPanel implements Observer {
                 case "ADD_CUSTOMER":
                 case "UPDATE_CUSTOMER":
                 case "REMOVE_CUSTOMER":
-                    formatClientList = ReadFileJson.readFileJSONForClient();
+                    clientDTOList = ReadFileJson.readFileJSONForClient();
                     updateView();
                     break;
             }

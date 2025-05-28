@@ -1,9 +1,8 @@
 package view.Manager;
 
 import data.ReadFileJson;
-import data.dto.FormatMenu;
+import data.dto.MenuDTO;
 import view.CustomButton;
-import view.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +17,7 @@ public class MenuEditorPanel extends JPanel{
     private JButton cafeBtn, teaBtn, toppingBtn, addButton, deleteBtn, drinkBtn, searchButton;
     private JLabel nameLabel, priceLabel;
 
-    private List<FormatMenu> formatMenuList = ReadFileJson.readFileJSONForMenu();
+    private List<MenuDTO> menuDTOList = ReadFileJson.readFileJSONForMenu();
 
     private JTextField searchField;
 
@@ -33,13 +32,13 @@ public class MenuEditorPanel extends JPanel{
         setLayout(new BorderLayout());
         setBackground(new Color(255, 245, 204));
 
-        for (FormatMenu formatMenu : formatMenuList){
+        for (MenuDTO menuDTO : menuDTOList){
             String[] items = {
-                    formatMenu.getName(),
-                    formatMenu.getPrice(),
-                    formatMenu.getSourcePicture()
+                    menuDTO.getName(),
+                    menuDTO.getPrice(),
+                    menuDTO.getSourcePicture()
             };
-            switch (formatMenu.getType()) {
+            switch (menuDTO.getType()) {
                 case "coffee" -> coffeeList.add(items);
                 case "tea" -> teaList.add(items);
                 case "topping" -> toppingList.add(items);

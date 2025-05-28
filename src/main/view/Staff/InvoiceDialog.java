@@ -1,16 +1,15 @@
 package view.Staff;
 
 import data.ReadFileJson;
-import data.dto.FormatPay;
+import data.dto.PayDTO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
 public class InvoiceDialog extends JDialog {
-    private List<FormatPay> formatPayList = ReadFileJson.readFileJSONForPay();
+    private List<PayDTO> payDTOList = ReadFileJson.readFileJSONForPay();
     Object[][] payData = ReadFileJson.getPayData();
     public InvoiceDialog(JFrame parent) {
         super(parent, "Hóa đơn thanh toán", true);

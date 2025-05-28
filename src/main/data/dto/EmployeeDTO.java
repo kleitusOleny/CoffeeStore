@@ -1,10 +1,10 @@
 package data.dto;
 
-public class FormatEmployee {
+public class EmployeeDTO {
     private String name, id, phoneNumber, birth, salary;
     private String identifyNumber, address, startingDate, shift;
 
-    public FormatEmployee(String name, String id, String phoneNumber, String identifyNumber, String address, String birth, String startingDate, String shift, String salary) {
+    public EmployeeDTO(String name, String id, String phoneNumber, String identifyNumber, String address, String birth, String startingDate, String shift, String salary) {
         this.name = name;
         this.id = id;
         this.phoneNumber = phoneNumber;

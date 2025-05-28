@@ -2,11 +2,9 @@ package view.Staff;
 
 
 import controller.CustomerController;
-import controller.IController;
-import data.dto.FormatClient;
-import data.dto.FormatDiscount;
+import data.dto.ClientDTO;
+import data.dto.DiscountDTO;
 import data.ReadFileJson;
-import model.IModel;
 import model.customer_system.Customer;
 import model.customer_system.CustomerSystem;
 import utils.CustomerStatus;
@@ -23,8 +21,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class DiscountPanel extends JPanel implements Observer {
-    private List<FormatClient> formatClientList = ReadFileJson.readFileJSONForClient();
-    private List<FormatDiscount> formatDiscountsList = ReadFileJson.readFileJSONForDiscount();
+    private List<ClientDTO> clientDTOList = ReadFileJson.readFileJSONForClient();
+    private List<DiscountDTO> discountsListDTO = ReadFileJson.readFileJSONForDiscount();
     Object[][] kmData = ReadFileJson.getKmData();
     Object[][] khachData = ReadFileJson.getKhachData();
     public CustomTable khachTable;

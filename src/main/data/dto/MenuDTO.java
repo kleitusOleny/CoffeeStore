@@ -1,9 +1,9 @@
 package data.dto;
 
-public class FormatMenu {
+public class MenuDTO {
     private String type, name, price, sourcePicture;
 
-    public FormatMenu(String type, String name, String price, String sourcePicture) {
+    public MenuDTO(String type, String name, String price, String sourcePicture) {
         this.type = type;
         this.name = name;
         this.price = price;
