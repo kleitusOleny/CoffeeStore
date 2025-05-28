@@ -37,4 +37,9 @@ public class Date {
         String[] dateParts = date.split("/");
         return new Date(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
     }
+    
+    @Override
+    public String toString() {
+        return day + "/" + month + "/" + year;
+    }
 }

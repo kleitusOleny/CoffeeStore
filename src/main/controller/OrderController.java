@@ -2,18 +2,17 @@ package controller;
 
 import model.order_system.Menu;
 import model.order_system.*;
-import utils.OrderStatus;
 import view.Staff.OrderPanel;
 
 public class OrderController implements IController {
-    private static OrderSystem orderSystem;
+    private static OrderSystem model;
     private OrderPanel view;
     private static Order currentOrder;
     private final Menu menu;
     private IProduct lastBaseProduct;
     
     public OrderController(OrderSystem orderSystem, OrderPanel view, Menu menu) {
-        this.orderSystem = orderSystem;
+        this.model = orderSystem;
         this.view = view;
         this.menu = menu;
         this.currentOrder = new Order(null, null, null);
@@ -59,7 +58,7 @@ public class OrderController implements IController {
                         case "Trà sữa trân châu" -> new BubbleTea(name, size, "", 1, price);
                         default -> product;
                     };
-                    orderSystem.addProductToOrder(currentOrder, product);
+                    model.addProductToOrder(currentOrder, product);
                     lastBaseProduct = product;
                     view.setLastBaseProduct(product);
                     view.refreshOrderItems(); // Cập nhật giao diện ngay lập tức
@@ -83,7 +82,7 @@ public class OrderController implements IController {
                         ((Topping) product).applyToBaseProduct();
                         view.refreshOrderItems();
                     }
-                    orderSystem.notifyObservers();
+                    model.notifyObservers();
                 }
                 break;
             }
@@ -98,9 +97,9 @@ public class OrderController implements IController {
         if (product instanceof Topping) {
             ((Topping) product).removeFromBaseProduct();
             view.refreshOrderItems();
-            orderSystem.notifyObservers();
+            model.notifyObservers();
         } else {
-            orderSystem.removeProductFromOrder(currentOrder, product);
+            model.removeProductFromOrder(currentOrder, product);
             if (product == lastBaseProduct) {
                 lastBaseProduct = null;
                 view.setLastBaseProduct(null);
@@ -113,15 +112,15 @@ public class OrderController implements IController {
         if (product instanceof Topping) {
             ((Topping) product).updateQuantity(quantity);
             view.refreshOrderItems();
-            orderSystem.notifyObservers();
+            model.notifyObservers();
         } else {
-            orderSystem.updateProductQuantity(currentOrder, product, quantity);
+            model.updateProductQuantity(currentOrder, product, quantity);
             view.refreshOrderItems();
         }
     }
     
     public static void setCurrentOrder(Order order) {
-        orderSystem.addOrder(order);
+        model.addOrder(order);
         currentOrder = order;
     }
 }

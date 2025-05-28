@@ -236,7 +236,7 @@ public class DiscountPanel extends JPanel implements Observer {
                 break;
             case "khách thường":
                 khachThuongButton = button;
-                button.addActionListener(e -> filterByTrangThai("Bình Thường"));
+                button.addActionListener(e -> filterByTrangThai("Normal"));
                 break;
             case "khách vip":
                 khachVIPButton = button;
@@ -246,11 +246,6 @@ public class DiscountPanel extends JPanel implements Observer {
                 tatCaButton = button;
                 button.addActionListener(e -> filterByTrangThai(null));
                 break;
-//            case "Áp Dụng":
-//                apDung = button;
-//                button.addActionListener(e -> xuLyApDungKhuyenMai());
-//                break;
-        
         }
         
         return button;

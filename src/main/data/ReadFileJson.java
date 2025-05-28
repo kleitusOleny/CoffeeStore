@@ -1,5 +1,7 @@
 package data;
+
 import com.google.gson.Gson;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
@@ -19,38 +21,40 @@ public class ReadFileJson {
     private static List<PayDTO> payDTOList;
     private static List<MenuDTO> menuDTOList;
     private static List<TransactionHistoryDTO> transactionHistoryDTOList;
-
+    
     private static Object[][] kmData;
-    private static Object[][] khachData ;
+    private static Object[][] khachData;
     private static Object[][] employeeData;
     private static Object[][] payData;
     private static Object[][] drinkData;
     private static Object[][] transactionData;
-
+    
     public static Object[][] getKhachData() {
         return khachData;
     }
-
+    
     public static Object[][] getKmData() {
         return kmData;
     }
-
+    
     public static Object[][] getEmployeeData() {
         return employeeData;
     }
-
-    public static Object[][] getPayData(){
+    
+    public static Object[][] getPayData() {
         return payData;
     }
-
-    public static Object[][] getDrinkData(){
+    
+    public static Object[][] getDrinkData() {
         return drinkData;
     }
-
-    public static Object[][] getTransactionData(){ return transactionData; }
-
+    
+    public static Object[][] getTransactionData() {
+        return transactionData;
+    }
+    
     // Template for all methods using gson
-    private static <T> List<T> initializeGson(String path, Type typeOfT, Gson gson){
+    private static <T> List<T> initializeGson(String path, Type typeOfT, Gson gson) {
         try {
             FileReader fileReader = new FileReader(path);
             List<T> listT = gson.fromJson(fileReader, typeOfT);
@@ -60,7 +64,7 @@ public class ReadFileJson {
             throw new RuntimeException(e);
         }
     }
-
+    
     // Template plug for all methods using gson fileWriter
     private static <T> void initializeOverrideData(String path, List<T> listFormat, Gson gsonWithPrettyPrint) throws IOException {
         FileWriter fileWriter = new FileWriter(path);
@@ -68,11 +72,12 @@ public class ReadFileJson {
         fileWriter.flush();
         fileWriter.close();
     }
-
-    public static List<TransactionHistoryDTO> readFileJSONForTransactionHistory(){
+    
+    public static List<TransactionHistoryDTO> readFileJSONForTransactionHistory() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "transactionhistory.json").toString();
-        Type listType = new TypeToken<List<TransactionHistoryDTO>>(){}.getType();
+        Type listType = new TypeToken<List<TransactionHistoryDTO>>() {
+        }.getType();
         transactionHistoryDTOList = initializeGson(path, listType, gson);
         transactionData = new Object[transactionHistoryDTOList.size()][6];
         for (int i = 0; i < transactionHistoryDTOList.size(); i++) {
@@ -86,47 +91,44 @@ public class ReadFileJson {
         }
         return transactionHistoryDTOList;
     }
-
-    public static List<PayDTO> readFileJSONForPay(){
-            Gson gson = new Gson();
-            String path = Paths.get("src", "main", "data", "listpay.json").toString();
-            Type listType = new TypeToken<List<PayDTO>>() {}.getType();
-            payDTOList = initializeGson(path, listType, gson);
-            payData = new Object[payDTOList.size()][5];
-            for (int i = 0; i < payDTOList.size(); i++) {
-                PayDTO payDTO = payDTOList.get(i);
-                payData[i][0] = payDTO.getTenMon();
-                payData[i][1] = payDTO.getSoLuong();
-                payData[i][2] = payDTO.getGia();
-                payData[i][3] = payDTO.getTopping();
-            }
+    
+    public static List<PayDTO> readFileJSONForPay() {
+        Gson gson = new Gson();
+        String path = Paths.get("src", "main", "data", "listpay.json").toString();
+        Type listType = new TypeToken<List<PayDTO>>() {
+        }.getType();
+        payDTOList = initializeGson(path, listType, gson);
+        payData = new Object[payDTOList.size()][5];
+        for (int i = 0; i < payDTOList.size(); i++) {
+            PayDTO payDTO = payDTOList.get(i);
+            payData[i][0] = payDTO.getTenMon();
+            payData[i][1] = payDTO.getSoLuong();
+            payData[i][2] = payDTO.getGia();
+            payData[i][3] = payDTO.getTopping();
+        }
         return payDTOList;
     }
-
+    
     // [LoginPage]
     public static List<AccountsDTO> readFileJSONForAccount() {
         try {
             Gson gson = new Gson();
             String path = Paths.get("src", "main", "data", "listaccounts.json").toString();
-            Type listType = new TypeToken<List<AccountsDTO>>(){}.getType();
+            Type listType = new TypeToken<List<AccountsDTO>>() {
+            }.getType();
             accountsDTOList = initializeGson(path, listType, gson);
-//            for (FormatAccounts formatAccounts : formatAccountsList){
-//                System.out.println("Role: " + formatAccounts.getRole());
-//                System.out.println("Username: " + formatAccounts.getUsername());
-//                System.out.println("Password: " + formatAccounts.getPassword());
-//                System.out.println("-------------\n");
-//            }
-        } catch (Exception exception){
+        } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
         return accountsDTOList;
     }
-
+    
     // [DiscountPanel]
     public static List<ClientDTO> readFileJSONForClient() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "client.json").toString();
-        Type listType = new TypeToken<List<ClientDTO>>() {}.getType();
+        Type listType = new TypeToken<List<ClientDTO>>() {
+        }.getType();
         clientDTOList = initializeGson(path, listType, gson);
         khachData = new Object[clientDTOList.size()][5];
         for (int i = 0; i < clientDTOList.size(); i++) {
@@ -139,20 +141,22 @@ public class ReadFileJson {
         }
         return clientDTOList;
     }
-
-    public static List<MenuDTO> readFileJSONForMenu(){
+    
+    public static List<MenuDTO> readFileJSONForMenu() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "listmenu.json").toString();
-        Type listType = new TypeToken<List<MenuDTO>>() {}.getType();
+        Type listType = new TypeToken<List<MenuDTO>>() {
+        }.getType();
         menuDTOList = initializeGson(path, listType, gson);
         return menuDTOList;
     }
-
+    
     // [EmployeeManagement]
     public static List<EmployeeDTO> readFileJSONForEmployee() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "listemployee.json").toString();
-        Type listType = new TypeToken<List<EmployeeDTO>>() {}.getType();
+        Type listType = new TypeToken<List<EmployeeDTO>>() {
+        }.getType();
         employeeDTOList = initializeGson(path, listType, gson);
         employeeData = new Object[employeeDTOList.size()][5];
         for (int i = 0; i < employeeDTOList.size(); i++) {
@@ -169,8 +173,8 @@ public class ReadFileJson {
         }
         return employeeDTOList;
     }
-
-    public static void updateFormatDiscountsFromTable(DefaultTableModel kmModel){
+    
+    public static void updateFormatDiscountsFromTable(DefaultTableModel kmModel) {
         for (int i = 0; i < discountsListDTO.size(); i++) {
             // Lấy trạng thái đã tick (true/false) từ cột 5
             Object value = kmModel.getValueAt(i, 5);
@@ -181,16 +185,17 @@ public class ReadFileJson {
         String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
         try {
             initializeOverrideData(path, discountsListDTO, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
+    
     // [DiscountPanel] && [PromotionManagement]
-    public static List<DiscountDTO> readFileJSONForDiscount(){
+    public static List<DiscountDTO> readFileJSONForDiscount() {
         Gson gson = new Gson();
         String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
-        Type listType = new TypeToken<List<DiscountDTO>>() {}.getType();
+        Type listType = new TypeToken<List<DiscountDTO>>() {
+        }.getType();
         discountsListDTO = initializeGson(path, listType, gson);
         kmData = new Object[discountsListDTO.size()][6];
         for (int i = 0; i < discountsListDTO.size(); i++) {
@@ -204,30 +209,33 @@ public class ReadFileJson {
         }
         return discountsListDTO;
     }
+    
     // [PromotionManagement]
-    public static void addDiscount(String maKM, String tenKM, String loaiKM, String ngayBatDau, String ngayHetHan){
+    public static void addDiscount(String maKM, String tenKM, String loaiKM, String ngayBatDau, String ngayHetHan) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "listdiscount.json").toString();
-            Type listType = new TypeToken<List<DiscountDTO>>() {}.getType();
+            Type listType = new TypeToken<List<DiscountDTO>>() {
+            }.getType();
             discountsListDTO = initializeGson(path, listType, gsonWithPrettyPrint);
-
+            
             DiscountDTO discountDTO = new DiscountDTO(maKM, tenKM, loaiKM, ngayBatDau, ngayHetHan, false);
             discountsListDTO.add(discountDTO);
             initializeOverrideData(path, discountsListDTO, gsonWithPrettyPrint);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
     }
-
+    
     // [AddEmployeeDialog]
-    public static void addEmployee(String name, String id, String phoneNumber, String identifyNumber, String address, String birth, String startingDate, String shift, String salary){
+    public static void addEmployee(String name, String id, String phoneNumber, String identifyNumber, String address, String birth, String startingDate, String shift, String salary) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "listemployee.json").toString();
-            Type listType = new TypeToken<List<EmployeeDTO>>() {}.getType();
+            Type listType = new TypeToken<List<EmployeeDTO>>() {
+            }.getType();
             employeeDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
+            
             EmployeeDTO employeeDTO = new EmployeeDTO(name, id, phoneNumber, identifyNumber, address, birth, startingDate, shift, salary);
             employeeDTOList.add(employeeDTO);
             initializeOverrideData(path, employeeDTOList, gsonWithPrettyPrint);
@@ -235,49 +243,52 @@ public class ReadFileJson {
             throw new RuntimeException(e);
         }
     }
-
-    public static void deleteEmployee(String verifyId){
+    
+    public static void deleteEmployee(String verifyId) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "listemployee.json").toString();
-            Type listType = new TypeToken<List<EmployeeDTO>>() {}.getType();
+            Type listType = new TypeToken<List<EmployeeDTO>>() {
+            }.getType();
             employeeDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-            for (EmployeeDTO employeeDTO : employeeDTOList){
-                if (employeeDTO.getId().equals(verifyId)){
+            
+            for (EmployeeDTO employeeDTO : employeeDTOList) {
+                if (employeeDTO.getId().equals(verifyId)) {
                     employeeDTOList.remove(employeeDTO);
                     break;
                 }
             }
             initializeOverrideData(path, employeeDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-    public static void addDrink(String name, String price, String type, String sourcePicture){
+    
+    public static void addDrink(String name, String price, String type, String sourcePicture) {
         Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
         String path = Paths.get("src", "main", "data", "listmenu.json").toString();
-        Type listType = new TypeToken<List<MenuDTO>>() {}.getType();
+        Type listType = new TypeToken<List<MenuDTO>>() {
+        }.getType();
         menuDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
+        
         MenuDTO menuDTO = new MenuDTO(type, name, price, sourcePicture);
         menuDTOList.add(menuDTO);
         try {
             initializeOverrideData(path, menuDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-    public static void editDrink(String nameVerify, String priceVerify, String nameChange, String priceChange, String sourcePictureChange){
+    
+    public static void editDrink(String nameVerify, String priceVerify, String nameChange, String priceChange, String sourcePictureChange) {
         Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
         String path = Paths.get("src", "main", "data", "listmenu.json").toString();
-        Type listType = new TypeToken<List<MenuDTO>>() {}.getType();
+        Type listType = new TypeToken<List<MenuDTO>>() {
+        }.getType();
         menuDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-        for (MenuDTO menuDTO : menuDTOList){
-            if (menuDTO.getName().equals(nameVerify) && menuDTO.getPrice().equals(priceVerify)){
+        
+        for (MenuDTO menuDTO : menuDTOList) {
+            if (menuDTO.getName().equals(nameVerify) && menuDTO.getPrice().equals(priceVerify)) {
                 menuDTO.setName(nameChange);
                 menuDTO.setPrice(priceChange);
                 menuDTO.setSourcePicture(sourcePictureChange);
@@ -285,11 +296,12 @@ public class ReadFileJson {
         }
         try {
             initializeOverrideData(path, menuDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-        public static void updateFormatClientFromTable(DefaultTableModel khachModel){
+    
+    public static void updateFormatClientFromTable(DefaultTableModel khachModel) {
         for (int i = 0; i < clientDTOList.size(); i++) {
             Object value = khachModel.getValueAt(i, 4);
             boolean isSelected = Boolean.TRUE.equals(value);
@@ -299,51 +311,55 @@ public class ReadFileJson {
         String path = Paths.get("src", "main", "data", "client.json").toString();
         try {
             initializeOverrideData(path, clientDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+    
     // Phần thêm thông tin từ OrderBill sang phần thanh toán
-    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping){
+    public static void addOrderToPay(String tenMon, int soLuong, String gia, String topping) {
         Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
         String path = Paths.get("src", "main", "data", "listpay.json").toString();
-        Type listType = new TypeToken<List<PayDTO>>() {}.getType();
+        Type listType = new TypeToken<List<PayDTO>>() {
+        }.getType();
         payDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
+        
         PayDTO payDTO = new PayDTO(tenMon, soLuong, gia, topping);
         payDTOList.add(payDTO);
         try {
             initializeOverrideData(path, payDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
+    
     // [DiscountPanel]
-    public static void addClient(String ten, String sdt){
+    public static void addClient(String ten, String sdt) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<ClientDTO>>() {}.getType();
+            Type listType = new TypeToken<List<ClientDTO>>() {
+            }.getType();
             clientDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-            ClientDTO clientDTO = new ClientDTO(ten, sdt, "0", "Bình Thường", false);
+            
+            ClientDTO clientDTO = new ClientDTO(ten, sdt, "0", "Normal", false);
             clientDTOList.add(clientDTO);
             initializeOverrideData(path, clientDTOList, gsonWithPrettyPrint);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
+    
     // [ChangeInforCustomerDialog], [DiscountPanel]
-    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange){
+    public static void saveChangedClientInformation(String verifyName, String verifyPhoneNumber, String nameChange, String phoneChange, String scoreChange) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<ClientDTO>>() {}.getType();
+            Type listType = new TypeToken<List<ClientDTO>>() {
+            }.getType();
             clientDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-            for (ClientDTO clientDTO : clientDTOList){
+            
+            for (ClientDTO clientDTO : clientDTOList) {
                 if (clientDTO.getHoTen().equals(verifyName) && clientDTO.getSoDienThoai().equals(verifyPhoneNumber)) {
                     clientDTO.setHoTen(nameChange);
                     clientDTO.setSoDienThoai(phoneChange);
@@ -352,21 +368,22 @@ public class ReadFileJson {
                 }
             }
             initializeOverrideData(path, clientDTOList, gsonWithPrettyPrint);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
+    
     // [ChangeInforCustomerDialog]
-    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber){
+    public static void deteleClientInformation(String verifyName, String verifyPhoneNumber) {
         try {
             Gson gsonWithPrettyPrint = new GsonBuilder().setPrettyPrinting().create();
             String path = Paths.get("src", "main", "data", "client.json").toString();
-            Type listType = new TypeToken<List<ClientDTO>>() {}.getType();
+            Type listType = new TypeToken<List<ClientDTO>>() {
+            }.getType();
             clientDTOList = initializeGson(path, listType, gsonWithPrettyPrint);
-
-            for (ClientDTO clientDTO : clientDTOList){
-                if (clientDTO.getHoTen().equals(verifyName) && clientDTO.getSoDienThoai().equals(verifyPhoneNumber)){
+            
+            for (ClientDTO clientDTO : clientDTOList) {
+                if (clientDTO.getHoTen().equals(verifyName) && clientDTO.getSoDienThoai().equals(verifyPhoneNumber)) {
                     clientDTOList.remove(clientDTO);
                     break;
                 }

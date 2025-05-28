@@ -8,7 +8,7 @@ import view.Staff.PaymentPanel;
 
 import javax.swing.*;
 
-public class PaymentController {
+public class PaymentController implements IController{
     private PaymentPanel view;
     private CustomerSystem customerModel;
     private OrderSystem orderModel;
