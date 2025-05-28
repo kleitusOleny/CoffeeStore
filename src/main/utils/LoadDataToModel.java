@@ -1,16 +1,14 @@
 package utils;
 
 import data.ReadFileJson;
-import data.dto.AccountsDTO;
-import data.dto.ClientDTO;
-import data.dto.DiscountDTO;
-import data.dto.EmployeeDTO;
+import data.dto.*;
 import model.Date;
 import model.customer_system.Customer;
 import model.customer_system.NormalCustomer;
 import model.customer_system.VIPCustomer;
 import model.employee_system.Employee;
 import model.employee_system.Seller;
+import model.payments.Transaction;
 
 import java.util.*;
 
@@ -19,12 +17,12 @@ public final class LoadDataToModel {
     private static List<EmployeeDTO> employeesData = ReadFileJson.readFileJSONForEmployee();
     private static List<DiscountDTO> discounts = ReadFileJson.readFileJSONForDiscount();
     private static List<AccountsDTO> accounts = ReadFileJson.readFileJSONForAccount();
-    
+    private static List<TransactionHistoryDTO> transactionHistories = ReadFileJson.readFileJSONForTransactionHistory();
     
     private static Map<String,List<Customer>> customers = new HashMap<>();
     private static List<Employee> employees = new ArrayList<>();
     private static Map<String,String[]> acc = new HashMap<>();
-    
+    private static List<Transaction>trans = new ArrayList<>();
     public static void LoadCustomerDataToModel() {
         for (ClientDTO customer: clientsData){
             List<Customer> list = new ArrayList<>();
@@ -65,6 +63,17 @@ public final class LoadDataToModel {
         return acc;
     }
     
+    public static List<Transaction> loadTransactionDataToModel() {
+        for (TransactionHistoryDTO transaction: transactionHistories){
+            double amount = Double.parseDouble(transaction.getMoney().replace(".","").replace("đ",""));
+            String paymentMethod = transaction.getMethod();
+            String name = transaction.getName();
+            String phoneNumber = transaction.getPhoneNumber();
+            String date = transaction.getPaymentDate();
+            trans.add(new Transaction(amount,date,name,paymentMethod,phoneNumber));
+        }
+        return trans;
+    }
     public static Map<String, List<Customer>> getCustomers() {
         return customers;
     }

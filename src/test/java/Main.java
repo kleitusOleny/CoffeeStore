@@ -8,6 +8,7 @@ import javax.security.auth.Subject;
 
 public class Main {
     public static void main(String[] args) {
-    
+        System.out.println(TransactionLog.getTransactions());
+        System.out.println(TransactionLog.stateIncome());
     }
 }
