@@ -29,7 +29,8 @@ public class EmployeeManagement extends JPanel implements Observer {
     private DefaultTableModel modelTable;
     
     private List<EmployeeDTO> employeeDTOList = ReadFileJson.readFileJSONForEmployee();
-    Object[][] employeeData = ReadFileJson.getEmployeeData();
+    private Object[][] employeeData = ReadFileJson.getEmployeeData();
+
     private EmployeeSystem model;
     private EmployeeController controller;
     private AddEmployeeDialog themNhanVienFrame;
