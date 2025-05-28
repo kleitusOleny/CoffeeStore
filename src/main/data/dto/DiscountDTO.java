@@ -1,10 +1,10 @@
 package data.dto;
 
-public class FormatDiscount {
+public class DiscountDTO {
     private String maKM, tenKM, noiDung, ngayBatDau, ngayKetThuc;
     private boolean chon;
 
-    public FormatDiscount(String maKM, String tenKM, String noiDung, String ngayBatDau, String ngayKetThuc, boolean chon) {
+    public DiscountDTO(String maKM, String tenKM, String noiDung, String ngayBatDau, String ngayKetThuc, boolean chon) {
         this.maKM = maKM;
         this.tenKM = tenKM;
         this.noiDung = noiDung;

@@ -1,7 +1,7 @@
 package view.Manager;
 
 import data.ReadFileJson;
-import data.dto.FormatEmployee;
+import data.dto.EmployeeDTO;
 import view.*;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class EmployeeManagement extends JPanel {
     private CustomTable emsTable;
     private JScrollPane tableScrollPane;
 
-    private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
+    private List<EmployeeDTO> employeeDTOList = ReadFileJson.readFileJSONForEmployee();
     Object[][] employeeData = ReadFileJson.getEmployeeData();
 
     private JTextField searchField;
@@ -148,10 +148,10 @@ public class EmployeeManagement extends JPanel {
             String ma = emsTable.getValueAt(selectedRow, 1).toString();
 
             // Đọc danh sách nhân viên từ JSON
-            List<FormatEmployee> employeeList = ReadFileJson.readFileJSONForEmployee();
+            List<EmployeeDTO> employeeList = ReadFileJson.readFileJSONForEmployee();
 
             // Tìm đối tượng nhân viên tương ứng
-            for (FormatEmployee emp : employeeList) {
+            for (EmployeeDTO emp : employeeList) {
                 if (emp.getId().equals(ma)) {
                     // Tạo và hiển thị dialog chỉnh sửa
                     ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
@@ -183,7 +183,7 @@ public class EmployeeManagement extends JPanel {
         DefaultTableModel model = (DefaultTableModel) emsTable.getModel();
         model.setRowCount(0); // Xóa hết dữ liệu cũ
 
-        for (FormatEmployee emp : formatEmployeeList) {
+        for (EmployeeDTO emp : employeeDTOList) {
             String ten = emp.getName().toLowerCase();
             String ma = emp.getId().toLowerCase();
             String sdt = emp.getPhoneNumber().toLowerCase();

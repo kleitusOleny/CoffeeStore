@@ -2,8 +2,6 @@ package view;
 
 import controller.IController;
 import controller.LoginController;
-import data.dto.FormatAccounts;
-import data.ReadFileJson;
 import model.IModel;
 import utils.LoginHandle;
 import utils.LoginStatus;
@@ -11,7 +9,6 @@ import utils.LoginStatus;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -1,10 +1,10 @@
 package data.dto;
 
-public class FormatClient {
+public class ClientDTO {
     private String hoTen, soDienThoai, diemTichLuy, trangThai;
     private boolean chon;
 
-    public FormatClient(String hoTen, String soDienThoai, String diemTichLuy, String trangThai, boolean chon) {
+    public ClientDTO(String hoTen, String soDienThoai, String diemTichLuy, String trangThai, boolean chon) {
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
         this.diemTichLuy = diemTichLuy;

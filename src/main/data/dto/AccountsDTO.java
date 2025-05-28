@@ -1,6 +1,6 @@
 package data.dto;
 
-public class FormatAccounts {
+public class AccountsDTO {
     private String role;
     private String username;
     private String password;
