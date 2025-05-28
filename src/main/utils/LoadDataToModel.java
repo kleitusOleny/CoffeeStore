@@ -29,7 +29,7 @@ public final class LoadDataToModel {
         for (FormatClient customer: clientsData){
             List<Customer> list = new ArrayList<>();
             list = customers.getOrDefault(customer.getTrangThai(), list);
-            if (customer.getTrangThai().equals("Bình Thường")){
+            if (customer.getTrangThai().equals("Normal")){
                 list.add(new NormalCustomer(customer.getHoTen(),null,customer.getSoDienThoai()));
             }else {
                 list.add(new VIPCustomer(customer.getHoTen(),null,customer.getSoDienThoai(),Integer.parseInt(customer.getDiemTichLuy())));

@@ -13,8 +13,6 @@ public class ChangeInforCustomerDialog extends JDialog {
     private CustomTextField diemField;
     private boolean confirmed = false;
     private boolean deleted = false;
-    private String inputName;
-    private String inputPhone;
     
     public ChangeInforCustomerDialog(Frame owner) {
         super(owner, "Thông tin khách hàng", true);
@@ -70,8 +68,6 @@ public class ChangeInforCustomerDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            inputName = tenField.getText();
-            inputPhone = sdtField.getText();
             confirmed = true;
             deleted = false;
             setVisible(false);
@@ -116,6 +112,4 @@ public class ChangeInforCustomerDialog extends JDialog {
     public String getDiem() { return diemField.getText().trim(); }
     public boolean isConfirmed() { return confirmed; }
     public boolean isDeleted() { return deleted; }
-    public String getInputName() { return inputName; }
-    public String getInputPhone() { return inputPhone; }
 }

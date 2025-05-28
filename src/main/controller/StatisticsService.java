@@ -29,7 +29,7 @@ public class StatisticsService {
             LocalDate date = LocalDate.from(t.getDateTime()); // đã là LocalDate
             String key = date.format(outputFormatter); // tạo key theo tuần / tháng / năm
 
-            result.put(key, result.getOrDefault(key, 0.0) + t.getAmount());
+            result.put(key, result.getOrDefault(key, TransactionLog.stateIncome()) + t.getAmount());
         }
 
         return result;

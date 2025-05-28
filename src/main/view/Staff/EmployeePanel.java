@@ -24,7 +24,7 @@ public class EmployeePanel extends JPanel {
     private ReservationSystem reservationSystem = new ReservationSystem();
     private OrderPanel orderPanel = new OrderPanel(orderSystem);
     private PaymentPanel paymentPanel = new PaymentPanel(customerSystem,orderSystem, reservationSystem,orderPanel);
-    private DiscountPanel discountPanel = new DiscountPanel(new CustomerSystem());
+    private DiscountPanel discountPanel = new DiscountPanel(customerSystem);
     public EmployeePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());

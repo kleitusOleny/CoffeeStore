@@ -32,7 +32,7 @@ public class CustomerSystem extends Observable implements IModel {
 
     public void addCustomer(Customer customer) {
         String type = customer.getType(); // adjust according to your Customer class
-        listCus.computeIfAbsent(type, k -> new ArrayList<>()).add(customer);
+        listCus.get(type).add(customer);
         setChanged();
         notifyObservers(new CustomerStatus("ADD_CUSTOMER",customer));
     }
@@ -41,9 +41,7 @@ public class CustomerSystem extends Observable implements IModel {
         String type = customer.getType();
         List<Customer> customers = listCus.get(type);
         if (customers != null && customers.contains(customer)) {
-            if (customers.size() > 1) {
-                listCus.remove(type);
-            }
+            customers.remove(customer);
             setChanged();
             notifyObservers(new CustomerStatus("REMOVE_CUSTOMER",customer));
         }
@@ -56,8 +54,8 @@ public class CustomerSystem extends Observable implements IModel {
     }
     
     public Customer findCustomerByNumPhone(String numPhone) {
-        for (List<Customer> customers : listCus.values()) {
-            for (Customer customer : customers) {
+        for (String key : listCus.keySet()) {
+            for (Customer customer : listCus.get(key)) {
                 if (customer.getNumsPhone().equals(numPhone)) {
                     return customer;
                 }
@@ -73,5 +71,11 @@ public class CustomerSystem extends Observable implements IModel {
     
     public List<Customer> getNormalCustomers() {
         return listCus.getOrDefault("Normal", new ArrayList<>());
+    }
+    
+    public static void main(String[] args) {
+        CustomerSystem customerSystem = new CustomerSystem();
+        Customer customer = customerSystem.findCustomerByNumPhone("09846725615");
+        System.out.println(customer);
     }
 }

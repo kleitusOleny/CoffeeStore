@@ -27,7 +27,11 @@ public class EmployeeSystem extends Observable implements IModel {
 
     //Them nhan vien vao danh sach
     public void addEmployee(Employee e){
-        listEmp.add(e);
+        if (!listEmp.contains(e)) {
+            listEmp.add(e);
+        }
+        setChanged();
+        notifyObservers();
     }
     
     //Xoa nhan vien khoi danh sach
