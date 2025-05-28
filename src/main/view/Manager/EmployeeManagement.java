@@ -4,6 +4,7 @@ import controller.EmployeeController;
 import data.ReadFileJson;
 
 import data.dto.EmployeeDTO;
+import model.Date;
 import model.employee_system.Employee;
 import model.employee_system.EmployeeSystem;
 
@@ -15,6 +16,8 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,7 +36,7 @@ public class EmployeeManagement extends JPanel implements Observer {
 
     private EmployeeSystem model;
     private EmployeeController controller;
-    private AddEmployeeDialog themNhanVienFrame;
+    private AddEmployeeDialog addEPanel;
     
 
     private JTextField searchField;
@@ -80,9 +83,22 @@ public class EmployeeManagement extends JPanel implements Observer {
         btnAddEmployee.setBorderRadius(20);
         btnAddEmployee.addActionListener((ActionEvent e) -> {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            themNhanVienFrame = new AddEmployeeDialog(parentFrame, true, modelTable);
-            themNhanVienFrame.setVisible(true);
-            controller.init();
+            addEPanel = new AddEmployeeDialog(parentFrame, true, modelTable);
+            addEPanel.setVisible(true);
+            if (addEPanel.getIsAdd()){
+                String caLam = addEPanel.getWorkShiftField();
+                String name = addEPanel.getNameField();
+                String id = addEPanel.getIdField();
+                String sdt = addEPanel.getPhoneNumberField();
+                String diachi = addEPanel.getAddressField();
+                String luong = addEPanel.getSalaryField();
+                String shift = addEPanel.getWorkShiftField();
+                String startDate = addEPanel.getDateStartField();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                Date dob = new Date(LocalDate.parse(addEPanel.getDateOfBirthField(), formatter));
+                String cccd = addEPanel.getCccdField();
+                controller.addEmployee(id,name,sdt,diachi,caLam,luong,dob,shift,startDate,cccd);
+            }
         });
         return btnAddEmployee;
     }
@@ -230,12 +246,12 @@ public class EmployeeManagement extends JPanel implements Observer {
         modelTable.setRowCount(0);
         
         for (Employee employee: model.getListEmp()){
-            modelTable.addRow(new Object[]{employee.getName(),employee.getNumsPhone(),employee.getDayOfBirth(),employee.totalSalary()});
+            modelTable.addRow(new Object[]{employee.getName(),employee.getEmp_no(),employee.getNumsPhone(),employee.getDayOfBirth().toString(),employee.totalSalary()});
         }
     }
     
-    public AddEmployeeDialog getThemNhanVienFrame() {
-        return themNhanVienFrame;
+    public AddEmployeeDialog getAddEPanel() {
+        return addEPanel;
     }
     
     @Override

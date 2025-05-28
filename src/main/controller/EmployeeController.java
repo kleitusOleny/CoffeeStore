@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class EmployeeController {
+public class EmployeeController implements IController {
     EmployeeSystem employeeSystem;
     EmployeeManagement view;
     EmployeeManagement employeeManagementView;
@@ -131,33 +131,21 @@ public class EmployeeController {
 //        }
     }
     
-    public void addEmployee() {
-        AddEmployeeDialog dialog = view.getThemNhanVienFrame();
-        dialog.addListener(e -> {
-            AddEmployeeDialog addEPanel = new AddEmployeeDialog(null, true, (DefaultTableModel) view.getModelTable());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            Date dob = new Date(LocalDate.parse(addEPanel.getDateOfBirthField(), formatter));
-            Employee employee;
-            String caLam = addEPanel.getWorkShiftField();
-            String ma = addEPanel.getIdField();
-            String ten = addEPanel.getNameField();
-            String sdt = addEPanel.getPhoneNumberField();
-            String diaChi = addEPanel.getAddressField();
-            String luong = addEPanel.getSalaryField();
-            if (caLam != null && caLam.isEmpty()) {
-                // Nhân viên bán hàng với ca làm và lương theo giờ
-                int hours = parseShiftToHours(caLam);
-                double hourlyRate = Double.parseDouble(luong) / hours;
-                employee = new Seller(ma, ten, sdt, "", diaChi, dob, hours, hourlyRate);
-            } else {
-                // quan ly voi luong co dinh
-                double salary = Double.parseDouble(luong);
-                employee = new Manager(ma, ten, sdt, "", diaChi, dob, salary);
-            }
-            System.out.println("Run");
-            employeeSystem.addEmployee(employee);
-            dialog.dispose();
-        });
+    public void addEmployee(String ma,String ten, String sdt, String diaChi, String caLam, String luong, Date dob, String shift,String startDate,String cccd) {
+        Employee employee;
+        if (caLam != null && caLam.isEmpty()) {
+            // Nhân viên bán hàng với ca làm và lương theo giờ
+            int hours = parseShiftToHours(caLam);
+            double hourlyRate = Double.parseDouble(luong) / hours;
+            employee = new Seller(ma, ten, sdt, "", diaChi, dob, hours, hourlyRate);
+        } else {
+            // quan ly voi luong co dinh
+            double salary = Double.parseDouble(luong);
+            employee = new Manager(ma, ten, sdt, "", diaChi, dob, salary);
+        }
+        System.out.println("RUN");
+        employeeSystem.addEmployee(employee);
+        ReadFileJson.addEmployee(ten,ma,sdt,cccd,diaChi,dob.toString(),startDate,shift,luong);
     }
     
     // cap nhat thong tin nhan vien

@@ -21,7 +21,7 @@ public class AddEmployeeDialog extends JDialog {
 	private CustomTextField nameField, idField, phoneNumberField, cccdField,
 			addressField, dateOfBirthField, dateStartField, workShiftField, salaryField;
 	private DefaultTableModel tableModel;
-
+	private boolean isAdd = false;
 	public AddEmployeeDialog(JFrame parent, boolean modal, DefaultTableModel model) {
 		super(parent, modal);
 		this.tableModel = model;
@@ -169,7 +169,7 @@ public class AddEmployeeDialog extends JDialog {
 		btnThem.setForeground(Color.WHITE);
 		btnThem.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnThem.setBorderRadius(20);
-//		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
+		btnThem.addActionListener(evt -> btnThemActionPerformed(evt));
 
 		// Layout tổng thể panel 1
 		GroupLayout layout1 = new GroupLayout(dialogPanel);
@@ -224,10 +224,10 @@ public class AddEmployeeDialog extends JDialog {
 		String ngayVaoLam = dateStartField.getText();
 		String caLam = workShiftField.getText();
 		String luong = salaryField.getText();
-		ReadFileJson.addEmployee(ten, ma, sdt, cccd, diaChi, ngaySinh, ngayVaoLam, caLam, luong);
+		isAdd = true;
 
 		// Thêm dòng vào model
-		tableModel.addRow(new Object[]{ten, ma, sdt, ngaySinh, luong, cccd, ngayVaoLam, caLam, diaChi});
+//		tableModel.addRow(new Object[]{ten, ma, sdt, ngaySinh, luong, cccd, ngayVaoLam, caLam, diaChi});
 
 		JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
 		dispose();
@@ -275,8 +275,7 @@ public class AddEmployeeDialog extends JDialog {
 	public String getWorkShiftField() {
 		return workShiftField.getText();
 	}
-	
-	public void addListener(ActionListener e){
-		btnThem.addActionListener(e);
+	public boolean getIsAdd(){
+		return isAdd;
 	}
 }

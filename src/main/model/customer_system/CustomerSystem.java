@@ -40,11 +40,9 @@ public class CustomerSystem extends Observable implements IModel {
     public void removeCustomer(Customer customer) {
         String type = customer.getType();
         List<Customer> customers = listCus.get(type);
-        if (customers != null && customers.contains(customer)) {
             customers.remove(customer);
             setChanged();
             notifyObservers(new CustomerStatus("REMOVE_CUSTOMER",customer));
-        }
     }
     
     public void updateCustomer(Customer customer,String newName, String newPhone) {
