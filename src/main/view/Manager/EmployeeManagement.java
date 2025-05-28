@@ -2,9 +2,11 @@ package view.Manager;
 
 import controller.EmployeeController;
 import data.ReadFileJson;
+
 import data.dto.FormatEmployee;
 import model.employee_system.Employee;
 import model.employee_system.EmployeeSystem;
+
 import view.*;
 
 import javax.swing.*;
@@ -22,6 +24,7 @@ public class EmployeeManagement extends JPanel implements Observer {
     private CustomButton jbutThemNV;
     private CustomTable emsTable;
     private JScrollPane tableScrollPane;
+
     private CustomButton btnAddEmployee;
     private DefaultTableModel modelTable;
     
@@ -31,6 +34,7 @@ public class EmployeeManagement extends JPanel implements Observer {
     private EmployeeController controller;
     private AddEmployeeDialog themNhanVienFrame;
     
+
     private JTextField searchField;
     private CustomButton timButton;
 
@@ -159,10 +163,10 @@ public class EmployeeManagement extends JPanel implements Observer {
             String ma = emsTable.getValueAt(selectedRow, 1).toString();
 
             // Đọc danh sách nhân viên từ JSON
-            List<FormatEmployee> employeeList = ReadFileJson.readFileJSONForEmployee();
+            List<EmployeeDTO> employeeList = ReadFileJson.readFileJSONForEmployee();
 
             // Tìm đối tượng nhân viên tương ứng
-            for (FormatEmployee emp : employeeList) {
+            for (EmployeeDTO emp : employeeList) {
                 if (emp.getId().equals(ma)) {
                     // Tạo và hiển thị dialog chỉnh sửa
                     ChangforInforEmployeeDialog dialog = new ChangforInforEmployeeDialog(parentFrame, true, (DefaultTableModel) emsTable.getModel());
@@ -194,7 +198,7 @@ public class EmployeeManagement extends JPanel implements Observer {
         DefaultTableModel model = (DefaultTableModel) emsTable.getModel();
         model.setRowCount(0); // Xóa hết dữ liệu cũ
 
-        for (FormatEmployee emp : formatEmployeeList) {
+        for (EmployeeDTO emp : employeeDTOList) {
             String ten = emp.getName().toLowerCase();
             String ma = emp.getId().toLowerCase();
             String sdt = emp.getPhoneNumber().toLowerCase();

@@ -1,7 +1,7 @@
 package view.Manager;
 
 import data.ReadFileJson;
-import data.dto.FormatDiscount;
+import data.dto.DiscountDTO;
 import view.*;
 
 import javax.swing.*;
@@ -21,7 +21,7 @@ public class PromotionManagement extends JPanel {
     private JScrollPane scrollPane;
     private CustomTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5;
 
-    private List<FormatDiscount> formatDiscountList = ReadFileJson.readFileJSONForDiscount();
+    private List<DiscountDTO> discountDTOList = ReadFileJson.readFileJSONForDiscount();
     Object[][] kmData = ReadFileJson.getKmData();
 
     public PromotionManagement() {
@@ -290,8 +290,8 @@ public class PromotionManagement extends JPanel {
         return jTextField5;
     }
 
-    public List<FormatDiscount> getFormatDiscountList() {
-        return formatDiscountList;
+    public List<DiscountDTO> getFormatDiscountList() {
+        return discountDTOList;
     }
 
     public Object[][] getKmData() {

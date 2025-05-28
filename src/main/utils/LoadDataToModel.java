@@ -1,10 +1,10 @@
 package utils;
 
 import data.ReadFileJson;
-import data.dto.FormatAccounts;
-import data.dto.FormatClient;
-import data.dto.FormatDiscount;
-import data.dto.FormatEmployee;
+import data.dto.AccountsDTO;
+import data.dto.ClientDTO;
+import data.dto.DiscountDTO;
+import data.dto.EmployeeDTO;
 import model.Date;
 import model.customer_system.Customer;
 import model.customer_system.NormalCustomer;
@@ -15,10 +15,10 @@ import model.employee_system.Seller;
 import java.util.*;
 
 public final class LoadDataToModel {
-    private static List<FormatClient> clientsData = ReadFileJson.readFileJSONForClient();
-    private static List<FormatEmployee> employeesData = ReadFileJson.readFileJSONForEmployee();
-    private static List<FormatDiscount> discounts = ReadFileJson.readFileJSONForDiscount();
-    private static List<FormatAccounts> accounts = ReadFileJson.readFileJSONForAccount();
+    private static List<ClientDTO> clientsData = ReadFileJson.readFileJSONForClient();
+    private static List<EmployeeDTO> employeesData = ReadFileJson.readFileJSONForEmployee();
+    private static List<DiscountDTO> discounts = ReadFileJson.readFileJSONForDiscount();
+    private static List<AccountsDTO> accounts = ReadFileJson.readFileJSONForAccount();
     
     
     private static Map<String,List<Customer>> customers = new HashMap<>();
@@ -26,7 +26,7 @@ public final class LoadDataToModel {
     private static Map<String,String[]> acc = new HashMap<>();
     
     public static void LoadCustomerDataToModel() {
-        for (FormatClient customer: clientsData){
+        for (ClientDTO customer: clientsData){
             List<Customer> list = new ArrayList<>();
             list = customers.getOrDefault(customer.getTrangThai(), list);
             if (customer.getTrangThai().equals("Normal")){
@@ -39,7 +39,7 @@ public final class LoadDataToModel {
     }
     
     public static void LoadEmployeeDataToModel() {
-        for (FormatEmployee employee: employeesData){
+        for (EmployeeDTO employee: employeesData){
             String id = employee.getId();
             String name = employee.getName();
             String phone = employee.getPhoneNumber();
@@ -52,7 +52,7 @@ public final class LoadDataToModel {
     }
     
     public static Map<String, String[]> loadAccountDataToModel() {
-        for (FormatAccounts account: accounts){
+        for (AccountsDTO account: accounts){
             String role = "";
             if (account.getRole().equals("Manager")){
                 role += 1;

@@ -1,22 +1,22 @@
 package model.order_system;
 
 import data.ReadFileJson;
-import data.dto.FormatMenu;
+import data.dto.MenuDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-    private List<FormatMenu> formatMenuList = ReadFileJson.readFileJSONForMenu();
+    private List<MenuDTO> menuDTOList = ReadFileJson.readFileJSONForMenu();
 
     private String[][] checkDrinkByType(String typeDrink) {
         List<String[]> listResult = new ArrayList<>();
-        for (FormatMenu formatMenu : formatMenuList) {
-            if (formatMenu.getType().equals(typeDrink)) {
+        for (MenuDTO menuDTO : menuDTOList) {
+            if (menuDTO.getType().equals(typeDrink)) {
                 listResult.add(new String[]{
-                        formatMenu.getName(),
-                        formatMenu.getPrice(),
-                        formatMenu.getSourcePicture()
+                        menuDTO.getName(),
+                        menuDTO.getPrice(),
+                        menuDTO.getSourcePicture()
                 });
             }
         }

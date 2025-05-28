@@ -1,11 +1,11 @@
 package data.dto;
 
-public class FormatPay {
+public class PayDTO {
     private String tenMon, topping;
     private int soLuong;
     private String gia;
 
-    public FormatPay(String tenMon, int soLuong, String gia, String topping) {
+    public PayDTO(String tenMon, int soLuong, String gia, String topping) {
         this.tenMon = tenMon;
         this.soLuong = soLuong;
         this.gia = gia;
