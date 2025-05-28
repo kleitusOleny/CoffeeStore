@@ -1,72 +1,72 @@
 [
   {
     "name": "Huỳnh Thị Phúc",
-    "phoneNumber": "0032944544",
+    "phoneNumber": "032944544",
     "money": "40.000đ",
     "method": "Thẻ tín dụng",
-    "paymentDate": "28/5/2025"
+    "paymentDate": "28/05/2025"
   },
   {
     "name": "Vũ Thị Phúc",
     "phoneNumber": "0427864948",
     "money": "25.000đ",
     "method": "Tiền mặt",
-    "paymentDate": "24/5/2025"
+    "paymentDate": "24/05/2025"
   },
   {
     "name": "Đặng Thị Linh",
-    "phoneNumber": "0054553981",
+    "phoneNumber": "054553981",
     "money": "78.500đ",
     "method": "Thẻ tín dụng",
-    "paymentDate": "25/5/2025"
+    "paymentDate": "25/05/2025"
   },
   {
     "name": "Huỳnh Ngọc Dương",
-    "phoneNumber": "0071769604",
+    "phoneNumber": "071769604",
     "money": "28.000đ",
     "method": "Thẻ tín dụng",
-    "paymentDate": "25/5/2025"
+    "paymentDate": "25/05/2025"
   },
   {
     "name": "Đặng Dương",
     "phoneNumber": "0449393869",
     "money": "24.500đ",
     "method": "Tiền mặt",
-    "paymentDate": "25/5/2025"
+    "paymentDate": "25/05/2025"
   },
   {
     "name": "Nguyễn Văn Linh",
     "phoneNumber": "0613786466",
     "money": "22.000đ",
     "method": "Tiền mặt",
-    "paymentDate": "22/5/2025"
+    "paymentDate": "22/05/2025"
   },
   {
     "name": "Lê Phúc",
-    "phoneNumber": "0027900335",
+    "phoneNumber": "027900335",
     "money": "30.000đ",
     "method": "Thẻ tín dụng",
-    "paymentDate": "25/5/2025"
+    "paymentDate": "25/05/2025"
   },
   {
     "name": "Đặng Văn Phúc",
     "phoneNumber": "0789161387",
     "money": "40.000đ",
     "method": "Tiền mặt",
-    "paymentDate": "20/5/2025"
+    "paymentDate": "20/05/2025"
   },
   {
     "name": "Vũ Anh Bình",
     "phoneNumber": "0930013234",
     "money": "75.000đ",
     "method": "Tiền mặt",
-    "paymentDate": "26/5/2025"
+    "paymentDate": "26/05/2025"
   },
   {
     "name": "Lê Hồng Hùng",
     "phoneNumber": "0742091878",
     "money": "60.000đ",
     "method": "Chuyển khoản",
-    "paymentDate": "28/5/2025"
+    "paymentDate": "28/05/2025"
   }
 ]

@@ -1,10 +1,12 @@
 package model.payments;
 
+import utils.LoadDataToModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionLog {
-    private static   List<Transaction> transactions = new ArrayList<>();
+    private static   List<Transaction> transactions = LoadDataToModel.loadTransactionDataToModel();
     public static void log(Transaction transaction) {
         transactions.add(transaction);
     }

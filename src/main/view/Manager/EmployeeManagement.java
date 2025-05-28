@@ -3,7 +3,7 @@ package view.Manager;
 import controller.EmployeeController;
 import data.ReadFileJson;
 
-import data.dto.FormatEmployee;
+import data.dto.EmployeeDTO;
 import model.employee_system.Employee;
 import model.employee_system.EmployeeSystem;
 
@@ -28,8 +28,8 @@ public class EmployeeManagement extends JPanel implements Observer {
     private CustomButton btnAddEmployee;
     private DefaultTableModel modelTable;
     
-    private List<FormatEmployee> formatEmployeeList = ReadFileJson.readFileJSONForEmployee();
-    private Object[][] employeeData = ReadFileJson.getEmployeeData();
+    private List<EmployeeDTO> employeeDTOList = ReadFileJson.readFileJSONForEmployee();
+    Object[][] employeeData = ReadFileJson.getEmployeeData();
     private EmployeeSystem model;
     private EmployeeController controller;
     private AddEmployeeDialog themNhanVienFrame;
