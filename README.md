@@ -15,3 +15,6 @@ cách tạo branch:
 cách đặt tên git:
 ```<tên package>/<tên lớp>/<Tên vấn đề xử lí>```
 
+Cách dùng:
+```mark src/main as sourceroot```
+```Chạy RunApplication để mở App```
