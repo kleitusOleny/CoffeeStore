@@ -108,11 +108,6 @@ public class DiscountPanel extends JPanel implements Observer {
                 return column == 4;
             }
         };
-//        khachModel.addTableModelListener(e -> {
-//            if (e.getColumn() == 4) {
-//                ReadFileJson.updateFormatClientFromTable(khachModel);
-//            }
-//        });
         khachTable = new CustomTable();
         khachTable.setModel(khachModel);
         khachTable.setRowHeight(30);
@@ -159,11 +154,15 @@ public class DiscountPanel extends JPanel implements Observer {
                     System.out.println("ten: " + ten + " sdt: " + sdt + " diem: " + diem + " state: " + state);
                     dialog1.setVisible(true);
                     if (dialog1.isDeleted()) {
-                        controller.removeCustomer(sdt);
+                        SwingUtilities.invokeLater(() -> {
+                            ((DefaultTableModel) khachTable.getModel()).removeRow(row);
+                        });
                     }
                     
                     if (dialog1.isConfirmed()) {
-                        controller.updateCustomer(sdt,dialog1.getTenKhach(),dialog1.getSDT());
+                        model.setValueAt(dialog1.getTenKhach(), modelRow, 0);
+                        model.setValueAt(dialog1.getSDT(), modelRow, 1);
+                        model.setValueAt(dialog1.getDiem(), modelRow, 2);
                     }
                 }
             }

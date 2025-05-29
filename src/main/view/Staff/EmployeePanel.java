@@ -61,8 +61,6 @@ public class EmployeePanel extends JPanel {
         });
 
         menuPanel.setChangeInfoBtListener(e -> {
-            showPanel(THANH_TOAN);
-            setHover(THANH_TOAN);
             contentPanel.remove(paymentPanel);
             paymentPanel = new PaymentPanel(customerSystem,orderSystem,reservationSystem,orderPanel); // Tạo lại PaymentPanel
             contentPanel.add(paymentPanel, THANH_TOAN);

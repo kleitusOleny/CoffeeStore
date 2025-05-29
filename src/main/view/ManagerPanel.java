@@ -5,6 +5,7 @@ import view.Manager.EmployeeManagement;
 import view.Manager.MenuEditorPanel;
 import view.Manager.PromotionManagement;
 import view.Manager.Statistical;
+import view.Staff.PaymentPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class ManagerPanel extends JPanel {
     private CardLayout cardLayout;
     private MainFrame mainFrame;
     private EmployeeSystem employeeSystem = new EmployeeSystem();
+    private MenuEditorPanel menuEditorPanel = new MenuEditorPanel();
     public ManagerPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
@@ -30,7 +32,7 @@ public class ManagerPanel extends JPanel {
         contentPanel.setLayout(cardLayout);
 
         // Thêm các panel con vào contentPanel
-        contentPanel.add(new MenuEditorPanel(), QUAN_LY_MENU);
+        contentPanel.add(menuEditorPanel, QUAN_LY_MENU);
         contentPanel.add(new EmployeeManagement(employeeSystem), QUAN_LY_NV);
         contentPanel.add(new PromotionManagement(), KHUYEN_MAI);
         contentPanel.add(new Statistical(), THONG_KE);
@@ -51,6 +53,9 @@ public class ManagerPanel extends JPanel {
     }
 
     private void handleShowMenuPanel() {
+        contentPanel.remove(menuEditorPanel);
+        menuEditorPanel = new MenuEditorPanel(); // Tạo lại PaymentPanel
+        contentPanel.add(menuEditorPanel, QUAN_LY_MENU);
         showPanel(QUAN_LY_MENU);
         setHover(QUAN_LY_MENU);
     }
