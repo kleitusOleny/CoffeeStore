@@ -18,5 +18,16 @@
     "salary": "12.000.000đ",
     "startingDate": "22/09/2020",
     "shift": "6h30 - 11h30"
+  },
+  {
+    "name": "ABC",
+    "id": "NV01",
+    "phoneNumber": "21312398",
+    "birth": "22/9/2005",
+    "salary": "123",
+    "identifyNumber": "1231239",
+    "address": "HCM",
+    "startingDate": "22/09/2005",
+    "shift": "12"
   }
 ]

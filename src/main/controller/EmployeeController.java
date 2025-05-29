@@ -28,25 +28,6 @@ public class EmployeeController implements IController {
     public EmployeeController(EmployeeSystem employeeSystem, EmployeeManagement view) {
         this.employeeSystem = employeeSystem;
         this.view = view;
-        init();
-    }
-
-//    public void init() {
-//        // Khởi tạo các thành phần khung nhìn nếu chúng là một phần của IView được cung cấp
-//        if (view instanceof EmployeeManagement) {
-//            this.employeeManagementView = (EmployeeManagement) view;
-//            setupEmployeeManagementActions();
-//        } else if (view instanceof MenuEditorPanel) {
-//            this.menuEditorPanel = (MenuEditorPanel) view;
-//            //hanh dong menu da duoc xu ly trong menuEditorPanel
-//        } else if (view instanceof PromotionManagement) {
-//            this.promotionManagementView = (PromotionManagement) view;
-//            setupPromotionManagementActions();
-//        }
-//    }
-    
-    public void init() {
-//        addEmployee();
     }
     
     private void setupEmployeeManagementActions() {

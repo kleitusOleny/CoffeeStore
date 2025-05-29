@@ -21,7 +21,7 @@
     "type": "coffee",
     "name": "Americano",
     "price": "28000",
-    "sourcePicture": "src\\main\\image\\americano.png"
+    "sourcePicture": "src\\main\\image\\milkcoffee.png"
   },
   {
     "type": "tea",
@@ -58,17 +58,5 @@
     "name": "Bánh flan",
     "price": "7000",
     "sourcePicture": "src\\main\\image\\flan.png"
-  },
-  {
-    "type": "coffee",
-    "name": "Cà phê sữa",
-    "price": "20000",
-    "sourcePicture": "src\\main\\image\\coffee.png"
-  },
-  {
-    "type": "coffee",
-    "name": "Cà phê Matcha kem",
-    "price": "30000",
-    "sourcePicture": "src\\main\\image\\coffee.png"
   }
 ]

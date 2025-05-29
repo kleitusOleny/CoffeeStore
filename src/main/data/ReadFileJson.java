@@ -82,7 +82,7 @@ public class ReadFileJson {
         transactionData = new Object[transactionHistoryDTOList.size()][6];
         for (int i = 0; i < transactionHistoryDTOList.size(); i++) {
             TransactionHistoryDTO transactionHistoryDTO = transactionHistoryDTOList.get(i);
-            transactionData[i][0] = i;
+            transactionData[i][0] = i+1;
             transactionData[i][1] = transactionHistoryDTO.getName();
             transactionData[i][2] = transactionHistoryDTO.getPhoneNumber();
             transactionData[i][3] = transactionHistoryDTO.getMoney();
